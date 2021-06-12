@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace = "noticeMapper">
+
+	<resultMap id="noticeResultset" type="Notice">
+		<result column = "notice_no" property = "noticeNo"/>
+		<result column = "emp_no" property = "empNo"/>
+		<result column = "emp_name" property = "empName"/>
+		<result column = "notice_title" property = "noticeTitle"/>
+		<result column = "notice_content" property = "noticeContent"/>
+		<result column = "enroll_date" property = "enrollDate"/>
+		<result column = "modify_date" property = "modifyDate"/>
+		<result column = "notice_count" property = "noticeCount"/>
+		<result column = "notice_status" property = "noticeStatus"/>
+	</resultMap>
+	
+	<!-- 게시글 리스트 조회 -->
+	<select id = "selectListCount" resultType = "_int">
+		select
+			   count(*)
+		  from notice
+		 where notice_status = 'Y'
+	</select>
+
+	<select id = "selectList" resultMap = "noticeResultset">
+		select
+			   notice_no
+			 , emp_name
+			 , notice_title
+			 , notice_content
+			 , enroll_date
+			 , modify_date
+			 , notice_count
+			 , notice_status
+		  from notice
+		  join employee using(emp_no)
+		 where notice_status = 'Y' 
+		 order
+		    by notice_no desc
+	</select>
+	
+	<!-- 게시글 상세보기 (조회수 증가)-->
+	<update id="increaseCount" parameterType = "_int">
+		update
+			   notice
+		   set notice_count = notice_count + 1
+		 where notice_no = #{noticeNo}
+		   and notice_status = 'Y'
+
+	</update>
+	
+	<!-- 게시글 상세보기 -->
+	<select id ="selectNotice" resultMap="noticeResultset">
+		select
+			   notice_no
+			 , emp_name
+			 , notice_title
+			 , notice_content
+			 , enroll_date
+			 , modify_date
+			 , notice_count
+			 , notice_status
+		  from notice
+		  join employee using(emp_no)
+		 where notice_no = #{noticeNo}
+		 
+	</select>
+	
+</mapper>

@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+    /*전체 틀 스타일*/
+    .noticeTable{
+       padding: 29px 29px 0;
+       border: 1px solid lightgray;
+       border-radius: 6px;
+    }
+
+    /*공지사항 박스*/
+    .noticeTable .theader{
+        position: relative;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
+
+    .tbody{
+        border-top: 1px solid lightgray;
+    }
+
+    .noticeTitle{
+        margin-bottom: 12px;
+        font-size: 13px;
+    }
+    .Article .article_wrap{
+        position: relative;
+        width: 860px;
+        margin: 0 auto;
+        font-size: 12px;
+    }
+
+    /*수정, 삭제 버튼*/
+    .ArticleTopBtns{padding: 0 0 14px;}
+    .ArticleTopBtns .left_area{float: left;}
+
+    /*이전, 목록, 다음 버튼*/
+    .ArticleTopBtns .right_area{float: right;}
+
+    /*작성자 이미지 css*/
+    .writeInfo .thumb{
+        position: relative;
+        float: left;
+        margin-right: 10px;
+        width: 36px;
+        height: 40px;
+    }
+
+    /*작성자 정보 css*/
+    .writeInfo .profile_area{float: left;}
+    .writeInfo .profile_info{margin-bottom: 6px;}
+    .writeInfo .profile_info .nick{
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+       
+    }
+    .writeInfo .profile_info .nick .nickname{
+        margin-right: 6px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    /*등록날짜 및 조회수 css*/
+    .writeInfo .article_info{
+        font-size: 12px;
+        line-height: 13px;
+        color: gray;
+    }
+
+
+    /*내용 작성 부분 css*/
+    .contentRenderer{
+        overflow-y: hidden;
+        position: relative;
+        min-height: 150px;
+        font-size: 15px;
+        line-height: 1.6;
+        word-wrap: break-word;
+    }
+
+    p{
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+    }
+
+    /*하단 좋아요, 공유*/
+    .replyBox{
+        position: relative;
+        margin-bottom: 27px;
+        line-height: 19px;
+    }
+
+    .replyBox .like_article{
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+        font-size: 13px;
+    }
+
+    .replyBox .box_right{
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        font-size: 13px;
+    }
+
+    .replyBox .social_article{
+        display: inline-block;
+        vertical-align: top;
+    }

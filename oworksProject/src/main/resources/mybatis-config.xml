@@ -16,6 +16,7 @@
 		<typeAlias type="com.kh.oworks.employee.model.vo.Employee" alias="Employee"/>
 		<typeAlias type="com.kh.oworks.mail.model.vo.Mail" alias="Mail"/>
 		<typeAlias type="com.kh.oworks.schedule.model.vo.Schedule" alias="Schedule"/>
+		<typeAlias type="com.kh.oworks.board.model.vo.Notice" alias="Notice"/>
 	</typeAliases>
 	
 	<mappers>
@@ -27,6 +28,7 @@
 		<mapper resource="/mappers/employee-mapper.xml"/>
 		<mapper resource="/mappers/mail-mapper.xml"/>
 		<mapper resource="/mappers/schedule-mapper.xml"/>
+		<mapper resource="/mappers/notice-mapper.xml"/>
 	</mappers>
 	
 </configuration>
