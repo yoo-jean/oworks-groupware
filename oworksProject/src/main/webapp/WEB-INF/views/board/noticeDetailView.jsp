@@ -16,20 +16,34 @@
 <body>
 	 <!-- 이쪽에 메뉴바 포함 할꺼임 -->
 
-    <br><br>
+    <br><br><br>
     <div class="Article">
         <div class="article_wrap">
             <div class="ArticleTopBtns">
                 <div class="left_area">
                 	<!-- 본인일 경우에만 수정 삭제 가능 -->
-                    <button type="button" class="btn btn-dark btn-sm">수정</button>
-                    <button type="button" class="btn btn-dark btn-sm">삭제</button>
+                    <a onclick="postFormSubmit(1);" class="btn btn-dark btn-sm" style="color: white;">수정</a>
+                    <a onclick="postFormSubmit(2);" class="btn btn-dark btn-sm" style="color: white;">삭제</a>
                 </div>
-
+				
+				<form id="postForm" action = "" method="post">
+					<input type = "hidden" name = "nno" value = "${n.noticeNo }">
+				</form>
+				
+				<script>
+					function postFormSubmit(num){
+						if(num == 1){
+							$("#postForm").attr("action", "updateForm.no").submit();
+						}else{
+							$("#postForm").attr("action", "delete.no").submit();
+						}
+					}
+				</script>				
+				
                 <div class="right_area">
-                    <button type="button" class="btn btn-outline-primary btn-sm">이전</button>
-                    <button type="button" class="btn btn-outline-primary btn-sm">목록</button>
-                    <button type="button" class="btn btn-outline-primary btn-sm">다음</button>
+                    <a type="button" class="btn btn-outline-primary btn-sm" href="detail.no?nno=${n.noticeNo-1}">이전</a>
+                    <a type="button" class="btn btn-outline-primary btn-sm" href="list.no">목록</a>
+                    <a type="button" class="btn btn-outline-primary btn-sm" href="detail.no?nno=${n.noticeNo+1}">다음</a>
                 </div>
                 
             </div>

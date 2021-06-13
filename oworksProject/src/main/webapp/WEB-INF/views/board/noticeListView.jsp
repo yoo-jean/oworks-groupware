@@ -21,12 +21,10 @@
      <div class="content">
          <br><br>
          <div class="article-board" style="padding:5% 10%;">
-             <br>
+             
              <!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
-             <c:if test = "${!empty loginUser }">
-             	<a class="btn btn-outline-primary btn-sm" style="float:right" href="">글작성</a>
              <br><br>
-             </c:if>
+           	<a id="writebtn" class="btn btn-outline-primary btn-sm" style="float:right" href="enrollForm.no">글작성</a>
              
              <table id="boardList" align="center">
                 <colgroup>
@@ -85,51 +83,68 @@
  		     	})
  		     </script>
  		     
+ 		     <!-- 페이징바 영역 -->
+ 		     
              <div id="pagingArea">
-                 <ul class="pagination">
-                 	<c:choose>
-                 		<c:when test="${pi.currentPage eq 1 }">
-		                    <li class="page-item disabled"><a class="page-link" href="#"><</a></li>
+                <ul class="pagination">
+                	<c:choose>
+                		<c:when test="${pi.currentPage eq 1 }">
+                    		<li class="page-item disabled"><a class="page-link" href="#"><</a></li>
                     	</c:when>
                     	<c:otherwise>
-		                    <li class="page-item"><a class="page-link" href="list.bo?currentPage=${pi.currentPage-1 }"><</a></li>
-                     	</c:otherwise>
-                	</c:choose>     
+                    		<li class="page-item"><a class="page-link" href="list.no?currentPage=${pi.currentPage-1 }"><</a></li>
+                    	</c:otherwise>
+                    </c:choose>
                     
-                    <c:forEach var = "p" begin="${pi.startPage }" end = "${pi.endPage }">
-                    	<li class="page-item"><a class="page-link" href="#">1</a></li>
-                	</c:forEach>
-                	
-                	<c:choose>
-                		<c:when test="${pi.currentPage eq pi.maxPage }">
-                			<li class="page-item disabled"><a class="page-link" href="#">></a></li>
-                		</c:when>
-                		
-                		<c:otherwise>
-                			<li class="page-item"><a class="page-link" href="list.bo?currentPage=${pi.currentPage+1 }">></a></li>
-                		</c:otherwise>
-                	</c:choose>
-                	
-                	
-                 </ul>
+                    <c:forEach var = "p" begin = "${pi.startPage }" end = "${pi.endPage }">
+                    	<li class="page-item"><a class="page-link" href="list.no?currentPage=${p }">${p }</a></li>
+                    </c:forEach>
+                    
+                    <c:choose>
+                    	<c:when test = "${pi.currentPage eq pi.maxPage }">
+                    		<li class="page-item"><a class="page-link" href="#">></a></li>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<li class="page-item"><a class="page-link" href="list.no?currentPage=${pi.currentPage+1 }">></a></li>
+                    	</c:otherwise>
+                    </c:choose>
+                </ul>
              </div>
             
              <br clear="both"><br>
              
- 
-             <form id="searchForm" action="" method="Get" align="center">
-                 <div class="select">
-                     <select class="custom-select" name="condition">
-                         <option value="writer">작성자</option>
-                         <option value="title">제목</option>
-                         <option value="content">내용</option>
-                     </select>
-                 </div>
-                 <div class="text">
-                     <input type="text" class="form-control" name="keyword">
-                 </div>
-                 <button type="submit" class="btn btn-outline-primary">검색</button>
-             </form>
+ 			 
+ 			 
+ 			 <!-- 검색 영역 -->
+ 			 <div class = "search-area">
+	             <form id="searchForm" action="search.no" align="center">
+	             	<input type="hidden" name="currentPage" value="1">
+	                	<div class="select">
+		                    <select class="custom-select" name="condition">
+		                        <option value="title">제목</option>
+		                        <option value="content">내용</option>
+		                        <option value="writer">작성자</option>
+		                    </select>
+	                 	</div>
+	                 	
+	                 <div class="text">
+	                     <input type="text" class="form-control" name="keyword" value = "${keyword }">
+	                 </div>
+	                 <button type="submit" class="btn btn-outline-primary">검색</button>
+	             </form>
+             </div>
+             
+             <c:if test="${!empty condition }">
+             	<script>
+             		$(function(){
+             			$(".search-area option[value=#(condition)]").attr("selected", true);
+             		})
+             	</script>
+             </c:if>
+             
+             
+             
+             
              <br><br>
          </div>
          <br><br>

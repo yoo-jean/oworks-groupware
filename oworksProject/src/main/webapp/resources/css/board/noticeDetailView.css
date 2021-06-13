@@ -32,6 +32,7 @@
     /*수정, 삭제 버튼*/
     .ArticleTopBtns{padding: 0 0 14px;}
     .ArticleTopBtns .left_area{float: left;}
+	.left_area a:hover{color: white;}
 
     /*이전, 목록, 다음 버튼*/
     .ArticleTopBtns .right_area{float: right;}

@@ -1,10 +1,12 @@
 @charset "UTF-8";
 
+    /*큰틀 css*/
     .content{
         width:80%;
         margin:auto; 
     }
     
+
     .innerOuter{
          border:1px solid lightgray;
          width:80%;
@@ -106,7 +108,7 @@
         vertical-align: -1px !important;
     }
 
-
+    /*검색버튼*/
     #searchForm{
          width:80%;
          margin:auto;
@@ -118,3 +120,10 @@
     .select{width:20%;}
     .text{width:53%;}
     .searchBtn{Width:20%;}
+
+    /*글작성버튼*/
+    #writebtn{
+        position: relative;
+        top: -50px;
+        right: 120px;
+    }
