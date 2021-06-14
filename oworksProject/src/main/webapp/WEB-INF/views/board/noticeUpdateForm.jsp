@@ -6,6 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <style>
     .content{
         width:80%;
@@ -26,22 +30,23 @@
 <body>
     
     <!-- 이쪽에 메뉴바 포함 할꺼임 -->
-    <jsp:include page=""/>
+
 
     <div class="content">
         <br><br>
         <div class="innerOuter">
             <br>
 
-            <form id="updateForm" method="post" action="" enctype="">
+            <form id="updateForm" method="post" action="update.no" enctype="">
+            	<input type="hidden" name = "noticeNo" value = ${n.noticeNo }>
                 <table align="center">
                     <tr>
                         <th><label for="title">제목</label></th>
-                        <td><input type="text" id="title" class="form-control" name="" value="게시판제목임ㅌㅌㅌ" required></td>
+                        <td><input type="text" id="title" class="form-control" name="noticeTitle" value="${n.noticeTitle }" required></td>
                     </tr>
                     <tr>
                         <th><label for="writer">작성자</label></th>
-                        <td><input type="text" id="writer" class="form-control" value="user01" name="" readonly></td>
+                        <td><input type="text" id="writer" class="form-control" value="${n.empName }" name="empName" readonly></td>
                     </tr>
                     <tr>
                         <th><label for="upfile">첨부파일</label></th>
@@ -53,14 +58,14 @@
                         <th colspan="2"><label for="content">내용</label></th>
                     </tr>
                     <tr>
-                        <th colspan="2"><textarea class="form-control" required name="" id="content" rows="10" style="resize:none;">게시판내용입니다.ㅋㅋㅋㅋ</textarea></th>
+                        <th colspan="2"><textarea class="form-control" required name="noticeContent" id="content" rows="10" style="resize:none;">${n.noticeContent }</textarea></th>
                     </tr>
                 </table>
                 <br>
 
                 <div align="center">
                     <button type="button" class="btn btn-outline-dark btn-sm">미리보기</button>
-                    <button type="subit" class="btn btn-dark btn-sm">수정완료</button>
+                    <button type="submit" class="btn btn-dark btn-sm">수정완료</button>
                 </div>
             </form>
         </div>
@@ -68,7 +73,7 @@
     </div>
 
     <!-- 이쪽에 푸터바 포함할꺼임 -->
-    <jsp:include page=""/>
+
 
 </body>
 </html>

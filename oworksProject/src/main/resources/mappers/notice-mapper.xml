@@ -66,4 +66,81 @@
 		 
 	</select>
 	
+	<!-- 게시글 수정하기 -->
+	<update id = "updateNotice" parameterType = "Notice">
+		update
+			   notice
+		   set 
+		       notice_title = #{noticeTitle}
+		     , notice_content = #{noticeContent}
+		 where notice_no = #{noticeNo}
+	</update>
+	
+	<!-- 게시글 작성하기 -->
+	
+	<insert id="insertNotice" parameterType = "Notice">
+		insert
+		  into notice
+		  (
+		  	notice_no
+		  ,	notice_title
+		  , emp_no
+		  , notice_content
+		  , enroll_date
+		  )
+		  values
+		  (
+		  	SEQ_NNO.NEXTVAL
+		  , #{noticeTitle}
+		  , #{empNo}
+		  , #{noticeContent}
+		  , SYSDATE
+		  )
+	</insert>
+	
+	<!-- 게시글 삭제하기 -->
+	<update id = "deleteNotice" parameterType = "_int">
+		update
+			   notice
+		   set 
+		       notice_status = 'N'
+		 where notice_no = #{noticeNo}
+	</update>
+	
+	
+	<!--  게시글 검색하기 -->
+	<select id="selectSearchListCount" resultType = "_int" parameterType="hashmap">
+		select
+			   count(*)
+		  from notice
+		  join employee using(emp_no) 	
+		 where notice_status = 'Y'
+		 <if test = "condition == 'title'">and notice_title</if>
+		 <if test = "condition == 'content'">and notice_content</if>
+		 <if test = "condition == 'writer'">and emp_name</if>
+		  like '%' || #{keyword} || '%' 		 
+	</select>
+	
+	
+	<select id="selectSearchList" resultMap="noticeResultset" parameterType="hashmap">
+		select
+			   notice_no
+			 , notice_title
+			 , emp_name
+			 , notice_count
+			 , enroll_date
+	      from notice
+	      join employee using(emp_no) 	
+	      where notice_status = 'Y' 
+
+		<choose>
+			<when test="condition == 'title'">and notice_title </when>
+			<when test="condition == 'content'">and notice_content </when>
+			<otherwise>and emp_name </otherwise>
+		</choose>
+			like '%' || #{keyword} || '%'
+			order
+			   by enroll_date desc 
+	</select>
+	
 </mapper>
