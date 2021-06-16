@@ -1,0 +1,331 @@
+@charset "UTF-8";
+
+    /*큰 틀 css*/
+    .popup{height: 580px;}
+    .popup h1{
+        font-size: 11px;
+        font-weight: bold;
+        height: 44px;
+        margin-left: 1px;
+        margin-bottom: 8px;
+        line-height: 36px;
+    }
+
+    
+    /*상단 css*/
+    .portlet_tabpart02{
+        position: relative;
+        width: 100%;
+        font-size: 12;
+    }
+
+    /*상단 결재선*/
+   .portlet_tabpart02_top{
+       height: 29px;
+       overflow: hidden;
+       padding-left: 6px;
+   } 
+
+   .portlet_tabpart02_top p{
+       float: left;
+       display: inline;
+       margin: 0px 0px 0px -1px;
+       padding: 0;
+   }
+
+   .popup #showArpLine{
+       margin-block-start: 1em;
+       margin-block-end: 1em;
+       margin-inline-start: 0px;
+       margin-inline-end: 0px;
+   }
+
+   .portlet_tabpart02_top p .spanline{
+       display: inline-block;
+       height: 27px;
+       padding: 0 10px;
+       margin: 0px 1px 0px 0px;
+       border: 1px solid gray;
+       border-top:2px solid gray;
+       background: repeat-x white;
+       font-weight: bold;
+       cursor: pointer;    
+   }
+
+   /*content 영역*/
+
+   /*전체감싸는 테두리*/
+   #Lineinfo{
+    border: 2px solid black; 
+    width: 1020px; 
+    height: 580px; 
+    padding-left: 5px;
+   }
+
+   table, th, td{
+       border-collapse: collapse;
+       empty-cells: show;
+       padding: 0px;
+       margin: 0px;
+       font-size: 12px;
+   }
+
+   #Lineinfo_td{
+       height:580px;
+       width: 390px; 
+       margin-left: 5px; 
+       vertical-align: 5px
+   }
+
+   /*왼족상단 조직도, 즐겨찾기*/
+   .port_tabpart01{
+       position: relative;
+       width: 100%;
+       font-size: 12px;
+       margin-top: 3px; 
+       text-align:right;
+   }
+
+   .portlet_tabpart01_top{
+       height: 27px;
+       /*border-bottom: 1px solid gray;*/
+       overflow: hidden;
+   }
+
+   .portlet_tabpart01_top p{
+       float: left;
+       display: inline;
+       margin: 0px;
+       padding: 0px;
+       color: black;
+   }
+
+   /*조직도, 즐겨찾기 글씨 부분 css*/
+   .portlet_tabpart01_top p span{
+       display: inline-block;
+       height: 26px;
+       line-height: 26px;
+       padding: 0px 23px 0px 12px;
+       margin: 0px 1px 0px 0px;
+       color: darkblue;
+       border: 1px solid gray;
+       border-bottom: 0 none;
+       background: rgb(42, 128, 185);
+       color: white;
+       font-weight: bold;
+       text-decoration: none;
+   }
+
+   /*조직도 선택 css*/
+   tbody{
+       display: table-row-group;
+       vertical-align: middle;
+       border-color: inherit;
+   }
+
+   #treeview{
+    margin-top: 5px; 
+    overflow-x: auto; 
+    overflow-y: auto; 
+    height: 290px; 
+    width: 381px; 
+    border: 1px solid black; 
+    margin: 1px 1px 1px 1px;
+   }
+
+   .border_gray{
+       border: 1px solid gray;
+       padding: -1px 0px 0px 0px;
+       margin: 0px;
+   }
+
+   .border_gray table{
+       margin: -1px 0px 0px 0px;
+   }
+
+   .mainlist_free{
+       table-layout: fixed;
+       border: 0 none !important;
+       font-size: 12px;
+       border-spacing: 0;
+       border-collapse: collapse;
+   }
+   
+   #userlist{
+       width: 381px; 
+       height: 223px; 
+       overflow: auto;
+   }
+
+   thead{
+       display: table-header-group;
+       vertical-align: middle;
+       border-color: inherit;
+   }
+
+   tr{
+       display: table-row;
+       vertical-align: inherit;
+       border-color: inherit;
+   }
+
+   .mainlist_free tr th{
+       text-align: left;
+       border: 0px;
+       text-decoration: none;
+       font-size: 11px;
+       padding: 8px 4px;
+       border-top: 1px solid gray;
+       border-bottom: 1px solid gray;
+   }
+
+   .approvallist th{
+       white-space: nowrap;
+       word-break: keep-all;
+       word-wrap: normal;
+       color: white;
+       background:rgb(42, 128, 185);
+       border: 1px solid gray;
+       padding: 2px 10px;
+   }
+   td{
+       display: table-cell;
+       vertical-align: inherit;
+   }
+
+   /*오른쪽 부분*/
+   #rightapp{
+       height: 580px; 
+       width: 574px; 
+       vertical-align: top; 
+       padding-left: -10px;
+   }
+
+   .popup h2, .mainbody h2{
+       color: black;
+       word-break: keep-all;
+       height: 20px;
+       padding-top: 4px;
+   }
+
+   .h2_dot{
+       color: black;
+       word-break: keep-all;
+       line-height: 20px;
+       padding-top: 4px;
+       padding-left: 6px;
+       font-size: 12px;
+       font-weight: bold;
+   }
+
+   h2{margin: 2px 0;}
+
+   .imgbtn{
+       white-space: nowrap;
+       display: inline-block;
+       background: no-repeat top left;
+       cursor: pointer;
+       padding-left: 12px;
+       vertical-align: top;
+       margin-bottom: 2px;
+   }
+
+   #aprline{
+       width: 560px; 
+       height: 295px; 
+       overflow: auto; 
+       font-size: 9px; 
+       margin: 0px 1px 1px 1px; 
+       padding-top: 0px;
+   }
+
+   element.style{
+       width: 560px;
+       height: 295px;
+       overflow: auto;
+       border: 0px;
+       font-size: 9px;
+       margin: 0px 1px 1px 1px;
+       padding-top: 0px;
+   }
+
+   .imgbtn span{
+       display: inline-block;
+       height: 20px;
+       padding-right: 12px;
+       font-size: 12px;
+       letter-spacing: -1;
+       vertical-align: top;
+       line-height: 20px;
+   }
+
+   .appstar{
+       padding-top: 5px;
+       text-align: right;
+       vertical-align: top;
+   }
+   
+   #lvuserlist{
+       width: 100%;
+       
+   }
+
+   select{
+       border: 1px solid lightgray;
+       height: 18px;
+       margin: 0px;
+   }
+
+   /*참조영역 css*/
+   #tbline{
+       width: 560px;
+       height: 167px;
+       overflow: auto;
+       font-size: 9px;
+       margin-top: 0px 1px 1px 1px;
+       padding-top: 0px;
+   }
+
+   #sarrowtd{
+     width: 50px;
+   }
+
+
+   /*조직도 트리형css*/
+   .tree{
+    color:#393939;
+  }
+  .tree, .tree ul{
+    list-style: none;
+    padding-left:17px;
+  }
+  .tree *:before{
+    width:17px;
+    height:17px;
+    display:inline-block;
+  }
+  .tree label{
+    cursor: pointer;
+  }
+  .tree label:before{
+    content:'\f256';
+    font-family: fontello;
+  }
+  .tree a{
+    text-decoration: none;
+    color:#393939;
+  }
+  .tree a:before{
+    content:'\e800';
+    font-family: fontello;
+  }
+  .tree input[type="checkbox"] {
+    display: none;
+  }
+  .tree input[type="checkbox"]:checked~ul {
+    display: none;
+  }
+  .tree input[type="checkbox"]:checked+label:before{
+    content:'\f255';
+    font-family: fontello;
+  }

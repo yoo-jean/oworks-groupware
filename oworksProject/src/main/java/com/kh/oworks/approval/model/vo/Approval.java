@@ -27,4 +27,11 @@ public class Approval {
 	private String deleteStatus;
 	private String deleteReason;
 	private String appDate;
+	private String orgFileName;
+	private String mdfFileName;
+	private String filePath;
+	private String formName;
+	private String expireDate;
+	private String securityLevel;
+	private int appcount;
 }

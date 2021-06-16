@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+/*전체 틀 css*/
+  .approvalouter table{margin: auto;}
+  .approvalouter h2{font-size: 20px; font-weight: 700;}
+  .container{
+    border: 1px solid lightgray;
+    padding: 29px 29px 0;
+    border-radius: 6px;
+  }
+
+  /*의견등록 전체 틀 css*/
+  .approvalreplySetting{
+      margin: auto;
+      width: 1140px;
+  }
+
+  /*테이블 css*/
+  .approvalouter table{width: 80%;text-align: center;}
+  .approvalline table{text-align: center;}
+  .approvalline table th{vertical-align:middle;width: 14%;}
+  .approvalline table td{vertical-align:middle;width: 14%;}
+  
+  /*참조 테이블 css*/
+  .reference table th{vertical-align:middle;width: 14%;}
+
+  /*내용 테이블 css*/
+  #updateForm table th{vertical-align:middle;width: 14%;}
+  #updateForm table td{text-align: left;}
+
+  /*첨부파일 테이블 css*/
+  .insertfile th{vertical-align:middle;width: 14%;}
+  .insertfile td{text-align: left;}
+
+  /*새로하는 의견등록 css*/
+  #replyArea{width: 1140px;}
+  #rcount{color: rgb(42, 128, 185); font-weight: 700;}
+
+  /*모달 css*/
+  .modal-content{width: 350px;}
+  .modal-content textarea{width: 250px; height: 150px;}
+  .modalfooter2{margin: auto;}
