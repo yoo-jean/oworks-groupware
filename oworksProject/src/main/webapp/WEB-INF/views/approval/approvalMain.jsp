@@ -50,7 +50,7 @@
         <div class="container">
             <br>
             <h2>결재대기문서</h2><br>
-            <table class="table table-hover">
+            <table class="table table-hover" id="approvalDocList">
                 <thead class="thead-dark">
                     <tr>
                         <th><input type="checkbox"></th>
@@ -68,7 +68,7 @@
                 		 <c:if test="${a.appStatus == '대기'}">
 		                    <tr>
 		                        <td><input type="checkbox"></td>
-		                        <td>${a.appNo }</td>
+		                        <td class = "ano">${a.appNo }</td>
 		                        <td>${a.appTitle }</td>
 		                        <td></td>
 		                        <td>${a.empName }</td>
@@ -90,7 +90,7 @@
             </table>
             
             <h2>기안진행문서</h2> <br>
-            <table class="table table-hover">
+            <table class="table table-hover" id="approvalDocList">
                 <thead class="thead-dark">
                     <tr>
                         <th><input type="checkbox"></th>
@@ -107,7 +107,7 @@
                 		 <c:if test="${a.appStatus == '진행'}">
 		                    <tr>
 		                        <td><input type="checkbox"></td>
-		                        <td>${a.appNo }</td>
+		                        <td class = "ano">${a.appNo }</td>
 		                        <td>${a.appTitle }</td>
 		                        <td></td>
 		                        <td>${a.empName }</td>
@@ -118,9 +118,8 @@
                     </c:forEach>
                 </tbody>
             </table>
-
             <h2>완료 문서</h2> <br>
-            <table class="table table-hover">
+            <table class="table table-hover" id="approvalDocList">
                 <thead class="thead-dark">
                     <tr>
                         <th><input type="checkbox"></th>
@@ -137,7 +136,7 @@
                 		 <c:if test="${a.appStatus == '완료'}">
 		                    <tr>
 		                        <td><input type="checkbox"></td>
-		                        <td>${a.appNo }</td>
+		                        <td class = "ano">${a.appNo }</td>
 		                        <td>${a.appTitle }</td>
 		                        <td></td>
 		                        <td>${a.empName }</td>
@@ -148,6 +147,17 @@
                     </c:forEach>
                 </tbody>
             </table>
+            
+            <!-- 상세보기 페이지로 넘기기 -->
+            
+			<script>
+				$(function(){
+					$("#approvalDocList tbody tr").click(function(){
+						location.href="detail.ap?ano="+$(this).children(".ano").text();
+					})
+				})
+			
+			</script>
 
         </div>
     </div>

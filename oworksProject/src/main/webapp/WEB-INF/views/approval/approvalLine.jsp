@@ -105,14 +105,13 @@
 	      <!-- 부서사원들 ajax 조회 -->
 	      <!-- Employee로 불러와야 될 것 같음 e에 담긴 변수 없어서 현재 실행안됨 -->
 	      <script>
-		        var value = [];
             function selectDepartmentList(){
               $.ajax({
                 url : "dlist.ap",
                 dataType : "json",
                 async : false, 
-                traditional : true,
                 success: function(list){
+		        var value =  [];
                   //console.log(list);
                   $.each(list, function(i, obj){
                     if(obj.deptName == '개발부'){
@@ -126,9 +125,6 @@
                             
                     }
                   })
-                  
-                  
-                  
                   
                   $("#lvuserlist tbody").html(value);
                   
@@ -304,7 +300,7 @@
                           </thead>
                           <tbody id="lvaprlineBody">
                             <tr>
-                              <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" name="1" id="num" value="1">1</td>
+                              <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" name=1 id="num" value=1>1</td>
                               <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">김인사</td>
                               <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">대리</td>
                               <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">개발팀</td>
@@ -362,35 +358,35 @@
             var name = "";
             var dept = ""
             var job = ""
+            var num = 0;
             $(document).on("click", "#lvuserlist tbody tr", function(){
             	
+            	num = $("#lvaprlineBody tr").children("#num").html();
+            	//console.log(num);
             	empInfo = $(this).text();
-            	console.log(empInfo);
             	name = $(this).children(".ename").html();
             	dept = $(this).children(".dept").html();
             	job = $(this).children(".job").html();
-            	console.log(name);
-            	//var v = $(this).text();
-            	//approvalLine()
-            	
-              	//console.log(value[0][1])
-                //empInfo = $(this).text();
-            	//$("#lvuserlist tbody").html(value);
+
                 $(this).css("cursor", "pointer");
                 $(this).css('background-color', 'gray');
                 $(this).css('color', 'white');
             	
           	})
 
-       	<!-- 결재선과 참조선에 보여지는 부서원 -->
+       		<!-- 결재선과 참조선에 보여지는 부서원 -->
            
            function approvalLine(){
                 //console.log(empInfo);
 				//console.log(value);
-				
+				num++;
                 var objRow;
                 objRow = document.all("lvaprlineBody").insertRow();
-                objRow.innerHTML = objRow.index;
+                var tr = $("#lvaprlineBody").closest("tr");
+                var rowindex = tr.index();
+                console.log(tr);
+                
+                objRow.innerHTML = num;
                 
                 var objCell_name = objRow.insertCell();                
 				objCell_name.innerHTML = name;
@@ -406,9 +402,7 @@
                 
                 var objCell_status = objRow.insertCell();
 				objCell_status.innerHTML = '대기';              
-      
                 
-
           }
          
 

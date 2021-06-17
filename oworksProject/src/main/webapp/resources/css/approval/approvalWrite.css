@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+	/*전체 틀 css*/
+    .approvalouter table{margin: auto;}
+    /*.approvalouter h2{font-size: 20px; font-weight: 700;}*/
+    
+    .container{
+      border: 1px solid lightgray;
+      padding: 29px 29px 0;
+      border-radius: 6px;
+    }
+	
+    
+    /*기안설정 css*/
+    .approvalsetting table th{vertical-align:middle;width: 14%;}
+    .approvalsetting table td{vertical-align:middle;width: 36%;}
+    
+    /*테이블 css*/
+    /*.approvalouter table{width: 80%;}*/
+
+    
+    .left_area{
+      position: absolute;
+      display: inline-block;
+      padding-left: 17%;
+
+    }
+    
+
+    /*테이블 css*/
+    
+    .container table{width: 80%;text-align: center;}
+    .approvalline table{text-align: center;}
+    .approvalline table th{vertical-align:middle;width: 14%;}
+    .approvalline table td{vertical-align:middle;width: 14%;}
+    
+    /*참조 테이블 css*/
+    .reference table th{vertical-align:middle;width: 14%;}
+
+    /*내용 테이블 css*/
+    #updateForm table th{vertical-align:middle;width: 14%;}
+    #updateForm table td{text-align: left;}
+
+    /*첨부파일 테이블 css*/
+    .insertfile th{vertical-align:middle;width: 14%;}
+    .insertfile td{text-align: left;}
+	
+    /*모달 css*/
+    #modalapproval{
+      position: absolute;
+      left: -250px;
+      width: 1050px;
+      padding-left: 10px;
+      padding-top: 10px;
+    }
