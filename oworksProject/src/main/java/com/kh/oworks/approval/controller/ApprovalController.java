@@ -103,6 +103,17 @@ public class ApprovalController {
 		}
 	}
 	
+	/*기안서 문서양식(품의서) 페이지 이동*/
+	@RequestMapping("selectForm.ap")
+	public String selectForm() {
+		return "approval/approvalFormSelect";
+	}
+	
+	/*기안서 문서양식(지출결의서) 페이지 이동*/
+	
+	/*기안서 문서양식(경력증명서) 페이지 이동*/
+	
+	
 	/*기안서 작성하기 페이지 이동*/
 	@RequestMapping("enrollForm.ap")
 	public String enrollForm() {
