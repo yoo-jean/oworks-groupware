@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<title>기안하기 페이지</title>
+<title>지출결의서 페이지</title>
   
   <!-- css -->
 <link rel="stylesheet" type="text/css" href="resources/css/approval/approvalWrite.css">
@@ -20,7 +20,7 @@
         
       <div class = approvalInner>
         <form id = "approvalWrite" method = "post" action="insert.ap" enctype="multipart/form-data">
-        <input type="hidden" name="formNo" value="1">
+        <input type="hidden" name = "formNo" value="2">
           <div class="left_area">
             <button type="submit" class="btn btn-dark btn-sm">기안</button>
             <a type="button" class="btn btn-dark btn-sm" href="enrollFormLine.ap" data-toggle="modal" data-target="#myModal">결재선</a>
@@ -63,44 +63,19 @@
                   </tr>
                   <tr>
                     <th>문서종류</th>
-                    <td>
-                      <select name="appType" id="appType" class="custom-select mb-3" style="width: 100%;">
-                        <option name="insertForm" id="1" value="품의서">품의서</option>
-                        <option name="insertForm" id="2" value="지출결의서">지출결의서</option>
-                        <option name="insertForm" id="3" value="증명서">증명서</option>
-                      </select>
-                    </td>
+                    <td><input type="text" readonly  name = "appType" value="지출결의서" style="border:none;"></td>
                     <th>작성자</th>
                     <td>김개발</td>
                   </tr>
                   <tr>
                     <th>보존연한</th>
-                    <td id="approvalYear"></td>
+                    <td>5년</td>
                     <th>보안등급</th>
-                    <td id="approvalLevel"></td>
+                    <td>B</td>
                   </tr>
                 </table>
             </div>
-   			
-   			<!-- 보존연한이랑 등급 바꾸는 스크립트 -->
-    		<script>
-    			var select = document.getElementById("appType");
-				
-    			var test = select.options[select.selectedIndex].text;
-    			console.log(test);
-    			
-    			
-    			if(select == '품의서'){
-    				document.getElementById("approvalYear").innerHTML = '10년';
-    				document.getElementById("approvalLevel").innerHTML = 'A';
-    			}else if(select == '지출결의서'){
-    				document.getElementById("approvalYear").innerHTML = '5년';
-    				document.getElementById("approvalLevel").innerHTML = 'B';
-    			}
     		
-    			
-    		</script>
-
             <br><br>
     
             <!--결재선-->
@@ -154,7 +129,6 @@
               </table>
             </div>
     		
-    		
 		  	<!-- 결재선에서 확인버튼 클릭시 결재선에 결재자 뿌려지게 -->
 			<script>
 			  	function approvalLineOk(){
@@ -165,18 +139,19 @@
 			
             <!--내용영역-->
             <div class="content">
-              <br><br>
               <div class="innerOuter">
                   <br>
                   <form id="updateForm" method="post" action="" enctype="">
                       <table class="table table-bordered">
                           <tr>
-                              <th><label for="title">제목</label></th>
-                              <td><input type="text" id="title" class="form-control" name="appTitle" value="" required></td>
+                              <th><label for="title" >계좌정보</label></th>
+                              <td><input type="text" id="title" class="form-control" name="appTitle" value="" required placeholder="계좌정보를 입력하세요"></td>
                           </tr>
     
                           <tr>
-                              <td colspan="2"><textarea class="form-control" required name="appContent" id="content" rows="10" style="resize:none;"></textarea></td>
+                              <th>총괄적요</th>
+                              <td><input type="text" id="content" class="form-control" name="appContent"  required style="resize:none; height:100px" placeholder="총괄적요를 적어주세요">
+                              </td>
                           </tr>
                       </table>
                       <br>

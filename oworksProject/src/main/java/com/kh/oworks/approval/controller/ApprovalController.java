@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.kh.oworks.approval.model.service.ApprovalService;
 import com.kh.oworks.approval.model.vo.Approval;
 import com.kh.oworks.approval.model.vo.ApprovalComment;
+import com.kh.oworks.approval.model.vo.ApprovalForm;
 import com.kh.oworks.approval.model.vo.ApprovalLine;
 import com.kh.oworks.approval.model.vo.FilePath;
 import com.kh.oworks.employee.model.vo.Employee;
@@ -103,21 +104,28 @@ public class ApprovalController {
 		}
 	}
 	
-	/*기안서 문서양식(품의서) 페이지 이동*/
+	/*기안서 문서양 선택 페이지 이동*/
 	@RequestMapping("selectForm.ap")
 	public String selectForm() {
 		return "approval/approvalFormSelect";
 	}
 	
-	/*기안서 문서양식(지출결의서) 페이지 이동*/
 	
-	/*기안서 문서양식(경력증명서) 페이지 이동*/
-	
-	
-	/*기안서 작성하기 페이지 이동*/
+	/*기안서 문서양식(품의서) 작성하기 페이지 이동*/
 	@RequestMapping("enrollForm.ap")
 	public String enrollForm() {
 		return "approval/approvalWrite";
+	}
+	/*기안서 문서양식(지출결의서) 페이지 이동*/
+	@RequestMapping("disbursement.ap")
+	public String disbursement() {
+		return "approval/disbursementWrite";
+	}
+	
+	/*기안서 문서양식(경력증명서) 페이지 이동*/
+	@RequestMapping("certificate.ap")
+	public String certificate() {
+		return "approval/certificateWrite";
 	}
 	
 	/*기안서 작성하기*/

@@ -70,13 +70,13 @@ public class ApprovalServiceImpl implements ApprovalService{
 		
 		int result1 = appDao.insertApproval(sqlSession, a);
 		int result2 = 1;
-		int result3 = appDao.insertApprovalLine(sqlSession, llist);
+		//int result3 = appDao.insertApprovalLine(sqlSession, llist);
 		
 		if(fp != null) {
 			result2 = appDao.insertFilePath(sqlSession, fp);
 		}
 		
-		return result1*result2*result3;
+		return result1*result2;
 		
 	}
 	
