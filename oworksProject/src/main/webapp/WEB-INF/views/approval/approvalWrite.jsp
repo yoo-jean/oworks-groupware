@@ -65,6 +65,7 @@
                     <th>문서종류</th>
                     <td>
                       <select name="appType" id="appType" class="custom-select mb-3" style="width: 100%;">
+                      	<option value="선택">선택</option>
                         <option name="insertForm" id="1" value="품의서">품의서</option>
                         <option name="insertForm" id="2" value="지출결의서">지출결의서</option>
                         <option name="insertForm" id="3" value="증명서">증명서</option>
@@ -82,24 +83,27 @@
                 </table>
             </div>
    			
+   			<!-- select문 선택 -->
    			<!-- 보존연한이랑 등급 바꾸는 스크립트 -->
-    		<script>
-    			var select = document.getElementById("appType");
-				
-    			var test = select.options[select.selectedIndex].text;
-    			console.log(test);
-    			
-    			
-    			if(select == '품의서'){
-    				document.getElementById("approvalYear").innerHTML = '10년';
-    				document.getElementById("approvalLevel").innerHTML = 'A';
-    			}else if(select == '지출결의서'){
-    				document.getElementById("approvalYear").innerHTML = '5년';
-    				document.getElementById("approvalLevel").innerHTML = 'B';
-    			}
-    		
-    			
-    		</script>
+   			<script>
+   				var category = "";
+   				$("select[name=appType]").change(function(){
+   					category = $("select[name=appType] option:selected").text();
+   					
+   					if(category == '품의서'){
+   	    				document.getElementById("approvalYear").innerHTML = '10년';
+   	    				document.getElementById("approvalLevel").innerHTML = 'A';
+   	    			}else if(category == '지출결의서'){
+   	    				document.getElementById("approvalYear").innerHTML = '5년';
+   	    				document.getElementById("approvalLevel").innerHTML = 'B';
+   	    			}else{
+   	    				document.getElementById("approvalYear").innerHTML = '3년';
+   	    				document.getElementById("approvalLevel").innerHTML = 'C';
+   	    			}
+   				})
+   				
+   			</script>
+
 
             <br><br>
     
@@ -120,11 +124,9 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td></td>
                     </tr>
                     <tr>
                       <td>승인</td>
-                      <td></td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -133,7 +135,6 @@
                     </tr>
                     <tr>
                       <td>로그인한 사용자 이름</td>
-                      <td></td>
                       <td></td>
                       <td></td>
                       <td></td>
@@ -157,13 +158,28 @@
     		
 		  	<!-- 결재선에서 확인버튼 클릭시 결재선에 결재자 뿌려지게 -->
 			<script>
+				var test = "";
+				
 			  	function approvalLineOk(){
-			  		$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(3)").html(apjob);
-			  		$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(2)").html(apname);
+
+			  		$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(3)").text(c[0].slice(1,2));
+		  			$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(2)").text(c[0].slice(0,1));
+		  			
+		  			$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(4)").text(c[1].slice(1,2));
+		  			$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(3)").text(c[1].slice(0,1));
+		  			
+		  			$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(5)").text(c[2].slice(1,2));
+		  			$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(6)").text(c[2].slice(0,1));
+		  			
+		  			$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(6)").text(c[3].slice(1,2));
+		  			$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(7)").text(c[3].slice(0,1));
+		  			
+		  			$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(7)").text(c[4].slice(1,2));
+		  			$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(8)").text(c[4].slice(0,1));
 			  	}
 			</script>
 			
-            <!--내용영역-->
+			<!-- 품의서 일때 -->
             <div class="content">
               <br><br>
               <div class="innerOuter">
@@ -204,8 +220,68 @@
                     </table>
                   </div>
               </div>
+              
+              <!-- 증명서 -->
+              <div class="innerOuter2">
+                  <br>
+                  <form id="updateForm" method="post" action="" enctype="">
+                      <table class="table table-bordered">
+                          <tr>
+                              <th><label for="title" >제출처</label></th>
+                              <td><input type="text" id="title" class="form-control" name="appTitle" value="" required placeholder="제출처를 입력하세요"></td>
+                          </tr>
+    
+                          <tr>
+                              <th>용도</th>
+                              <td><input type="text" id="content" class="form-control" name="appContent"  required style="resize:none; height:100px" placeholder="증명서의 용도를 적어주세요">
+                              </td>
+                          </tr>
+                      </table>
+                      <br>
+                  </form>
+    
+                  <!--첨부파일-->
+                  <div class="insertfile">
+                    <table>
+                      <table class="table table-bordered">
+                        <tr>
+                          <th><label for="upfile">첨부파일</label></th>
+                          <td>
+                            <input type="file" id="upfile" name="upfile" class="form-control-file border">
+                          </td>
+                      </tr>
+                      </table>
+    
+                      <script>
+                        // Add the following code if you want the name of the file appear on select
+                        $(".custom-file-input").on("change", function() {
+                          var fileName = $(this).val().split("\\").pop();
+                          $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                        });
+                        </script>
+                    </table>
+                  </div>
+              </div>
+              
+              
+              
               <br><br>
             </div>    
+            
+            
+            <!-- 숨기기 삭제 -->
+            <script>
+            	$(document).ready(function(){
+            		$("#appType").change(function(){
+            			var result = $("#appType option:selected").val();
+            			if(result=='품의서'){
+            				$(".innerOuter").show();
+            			}else if(result == '증명서'){
+            				$(".innerOuter2").show();
+            			}
+            		})
+            	})
+            </script>
           </div>
         </form>
       </div>

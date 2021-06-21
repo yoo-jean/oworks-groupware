@@ -358,10 +358,10 @@
             var name = "";
             var dept = ""
             var job = ""
-            var num = 0;
+            var num = 1;
             $(document).on("click", "#lvuserlist tbody tr", function(){
             	
-            	num = $("#lvaprlineBody tr").children("#num").html();
+            	//num = $("#lvaprlineBody tr").children("#num").html();
             	//console.log(num);
             	empInfo = $(this).text();
             	name = $(this).children(".ename").html();
@@ -374,19 +374,27 @@
             	
           	})
 
-       		<!-- 결재선과 참조선에 보여지는 부서원 -->
-           
+       	<!-- 결재선과 참조선에 보여지는 부서원 tdArr 로그인 유저로 선언다시해줘야됨-->
+           var tr = "";
+           var td = "";
+		   var str = ""
+     	   var tdArr = new Array(); 
+		   //var apname = "";
+		   var apjob = new Array();
+		   var apname = new Array();
+		   var c = new Array();
            function approvalLine(){
+        	   //console.log("테스트");
                 //console.log(empInfo);
 				//console.log(value);
-				num++;
+				//num++;
                 var objRow;
                 objRow = document.all("lvaprlineBody").insertRow();
-                var tr = $("#lvaprlineBody").closest("tr");
-                var rowindex = tr.index();
-                console.log(tr);
-                
-                objRow.innerHTML = num;
+                //var tr = $("#lvaprlineBody").closest("tr");
+                //var rowindex = tr.index();
+                //console.log(tr);
+                objRow.innerHTML = ++num;
+                //console.log(num);
                 
                 var objCell_name = objRow.insertCell();                
 				objCell_name.innerHTML = name;
@@ -401,8 +409,34 @@
                 objCell_type.innerHTML = '결재';
                 
                 var objCell_status = objRow.insertCell();
-				objCell_status.innerHTML = '대기';              
-                
+				objCell_status.innerHTML = '대기';   
+				
+				var a = [name, job, dept, '결재', '대기'];
+				//console.log(a);
+				
+				tdArr.push(a);
+				//console.log(tdArr);
+				
+				c = [tdArr[0], tdArr[1], tdArr[2], tdArr[3]];
+				
+				//c.push(c);
+				//console.log(c);
+				
+				/*
+				apjob = b[0];
+				console.log(apjob);
+				*/
+				
+				/*
+				apname = a[1];
+				console.log(apname);
+				*/
+				//apname = firstValue.text(); 
+				//apname = firstValue.eq(0).text();
+				//console.log(apname);
+				//apjob = td.eq(1).text();
+				//console.log(apjob);
+				
           }
          
 
