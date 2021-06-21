@@ -9,7 +9,7 @@
 	<typeAliases>
 		<typeAlias type="com.kh.oworks.admin.model.vo.Admin" alias="Admin"/>
 		<typeAlias type="com.kh.oworks.approval.model.vo.Approval" alias="Approval"/>
-		<typeAlias type="com.kh.oworks.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.oworks.board.model.vo.FreeBoard" alias="FreeBoard"/>
 		<typeAlias type="com.kh.oworks.board.model.vo.Reply" alias="Reply"/>
 		<typeAlias type="com.kh.oworks.chat.model.vo.Chat" alias="Chat"/>
 		<typeAlias type="com.kh.oworks.commute.model.vo.Commute" alias="Commute"/>
@@ -23,7 +23,7 @@
 	<mappers>
 		<mapper resource="/mappers/admin-mapper.xml"/>
 		<mapper resource="/mappers/approval-mapper.xml"/>
-		<mapper resource="/mappers/board-mapper.xml"/>
+		<mapper resource="/mappers/freeBoard-mapper.xml"/>
 		<mapper resource="/mappers/chat-mapper.xml"/>
 		<mapper resource="/mappers/commute-mapper.xml"/>
 		<mapper resource="/mappers/employee-mapper.xml"/>
