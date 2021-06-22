@@ -21,6 +21,7 @@
       <div class = approvalInner>
         <form id = "approvalWrite" method = "post" action="insert.ap" enctype="multipart/form-data">
         <input type="hidden" name="formNo" value="1">
+
           <div class="left_area">
             <button type="submit" class="btn btn-dark btn-sm">기안</button>
             <a type="button" class="btn btn-dark btn-sm" href="enrollFormLine.ap" data-toggle="modal" data-target="#myModal">결재선</a>
@@ -54,7 +55,7 @@
 		  
           <br><br>
           
-          <!--기안 설정-->   
+          <!--기안 설정-->
           <div class="container">
             <div class="approvalsetting">
                 <table class="table table-bordered" id=approval>
@@ -71,6 +72,7 @@
                         <option name="insertForm" id="3" value="증명서">증명서</option>
                       </select>
                     </td>
+                    
                     <th>작성자</th>
                     <td>김개발</td>
                   </tr>
@@ -82,7 +84,8 @@
                   </tr>
                 </table>
             </div>
-   			
+            
+            
    			<!-- select문 선택 -->
    			<!-- 보존연한이랑 등급 바꾸는 스크립트 -->
    			<script>
@@ -181,22 +184,20 @@
 			
 			<!-- 품의서 일때 -->
             <div class="content">
-              <br><br>
+              <br>
               <div class="innerOuter">
                   <br>
-                  <form id="updateForm" method="post" action="" enctype="">
-                      <table class="table table-bordered">
-                          <tr>
-                              <th><label for="title">제목</label></th>
-                              <td><input type="text" id="title" class="form-control" name="appTitle" value="" required></td>
-                          </tr>
-    
-                          <tr>
-                              <td colspan="2"><textarea class="form-control" required name="appContent" id="content" rows="10" style="resize:none;"></textarea></td>
-                          </tr>
-                      </table>
-                      <br>
-                  </form>
+                  <table class="table table-bordered">
+                      <tr>
+                          <th><label for="title">제목</label></th>
+                          <td><input type="text" id="title" class="form-control" name="appTitle" value=""></td>
+                      </tr>
+
+                      <tr>
+                          <td colspan="2"><textarea class="form-control" name="appContent" id="content" rows="10" style="resize:none;"></textarea></td>
+                      </tr>
+                  </table>
+                  <br>
     
                   <!--첨부파일-->
                   <div class="insertfile">
@@ -209,7 +210,49 @@
                           </td>
                       </tr>
                       </table>
-    
+    				  <br>
+                      <script>
+                        // Add the following code if you want the name of the file appear on select
+                        $(".custom-file-input").on("change", function() {
+                          var fileName = $(this).val().split("\\").pop();
+                          $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                        });
+                        </script>
+                    </table>
+                  </div>
+              </div>
+              
+              <!-- 지출 -->
+              <div class="innerOuter2">
+                  <br>
+                   <table class="table table-bordered">
+                       <tr>
+                           <th><label for="title" >계좌정보</label></th>
+                           <td>
+                           	<input type="text" id="title" class="form-control" name="appTitle" value="" placeholder="계좌정보를 입력하세요">
+                           </td>
+                       </tr>
+ 
+                       <tr>
+                           <th>총괄적요</th>
+                           <td><input type="text" id="content" class="form-control" name="appContent"  style="resize:none; height:100px" placeholder="총괄적요를 적어주세요">
+                           </td>
+                       </tr>
+                   </table>
+                   <br>
+                  <!--첨부파일-->
+                  <div class="insertfile">
+                    <table>
+                      <table class="table table-bordered">
+                        <tr>
+                          <th><label for="upfile">첨부파일</label></th>
+                          <td>
+                            <input type="file" id="upfile" name="upfile" class="form-control-file border">
+                          </td>
+                      </tr>
+                      </table>
+    				  <br>
+    				  
                       <script>
                         // Add the following code if you want the name of the file appear on select
                         $(".custom-file-input").on("change", function() {
@@ -222,23 +265,21 @@
               </div>
               
               <!-- 증명서 -->
-              <div class="innerOuter2">
+              <div class="innerOuter3">
                   <br>
-                  <form id="updateForm" method="post" action="" enctype="">
-                      <table class="table table-bordered">
-                          <tr>
-                              <th><label for="title" >제출처</label></th>
-                              <td><input type="text" id="title" class="form-control" name="appTitle" value="" required placeholder="제출처를 입력하세요"></td>
-                          </tr>
-    
-                          <tr>
-                              <th>용도</th>
-                              <td><input type="text" id="content" class="form-control" name="appContent"  required style="resize:none; height:100px" placeholder="증명서의 용도를 적어주세요">
-                              </td>
-                          </tr>
-                      </table>
-                      <br>
-                  </form>
+                  <table class="table table-bordered">
+                      <tr>
+                          <th><label for="title" >제출처</label></th>
+                          <td><input type="text" id="title" class="form-control" name="appTitle" value="" required placeholder="제출처를 입력하세요"></td>
+                      </tr>
+
+                      <tr>
+                          <th>용도</th>
+                          <td><input type="text" id="content" class="form-control" name="appContent"  required style="resize:none; height:100px" placeholder="증명서의 용도를 적어주세요">
+                          </td>
+                      </tr>
+                  </table>
+                  <br>
     
                   <!--첨부파일-->
                   <div class="insertfile">
@@ -251,7 +292,7 @@
                           </td>
                       </tr>
                       </table>
-    
+    				  <br>
                       <script>
                         // Add the following code if you want the name of the file appear on select
                         $(".custom-file-input").on("change", function() {
@@ -263,25 +304,30 @@
                   </div>
               </div>
               
-              
-              
-              <br><br>
             </div>    
             
-            
-            <!-- 숨기기 삭제 -->
+            <!-- 문서양식 바꾸기 -->
             <script>
             	$(document).ready(function(){
             		$("#appType").change(function(){
             			var result = $("#appType option:selected").val();
             			if(result=='품의서'){
             				$(".innerOuter").show();
-            			}else if(result == '증명서'){
+            				$(".innerOuter2").hide();
+            				$(".innerOuter3").hide();
+            			}else if(result == '지출결의서'){
             				$(".innerOuter2").show();
+            				$(".innerOuter").hide();
+            				$(".innerOuter3").hide();
+            			}else if(result == '증명서'){
+            				$(".innerOuter3").show();
+            				$(".innerOuter").hide();
+            				$(".innerOuter2").hide();
             			}
             		})
             	})
             </script>
+            
           </div>
         </form>
       </div>

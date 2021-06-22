@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,6 @@ import com.google.gson.Gson;
 import com.kh.oworks.approval.model.service.ApprovalService;
 import com.kh.oworks.approval.model.vo.Approval;
 import com.kh.oworks.approval.model.vo.ApprovalComment;
-import com.kh.oworks.approval.model.vo.ApprovalForm;
 import com.kh.oworks.approval.model.vo.ApprovalLine;
 import com.kh.oworks.approval.model.vo.FilePath;
 import com.kh.oworks.employee.model.vo.Employee;
@@ -104,33 +104,23 @@ public class ApprovalController {
 		}
 	}
 	
-	/*기안서 문서양 선택 페이지 이동*/
-	@RequestMapping("selectForm.ap")
-	public String selectForm() {
-		return "approval/approvalFormSelect";
-	}
-	
-	
+
 	/*기안서 문서양식(품의서) 작성하기 페이지 이동*/
 	@RequestMapping("enrollForm.ap")
 	public String enrollForm() {
 		return "approval/approvalWrite";
 	}
-	/*기안서 문서양식(지출결의서) 페이지 이동*/
-	@RequestMapping("disbursement.ap")
-	public String disbursement() {
-		return "approval/disbursementWrite";
-	}
 	
-	/*기안서 문서양식(경력증명서) 페이지 이동*/
-	@RequestMapping("certificate.ap")
-	public String certificate() {
-		return "approval/certificateWrite";
-	}
 	
 	/*기안서 작성하기*/
 	@RequestMapping("insert.ap")
-	public String insertApproval(Approval a, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
+	public String insertApproval(HttpServletRequest request, Approval a, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
+		
+		String[] appTitles = request.getParameterValues("appTitle");
+		for(int i=0; i<appTitles.length; i++) {
+			System.out.println(appTitles[i]+ " ");
+			
+		}
 		
 		ArrayList<ApprovalLine> llist = new ArrayList<ApprovalLine>();
 		if(!upfile.getOriginalFilename().equals("")) { // 첨부파일이 존재하는 경우
