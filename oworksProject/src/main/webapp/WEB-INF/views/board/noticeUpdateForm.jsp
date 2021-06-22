@@ -21,6 +21,7 @@
         margin:auto;
         padding:5% 15%;
         background:white;
+        border-radius: 6px;
     }
     
     #updateForm>table{width:100%;}
