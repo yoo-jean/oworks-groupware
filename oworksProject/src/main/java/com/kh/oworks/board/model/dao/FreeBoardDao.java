@@ -1,5 +1,5 @@
 package com.kh.oworks.board.model.dao;
 
-public class BoardDao {
+public class FreeBoardDao {
 
 }
