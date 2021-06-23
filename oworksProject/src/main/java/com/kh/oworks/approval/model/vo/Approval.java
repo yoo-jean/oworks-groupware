@@ -34,4 +34,5 @@ public class Approval {
 	private String expireDate;
 	private String securityLevel;
 	private int appcount;
+	private String appOpinion;
 }

@@ -384,15 +384,10 @@
 		   var apname = new Array();
 		   var c = new Array();
            function approvalLine(){
-        	   //console.log("테스트");
-                //console.log(empInfo);
-				//console.log(value);
 				//num++;
                 var objRow;
                 objRow = document.all("lvaprlineBody").insertRow();
-                //var tr = $("#lvaprlineBody").closest("tr");
-                //var rowindex = tr.index();
-                //console.log(tr);
+
                 objRow.innerHTML = ++num;
                 //console.log(num);
                 
@@ -417,7 +412,8 @@
 				tdArr.push(a);
 				//console.log(tdArr);
 				
-				c = [tdArr[0], tdArr[1], tdArr[2], tdArr[3]];
+				c = [tdArr[0], tdArr[1], tdArr[2], tdArr[3], tdArr[4]];
+				
 				
 				//c.push(c);
 				//console.log(c);

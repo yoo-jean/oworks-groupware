@@ -53,3 +53,8 @@
       padding-left: 10px;
       padding-top: 10px;
     }
+
+    /*의견 모달 css*/
+    .containerC .modal-footer{
+      margin: auto;
+    }

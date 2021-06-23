@@ -65,20 +65,47 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 
 	// 기안서 작성하기
+	/*
 	@Override
 	public int insertApproval(Approval a, FilePath fp, ArrayList<ApprovalLine> llist) {
 		
 		int result1 = appDao.insertApproval(sqlSession, a);
 		int result2 = 1;
-		//int result3 = appDao.insertApprovalLine(sqlSession, llist);
+		int result3 = appDao.insertAddLine(sqlSession, llist);
 		
 		if(fp != null) {
 			result2 = appDao.insertFilePath(sqlSession, fp);
 		}
 		
-		return result1*result2;
+		return result1*result2*result3;
 		
 	}
+	*/
+	
+	// 기안서 작성하기
+	@Override
+	public int insertApproval(Approval a) {
+		return appDao.insertApproval(sqlSession, a);
+	}
+	
+	// 기안서 첨부파일
+	@Override
+	public int insertFilePath(FilePath fp) {
+		return appDao.insertFilePath(sqlSession, fp);
+	}
+	
+	// 기안서 결재선
+	@Override
+	public int insertAddLine(ArrayList<ApprovalLine> llist) {
+		return appDao.insertAddLine(sqlSession, llist);
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	// 결재선 부서원 조회
 	@Override
@@ -86,7 +113,5 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.selectDepartmentList(sqlSession);
 	}
 
-
-	
 
 }
