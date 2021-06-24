@@ -59,31 +59,42 @@
             <form id="enrollForm" method="post" action="" enctype="">
                 <table align="center">
                     <tr>
-                        <td><label for="title"><b>제목</b></label>&emsp;&emsp;&emsp;자유게시판 제목입니당</td>
+                        <td><label for="title"><b>제목</b></label>&emsp;&emsp;&emsp;${fb.fbTitle}</td>
                     </tr>
                     <tr>
-                        <td style="width:400px;"><label for="writer"><b>작성자</b></label>&emsp;&emsp;홍길동</td>
-                        <td><label for="writer"><b>작성일</b></label>&emsp;&emsp;2021-06-01</td>
+                        <td style="width:400px;"><label for="writer"><b>작성자</b></label>&emsp;&emsp;${fb.empName}</td>
+                        <td><label for="writer"><b>작성일</b></label>&emsp;&emsp;${fb.fbDate}</td>
                     </tr>
                     <tr>
-                        <td><label for="title"><b>조회수</b></label>&emsp;&emsp;&nbsp;10</td>
+                        <td><label for="title"><b>조회수</b></label>&emsp;&emsp;&nbsp;${fb.fbCount}</td>
                     </tr>
                     <tr>
                         <td colspan="2" style="padding-top: 30px;"><label for="content"><b>내용</b></label><hr></td>
                     </tr>
                     <tr>
-                        <td colspan="4"><p style="height:150px">&nbsp;&nbsp;내용자리 내용자리</p></td>
+                        <td colspan="4"><p style="height:150px">&nbsp;&nbsp;${fb.fbContent}</p></td>
                     </tr>
                 </table>
                 <br><br><br><br>
 
                 <div id="btn" align="center">
                     <!-- 글 작성한 사람만 보이는 수정/삭제 버튼 -->
-                    <a class="btn btn-primary btn-sm" href=""><b>수정</b></a>&nbsp;
-                    <a class="btn btn-danger btn-sm" href=""><b>삭제</b></a>&nbsp;
+                    <a onclick="postFormSubmit(1);" class="btn btn-primary btn-sm" href=""><b>수정</b></a>&nbsp;
+                    <a onclick="postFormSubmit(2);" class="btn btn-danger btn-sm" href=""><b>삭제</b></a>&nbsp;
                     <!-- 모두에게 보이는 버튼 -->
-                    <a class="btn btn-secondary btn-sm" href=""><b>목록</b></a>&nbsp;
+                    <a class="btn btn-secondary btn-sm" href="list.fb"><b>목록</b></a>&nbsp;
                 </div>
+               
+				
+				<script>
+					function postFormSubmit(num){
+						if(num == 1){
+							$("#postForm").attr("action", "updateForm.fb").submit();
+						}else{
+							$("#postForm").attr("action", "delete.fb").submit();
+						}
+					}
+				</script>
                 
             </form>
             <br><br>

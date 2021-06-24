@@ -67,157 +67,102 @@
      <div class="outer">
         <span id="text1">자유게시판</span><hr>
 
-        <form id="searchForm" action="" method="Get" align="right">
-            <div class="select">
-                <select class="custom-select" name="condition">
-                    <option value="writer">제목</option>
-                    <option value="title">내용</option>
-                    <option value="content">작성자</option>
-                </select>
-            </div>
-            <div class="text">
-                <input type="text" class="form-control" name="keyword">
-            </div>
-            <a class="btn btn-primary" href=""><b>검색</b></a>&nbsp;
-        </form>
+		<!-- 검색 -->
+		<div class = "search-area">
+	        <form id="searchForm" action="" method="Get" align="right">
+	            <div class="select">
+	                <select class="custom-select" name="condition">
+	                    <option value="title">제목</option>
+	                    <option value="content">내용</option>
+	                    <option value="writer">작성자</option>
+	                </select>
+	            </div>
+	            
+	            <div class="text">
+	                <input type="text" class="form-control" name="keyword" value="${keyword}">
+	            </div>
+	            <button type="submit" class="btn btn-primary"><b>검색</b></button>&nbsp;
+	        </form>
+        </div>
         <br>
+        
+        <c:if test="${!empty condition }">
+             	<script>
+             		$(function(){
+             			$(".search-area option[value=#(condition)]").attr("selected", true);
+             		})
+             	</script>
+        </c:if>
 
         <table class="listArea">
             <thead id="head">
                 <tr id="top">
-                    <th class="bno" width="70">순번</th>
-                    <th width="400">제목</th>
+                    <th width="60">순번</th>
+                    <th width="480">제목</th>
                     <th width="100">작성자</th>
-                    <th width="150">등록일</th>
-                    <th width="80">조회수</th>
+                    <th width="100">등록일</th>
+                    <th width="60">조회수</th>
                 </tr>
             </thead>
-            <tbody>   
-                <tr>
-                    <td>10</td>
-                    <td>
-                        <a href="" style="color: black;">자유게시판 제목 입니다.10</a>&nbsp;
-                        <img src="images/reply.png" style="height: 30px;"><span style="color: rgb(241, 196, 15); font-weight: bold;">1</span>
-                    </td>
-                    <td>홍길동</td>
-                    <td>2021-05-29</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>
-                        <a href="" style="color: black;">자유게시판 제목 입니다.9</a>&nbsp;
-                        <img src="images/reply.png" style="height: 30px;"><span style="color: rgb(241, 196, 15); font-weight: bold;">1</span>
-                    </td>
-                    <td>홍길동</td>
-                    <td>2021-05-29</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>
-                        <a href="" style="color: black;">자유게시판 제목 입니다.8</a>&nbsp;
-                        <img src="images/reply.png" style="height: 30px;"><span style="color: rgb(241, 196, 15); font-weight: bold;">1</span>
-                    </td>
-                    <td>홍길동</td>
-                    <td>2021-05-29</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>
-                        <a href="" style="color: black;">자유게시판 제목 입니다.7</a>&nbsp;
-                        <img src="images/reply.png" style="height: 30px;"><span style="color: rgb(241, 196, 15); font-weight: bold;">1</span>
-                    </td>
-                    <td>홍길동</td>
-                    <td>2021-05-29</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>
-                        <a href="" style="color: black;">자유게시판 제목 입니다.6</a>&nbsp;
-                        <img src="images/reply.png" style="height: 30px;"><span style="color: rgb(241, 196, 15); font-weight: bold;">1</span>
-                    </td>
-                    <td>홍길동</td>
-                    <td>2021-05-29</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>
-                        <a href="" style="color: black;">자유게시판 제목 입니다.5</a>&nbsp;
-                        <img src="images/reply.png" style="height: 30px;"><span style="color: rgb(241, 196, 15); font-weight: bold;">1</span>
-                    </td>
-                    <td>홍길동</td>
-                    <td>2021-05-29</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>
-                        <a href="" style="color: black;">자유게시판 제목 입니다.4</a>&nbsp;
-                        <img src="images/reply.png" style="height: 30px;"><span style="color: rgb(241, 196, 15); font-weight: bold;">1</span>
-                    </td>
-                    <td>홍길동</td>
-                    <td>2021-05-29</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>
-                        <a href="" style="color: black;">자유게시판 제목 입니다.3</a>&nbsp;
-                        <img src="images/reply.png" style="height: 30px;"><span style="color: rgb(241, 196, 15); font-weight: bold;">1</span>
-                    </td>
-                    <td>홍길동</td>
-                    <td>2021-05-29</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>
-                        <a href="" style="color: black;">자유게시판 제목 입니다.2</a>&nbsp;
-                        <img src="images/reply.png" style="height: 30px;"><span style="color: rgb(241, 196, 15); font-weight: bold;">1</span>
-                    </td>
-                    <td>홍길동</td>
-                    <td>2021-05-29</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>
-                        <a href="" style="color: black;">자유게시판 제목 입니다.1</a>&nbsp;
-                        <img src="images/reply.png" style="height: 30px;"><span style="color: rgb(241, 196, 15); font-weight: bold;">1</span>
-                    </td>
-                    <td>홍길동</td>
-                    <td>2021-05-29</td>
-                    <td>10</td>
-                </tr>
-                
+            <tbody>  
+            	<c:forEach var="fb" items="${list}"> 
+	               <tr>
+	                   <td class="fbno">${fb.fbNo}</td>
+	                   <td>
+	                       <a href="" style="color: black;">${fb.fbTitle}</a>&nbsp;
+	                       <img src="${pageContext.servletContext.contextPath }/resources/images/board/reply.png" style="height: 30px;"><span style="color: rgb(241, 196, 15); font-weight: bold;">1</span>
+	                   </td>
+	                   <td>${fb.empName}</td>
+	                   <td>${fb.fbDate}</td>
+	                   <td>${fb.fbCount}</td>
+	               </tr>
+                </c:forEach>
             </tbody>
         </table>
-
+        
+		<script>
+ 		     	$(function(){
+ 		     		$("#listArea tbody a").click(function(){
+ 		     			location.href="detail.fb?fbno=" + $(this).children(".fbno").text();
+ 		     		})
+ 		     	})
+ 		</script>
       
 
         <!-- 사원 모두에게 보이는 글작성 버튼 -->
         <div id="btn" align="right">
-            <a class="btn btn-outline-primary btn-sm" href=""><b>글작성</b></a>&nbsp;
+            <a class="btn btn-outline-primary btn-sm" href="enrollForm.fb"><b>글작성</b></a>&nbsp;
         </div>
 
         
-        <div id="pagingArea">
-            <ul class="pagination">
-                <li class="page-item disabled"><a class="page-link" href="#"><<</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item disabled"><a class="page-link" href="#">>></a></li>
-            </ul>
-        </div>
-       
-        <br clear="both"><br>
+        	 <!-- 페이징바 -->
+             <div id="pagingArea">
+                <ul class="pagination">
+                	<c:choose>
+                		<c:when test="${pi.currentPage eq 1 }">
+                    		<li class="page-item disabled"><a class="page-link" href="#"><<</a></li>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<li class="page-item"><a class="page-link" href="list.fb?currentPage=${pi.currentPage-1 }"><<</a></li>
+                    	</c:otherwise>
+                    </c:choose>
+                    
+                    <c:forEach var = "p" begin = "${pi.startPage }" end = "${pi.endPage }">
+                    	<li class="page-item"><a class="page-link" href="list.fb?currentPage=${p }">${p }</a></li>
+                    </c:forEach>
+                    
+                    <c:choose>
+                    	<c:when test = "${pi.currentPage eq pi.maxPage }">
+                    		<li class="page-item"><a class="page-link" href="#">>></a></li>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<li class="page-item"><a class="page-link" href="list.fb?currentPage=${pi.currentPage+1 }">>></a></li>
+                    	</c:otherwise>
+                    </c:choose>
+                </ul>
+             </div>
+            
+             <br clear="both"><br>
        
     </div>
 

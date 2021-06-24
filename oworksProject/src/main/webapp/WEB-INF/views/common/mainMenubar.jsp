@@ -175,8 +175,8 @@
         </button>
         <div class="dropdown-container">
             <a href="#">출퇴근관리</a>
-            <a href="#">휴가관리</a>
-            <a href="#">근무현황</a>
+            <a href="list.off">휴가관리</a>
+            <a href="list.at">근무현황</a>
             <a href="#">임직원조회</a>
         </div>
         
@@ -202,12 +202,12 @@
         <div class="dropdown-container">
             <a href="#">사원관리</a>
             <a href="#">직위/직무관리</a>
-            <button href="#" class="dropdown-btn">근무관리
+            <button class="dropdown-btn">근무관리
                 <i class="fa fa-angle-down"></i>
             </button>
             <div class="dropdown-container">
-            <a href="#">근태</a>
-            <a href="#">휴가</a>
+            <a href="adList.at">근태</a>
+            <a href="adList.off">휴가</a>
             </div>
             <button href="#" class="dropdown-btn">결재관리
                 <i class="fa fa-angle-down"></i>

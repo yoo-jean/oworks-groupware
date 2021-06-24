@@ -2,6 +2,64 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="freeBoardMapper">
 
+	<resultMap id="freeBoardResultSet" type="FreeBoard">
+		<result column = "fb_no" property = "fbNo"/>
+		<result column = "emp_no" property = "empNo"/>
+		<result column = "emp_name" property = "empName"/>
+		<result column = "fb_title" property = "fbTitle"/>
+		<result column = "fb_content" property = "fbContent"/>
+		<result column = "fb_date" property = "fbDate"/>
+		<result column = "fb_count" property = "fbCount"/>
+		<result column = "fb_status" property = "fbStatus"/>
+	</resultMap>
 
 
+	<!-- 게시글 총 갯수 조회용 쿼리문 -->
+	  <select id="selectListCount" resultType="_int">
+		 select
+		 		count(*)
+		   from free_board
+		  where fb_status = 'Y'
+	  </select>
+	  
+	  <!-- 순번, 제목, 작성자, 등록일, 조회수 -->
+	  <!-- 게시글 목록 조회용 쿼리문 -->
+	  <select id="selectList" resultMap="freeBoardResultSet">
+	  	  select
+				  fb_no
+				, fb_title
+				, emp_name
+				, fb_date
+				, fb_count
+			 from free_board
+			 join employee using(emp_no)
+			where fb_status = 'Y'
+			order
+			   by fb_date desc
+	  </select>	
+	  
+	  <!-- 조회수 증가 -->
+	  <update id="increaseCount" parameterType = "_int">
+		  update
+			     free_board
+		     set fb_count = fb_count + 1
+		   where fb_no = #{fbNo}
+		     and fb_status = 'Y'
+	  </update>
+	
+	  <!-- 게시글 상세보기 -->
+	  <select id ="selectFreeBoard" resultMap="freeBoardResultSet">
+		  select
+			     fb_no
+			   , emp_name
+			   , fb_title
+			   , fb_content
+			   , fb_date
+			   , fb_count
+			   , fb_status
+		    from free_board
+		    join employee using(emp_no)
+		   where fb_no = #{fbNo} 
+	  </select>
+	
 </mapper>
