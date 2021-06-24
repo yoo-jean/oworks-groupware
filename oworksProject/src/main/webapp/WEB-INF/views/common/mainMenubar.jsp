@@ -165,8 +165,8 @@
             <i class="fa fa-angle-down"></i>
         </button>
         <div class="dropdown-container">
-            <a href="#">기안하기</a>
-            <a href="#">결재함</a>
+            <a href="enrollForm.ap">기안하기</a>
+            <a href="list.ap">결재함</a>
             <a href="#">임시저장함</a>
         </div>
         
@@ -192,7 +192,7 @@
             <i class="fa fa-angle-down"></i>
         </button>
         <div class="dropdown-container">
-            <a href="#">공지사항</a>
+            <a href="list.no">공지사항</a>
             <a href="#">자유게시판</a>
         </div>
         
