@@ -27,8 +27,13 @@ public interface ApprovalService {
 	int insertComment(ApprovalComment ac);
 	
 	//기안서 작성하기
-	int insertApproval(Approval a, FilePath fp, ArrayList<ApprovalLine> llist);
+	int insertApproval(Approval a);
 	
+	//기안서 첨부파일
+	int insertFilePath(FilePath fp);
+	
+	//기안서 결재선
+	int insertAddLine(ArrayList<ApprovalLine> llist);
 	
 	//결재선 내 부서원 조회
 	ArrayList<Employee> selectDepartmentList();

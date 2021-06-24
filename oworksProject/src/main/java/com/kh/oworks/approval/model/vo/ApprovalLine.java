@@ -13,11 +13,11 @@ import lombok.ToString;
 @ToString
 public class ApprovalLine {
 
-	private String appNo;
-	private String empNo;
-	private String refer;
-	private int appOrder;
-	private String appStatus;
-	private String appOpinion;
-	private String appDate;
+	private String appNo;		// 문서번호
+	private int empNo;			// 사원번호
+	private String refer;		// 결재 || 참조
+	private int appOrder;		// 결재순서
+	private String appStatus;	// 결재상태
+	private String appOpinion;	// 결재의견
+	private String appDate;		// 결재일
 }

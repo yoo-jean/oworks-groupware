@@ -73,10 +73,10 @@ public class ApprovalDao {
 		return sqlSession.insert("approvalMapper.insertFilePath", fp);
 	}
 	
-	// 기안서 작성할 때 결재선 테이블에 넣기
-	public int insertApprovalLine(SqlSessionTemplate sqlSession, ArrayList<ApprovalLine> llist) {
+	// 기안서 결재선
+	public int insertAddLine(SqlSessionTemplate sqlSession, ArrayList<ApprovalLine> llist) {
 		System.out.println(llist);
-		return sqlSession.insert("approvalMapper.insertApprovalLine", llist);
+		return sqlSession.insert("approvalMapper.insertAddLine", llist);
 	}
 	
 	

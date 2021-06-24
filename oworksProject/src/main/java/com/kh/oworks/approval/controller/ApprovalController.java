@@ -114,7 +114,8 @@ public class ApprovalController {
 	
 	/*기안서 작성하기*/
 	@RequestMapping("insert.ap")
-	public String insertApproval(HttpServletRequest request, Approval a, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
+	public String insertApproval(HttpServletRequest request, Approval a, ApprovalLine al, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
+		
 		
 		String[] appTitles = request.getParameterValues("appTitle");
 		for(int i=0; i<appTitles.length; i++) {
@@ -122,7 +123,15 @@ public class ApprovalController {
 			
 		}
 		
+		String[] empNo = request.getParameterValues("empNo");
+		for(int i=0; i<empNo.length; i++) {
+			System.out.println(empNo[i] + " ");
+		}
+		
+		
+		
 		ArrayList<ApprovalLine> llist = new ArrayList<ApprovalLine>();
+	
 		if(!upfile.getOriginalFilename().equals("")) { // 첨부파일이 존재하는 경우
 			
 			String changeName = saveFile(session, upfile);
@@ -132,7 +141,9 @@ public class ApprovalController {
 			fp.setFilePath("resources/uploadFiles/");
 		}
 		
-		int result = appService.insertApproval(a, fp, llist);
+		int result = appService.insertApproval(a);
+		int result2= appService.insertFilePath(fp);
+		int result3 = appService.insertAddLine(llist);
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "기안등록이 완료되었습니다");
@@ -142,6 +153,23 @@ public class ApprovalController {
 			return "common/errorPage";
 		}
 	}
+	
+	/*결재선 insert되는 ajax 한번에 넣고 싶은데 어떻게 하는지 모르겠음
+	@ResponseBody
+	@RequestMapping("appLine.ap")
+	public String ajaxAppLine(ApprovalLine al) {
+		
+		int result = appService.insertAddLine(al);
+		
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	*/
+	
+	
 	
 	/*전달받은 첨부파일 수정명 작업해서 서버에 업로드 시킨 후 해당 수정된 파일명을 반환하는 메소드*/
 	public String saveFile(HttpSession session, MultipartFile upfile) {

@@ -1,0 +1,138 @@
+div a button{box-sizing: border-box;}
+
+.wrap{
+    height:700px;
+    width:1000px;
+    margin: auto;
+    margin-top: 50px;
+    border:1px solid rgb(218, 218, 218);
+    padding: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.wrap>div{width: 100%; }
+
+.leftBox{width:30%; height:680px; float:left;}
+.rightBox{width:68%; height:680px;float: right; }
+
+
+.leftBox>div{width:100%;float:left;}
+.leftBox_1{height:8%; }
+.leftBox_2{height:6%; }
+.leftBox_3{height:86%;}
+
+.rightBox>div{width:100%; float:left;}
+.rightBox_1{height:10%;}
+.rightBox_2{height:70%;}
+.rightBox_3{height:15%;}
+
+
+.leftBox_1>button{
+    width:100%; 
+    height:95%; 
+    line-height: 2.5;
+    font-size: 16px;
+    font-weight: bold;
+
+}
+
+.leftBox_2>div, a{
+    float:left; 
+    margin-right: 2px; 
+    margin-top: 6px;
+}
+
+.leftBox_3>.chatList{width:100%; margin-top: 10px; margin-bottom: 3px; float:left;}
+.leftBox_3>.chatList>div, a{float:left;}
+.chatList{text-align: center; line-height: 3.5;}
+.chatList:hover{
+    background-color: rgb(233, 238, 240);
+    cursor: pointer;
+}
+.chatList_1{
+    height:67px; 
+    width:23%;
+    border-radius: 200px;
+    background-color: rgb(221, 221, 221);
+}
+.chatList_2{ 
+    height:67px;
+    width: 63%;
+    text-align: left;
+    margin-left: 10px;
+    font-weight: 500;
+    line-height: 4;
+}
+.chatList_3>button{
+    font-size: 12px;
+    text-align: center;
+    line-height: 5;
+    height:67px;
+    width:10%;
+    font-weight: bolder;
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: transparent;
+    border: none;
+    color: #FFFFFF;
+    
+}
+.chatList_3>button:hover{
+    cursor: pointer;
+    text-decoration: line-through;
+    color:tomato;
+    font-weight: bolder;
+}
+
+.rightBox_1{
+    text-align: center;
+    line-height: 3.5;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+
+.messageBoxL .message_bubble{
+    background-color: rgb(236, 234, 234);
+    padding:10px;
+    line-height: 3.6;
+    border-radius: 12px;
+    margin-right: 5px;
+    margin-left:5px;
+    font-size: 16px;
+}
+
+.messageBoxR .message_bubble{
+    background-color: rgb(20, 125, 246);
+    color: white;
+    padding:10px;
+    line-height: 3.6;
+    border-radius: 12px;
+    margin-right: 5px;
+    margin-left:5px;
+    font-size: 16px;
+}
+
+.rightBox_2{margin-top: 20px;;}
+.rightBox_3{width:100%;}
+.typing{width:80%; height:100%; float:left;}
+.typing>textarea{
+    width:99%; 
+    height:100%; 
+    text-align: left;
+    resize: none;
+}
+.typingB{width:20%; height:100%; float:right;}
+.typingB>button{
+    width:100%;
+    height:100%;
+}
+
+.modal{font-family: 'Noto Sans KR', sans-serif;}
+.table th{background-color:rgb(3, 119, 251);
+color:rgb(255, 255, 255);}
+
+#pagingArea{
+    margin: auto;
+    width:fit-content;
+}
