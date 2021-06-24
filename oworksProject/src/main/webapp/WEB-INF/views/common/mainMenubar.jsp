@@ -184,8 +184,8 @@
             <i class="fa fa-angle-down"></i>
         </button>
         <div class="dropdown-container">
-            <a href="#">전체주소록</a>
-            <a href="#">즐겨찾는주소록</a>
+            <a href="#">사내 주소록</a>
+            <a href="#">외부 주소록</a>
         </div>
         
         <button class="dropdown-btn"><i class="fas fa-clipboard"></i> 게시판 
@@ -194,6 +194,7 @@
         <div class="dropdown-container">
             <a href="list.no">공지사항</a>
             <a href="#">자유게시판</a>
+           	<a href="수정예정">자료실</a>
         </div>
         
         <button class="dropdown-btn"><i class="fas fa-cog"></i> 관리자 
