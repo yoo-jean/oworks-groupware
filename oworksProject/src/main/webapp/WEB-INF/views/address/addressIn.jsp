@@ -56,16 +56,17 @@
 
         <table frame="hsides" rules="rows" class="table">
             <tr>
-                <th width="12%">사원번호</th>
-                <th width="12%">사원명</th>
+                <th width="11%">사원번호</th>
+                <th width="10%">사원명</th>
                 <th width="20%">이메일</th>
-                <th width="13%">사내전화</th>
+                <th width="10%">사내전화</th>
                 <th width="17%">휴대전화</th>
-                <th width="13%">부서</th>
-                <th width="13%">직급</th>
+                <th width="12%">부서</th>
+                <th width="12%">직급</th>
+                <th width="8%"></th>
             </tr>
             <tr>
-                <td colspan="8">주소록이 비었습니다. 주소록을 추가해 주세요!</td>
+                <td colspan="9">주소록이 비었습니다. 주소록을 추가해 주세요!</td>
             </tr>
         </table>
     -->        
@@ -92,13 +93,14 @@
     
         <table frame="hsides" rules="rows" class="table">
             <tr>
-                <th width="12%">사원번호</th>
-                <th width="12%">사원명</th>
+                <th width="11%">사원번호</th>
+                <th width="10%">사원명</th>
                 <th width="20%">이메일</th>
-                <th width="13%">사내전화</th>
+                <th width="10%">사내전화</th>
                 <th width="17%">휴대전화</th>
-                <th width="13%">부서</th>
-                <th width="13%">직급</th>
+                <th width="12%">부서</th>
+                <th width="12%">직급</th>
+                <th width="8%"></th>
             </tr>
 
             <tr>
@@ -109,15 +111,7 @@
                 <td>010-1111-2222</td>
                 <td>개발부</td>
                 <td>대표이사</td>
-            </tr>
-            <tr>
-                <td>10001</td>
-                <td>홍길동</td>
-                <td>emp01@oworks.com</td>
-                <td>1001</td>
-                <td>010-1111-2222</td>
-                <td>개발부</td>                    
-                <td>대표이사</td>
+                <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">삭제</a></td>
             </tr>
             <tr>
                 <td>10001</td>
@@ -127,6 +121,7 @@
                 <td>010-1111-2222</td>
                 <td>개발부</td>
                 <td>대표이사</td>
+                <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">삭제</a></td>
             </tr>
             <tr>
                 <td>10001</td>
@@ -136,6 +131,7 @@
                 <td>010-1111-2222</td>
                 <td>개발부</td>
                 <td>대표이사</td>
+                <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">삭제</a></td>
             </tr>
             <tr>
                 <td>10001</td>
@@ -145,6 +141,7 @@
                 <td>010-1111-2222</td>
                 <td>개발부</td>
                 <td>대표이사</td>
+                <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">삭제</a></td>
             </tr>
             <tr>
                 <td>10001</td>
@@ -154,6 +151,7 @@
                 <td>010-1111-2222</td>
                 <td>개발부</td>
                 <td>대표이사</td>
+                <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">삭제</a></td>
             </tr>
             <tr>
                 <td>10001</td>
@@ -163,6 +161,7 @@
                 <td>010-1111-2222</td>
                 <td>개발부</td>
                 <td>대표이사</td>
+                <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">삭제</a></td>
             </tr>
             <tr>
                 <td>10001</td>
@@ -172,6 +171,7 @@
                 <td>010-1111-2222</td>
                 <td>개발부</td>
                 <td>대표이사</td>
+                <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">삭제</a></td>
             </tr>
             <tr>
                 <td>10001</td>
@@ -181,6 +181,7 @@
                 <td>010-1111-2222</td>
                 <td>개발부</td>
                 <td>대표이사</td>
+                <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">삭제</a></td>
             </tr>
             <tr>
                 <td>10001</td>
@@ -190,6 +191,17 @@
                 <td>010-1111-2222</td>
                 <td>개발부</td>
                 <td>대표이사</td>
+                <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">삭제</a></td>
+            </tr>
+            <tr>
+                <td>10001</td>
+                <td>홍길동</td>
+                <td>emp01@oworks.com</td>
+                <td>1001</td>
+                <td>010-1111-2222</td>
+                <td>개발부</td>
+                <td>대표이사</td>
+                <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">삭제</a></td>
             </tr>
         </table>
 
@@ -216,7 +228,7 @@
         <br clear="both"><br>
 
 
-        <!-- 모달 -->              
+        <!-- 주수록 추가 모달 -->              
             <!-- The Modal -->
             <div class="modal" id="myModal">
                 <div class="modal-dialog">
@@ -243,6 +255,36 @@
                 </div>
                 </div>
             </div>
+
+
+
+            <!-- 주소록 삭제 모달 -->              
+            <!-- The Modal -->
+            <div class="modal" id="myModal2">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">주소록 삭제</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                        
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        정말 주소록을 삭제하시겠습니까?
+                    </div>
+                        
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <a class="btn btn-danger btn-sm" href="">삭제</a>
+                        <button type="reset" class="btn btn-secondary btn-sm" data-dismiss="modal">취소</button>
+                    </div>
+                      
+                </div>
+                </div>
+            </div>
+
 
     </div>
 

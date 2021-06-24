@@ -42,7 +42,7 @@
                     <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal2"> 채팅방 만들기</button>
                 </div>
                 <div class="leftBox_2">
-                    <div><input type="text" class="form-control form-control-sm" style="width: 245px;"  name="keyword" value=""></div>
+                    <div><input type="text" class="form-control form-control-sm" placeholder="채팅방 제목을 입력하세요" style="width: 245px;"  name="keyword" value=""></div>
                     <a class="btn btn-outline-primary btn-sm" href="">검색</a>
                 </div>
                 <div class="leftBox_3" >
@@ -51,6 +51,7 @@
                             <img src="../../../resources/images/chat/profile.png" alt="">
                         </div>
                         <div class="chatList_2">매일 야식 먹고 싶은 사람들</div>
+                        <div class="chatList_count"><span>3</span></div>
                         <div class="chatList_3">
                             <button type="button" data-toggle="modal" data-target="#myModal">❌</button>
                         </div>
@@ -60,6 +61,7 @@
                             <img src="../../../resources/images/chat/profile.png" alt="">
                         </div>
                         <div class="chatList_2">매일 야식 먹고 싶은 사람들</div>
+                        <div class="chatList_count"><span>3</span></div>
                         <div class="chatList_3">
                             <button type="button" data-toggle="modal" data-target="#myModal">❌</button>
                         </div>
@@ -69,24 +71,7 @@
                             <img src="../../../resources/images/chat/profile.png" alt="">
                         </div>
                         <div class="chatList_2">매일 야식 먹고 싶은 사람들</div>
-                        <div class="chatList_3">
-                            <button type="button" data-toggle="modal" data-target="#myModal">❌</button>
-                        </div>
-                    </div>
-                    <div class="chatList"> <!-- 클릭 이벤트 걸기 -->
-                        <div class="chatList_1">
-                            <img src="../../../resources/images/chat/profile.png" alt="">
-                        </div>
-                        <div class="chatList_2">매일 야식 먹고 싶은 사람들</div>
-                        <div class="chatList_3">
-                            <button type="button" data-toggle="modal" data-target="#myModal">❌</button>
-                        </div>
-                    </div>
-                    <div class="chatList"> <!-- 클릭 이벤트 걸기 -->
-                        <div class="chatList_1">
-                            <img src="../../../resources/images/chat/profile.png" alt="">
-                        </div>
-                        <div class="chatList_2">매일 야식 먹고 싶은 사람들</div>
+                        <div class="chatList_count"><span>3</span></div>
                         <div class="chatList_3">
                             <button type="button" data-toggle="modal" data-target="#myModal">❌</button>
                         </div>
@@ -105,27 +90,33 @@
                     <div class="messageBoxL">
                         <span class="message_bubble">오늘 야식 추천 좀</span>
                         <span class="message_time">21:29</span>
+                        <span class="message_read">읽음</span>
                     </div>
                     <div class="messageBoxR" align="right">
+                        <span class="message_read">읽음</span>
                         <span class="message_time">21:29</span>
                         <span class="message_bubble">음....</span>
+                        
                     </div>
                     <div class="messageBoxR" align="right">
+                        <span class="message_read">읽음</span>
                         <span class="message_time">21:29</span>
                         <span class="message_bubble">그럼 나 대신 지코바 먹어 주라</span>
                     </div>
                     <div class="messageBoxL">
                         <span class="message_bubble">지코바? 존맛이지</span>
                         <span class="message_time">21:29</span>
+                        <span class="message_read">읽음</span>
                     </div>
                     <div class="messageBoxR" align="right">
+                        <span class="message_read">읽음</span>
                         <span class="message_time">21:29</span>
                         <span class="message_bubble">근데 뿌링클 순살도 좋음</span>
                     </div>
                 </div>
                 <div class="rightBox_3">
                     <div class="typing">
-                        <textarea name="" id="" placeholder="채팅을 입력해 보세요!"></textarea> 
+                        <textarea name="message_content" id="message_content" placeholder="채팅을 입력해 보세요!"></textarea> 
                     </div>
                     <div class="typingB">
                         <button type="submit" class="btn btn-outline-primary">전송하기</button>
@@ -158,8 +149,8 @@
                         
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger" data-dismiss="modal">나가기</button>
-                    <button type="reset" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                    <a class="btn btn-danger btn-sm" href="">나가기</a>
+                    <button type="reset" class="btn btn-secondary btn-sm" data-dismiss="modal">취소</button>
                 </div>
                       
             </div>

@@ -47,3 +47,10 @@
     margin: auto;
     width:fit-content;
 }
+.deleteBtn{
+    color:red;
+}
+.deleteBtn:hover{
+    background-color: red;
+    color:white;
+}

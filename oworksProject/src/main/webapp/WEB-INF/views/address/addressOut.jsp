@@ -84,12 +84,13 @@
                 <tr>
                     <th width="7%">번호</th>
                     <th width="10%">즐겨찾기</th>
-                    <th width="12%">저장명</th>
-                    <th width="20%">이메일</th>
-                    <th width="17%">휴대전화</th>
-                    <th width="14%">회사/소속</th>
+                    <th width="10%">저장명</th>
+                    <th width="19%">이메일</th>
+                    <th width="15%">휴대전화</th>
+                    <th width="13%">회사/소속</th>
                     <th width="10%">부서</th>
-                    <th width="10%">직급</th>
+                    <th width="8%">직급</th>
+                    <th width="8%"></th>
                 </tr>
 
                 <tr>
@@ -101,6 +102,7 @@
                     <td>kh 아카데미</td>
                     <td>디자인팀</td>
                     <td>대리</td>
+                    <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">수정</a></td>
                 </tr>
                 <tr>
                     <td>2</td>
@@ -111,6 +113,7 @@
                     <td>kh 아카데미</td>
                     <td>디자인팀</td>
                     <td>대리</td>
+                    <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">수정</a></td>
                 </tr>
                 <tr>
                     <td>3</td>
@@ -121,6 +124,7 @@
                     <td>kh 아카데미</td>
                     <td>디자인팀</td>
                     <td>대리</td>
+                    <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">수정</a></td>
                 </tr>
                 <tr>
                     <td>4</td>
@@ -131,6 +135,7 @@
                     <td>kh 아카데미</td>
                     <td>디자인팀</td>
                     <td>대리</td>
+                    <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">수정</a></td>
                 </tr>
                 <tr>
                     <td>5</td>
@@ -141,6 +146,7 @@
                     <td>kh 아카데미</td>
                     <td>디자인팀</td>
                     <td>대리</td>
+                    <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">수정</a></td>
                 </tr>
                 <tr>
                     <td>6</td>
@@ -151,6 +157,7 @@
                     <td>kh 아카데미</td>
                     <td>디자인팀</td>
                     <td>대리</td>
+                    <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">수정</a></td>
                 </tr>
                 <tr>
                     <td>7</td>
@@ -161,6 +168,7 @@
                     <td>kh 아카데미</td>
                     <td>디자인팀</td>
                     <td>대리</td>
+                    <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">수정</a></td>
                 </tr>
                 <tr>
                     <td>8</td>
@@ -171,6 +179,7 @@
                     <td>kh 아카데미</td>
                     <td>디자인팀</td>
                     <td>대리</td>
+                    <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">수정</a></td>
                 </tr>
                 <tr>
                     <td>9</td>
@@ -181,6 +190,7 @@
                     <td>kh 아카데미</td>
                     <td>디자인팀</td>
                     <td>대리</td>
+                    <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">수정</a></td>
                 </tr>
                 <tr>
                     <td>10</td>
@@ -191,6 +201,7 @@
                     <td>kh 아카데미</td>
                     <td>디자인팀</td>
                     <td>대리</td>
+                    <td><a class="deleteBtn" data-toggle="modal" data-target="#myModal2" style="color:white">수정</a></td>
                 </tr>
             </table>
 
@@ -248,9 +259,43 @@
                         
                       </div>
                     </div>
-                  </div>
+                </div>
 
-                  <script>
+                <!-- 수정 모달 -->              
+                <!-- The Modal -->
+                <div class="modal" id="myModal2">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                      
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                          <h4 class="modal-title">외부 주소록 수정</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                          저장명  &nbsp; &nbsp; &nbsp;<input type="text" name="name" value="${}" placeholder="김예시" maxlength="6"><br><br>
+                          이메일  &nbsp; &nbsp; &nbsp;<input type="email" name="email" value="${}" placeholder="123@a.com" maxlength="33"><br><br>
+                          휴대전화 &nbsp; <input type="text" name="phone" value="${}" placeholder="010-1111-2222" maxlength="13"><br><br>
+                          회사소속 &nbsp; <input type="text" name="company" value="${}" placeholder="오스워크" maxlength="16"><br><br>
+                          부서  &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" name="dept" value="${}" placeholder="개발팀" maxlength="16"><br><br>
+                          직급  &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" name="job" value="${}" placeholder="대리" maxlength="16"><br><br>
+
+                        </div>
+                        
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                          <a class="btn btn-primary btn-sm" href="">수정</a>
+                          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">취소</button>
+                          <a class="btn btn-danger btn-sm" href="">삭제</a>
+                        </div>
+                        
+                      </div>
+                    </div>
+                </div>
+
+                <script>
                     $(function() {
                       $('#fav_status').click( function() {
                         if( $(this).val() == '🤍' ) {
@@ -262,7 +307,6 @@
                       });
                     });
                     </script>
-
 
 
         </div>
