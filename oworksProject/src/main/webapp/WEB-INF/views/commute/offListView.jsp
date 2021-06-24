@@ -48,6 +48,12 @@
     td {
         height: 35px;
     }
+    .btn-outline-primary {
+        width: 115px;
+        height: 35px;
+        float: right;
+        margin-bottom: 10px;
+    }
 </style>
 </head>
 <body>
@@ -66,6 +72,8 @@
             <div id="content_2">
                 
                 <h4>휴가 현황</h4>
+                
+                <a href="enroll.off"><button class="btn btn-outline-primary">신청서 작성</button></a>
 
                 <table class="offList" text-align="center">
                     <tr>

@@ -96,7 +96,7 @@
                     <input type="radio" class="off_nav_sort"><label for="3">입사1년이상</label>
                     <input type="text" class="off_nav_search" name="emp_name" placeholder="사번/사원명">
                     <button type="submit" class="btn btn-primary">검색</button>
-                    <button url="#" class="btn btn-outline-primary">휴가분류관리</button>
+                    <a href="adCate.off"><button class="btn btn-outline-primary">휴가분류관리</button></a>
                 </div>
 
                 <table class="off_list">

@@ -109,7 +109,7 @@
                         <option value="j5">사원</option>
                     </select>
                     <button type="submit" class="btn btn-primary">검색</button>
-                    <button url="#" class="btn btn-outline-primary">일일 출퇴근 현황</button>
+                    <a href="adDailyList.at"><button class="btn btn-outline-primary">일일 출퇴근 현황</button></a>
                 </div>
 
                 <table class="attendanceList">
