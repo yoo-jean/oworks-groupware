@@ -116,21 +116,10 @@ public class ApprovalController {
 	@RequestMapping("insert.ap")
 	public String insertApproval(HttpServletRequest request, Approval a, ApprovalLine al, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
 		
+		//System.out.println(a);
+		System.out.println("lineList : " + a.getLineList());
 		
-		String[] appTitles = request.getParameterValues("appTitle");
-		for(int i=0; i<appTitles.length; i++) {
-			System.out.println(appTitles[i]+ " ");
-			
-		}
-		
-		String[] empNo = request.getParameterValues("empNo");
-		for(int i=0; i<empNo.length; i++) {
-			System.out.println(empNo[i] + " ");
-		}
-		
-		
-		
-		ArrayList<ApprovalLine> llist = new ArrayList<ApprovalLine>();
+		//ArrayList<ApprovalLine> llist = new ArrayList<ApprovalLine>();
 	
 		if(!upfile.getOriginalFilename().equals("")) { // 첨부파일이 존재하는 경우
 			
@@ -143,7 +132,7 @@ public class ApprovalController {
 		
 		int result = appService.insertApproval(a);
 		int result2= appService.insertFilePath(fp);
-		int result3 = appService.insertAddLine(llist);
+		//int result3 = appService.insertAddLine(llist);
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "기안등록이 완료되었습니다");

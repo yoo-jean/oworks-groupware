@@ -80,10 +80,10 @@
                           <table id="lvuserlist"  class="mainlist_free">
                             <thead id="lvuserlist_thead">
                               <tr id="lvuserlist_th" selected="false">
+                                <th width="80px">사원번호</th>
                                 <th width="70px">성명</th>
                                 <th width="100px">부서</th>
                                 <th width="60px">직급</th>
-                                <th width="80px">전화번호</th>
                               </tr>
                             </thead>
 
@@ -117,10 +117,10 @@
                     if(obj.deptName == '개발부'){
                       
                       value += "<tr>"
+                            + "<td class=empNo>" + obj.empNo + "</td>"
                             + "<td class=ename>" + obj.empName + "</td>"
                             + "<td class=dept>" + obj.deptName + "</td>"
                             + "<td class=job>" + obj.jobName + "</td>"
-                            + "<td class=phone>" + obj.phone + "</td>"
                             + "</tr>";
                             
                     }
@@ -145,10 +145,10 @@
                       if(obj.deptName == '인사부'){
                         
                         value += "<tr>"
+                              + "<td class=empNo>" + obj.empNo + "</td>"
                               + "<td class=ename>" + obj.empName + "</td>"
                               + "<td class=dept>" + obj.deptName + "</td>"
                               + "<td class=job>" + obj.jobName + "</td>"
-                              + "<td class=phone>" + obj.phone + "</td>"
                               + "</tr>";
                       }
                     })
@@ -173,10 +173,10 @@
                       if(obj.deptName == '영업부'){
                         
                         value += "<tr>"
+                              + "<td class=empNo>" + obj.empNo + "</td>"
                               + "<td class=ename>" + obj.empName + "</td>"
                               + "<td class=dept>" + obj.deptName + "</td>"
                               + "<td class=job>" + obj.jobName + "</td>"
-                              + "<td class=phone>" + obj.phone + "</td>"
                               + "</tr>";
                       }
                     })
@@ -201,10 +201,10 @@
                       if(obj.deptName == '기획부'){
                         
                         value += "<tr>"
+                              + "<td class=empNo>" + obj.empNo + "</td>"
                               + "<td class=ename>" + obj.empName + "</td>"
                               + "<td class=dept>" + obj.deptName + "</td>"
                               + "<td class=job>" + obj.jobName + "</td>"
-                              + "<td class=phone>" + obj.phone + "</td>"
                               + "</tr>";
                       }
                     })
@@ -229,10 +229,10 @@
                       if(obj.deptName == '마케팅부'){
                         
                         value += "<tr>"
+                              + "<td class=empNo>" + obj.empNo + "</td>"
                               + "<td class=ename>" + obj.empName + "</td>"
                               + "<td class=dept>" + obj.deptName + "</td>"
                               + "<td class=job>" + obj.jobName + "</td>"
-                              + "<td class=phone>" + obj.phone + "</td>"
                               + "</tr>";
                       }
                     })
@@ -353,90 +353,80 @@
          
         
         <!-- ajax로 불러온 데이터 부서원 클릭시 css 변경 및 리스트 이동-->
-          <script>
-            var empInfo = "";
-            var name = "";
-            var dept = ""
-            var job = ""
-            var num = 1;
-            $(document).on("click", "#lvuserlist tbody tr", function(){
+          	<script>
+          		var empNo = "";
+            	var name = "";
+            	var dept = ""
+            	var job = ""
+            	var num = 1;
+            	//var empInfo = "";
+            	$(document).on("click", "#lvuserlist tbody tr", function(){
             	
-            	//num = $("#lvaprlineBody tr").children("#num").html();
-            	//console.log(num);
-            	empInfo = $(this).text();
-            	name = $(this).children(".ename").html();
-            	dept = $(this).children(".dept").html();
-            	job = $(this).children(".job").html();
-
-                $(this).css("cursor", "pointer");
-                $(this).css('background-color', 'gray');
-                $(this).css('color', 'white');
+            		empInfo = $(this).text();
+            		empNo = $(this).children(".empNo").html();
+            		name = $(this).children(".ename").html();
+            		dept = $(this).children(".dept").html();
+            		job = $(this).children(".job").html();
+				
+                	$(this).css("cursor", "pointer");
+                	$(this).css('background-color', 'gray');
+                	$(this).css('color', 'white');
             	
-          	})
+          		})
 
-       	<!-- 결재선과 참조선에 보여지는 부서원 tdArr 로그인 유저로 선언다시해줘야됨-->
-           var tr = "";
-           var td = "";
-		   var str = ""
-     	   var tdArr = new Array(); 
-		   //var apname = "";
-		   var apjob = new Array();
-		   var apname = new Array();
-		   var c = new Array();
-           function approvalLine(){
-				//num++;
-                var objRow;
-                objRow = document.all("lvaprlineBody").insertRow();
+    			<!-- 결재선과 참조선에 보여지는 부서원 tdArr 로그인 유저로 선언다시해줘야됨-->
+     	   		var tdArr = new Array(); 
+		   		var c = new Array();
+		   		var addEmpNo = new Array();
+		   		var test = new Array();
+		   		//var apname = "";
+           		function approvalLine(){
+					//num++;
+                	var objRow;
+                	objRow = document.all("lvaprlineBody").insertRow();
 
-                objRow.innerHTML = ++num;
-                //console.log(num);
+                	objRow.innerHTML = ++num;
+                	//console.log(num);
                 
-                var objCell_name = objRow.insertCell();                
-				objCell_name.innerHTML = name;
+	                var objCell_name = objRow.insertCell();                
+					objCell_name.innerHTML = name;
 				
-                var objCell_job = objRow.insertCell();   
-                objCell_job.innerHTML = job; 
-                
-                var objCell_dept = objRow.insertCell();
-                objCell_dept.innerHTML = dept;
+	                var objCell_job = objRow.insertCell();   
+	                objCell_job.innerHTML = job; 
+	                
+	                var objCell_dept = objRow.insertCell();
+	                objCell_dept.innerHTML = dept;
+					
+	                var objCell_type = objRow.insertCell();
+	                objCell_type.innerHTML = '결재';
+	                
+	                var objCell_status = objRow.insertCell();
+					objCell_status.innerHTML = '대기';   
+					
+					var empInfo = [name, job, dept, empNo, '결재', '대기'];
+					//console.log(empInfo);
+					
+					var i = 0;
+					for(var i=0; i<empInfo.length; i++){
+						test = parseInt(empInfo[3]);
+						//console.log(empInfo[i]);
+						//console.log(addEmpNo);
+					}
+					
+					// 부서원 정보 배열에 담기
+					tdArr.push(empInfo);
+					//console.log(tdArr);
+					
+					// 사원번호 배열에 담기
+					addEmpNo.push(test);
+					console.log(addEmpNo);
+					
+					c = [tdArr[0], tdArr[1], tdArr[2], tdArr[3], tdArr[4]];
 				
-                var objCell_type = objRow.insertCell();
-                objCell_type.innerHTML = '결재';
-                
-                var objCell_status = objRow.insertCell();
-				objCell_status.innerHTML = '대기';   
-				
-				var a = [name, job, dept, '결재', '대기'];
-				//console.log(a);
-				
-				tdArr.push(a);
-				//console.log(tdArr);
-				
-				c = [tdArr[0], tdArr[1], tdArr[2], tdArr[3], tdArr[4]];
-				
-				
-				//c.push(c);
-				//console.log(c);
-				
-				/*
-				apjob = b[0];
-				console.log(apjob);
-				*/
-				
-				/*
-				apname = a[1];
-				console.log(apname);
-				*/
-				//apname = firstValue.text(); 
-				//apname = firstValue.eq(0).text();
-				//console.log(apname);
-				//apjob = td.eq(1).text();
-				//console.log(apjob);
-				
-          }
+          		}
          
 
-        </script>
+        	</script>
 
       </table>
     </div>

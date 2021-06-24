@@ -94,18 +94,13 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.insertFilePath(sqlSession, fp);
 	}
 	
-	// 기안서 결재선
+	/* 기안서 결재선
 	@Override
 	public int insertAddLine(ArrayList<ApprovalLine> llist) {
 		return appDao.insertAddLine(sqlSession, llist);
 	}
-	
-	
-	
-	
-	
-	
-	
+	*/
+
 	
 	// 결재선 부서원 조회
 	@Override

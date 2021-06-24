@@ -1,5 +1,7 @@
 package com.kh.oworks.approval.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,4 +37,6 @@ public class Approval {
 	private String securityLevel;
 	private int appcount;
 	private String appOpinion;
+	
+	private ArrayList<ApprovalLine> lineList;
 }
