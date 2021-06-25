@@ -259,7 +259,7 @@
               <a class="btn btn-outline-primary btn-sm" style="font-size: 12px; font-weight: bold;" onclick="approvalLine();" id="approvalLine">결재</a>
               <br>
               <br>
-              <a class="btn btn-outline-primary btn-sm" style="font-size: 12px; font-weight: bold;" id="referLine">참조</a>
+              <a class="btn btn-outline-primary btn-sm" style="font-size: 12px; font-weight: bold;" onclick="referLine();" id="referLine">참조</a>
               <br>
               <br>
               <br>
@@ -336,10 +336,8 @@
                                 <th width="280px">부서</th>
                               </tr>
                             </thead>
-                            <tbody>
-                              <tr>
-                                <td></td>
-                              </tr>
+                            <tbody id = "referBody">
+
                             </tbody>
                           </table>
                         </div>
@@ -419,13 +417,59 @@
 					
 					// 사원번호 배열에 담기
 					addEmpNo.push(test);
-					console.log(addEmpNo);
+					//console.log(addEmpNo);
 					
 					c = [tdArr[0], tdArr[1], tdArr[2], tdArr[3], tdArr[4]];
 				
           		}
-         
+         		
+           		<!-- 참조선에 넣기 -->
+           		var referInfo = new Array();
+           		var referAdd = new Array();
+           		var referNo = new Array();
+           		var refer = new Array();
+           		var test2 = new Array();
+           		function referLine(){
+           			//console.log('되나?');
+                	var objRow;
+                	objRow = document.all("referBody").insertRow();
 
+                	objRow.innerHTML = name;
+                
+	                var objCell_job = objRow.insertCell();   
+	                objCell_job.innerHTML = job; 
+	                
+	                var objCell_dept = objRow.insertCell();
+	                objCell_dept.innerHTML = dept;
+					
+					var referInfo = [name, job, dept, empNo];
+					//console.log(empInfo);
+					
+					var i = 0;
+					for(var i=0; i<empInfo.length; i++){
+						test2 = parseInt(referInfo[3]);
+						//console.log(empInfo[i]);
+						//console.log(addEmpNo);
+					}
+					
+					// 부서원 정보 배열에 담기
+					referAdd.push(referInfo);
+					//console.log(tdArr);
+					
+					// 사원번호 배열에 담기
+					referNo.push(test2);
+					//console.log(referNo);
+					
+					for(var i=0; i<referAdd.length; i++){
+						refer = referAdd[i];
+						//console.log(refer);
+						//console.log(addEmpNo);
+					}
+					// refer = [referAdd[0], referAdd[1], referAdd[2], referAdd[3], referAdd[4]];
+           		}
+           		
+           		
+           		
         	</script>
 
       </table>

@@ -22,11 +22,11 @@
         
       <div class = approvalInner>
       	
-        <form id = "approvalWrite" method = "post" action="insert.ap" enctype="multipart/form-data">
+        <form id = "approvalWrite" name = "approvalWrite" method = "post" action="insert.ap" enctype="multipart/form-data">
 	        <input type="hidden" name="formNo" value="1">
-	        <input type="hidden" name="empNo" value=10032> <!-- 로그인한 회원번호 넘기기 -->
-  			<input type="hidden" name="lineList[0].empNo">
-
+	        <input type="hidden" name="empNo" value=10033> <!-- 로그인한 회원번호 넘기기 -->
+			<!--<input type="hidden" name="lineList[0].empNo">-->
+			
 	        <div class="left_area">
       		    <button type="submit" class="btn btn-dark btn-sm" onclick="addApprovalLine();">기안</button>
 	            <a type="button" class="btn btn-dark btn-sm" href="" data-toggle="modal" data-target="#myModal">결재선</a>
@@ -199,21 +199,31 @@
     	
         	<!--참조-->
 	        <div class="reference">
-	          <table class="table table-bordered">
-	            <tr>
-	              <th>참조</th>
-	              <td></td>
-	            </tr>
+	          <table class="table table-bordered" id="referTable">
+	          	<tbody>
+		            <tr>
+		              <th>참조</th>
+		              <td align="left"></td>
+		            </tr>
+	            </tbody>
 	          </table>
 	        </div>
     		
 		  	<!-- 결재선에서 확인버튼 클릭시 결재선에 결재자 뿌려지게 -->
 	        <script>
-	          	var list = new Array();
 	            function approvalLineOk(){
+	            	<!--form에 input이 추가되게 해서 값 뿌려지게-->
 	            	console.log(addEmpNo);
-       				$("input[name='lineList[0].empNo']").attr("value", addEmpNo[0]);
-            		
+	            	var form = $("form[name='approvalWrite']");
+       				for(var i=0; i<addEmpNo.length; i++){
+       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + i + '].empNo', value:addEmpNo[i]}));
+       				}
+       				
+					<!--참조-->
+	              	$("#referTable> tbody > tr:nth-child(1)> td:nth-child(2)").text(refer[0]);
+	              	//console.log(list);
+	              	
+	              	<!--결재선-->
 	              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(3)").text(c[0].slice(1,2));
 	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(2)").text(c[0].slice(0,1));
 	              	
@@ -228,6 +238,7 @@
 	              	
 	              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(7)").text(c[4].slice(1,2));
 	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(6)").text(c[4].slice(0,1));
+	              	
 	              	
 	            }
 	            

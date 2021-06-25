@@ -32,9 +32,8 @@ public interface ApprovalService {
 	//기안서 첨부파일
 	int insertFilePath(FilePath fp);
 	
-	/*기안서 결재선
-	int insertAddLine(ArrayList<ApprovalLine> llist);
-	*/
+	//기안서 결재선
+	int insertAddLine(ApprovalLine al);
 	
 	//결재선 내 부서원 조회
 	ArrayList<Employee> selectDepartmentList();

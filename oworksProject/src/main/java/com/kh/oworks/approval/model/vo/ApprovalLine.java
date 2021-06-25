@@ -1,5 +1,7 @@
 package com.kh.oworks.approval.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,4 +22,6 @@ public class ApprovalLine {
 	private String appStatus;	// 결재상태
 	private String appOpinion;	// 결재의견
 	private String appDate;		// 결재일
+	
+	private ArrayList<ApprovalLine> lineList;
 }

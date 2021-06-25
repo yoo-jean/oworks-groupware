@@ -73,12 +73,11 @@ public class ApprovalDao {
 		return sqlSession.insert("approvalMapper.insertFilePath", fp);
 	}
 	
-	/* 기안서 결재선
-	public int insertAddLine(SqlSessionTemplate sqlSession, ArrayList<ApprovalLine> llist) {
-		System.out.println(llist);
-		return sqlSession.insert("approvalMapper.insertAddLine", llist);
+	// 기안서 결재선
+	public int insertAddLine(SqlSessionTemplate sqlSession, ApprovalLine al) {
+		System.out.println(al);
+		return sqlSession.insert("approvalMapper.insertAddLine", al);
 	}
-	*/
 	
 	
 	// 결재선 부서원 조회

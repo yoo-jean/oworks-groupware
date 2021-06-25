@@ -120,7 +120,7 @@ public class ApprovalController {
 		System.out.println("lineList : " + a.getLineList());
 		
 		//ArrayList<ApprovalLine> llist = new ArrayList<ApprovalLine>();
-	
+		
 		if(!upfile.getOriginalFilename().equals("")) { // 첨부파일이 존재하는 경우
 			
 			String changeName = saveFile(session, upfile);
@@ -132,7 +132,7 @@ public class ApprovalController {
 		
 		int result = appService.insertApproval(a);
 		int result2= appService.insertFilePath(fp);
-		//int result3 = appService.insertAddLine(llist);
+		int result3 = appService.insertAddLine(al);
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "기안등록이 완료되었습니다");
@@ -142,22 +142,6 @@ public class ApprovalController {
 			return "common/errorPage";
 		}
 	}
-	
-	/*결재선 insert되는 ajax 한번에 넣고 싶은데 어떻게 하는지 모르겠음
-	@ResponseBody
-	@RequestMapping("appLine.ap")
-	public String ajaxAppLine(ApprovalLine al) {
-		
-		int result = appService.insertAddLine(al);
-		
-		if(result>0) {
-			return "success";
-		}else {
-			return "fail";
-		}
-	}
-	*/
-	
 	
 	
 	/*전달받은 첨부파일 수정명 작업해서 서버에 업로드 시킨 후 해당 수정된 파일명을 반환하는 메소드*/
