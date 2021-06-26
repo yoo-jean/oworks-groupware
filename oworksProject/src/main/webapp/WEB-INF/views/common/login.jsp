@@ -15,7 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/hover-min.css">
+
     <style>
         *{
             margin: 0;
@@ -40,7 +40,7 @@
         .loginFooter{
             background-color: rgb(245,247,252);
             text-align: right;
-            padding-top: 5px;
+            padding-top: 7px;
             padding-right: 10px;
             font-size: 12px;
         }
@@ -117,9 +117,10 @@
 <body>
     <div class="wrap">
         <div class="loginBody">
-            <form action="" method="POST" id="loginForm">
+            <form action="login.emp" method="post" id="loginForm">
+            	
                 <div id="loginImg">
-                    <input type="image" id="logoImg" src="./image/logo.png">
+                    <input type="image" id="logoImg" src="${pageContext.servletContext.contextPath }/resources/images/common/logo.png">
                 </div>
                 <div id="loginText">
                     <p>
@@ -128,29 +129,46 @@
 					</p>
                 </div>
 
-                <div id="loginContent">
-                    <p class="inputText" onclick="onFocusCursor('user_ID')"> 
-                    <input type="text" placeholder="ID 입력" size="28px">
+                  <div id="loginContent">
+                    <p class="inputText" onclick="onFocusCursor('empId')"> 
+                    <input type="text" name="empId" id="empId" placeholder="ID 입력" size="28px">
                     </p>
-                    <p class="inputText" onclick="onFocusCursor('user_PWD')">
-                        <input type="password" placeholder="PASSWORD 입력" size="28px">
+                    <p class="inputText" onclick="onFocusCursor('empPwd')">
+                        <input type="password" name="empPwd" id="empPwd" placeholder="PASSWORD 입력" size="28px">
                     </p>
                     <p class="check">
                         <input type="checkbox" id="rememberId" class="save_chk" value="rememberId"> <label for="rememberId">ID 저장</label>
                     </p>
-                    
+
                 </div>
 
                 <div id="loginBtnArea" style="padding-left: 55px; ">
-                    <input type="button" id="loginBtn" class="loginBtn" value="LOGIN" >
+                    <input type="submit" id="loginBtn" class="loginBtn" value="LOGIN" >
                 </div>
 
                 <div id="findPwdText">
-                    <a href="" style="color: rgb(65, 65, 65); cursor:pointer; font-size: small; margin-left: 110px;">비밀번호 찾기</a>
+                    <a href="findPwd.emp" style="color: rgb(65, 65, 65); cursor:pointer; font-size: small; margin-left: 110px;">비밀번호 찾기</a>
                 </div>
             </form>
-
-            <div></div>
+            <script type="text/javascript">
+                $(document).on('click','#loginBtn',function(){
+                    loginAct();
+                })
+                function loginAct(){
+                    var empId = $("#empId").val();
+                    var empPwd = $("#empPwd").val();
+                    if(empId==""){
+                        alert("아이디가 입력되지 않았습니다!");
+                        $("#empId").focus();
+                        return;
+                    }
+                    if(empPwd==""){
+                        alert("비밀번호가 입력되지 않았습니다!");
+                        $("#empPwd").focus();
+                        return;
+                    }
+                }
+            </script>
         </div>
 
         <div class="loginFooter">

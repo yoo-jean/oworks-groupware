@@ -15,13 +15,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/hover-min.css">
     
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     
     <style>
+    *{
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
         body{
             min-height: 100vh;
             background-image: linear-gradient(140deg, rgba(255, 255, 255, 0.945),#2574DB);
@@ -39,11 +44,13 @@
         .loginFooter{
             background-color: rgb(245,247,252);
             text-align: right;
-            padding-top: 5px;
+            padding-top: 7px;
             padding-right: 10px;
-            font-size: 12px;
+            font-size: 11.2px;
         }
+        
     ::placeholder{font-size: 12px;}
+    
     .mybtn{
         width:140px;
         height:40px;
@@ -76,11 +83,11 @@
                             <br>
                             <p>
                                 <label>아이디</label>
-                                <input class="w3-input" type="text" id="id" name="id" placeholder="아이디를 입력하세요" required>
+                                <input class="w3-input" type="text" id="empId" name="empId" placeholder="아이디를 입력하세요" required>
                             </p>
                             <p>
                                 <label>이메일</label>
-                                <input class="w3-input" type="text" id="email" name="email" placeholder="등록한 이메일주소를 입력하세요" required>
+                                <input class="w3-input" type="text" id="empEmail" name="empEmail" placeholder="등록한 이메일주소를 입력하세요" required>
                             </p>
                             <br>
                             <p style="color: gray; font-size: 13px; text-align: center;">
@@ -95,6 +102,26 @@
                         </div>
                     </div>
                 </div>
+                
+                <script type="text/javascript">
+                $(document).on('click','#findBtn',function(){
+                    findAct();
+                })
+                function findAct(){
+                    var empId = $("#empId").val();
+                    var empEmail = $("#empEmail").val();
+                    if(empId==""){
+                        alert("아이디가 입력되지 않았습니다!");
+                        $("#empId").focus();
+                        return;
+                    }
+                    if(empEmail==""){
+                        alert("이메일 주소가 입력되지 않았습니다!");
+                        $("#empEmail").focus();
+                        return;
+                    }
+                }
+            </script>
 
 
        
