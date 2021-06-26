@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -114,13 +117,28 @@ public class ApprovalController {
 	
 	/*기안서 작성하기*/
 	@RequestMapping("insert.ap")
-	public String insertApproval(HttpServletRequest request, Approval a, ApprovalLine al, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
-		
-		//System.out.println(a);
-		System.out.println("lineList : " + a.getLineList());
+	public String insertApproval(HttpServletRequest request, Approval a, ArrayList<ApprovalLine> al, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
 		
 		//ArrayList<ApprovalLine> llist = new ArrayList<ApprovalLine>();
+		//ArrayList lineList = new ArrayList();
+		//lineList.add(a.getLineList());
+		//System.out.println(lineList);
 		
+		// System.out.println(Line);
+		
+		// 결재선 이것저것
+		List<ApprovalLine> list = new ArrayList<ApprovalLine>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		/*
+		HashMap Line = new HashMap();
+		Line.put("empNo", list);
+		Line.put("apporder", 0);
+		Line.put("refer", "결재");
+		Line.put("appstatus", "대기");
+		*/
+		
+		//첨부파일
 		if(!upfile.getOriginalFilename().equals("")) { // 첨부파일이 존재하는 경우
 			
 			String changeName = saveFile(session, upfile);
