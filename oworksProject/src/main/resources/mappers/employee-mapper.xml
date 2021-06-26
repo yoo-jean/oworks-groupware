@@ -1,6 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="employeeMapper">
+
+	<resultMap id="employeeResultSet" type="Employee">
+		<id column="emp_no" property="empNo"/>
+		<result column="dept_code" property="deptCode"/>
+		<result column="job_code" property="jobCode"/>
+		<result column="emp_name" property="empName"/>
+		<result column="emp_id" property="empId"/>
+		<result column="emp_pwd" property="empPwd"/>
+		<result column="birth_no" property="birthNo"/>
+		<result column="gender" property="gender"/>
+		<result column="email" property="email"/>
+		<result column="phone" property="phone"/>
+		<result column="emp_phone" property="empPhone"/>
+		<result column="address" property="address"/>
+		<result column="hire_date" property="hireDate"/>
+		<result column="retire_date" property="retireDate"/>
+		<result column="emp_status" property="empStatus"/>
+		<result column="emp_image" property="empImage"/>
+		<result column="off_given" property="offGiven"/>
+		<result column="off_available" property="offAvailable"/>
+		<result column="admin_yn" property="adminYn"/>
+	</resultMap>
+
+	<select id="loginEmployee" resultMap="employeeResultSet" parameterType="Employee">
+		select
+		       emp_no
+		     , dept_code
+		     , job_code
+		     , emp_name
+		     , emp_id
+		     , emp_pwd
+		     , birth_no
+		     , gender
+		     , email
+		     , phone
+		     , emp_phone
+		     , address
+		     , hire_date
+		     , retire_date
+		     , emp_status
+		     , emp_image
+		     , off_given
+		     , off_available
+		     , admin_yn
+		  from employee
+		  join department using (dept_code)
+		  join job using (job_code)
+		 where emp_status = 'Y'
+		   and emp_id = #{empId}
+		   and emp_pwd = #{empPwd}
+	</select>
 
 
 
