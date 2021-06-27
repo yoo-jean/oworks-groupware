@@ -16,7 +16,9 @@ public class Employee {
 
 	private int empNo;
 	private String deptCode;
+	private String deptName;
 	private String jobCode;
+	private String jobName;
 	private String empName;
 	private String empId;
 	private String empPwd;
@@ -33,5 +35,5 @@ public class Employee {
 	private int offGiven;
 	private int offAvailable;
 	private String adminYn;
-
+	
 }
