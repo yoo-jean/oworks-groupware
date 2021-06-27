@@ -18,6 +18,7 @@
 		<typeAlias type="com.kh.oworks.schedule.model.vo.Schedule" alias="Schedule"/>
 		<typeAlias type="com.kh.oworks.board.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.kh.oworks.approval.model.vo.ApprovalComment" alias="ApprovalComment"/>
+		<typeAlias type="com.kh.oworks.approval.model.vo.ApprovalLine" alias="ApprovalLine"/>
 	</typeAliases>
 	
 	<mappers>

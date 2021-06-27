@@ -117,7 +117,7 @@ public class ApprovalController {
 	
 	/*기안서 작성하기*/
 	@RequestMapping("insert.ap")
-	public String insertApproval(HttpServletRequest request, Approval a, ArrayList<ApprovalLine> al, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
+	public String insertApproval(HttpServletRequest request, Approval a, ApprovalLine al, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
 		
 		//ArrayList<ApprovalLine> llist = new ArrayList<ApprovalLine>();
 		//ArrayList lineList = new ArrayList();
@@ -127,9 +127,9 @@ public class ApprovalController {
 		// System.out.println(Line);
 		
 		// 결재선 이것저것
-		List<ApprovalLine> list = new ArrayList<ApprovalLine>();
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("list", list);
+		// List<ApprovalLine> list = new ArrayList<ApprovalLine>();
+		// Map<String, Object> map = new HashMap<String, Object>();
+		//map.put("list", list);
 		/*
 		HashMap Line = new HashMap();
 		Line.put("empNo", list);
@@ -137,6 +137,9 @@ public class ApprovalController {
 		Line.put("refer", "결재");
 		Line.put("appstatus", "대기");
 		*/
+		
+		ArrayList<ApprovalLine> apLineList = al.getLineList();
+		
 		
 		//첨부파일
 		if(!upfile.getOriginalFilename().equals("")) { // 첨부파일이 존재하는 경우
@@ -148,9 +151,12 @@ public class ApprovalController {
 			fp.setFilePath("resources/uploadFiles/");
 		}
 		
+		// 기안서
 		int result = appService.insertApproval(a);
+		// 첨부파일
 		int result2= appService.insertFilePath(fp);
-		int result3 = appService.insertAddLine(al);
+		// 결재선
+		int apLineResult = appService.insertAddLine(apLineList);
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "기안등록이 완료되었습니다");

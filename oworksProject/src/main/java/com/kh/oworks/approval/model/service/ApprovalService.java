@@ -33,7 +33,7 @@ public interface ApprovalService {
 	int insertFilePath(FilePath fp);
 	
 	//기안서 결재선
-	int insertAddLine(ApprovalLine al);
+	int insertAddLine(ArrayList<ApprovalLine> apLineList);
 	
 	//결재선 내 부서원 조회
 	ArrayList<Employee> selectDepartmentList();

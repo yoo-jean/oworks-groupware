@@ -74,9 +74,9 @@ public class ApprovalDao {
 	}
 	
 	// 기안서 결재선
-	public int insertAddLine(SqlSessionTemplate sqlSession, ApprovalLine al) {
-		System.out.println(al);
-		return sqlSession.insert("approvalMapper.insertAddLine", al);
+	public int insertAddLine(SqlSessionTemplate sqlSession, ArrayList<ApprovalLine> apLineList) {
+		//System.out.println(al);
+		return sqlSession.insert("approvalMapper.insertAddLine", apLineList);
 	}
 	
 	

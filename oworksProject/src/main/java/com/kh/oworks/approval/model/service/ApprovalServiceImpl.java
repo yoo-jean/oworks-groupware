@@ -96,8 +96,8 @@ public class ApprovalServiceImpl implements ApprovalService{
 	
 	// 기안서 결재선
 	@Override
-	public int insertAddLine(ApprovalLine al) {
-		return appDao.insertAddLine(sqlSession, al);
+	public int insertAddLine(ArrayList<ApprovalLine> apLineList) {
+		return appDao.insertAddLine(sqlSession, apLineList);
 	}
 	
 
