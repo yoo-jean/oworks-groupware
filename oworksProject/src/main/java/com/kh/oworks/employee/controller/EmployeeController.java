@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.oworks.board.model.service.NoticeService;
 import com.kh.oworks.board.model.vo.Notice;
@@ -26,9 +28,11 @@ public class EmployeeController {
 	@Autowired
 	private NoticeService nService;
 	
-	@RequestMapping("login.emp")
+	@ResponseBody
+	@RequestMapping(value = "login.emp", method = RequestMethod.POST,produces="text/plain;charset=UTF-8")
 	public String loginEmployee(Employee e, HttpSession session, @RequestParam(value="currentPage", defaultValue="1") int currentPage, Model model) {
 		
+
 		Employee loginEmp = eService.loginEmployee(e);
 		
 		// 메인화면에서 공지사항 확인
@@ -38,22 +42,18 @@ public class EmployeeController {
 		
 		if(loginEmp == null) {
 			System.out.println("로그인 실패");
-			session.setAttribute("alertMsg", "로그인을 실패하였습니다. 아이디와 비밀번호를 확인해주세요.");
-			return "redirect:/";
+			return "fail";
 		}else {
 			System.out.println("로그인 성공");
-			// System.out.println(loginEmp.getJobCode()); 'join 확인'
 			// 공지사항 확인
 			model.addAttribute("pi", pi);
 			model.addAttribute("list", list);
-			
-			return "main";
-			
-		}
+			model.addAttribute("loginEmp", loginEmp);
 		
+			return loginEmp.getEmpName();
+		}
 	}
-	
-	
+
 	
 	@RequestMapping("findPwd.emp")
 	public String findPassword() {
@@ -61,6 +61,11 @@ public class EmployeeController {
 		return "common/findPwd";
 	}
 	
+	
+	@RequestMapping("main.emp")
+	public String successLogin() {
+		return "main";
+	}
 	
 	
 

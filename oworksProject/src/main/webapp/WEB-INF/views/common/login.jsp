@@ -139,17 +139,17 @@
                     <p class="check">
                         <input type="checkbox" id="rememberId" class="save_chk" value="rememberId"> <label for="rememberId">ID 저장</label>
                     </p>
-
                 </div>
 
                 <div id="loginBtnArea" style="padding-left: 55px; ">
-                    <input type="submit" id="loginBtn" class="loginBtn" value="LOGIN" >
+                    <input type="button" id="loginBtn" class="loginBtn" value="LOGIN" >
                 </div>
 
                 <div id="findPwdText">
                     <a href="findPwd.emp" style="color: rgb(65, 65, 65); cursor:pointer; font-size: small; margin-left: 110px;">비밀번호 찾기</a>
                 </div>
             </form>
+            
             <script type="text/javascript">
                 $(document).on('click','#loginBtn',function(){
                     loginAct();
@@ -167,9 +167,27 @@
                         $("#empPwd").focus();
                         return;
                     }
+                    $.ajax({
+        				url:"login.emp",
+        				data:{empId:empId,empPwd:empPwd},
+        				type: "POST",
+        				success:function(data){
+        					if(data=="fail"){
+        						alert("로그인에 실패하였습니다.\n아이디 비밀번호를 확인해주세요!");
+        					}else{
+        						console.log(data);
+        						alert(data + "님, 어서오세요 :D");
+        						location.href='main.emp';
+        					}
+        				}
+        			});
                 }
+                
+                
             </script>
         </div>
+        
+        
 
         <div class="loginFooter">
             <p>Copyright (c) <strong>O Work's COMPANY</strong> All Rights Reserved.</p>
