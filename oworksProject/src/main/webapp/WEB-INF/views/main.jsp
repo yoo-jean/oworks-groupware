@@ -192,31 +192,33 @@
                         </tr>
                     </table>
                     <table class="notice_list">
-                        <tr>
-                            <th style="text-align: left;">&emsp;<i class="far fa-clipboard"></i> 공지사항</th>
-                            <th style="text-align: right;"><i class="fas fa-chevron-right"></i></th>
-                        </tr>
-                        <tr>
-                            <td>공지사항 제목입니다</td>
-                            <td>2021-05-19</td>
-                        </tr>
-                        <tr>
-                            <td>공지사항 제목입니다</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                            <td>공지사항 제목입니다</td>
-                            <td>2021-05-10</td>
-                        </tr>
-                        <tr>
-                            <td>공지사항 제목입니다</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                            <td>공지사항 제목입니다</td>
-                            <td>2021-05-10</td>
-                        </tr>
+                    	<thead>
+	                        <tr>
+	                            <th style="text-align: left;" colspan="2">&emsp;<i class="far fa-clipboard"></i> 공지사항</th>
+	                            <th style="text-align: right;"><i class="fas fa-chevron-right"></i></th>
+	                        </tr>
+                        </thead>
+                        <tbody>
+	                       	<c:forEach var = "n" items = "${list }">
+		                        <tr>
+		                        	<td class="nno" style="visibility:hidden;width:15px">${n.noticeNo }</td>
+		                            <td>${n.noticeTitle }</td>
+		                            <td>${n.enrollDate }</td>
+		                        </tr>
+	                        </c:forEach>
+                        </tbody>
                     </table>
+					
+					<!-- 공지사항 상세보기 페이지로 이동 -->                    
+       		        <script>
+ 		     			$(function(){
+ 		     				$(".notice_list tbody tr").click(function(){
+ 		     					location.href="detail.no?nno=" +$(this).children(".nno").text();
+ 		     			})
+ 		     		})
+ 		     		</script>
+                    
+                    
                 </div>
                 
             </div>
@@ -224,9 +226,6 @@
         </div>
 
     </div>
-
-
-    
 
 
     <script
