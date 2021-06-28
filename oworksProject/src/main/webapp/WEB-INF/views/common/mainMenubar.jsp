@@ -202,7 +202,7 @@
         </button>
         <div class="dropdown-container">
             <a href="#">사원관리</a>
-            <a href="#">직위/직무관리</a>
+            <a href="#">부서/직급관리</a>
             <button class="dropdown-btn">근무관리
                 <i class="fa fa-angle-down"></i>
             </button>
