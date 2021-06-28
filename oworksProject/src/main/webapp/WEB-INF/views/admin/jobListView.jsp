@@ -98,13 +98,16 @@
      <div class="outer">
         <span id="text1">부서/직급 관리</span><hr>
         <div id="btn" align="center">
-            <button class="btn4" onClick="location.href='xxxxx.jsp'">부서관리</button>
-            <button class="btn3" onClick="location.href='xxxxx.jsp'">직급관리</button>
+            <button class="btn4" id="btn3" type="button" onclick="btn3();">부서관리</button>
+            <button class="btn3" id="btn4" type="button" onclick="btn4();">직급관리</button>
 
-            <!--
-            <a class="btn btn-outline-primary" href="" style="width: 250px;"><b>부서관리</b></a>
-            <a class="btn btn-outline-primary" href="" style="width: 250px;"><b>직급관리</b></a>
-            -->
+            <script>
+			function btn3() {
+				location.href="list.dept"
+			}
+			</script>
+            
+            
         </div>
         <br><br>
         <div id="btn" align="right">

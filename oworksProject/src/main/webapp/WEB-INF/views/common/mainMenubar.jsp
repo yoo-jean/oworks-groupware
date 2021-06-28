@@ -157,8 +157,8 @@
             <i class="fa fa-angle-down"></i>
         </button>
         <div class="dropdown-container">
-            <a href="#">예약하기</a>
-            <a href="#">예약내역</a>
+            <a href="list.mr">예약하기</a>
+            <a href="listHistory.mr">예약내역</a>
         </div>
         
         <button class="dropdown-btn"><i class="fas fa-file-alt"></i> 전자결재 
@@ -193,7 +193,7 @@
         </button>
         <div class="dropdown-container">
             <a href="list.no">공지사항</a>
-            <a href="#">자유게시판</a>
+            <a href="list.fb">자유게시판</a>
            	<a href="수정예정">자료실</a>
         </div>
         
@@ -202,7 +202,7 @@
         </button>
         <div class="dropdown-container">
             <a href="#">사원관리</a>
-            <a href="#">부서/직급관리</a>
+            <a href="list.dept">부서/직급관리</a>
             <button class="dropdown-btn">근무관리
                 <i class="fa fa-angle-down"></i>
             </button>

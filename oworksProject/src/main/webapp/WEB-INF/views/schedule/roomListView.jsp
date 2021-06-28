@@ -120,7 +120,7 @@
 		         	<span>선택된 회의실을 예약하시겠습니까?</span> <br>
 		            <br>	
 		         	
-		         <form action="버튼클릭시 이동할페이지 연동" method="post">
+		         <form action="enrollForm.mr" method="post">
                     <input type="hidden" name="예약하는회원" value="">
                     <input type="hidden" name="예약하는시간" value="">
 		         	<button type="submit" class="btn btn-primary btn-sm"><b>예약하기</b></button>

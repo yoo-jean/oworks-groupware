@@ -29,5 +29,19 @@ public class AdminController {
 	public String adminOffCate() {
 		return "admin/adminOffCate";
 	}
+	
+	//관리자 부서관리
+	@RequestMapping("list.dept")
+	public String deptList() {
+		return "admin/deptListView";
+	}
+
+	//관리자 직급관리
+	@RequestMapping("list.job")
+	public String jobList() {
+		return "admin/jobListView";
+	}
+	
+	
 
 }
