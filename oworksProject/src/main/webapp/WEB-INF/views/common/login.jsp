@@ -117,7 +117,7 @@
 <body>
     <div class="wrap">
         <div class="loginBody">
-            <form action="login.emp" method="post" id="loginForm">
+            <form action="login.emp" method="post" id="loginForm" >
             	
                 <div id="loginImg">
                     <input type="image" id="logoImg" src="${pageContext.servletContext.contextPath }/resources/images/common/logo.png">
@@ -131,18 +131,18 @@
 
                   <div id="loginContent">
                     <p class="inputText" onclick="onFocusCursor('empId')"> 
-                    <input type="text" name="empId" id="empId" placeholder="ID 입력" size="28px">
+                    <input type="text" name="empId" id="empId" placeholder="ID 입력" size="28px" >
                     </p>
                     <p class="inputText" onclick="onFocusCursor('empPwd')">
-                        <input type="password" name="empPwd" id="empPwd" placeholder="PASSWORD 입력" size="28px">
+                        <input type="password" name="empPwd" id="empPwd" placeholder="PASSWORD 입력" size="28px" >
                     </p>
                     <p class="check">
-                        <input type="checkbox" id="rememberId" class="save_chk" value="rememberId"> <label for="rememberId">ID 저장</label>
+                        <input type="checkbox" id="rememberId" class="save_chk" value="rememberId" > <label for="rememberId">ID 저장</label>
                     </p>
                 </div>
 
                 <div id="loginBtnArea" style="padding-left: 55px; ">
-                    <input type="button" id="loginBtn" class="loginBtn" value="LOGIN" >
+                    <input type="button" id="loginBtn" class="loginBtn" value="LOGIN"  >
                 </div>
 
                 <div id="findPwdText">
@@ -183,7 +183,21 @@
         			});
                 }
                 
-                
+               
+            $("#empId").keydown(function(key) {
+     	           if (key.keyCode == 13) {
+     	        	   $("#empPwd").focus();
+     	           }
+               });
+
+            $("#empPwd").keydown(function(key) {
+                if (key.keyCode == 13) {
+             	   loginAct();
+                }
+           });
+
+                	
+               
             </script>
         </div>
         
