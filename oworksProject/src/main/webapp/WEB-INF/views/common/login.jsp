@@ -142,7 +142,7 @@
                 </div>
 
                 <div id="loginBtnArea" style="padding-left: 55px; ">
-                    <input type="button" id="loginBtn" class="loginBtn" value="LOGIN"  >
+                    <input type="submit" id="loginBtn" class="loginBtn" value="LOGIN"  >
                 </div>
 
                 <div id="findPwdText">
@@ -167,20 +167,7 @@
                         $("#empPwd").focus();
                         return;
                     }
-                    $.ajax({
-        				url:"login.emp",
-        				data:{empId:empId,empPwd:empPwd},
-        				type: "POST",
-        				success:function(data){
-        					if(data=="fail"){
-        						alert("로그인에 실패하였습니다.\n아이디 비밀번호를 확인해주세요!");
-        					}else{
-        						console.log(data);
-        						alert(data + "님, 어서오세요 :D");
-        						location.href='main.emp';
-        					}
-        				}
-        			});
+
                 }
                 
                

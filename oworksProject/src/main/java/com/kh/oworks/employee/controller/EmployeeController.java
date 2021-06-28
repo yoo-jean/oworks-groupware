@@ -28,8 +28,7 @@ public class EmployeeController {
 	@Autowired
 	private NoticeService nService;
 	
-	@ResponseBody
-	@RequestMapping(value = "login.emp", method = RequestMethod.POST,produces="text/plain;charset=UTF-8")
+	@RequestMapping("login.emp")
 	public String loginEmployee(Employee e, HttpSession session, @RequestParam(value="currentPage", defaultValue="1") int currentPage, Model model) {
 		
 
@@ -42,15 +41,14 @@ public class EmployeeController {
 		
 		if(loginEmp == null) {
 			System.out.println("로그인 실패");
-			return "fail";
+			return "redirect:/";
 		}else {
 			System.out.println("로그인 성공");
 			// 공지사항 확인
 			model.addAttribute("pi", pi);
 			model.addAttribute("list", list);
-			model.addAttribute("loginEmp", loginEmp);
-		
-			return loginEmp.getEmpName();
+			
+			return "main";
 		}
 	}
 
@@ -61,12 +59,7 @@ public class EmployeeController {
 		return "common/findPwd";
 	}
 	
-	
-	@RequestMapping("main.emp")
-	public String successLogin() {
-		return "main";
-	}
-	
+
 	
 
 }
