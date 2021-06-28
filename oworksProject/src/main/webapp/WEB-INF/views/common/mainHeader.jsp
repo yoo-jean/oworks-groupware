@@ -100,6 +100,7 @@
 <body>
 
 <div id="header">
+	
     <div id="header_logo">
         <img src="resources/images/oworks_logo.png">
     </div>
@@ -108,6 +109,7 @@
             <a class="header_link" href="#">
                 <i class="far fa-comment-dots fa-2x"></i>
                 <span class="header_notification">2</span>
+
             </a>
         </li>
         <li class="header_btn">
@@ -118,7 +120,6 @@
         </li>
     </ul>
 </div>
-
 
 <script
   src="https://kit.fontawesome.com/6478f529f2.js"

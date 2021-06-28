@@ -91,10 +91,9 @@
 <body>
 	<!-- 전체 화면 -->
     <div class="wrap">
-
 	<!-- 헤더바 -->
 	<jsp:include page="common/mainHeader.jsp"/>
-
+		
         <!-- 본문 전체 -->
         <div id="content">
             <!-- 좌측 메뉴바 -->
