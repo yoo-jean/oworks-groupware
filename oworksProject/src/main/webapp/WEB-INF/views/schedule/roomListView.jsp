@@ -115,7 +115,7 @@
             <!--Modal body --> 
             <div class="modal-body" align="center">
             
-             		<img src="images/reservationOk.png" width="55px" height="50" style="margin-bottom: 10px;"><br>
+             		<img src="${pageContext.servletContext.contextPath }/resources/images/admin/reservationOk.png" width="55px" height="50" style="margin-bottom: 10px;"><br>
 		         	<u><b style="color: rgba(37, 116, 219, 0.9);">예약가능</b>한 회의실 입니다.</u><br>
 		         	<span>선택된 회의실을 예약하시겠습니까?</span> <br>
 		            <br>	
@@ -143,7 +143,7 @@
             <!--Modal body --> 
             <div class="modal-body" align="center">
             
-             		<img src="images/reservationNo.png" width="55px" height="50" style="margin-bottom: 10px;"><br>
+             		<img src="${pageContext.servletContext.contextPath }/resources/images/admin/reservationNo.png" width="55px" height="50" style="margin-bottom: 10px;"><br>
 		         	<u><b style="color: rgb(240, 4, 51)">예약불가능</b>한 회의실 입니다.</u><br>
 		         	<span>예약가능 회의실을 다시 선택해주세요.</span> <br>
 		            <br>	
