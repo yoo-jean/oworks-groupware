@@ -166,7 +166,10 @@
         </button>
         <div class="dropdown-container">
             <a href="enrollForm.ap">기안하기</a>
-            <a href="list.ap">결재함</a>
+            <form action = "list.ap" method = "post" id="approval">
+            	<input type="hidden" name="empNo" value="${loginEmp.empNo }">
+            	<a onclick="document.getElementById('approval').submit();">결재함</a>
+            </form>
             <a href="#">임시저장함</a>
         </div>
         

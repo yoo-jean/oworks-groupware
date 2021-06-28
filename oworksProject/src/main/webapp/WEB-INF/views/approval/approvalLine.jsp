@@ -301,9 +301,9 @@
                           <tbody id="lvaprlineBody">
                             <tr>
                               <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" name=1 id="num" value=1>1</td>
-                              <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">김인사</td>
-                              <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">대리</td>
-                              <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">개발팀</td>
+                              <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${loginEmp.empName }</td>
+                              <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${loginEmp.jobName }</td>
+                              <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${loginEmp.deptName }</td>
                               <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">결재</td>
                               <td>대기</td>
                             </tr>
@@ -370,12 +370,12 @@
                 	$(this).css('background-color', 'gray');
                 	$(this).css('color', 'white');
             	
-          		})
+          		});
 
-    			<!-- 결재선과 참조선에 보여지는 부서원 tdArr 로그인 유저로 선언다시해줘야됨-->
-     	   		var tdArr = new Array(); 
+    			
+     	   		var tdArr = new Array(['${loginEmp.empName}', '${loginEmp.jobName}', '${loginEmp.deptName}', '${loginEmp.empNo}', '결재', '대기']);
 		   		var c = new Array();
-		   		var addEmpNo = new Array();
+		   		var addEmpNo = new Array([${loginEmp.empNo}]);
 		   		var test = new Array();
 		   		//var apname = "";
            		function approvalLine(){
@@ -413,7 +413,7 @@
 					
 					// 부서원 정보 배열에 담기
 					tdArr.push(empInfo);
-					//console.log(tdArr);
+					//console.log("tdArr : " + tdArr);
 					
 					// 사원번호 배열에 담기
 					addEmpNo.push(test);

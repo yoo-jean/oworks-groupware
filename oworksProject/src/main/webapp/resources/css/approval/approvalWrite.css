@@ -12,9 +12,9 @@
 	
     
     /*기안설정 css*/
-    .approvalsetting table th{vertical-align:middle;width: 14%;}
+    .approvalsetting table th{vertical-align:middle;width: 18%;}
     .approvalsetting table td{vertical-align:middle;width: 36%;}
-    
+	
     /*테이블 css*/
     /*.approvalouter table{width: 80%;}*/
 

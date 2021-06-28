@@ -16,7 +16,7 @@
 </head>
 
 <body>
-
+    
     <div class="approvalouter">
       <br><br>
         
@@ -24,8 +24,7 @@
       	
         <form id = "approvalWrite" name = "approvalWrite" method = "post" action="insert.ap" enctype="multipart/form-data">
 	        <input type="hidden" name="formNo" value="1">
-	        <input type="hidden" name="empNo" value=10033> <!-- 로그인한 회원번호 넘기기 -->
-			<!--<input type="hidden" name="lineList[0].empNo">-->
+	        <input type="hidden" name="empNo" value="${loginEmp.empNo }">
 			
 	        <div class="left_area">
       		    <button type="submit" class="btn btn-dark btn-sm" onclick="addApprovalLine();">기안</button>
@@ -168,7 +167,7 @@
               		<tbody>
 		                <tr>
 		                  <th rowspan="3">결재</th>
-		                  <td>로그인한 사용자 직급</td>
+		                  <td>${loginEmp.jobName }</td>
 		                  <td></td>
 		                  <td></td>
 		                  <td></td>
@@ -185,7 +184,7 @@
 		                  
 		                </tr>
 		                <tr id="employeeName">
-		                  <td>로그인한 사용자 이름</td>
+		                  <td>${loginEmp.empName }</td>
 		                  <td id="user"></td>
 		                  <td></td>
 		                  <td></td>
@@ -213,7 +212,7 @@
 	        <script>
 	            function approvalLineOk(){
 	            	<!--form에 input이 추가되게 해서 값 뿌려지게-->
-	            	console.log(addEmpNo);
+	            	//console.log(addEmpNo);
 	            	var form = $("form[name='approvalWrite']");
        				for(var i=0; i<addEmpNo.length; i++){
        					form.append($('<input/>', {type:'hidden', name: 'lineList[' + i + '].empNo', value:addEmpNo[i]}));
@@ -224,23 +223,23 @@
 	              	//console.log(list);
 	              	
 	              	<!--결재선-->
-	              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(3)").text(c[0].slice(1,2));
-	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(2)").text(c[0].slice(0,1));
+	              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(2)").text(c[0].slice(1,2));
+	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(1)").text(c[0].slice(0,1));
 	              	
-	              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(4)").text(c[1].slice(1,2));
-	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(3)").text(c[1].slice(0,1));
+	              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(3)").text(c[1].slice(1,2));
+	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(2)").text(c[1].slice(0,1));
 	              
-	             	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(5)").text(c[2].slice(1,2));
-	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(4)").text(c[2].slice(0,1));
+	             	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(4)").text(c[2].slice(1,2));
+	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(3)").text(c[2].slice(0,1));
 	              	
-	              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(6)").text(c[3].slice(1,2));
-	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(5)").text(c[3].slice(0,1))
+	              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(5)").text(c[3].slice(1,2));
+	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(4)").text(c[3].slice(0,1))
 	              	
-	              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(7)").text(c[4].slice(1,2));
-	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(6)").text(c[4].slice(0,1));
+	              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(6)").text(c[4].slice(1,2));
+	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(5)").text(c[4].slice(0,1));
 	              	
 	              	
-	            }
+	            };
 	            
 	        </script>
 		
