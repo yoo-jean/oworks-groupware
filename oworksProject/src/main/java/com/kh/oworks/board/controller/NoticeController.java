@@ -1,7 +1,10 @@
 package com.kh.oworks.board.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -14,8 +17,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.oworks.approval.model.service.ApprovalService;
+import com.kh.oworks.approval.model.vo.FilePath;
 import com.kh.oworks.board.model.service.NoticeService;
 import com.kh.oworks.board.model.vo.Notice;
 import com.kh.oworks.common.model.vo.PageInfo;
@@ -25,6 +31,9 @@ import com.kh.oworks.common.template.Pagination;
 public class NoticeController {
 	@Autowired
 	private NoticeService nService;
+	
+	@Autowired
+	private ApprovalService appService;
 	
 	// 게시글 리스트 조회
 	
@@ -153,5 +162,28 @@ public class NoticeController {
 		return "board/noticeListView";
 		
 		
+	}
+	
+	
+	// 전달받은 첨부파일 수정명 작업해서 서버에 업로드 시킨 후 해당 수정된 파일명을 반환하는 메소드
+	public String saveFile(HttpSession session, MultipartFile upfile) {
+		
+		String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
+		
+		String originName = upfile.getOriginalFilename();
+		
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		int ranNum =(int)(Math.random()*900000+10000);
+		String ext = originName.substring(originName.lastIndexOf("."));
+		
+		String changeName = currentTime + ranNum + ext;
+		
+		try {
+			upfile.transferTo(new File(savePath + changeName));
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		return changeName;
 	}
 }
