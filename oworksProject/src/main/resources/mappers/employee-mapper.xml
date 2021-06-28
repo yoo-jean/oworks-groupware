@@ -7,7 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap id="employeeResultSet" type="Employee">
 		<id column="emp_no" property="empNo"/>
 		<result column="dept_code" property="deptCode"/>
+		<result column="dept_name" property="deptName"/>
 		<result column="job_code" property="jobCode"/>
+		<result column="job_name" property="jobName"/>
 		<result column="emp_name" property="empName"/>
 		<result column="emp_id" property="empId"/>
 		<result column="emp_pwd" property="empPwd"/>
@@ -30,7 +32,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select
 		       emp_no
 		     , dept_code
+		     , dept_name
 		     , job_code
+		     , job_name
 		     , emp_name
 		     , emp_id
 		     , emp_pwd

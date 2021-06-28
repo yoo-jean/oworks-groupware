@@ -47,7 +47,7 @@ public class EmployeeController {
 			// 공지사항 확인
 			model.addAttribute("pi", pi);
 			model.addAttribute("list", list);
-			
+			session.setAttribute("loginEmp", loginEmp);
 			return "main";
 		}
 	}
