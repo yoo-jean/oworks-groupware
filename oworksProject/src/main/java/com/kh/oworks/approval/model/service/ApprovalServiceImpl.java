@@ -1,6 +1,8 @@
 package com.kh.oworks.approval.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import com.kh.oworks.approval.model.vo.Approval;
 import com.kh.oworks.approval.model.vo.ApprovalComment;
 import com.kh.oworks.approval.model.vo.ApprovalLine;
 import com.kh.oworks.approval.model.vo.FilePath;
+import com.kh.oworks.common.model.vo.PageInfo;
 import com.kh.oworks.employee.model.vo.Employee;
+import com.sun.xml.internal.ws.api.message.Attachment;
 
 @Service
 public class ApprovalServiceImpl implements ApprovalService{
@@ -22,24 +26,19 @@ public class ApprovalServiceImpl implements ApprovalService{
 	@Autowired
 	private ApprovalDao appDao;
 	
-	// 전자결재 메인 조회
+	// 전자결제 메인 조회
 	@Override
-	public int selectListCount() {
-		return appDao.selectListCount(sqlSession);
+	public int selectListCount(Approval a) {
+		//System.out.println(a);
+		return appDao.selectListCount(sqlSession, a);
 	}
-	
-	/* 로그인 기능 생기면 쓸거
+
 	@Override
-	public ArrayList<Approval> selectList(int empNo) {
-		return appDao.selectList(sqlSession, empNo);
-	}
-	*/
-	
-	// 로그인 기능 생기면 지울거
-	@Override
-	public ArrayList<Approval> selectList() {
-		return appDao.selectList(sqlSession);
-	}
+	public ArrayList<Approval> selectList(PageInfo pi, Approval a) {
+		//System.out.println(a);
+		return appDao.selectList(sqlSession, pi, a);
+	}	
+		
 	
 	// 전자결제 상세보기
 	@Override
@@ -51,6 +50,20 @@ public class ApprovalServiceImpl implements ApprovalService{
 	public Approval selectApproval(String appNo) {
 		return appDao.selectApproval(sqlSession, appNo);
 	}
+	
+	// 전자결재 상세보기 결재선 조회
+	@Override
+	public ArrayList<ApprovalLine> selectApprovalLine(String appNo) {
+		return appDao.selectApprovalLine(sqlSession, appNo);
+	}
+	
+	// 전자결재 상세보기 첨부파일 조회
+	@Override
+	public ArrayList<Attachment> selectAttachment(String appNo) {
+		return appDao.selectAttachment(sqlSession, appNo);
+	}
+	
+
 	
 	// 기안서에 달린 코멘트 리스트 조회
 	@Override
@@ -64,24 +77,6 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.insertComment(sqlSession, ac);
 	}
 
-	// 기안서 작성하기
-	/*
-	@Override
-	public int insertApproval(Approval a, FilePath fp, ArrayList<ApprovalLine> llist) {
-		
-		int result1 = appDao.insertApproval(sqlSession, a);
-		int result2 = 1;
-		int result3 = appDao.insertAddLine(sqlSession, llist);
-		
-		if(fp != null) {
-			result2 = appDao.insertFilePath(sqlSession, fp);
-		}
-		
-		return result1*result2*result3;
-		
-	}
-	*/
-	
 	// 기안서 작성하기
 	@Override
 	public int insertApproval(Approval a) {
@@ -100,12 +95,22 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.insertAddLine(sqlSession, apLineList);
 	}
 	
-
+	// 기안서 임시저장
+	@Override
+	public int saveApproval(Approval a) {
+		return appDao.insertApproval(sqlSession, a);
+	}
 	
 	// 결재선 부서원 조회
 	@Override
 	public ArrayList<Employee> selectDepartmentList() {
 		return appDao.selectDepartmentList(sqlSession);
+	}
+	
+	// 승인, 반려 버튼 클릭시 update
+	@Override
+	public int updateApproval(ApprovalLine al) {
+		return appDao.updateApproval(sqlSession, al);
 	}
 
 

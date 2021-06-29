@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,9 +25,9 @@
                 <table class="table table-bordered">
                     <tr>
                         <th>기안부서</th>
-                        <td>개발팀</td>
+                        <td>${a.deptName }</td>
                         <th>작성자</th>
-                        <td>김개발</td>
+                        <td>${a.empName }</td>
                     </tr>
                     <tr>
                         <th>보존연한</th>
@@ -42,128 +43,143 @@
             <!--결재선-->
             <div class="approvalline">
                 <table class="table table-bordered">
-                <tr>
-                    <th rowspan="3" id="approval">결재</th>
-                    <td>사원</td>
-                    <td>팀장</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold; color: rgb(42, 128, 185);">승인</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" style="background: rgb(42, 128, 185);">결재</button>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    
-                </tr>
-                <tr>
-                    <td>김개발</td>
-                    <td>박팀장</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                
-                </tr>
+		                <tr>
+		                    <th rowspan="3" id="approval">결재</th>
+				                <c:forEach var="appLine" items="${appLine}">
+					            	<td>${appLine.jobName}</td>
+				                </c:forEach>
+		                </tr>
+	                
+	                <tr>
+                		<c:forEach var="appLine" items="${appLine }">
+							<c:if test="${appLine.status ne '대기' }">
+			                    <td style="font-weight: bold; color: rgb(42, 128, 185);">승인</td>
+		                    </c:if>
+			            </c:forEach>
+		                    
+			            <c:forEach var ="appLine" items="${appLine}" end="${fn:length(appLine)}">
+			            	<c:if test="${appLine.status eq '대기' }">
+				            	<td>
+				                	<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" style="background: rgb(42, 128, 185);">결재</button>
+				            	</td>
+				            </c:if>
+			            </c:forEach>
+	                </tr>
+	                
+	                <tr>
+	               		<c:forEach var ="appLine" items="${appLine }">
+		                    <td>${appLine.empName}</td>
+		               	</c:forEach>
+	                </tr>
                 </table>
 
                 <!--승인이나 반려 선택하는 모달-->
-                <div class="container" style="border: none;">
-                  
-                    <!-- The Modal -->
-                    <div class="modal fade" id="myModal">
-                      <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                          
-                          <!-- Modal body -->
-                          <div class="modal-body" align="center">
-                            <div class="yesorno">
-                                <br>
-                                <form>
-                                    <input type="radio" name="approval" value="승인" id="ok"><label for="ok">&nbsp;승인</label>
-                                    &nbsp;&nbsp;
-                                    <input type="radio" name="approval" value="반려" id="no"><label for="no">&nbsp; 반려</label>
-                                </form>
-                            </div>
-                            <br>
-                            <div>
-                                <b>승인하시겠습니까?</b><br><br>
-                                <textarea placeholder="의견을 입력하세요" style="resize: none;" id="content"></textarea>
-                                <br>
+                <form id = "updateApprovalStatus" method="post" action = "update.ap">
+                   	<input type="hidden" name="appNo" value=${a.appNo }>
+                   	<input type="hidden" name="empNo" value=${loginEmp.empNo }>
+                	
+                	<div class="container" style="border: none;">
+                    	
+	                    <!-- The Modal -->
+	                    <div class="modal fade" id="myModal">
+	                      	<div class="modal-dialog modal-dialog-centered">
+	                        	<div class="modal-content">
+	                          
+		                          	<!-- Modal body -->
+		                          	<div class="modal-body" align="center">
+		                            	<div class="yesorno">
+		                                	<br>
+		                                    	<input type="radio" name="appStatus" value="승인" id="ok"><label for="ok">&nbsp;승인</label>
+		                                    	&nbsp;&nbsp;
+		                                    	<input type="radio" name="appStatus" value="반려" id="no"><label for="no">&nbsp; 반려</label>
+		                                
+		                            	</div>
+		                            	<br>
+		                            	<div>
+		                                	<b>승인하시겠습니까?</b><br><br>
+		                                	<textarea placeholder="의견을 입력하세요" style="resize: none;" id="content"></textarea>
+		                                	<br>
+		                            	</div>
+		                          	</div>
+	                          
+		                          	<!-- Modal footer -->
+		                          	<div class="modal-footer">
+		                            	<div class="modalfooter2">
+		                                	<button type="submit" id="approvalOk" class="btn btn-info" data-dismiss="modal" style="background: rgb(42, 128, 185);" onclick="addComment();">확인</button>
+		                                	<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+		                            	</div>    
+		                          	</div>
+	                        	</div>
+	                      	</div>
+	                    </div>
+                	</div>
+                	
+ 		        </form>
+                
+	                <!-- 승인, 반려 선택해서 넘어가는 script -->
+	                <script>
+	                	$("#approvalOk").click(function(){
+	                		console.log('되나?');
+	                		var radio = $("input[name='appStatus']:checked").val();
+	                		console.log(radio);
+	                	});
+	                	
+	                
+	                </script>
 
-                            </div>
-                          </div>
-                          
-                          <!-- Modal footer -->
-                          <div class="modal-footer">
-                            <div class="modalfooter2">
-                                <button type="button" class="btn btn-info" data-dismiss="modal" style="background: rgb(42, 128, 185);" onclick="addComment();">확인</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                            </div>    
-                          </div>
-                          
-                        </div>
-                      </div>
-                    </div>
-                    
-                </div>
-
-            </div>
+            	</div>
 
 
-            <!--참조-->
-            <div class="reference">
-            <table class="table table-bordered">
-                <tr>
-                <th>참조</th>
-                <td align="left">경영지원실-김사장</td>
-                </tr>
-            </table>
-            </div>
+	            <!--참조-->
+	            <div class="reference">
+	            <table class="table table-bordered">
+	                <tr>
+	                <th>참조</th>
+	                <td align="left">경영지원실-김사장</td>
+	                </tr>
+	            </table>
+	            </div>
 
-            <!--내용영역-->
-            <div class="content">
-                <br>
-                <div class="innerOuter">
-                    <br>
-                    <form id="updateForm" method="post" action="" enctype="">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th><label for="title">제목</label></th>
-                                <td>${a.appTitle }</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">${a.appContent }</td>
-                            </tr>
-                        </table>
-                        <br>
-                    </form>
-
-                    <!--첨부파일 table-->
-                    <div class="insertfile">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th><label for="upfile">첨부파일</label></th>
-                                <td>
-                                    <a href="" download="">${a.mdfFileName }</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
+	            <!--내용영역-->
+	            <div class="content">
+	                <br>
+	                <div class="innerOuter">
+	                    <br>
+	                    <form id="updateForm" method="post" action="" enctype="">
+	                        <table class="table table-bordered">
+	                            <tr>
+	                                <th><label for="title">제목</label></th>
+	                                <td>${a.appTitle }</td>
+	                            </tr>
+	                            <tr>
+	                                <td colspan="2">${a.appContent }</td>
+	                            </tr>
+	                        </table>
+	                        <br>
+	                    </form>
+	
+	                    <!--첨부파일 table-->
+	                    <div class="insertfile">
+	                        <table class="table table-bordered">
+	                            <tr>
+	                                <th><label for="upfile">첨부파일</label></th>
+	                                <td>
+	                            		<c:forEach var="attList" items="${attList }">
+						            		<a href="${attList.mdfFileName }" download="${attList.filePath }">${attList.orgFileName }</a>
+					                	</c:forEach>
+	                                </td>
+	                            </tr>
+	                        </table>
+	                    </div>
+	                </div>
+	            </div>
             <br>
         </div>
 
         <br><br>
 
         <br>
+        
         <!-- 댓글 기능은 나중에 ajax 배우고 접목시킬예정! 우선은 화면구현만 해놓음 -->
         <table id="replyArea" class="table">
             <thead>
@@ -176,7 +192,6 @@
             <tbody>
 
             </tbody>
-			
 			
 			
 			<tfoot>                
@@ -197,6 +212,7 @@
 				
 			})
 			function addComment(){
+				document.getElementById("updateApprovalStatus").submit();
 				if($("#content").val().trim().length != 0){
 					$.ajax({
 						url : "cinsert.ap",

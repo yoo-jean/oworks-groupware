@@ -36,7 +36,11 @@ public class Approval {
 	private String expireDate;
 	private String securityLevel;
 	private int appcount;
-	private String appOpinion;
+	private String deptName;
+	private String jobName;
+	private String status;
 	
 	private ArrayList<ApprovalLine> lineList;
+	
+	private int approvalEmpNo;
 }

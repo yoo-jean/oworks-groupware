@@ -22,6 +22,10 @@ public class ApprovalLine {
 	private String appStatus;	// 결재상태
 	private String appOpinion;	// 결재의견
 	private String appDate;		// 결재일
+	private String status; 		// 결재상태 대기|진행|반려|완료
 	
 	private ArrayList<ApprovalLine> lineList;
+	
+	private int approvalEmpNo;
+	
 }

@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.oworks.approval.model.service.ApprovalService;
@@ -26,7 +23,10 @@ import com.kh.oworks.approval.model.vo.Approval;
 import com.kh.oworks.approval.model.vo.ApprovalComment;
 import com.kh.oworks.approval.model.vo.ApprovalLine;
 import com.kh.oworks.approval.model.vo.FilePath;
+import com.kh.oworks.common.model.vo.PageInfo;
+import com.kh.oworks.common.template.Pagination;
 import com.kh.oworks.employee.model.vo.Employee;
+import com.sun.xml.internal.ws.api.message.Attachment;
 
 @Controller
 public class ApprovalController {
@@ -34,49 +34,41 @@ public class ApprovalController {
 	@Autowired
 	private ApprovalService appService;
 	
-	/*전자결재 메인페이지 이동 로그인 기능 생기면 쓸거*/
-	/*
-	@RequestMapping("list.ap")
-	public ModelAndView selectApprovalList(ModelAndView mv, int empNo) {
-		
-		int listCount = appService.selectListCount();
-		//PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 20);
-		
-		ArrayList<Approval> list = appService.selectList(empNo);
-		
-		//mv.addObject("pi", pi);
-		mv.addObject("list", list);
-		mv.setViewName("approval/approvalMain");
-		
-		return mv;
-	}
-	*/
+	/*전자결제 메인 조회*/
 	
-	/*전자결재 메인페이지 이동 로그인 기능 생기면 지우기*/
 	@RequestMapping("list.ap")
-	public ModelAndView selectApprovalList(ModelAndView mv) {
+	public String selectApprovalList(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Approval a, ApprovalLine al, HttpSession session, Model model) {
 		
-		int listCount = appService.selectListCount();
-		//PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 20);
+		int listCount = appService.selectListCount(a);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 15);
 		
-		ArrayList<Approval> list = appService.selectList();
+		ArrayList<Approval> list = appService.selectList(pi, a);
 		
-		//mv.addObject("pi", pi);
-		mv.addObject("list", list);
-		mv.setViewName("approval/approvalMain");
+		//System.out.println(list);
 		
-		return mv;
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		
+		return "approval/approvalMain";
 	}
+	
+	
 	
 	/*전자결재 상세보기*/
 	@RequestMapping("detail.ap")
 	public String selectApproval(String ano, Model model) {
 		
-		int result = appService.increaseCount(ano);
+		//int result = appService.increaseCount(ano);
 		
-		if(result>0) {
-			Approval a = appService.selectApproval(ano);
+		Approval a = appService.selectApproval(ano);
+		ArrayList<ApprovalLine> appLine = appService.selectApprovalLine(ano); 
+		ArrayList<Attachment> attList = appService.selectAttachment(ano);
+		
+		if(!"".equals(a)) {
+			model.addAttribute("appLine", appLine);
+			model.addAttribute("attList", attList);
 			model.addAttribute("a", a);
+			
 			//System.out.println(a);
 			return "approval/approvalDetailView";
 			
@@ -139,7 +131,7 @@ public class ApprovalController {
 		*/
 		
 		ArrayList<ApprovalLine> apLineList = al.getLineList();
-		
+		//System.out.println(apLineList);
 		
 		//첨부파일
 		if(!upfile.getOriginalFilename().equals("")) { // 첨부파일이 존재하는 경우
@@ -167,6 +159,7 @@ public class ApprovalController {
 		}
 	}
 	
+
 	
 	/*전달받은 첨부파일 수정명 작업해서 서버에 업로드 시킨 후 해당 수정된 파일명을 반환하는 메소드*/
 	public String saveFile(HttpSession session, MultipartFile upfile) {
@@ -190,6 +183,8 @@ public class ApprovalController {
 		return changeName;
 	}
 	
+
+	
 	/*결재선 부서원 조회*/
 	@ResponseBody
 	@RequestMapping(value="dlist.ap", produces="application/json; charset=utf-8")
@@ -199,8 +194,21 @@ public class ApprovalController {
 		return new Gson().toJson(list);
 	}
 	
-	/*기안서 임시저장*/
-
+	
+	/*승인, 반려 버튼 클릭시 update*/
+	// approvalLine에 있는 status 대기-> 진행 -> 완료 되게끔
+	@RequestMapping(value="update.ap")
+	public String updateApproval(ApprovalLine al, HttpSession session, Model model) {
+		int result = appService.updateApproval(al);
+		
+		if(result>0) {
+			session.setAttribute("alertMsg", "결재가 완료되었습니다");
+			return "redirect:detail.ap?ano=" + al.getAppNo();
+		}else {
+			model.addAttribute("errorMsg", "결재를 실패했습니다. 다시 시도해주세요");
+			return "common/errorPage";
+		}
+	}
 	
 
 }
