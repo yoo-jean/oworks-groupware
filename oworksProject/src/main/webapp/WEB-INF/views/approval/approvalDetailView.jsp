@@ -14,7 +14,6 @@
 <link rel="stylesheet" type="text/css" href="resources/css/approval/approvalDetailView.css">
 
 <title>기안하기 페이지</title>
-
 </head>
 <body>
     <div class="approvalouter">
@@ -74,10 +73,10 @@
                 </table>
 
                 <!--승인이나 반려 선택하는 모달-->
-                <form id = "updateApprovalStatus" method="post" action = "update.ap">
+                <form id = "updateApprovalStatus" method="post" action = "update.ap" name = "approvalStatus">
                    	<input type="hidden" name="appNo" value=${a.appNo }>
                    	<input type="hidden" name="empNo" value=${loginEmp.empNo }>
-                	
+                   	 
                 	<div class="container" style="border: none;">
                     	
 	                    <!-- The Modal -->
@@ -91,7 +90,7 @@
 		                                	<br>
 		                                    	<input type="radio" name="appStatus" value="승인" id="ok"><label for="ok">&nbsp;승인</label>
 		                                    	&nbsp;&nbsp;
-		                                    	<input type="radio" name="appStatus" value="반려" id="no"><label for="no">&nbsp; 반려</label>
+		                                    	<input type="radio" name="appStatus" value="반려" id="no"><label for="no">&nbsp;반려</label>
 		                                
 		                            	</div>
 		                            	<br>
@@ -106,73 +105,71 @@
 		                          	<div class="modal-footer">
 		                            	<div class="modalfooter2">
 		                                	<button type="submit" id="approvalOk" class="btn btn-info" data-dismiss="modal" style="background: rgb(42, 128, 185);" onclick="addComment();">확인</button>
-		                                	<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+		                                	<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="test();">취소</button>
 		                            	</div>    
 		                          	</div>
 	                        	</div>
 	                      	</div>
 	                    </div>
                 	</div>
-                	
  		        </form>
-                
-	                <!-- 승인, 반려 선택해서 넘어가는 script -->
-	                <script>
-	                	$("#approvalOk").click(function(){
-	                		console.log('되나?');
-	                		var radio = $("input[name='appStatus']:checked").val();
-	                		console.log(radio);
-	                	});
-	                	
-	                
-	                </script>
+            </div>
+			
+			<!-- 마지막 결재자 TEST -->
+			<script>
+			function test(){
+				console.log('되나?');
+				var test = ${fn:length(appLine)};
+				
+				console.log(test);
+			}
+			</script>
+			
+			
+			
+            <!--참조-->
+            <div class="reference">
+            <table class="table table-bordered">
+                <tr>
+                <th>참조</th>
+                <td align="left">경영지원실-김사장</td>
+                </tr>
+            </table>
+            </div>
 
-            	</div>
+            <!--내용영역-->
+            <div class="content">
+                <br>
+                <div class="innerOuter">
+                    <br>
+                    <form id="updateForm" method="post" action="" enctype="">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th><label for="title">제목</label></th>
+                                <td>${a.appTitle }</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">${a.appContent }</td>
+                            </tr>
+                        </table>
+                        <br>
+                    </form>
 
-
-	            <!--참조-->
-	            <div class="reference">
-	            <table class="table table-bordered">
-	                <tr>
-	                <th>참조</th>
-	                <td align="left">경영지원실-김사장</td>
-	                </tr>
-	            </table>
-	            </div>
-
-	            <!--내용영역-->
-	            <div class="content">
-	                <br>
-	                <div class="innerOuter">
-	                    <br>
-	                    <form id="updateForm" method="post" action="" enctype="">
-	                        <table class="table table-bordered">
-	                            <tr>
-	                                <th><label for="title">제목</label></th>
-	                                <td>${a.appTitle }</td>
-	                            </tr>
-	                            <tr>
-	                                <td colspan="2">${a.appContent }</td>
-	                            </tr>
-	                        </table>
-	                        <br>
-	                    </form>
-	
-	                    <!--첨부파일 table-->
-	                    <div class="insertfile">
-	                        <table class="table table-bordered">
-	                            <tr>
-	                                <th><label for="upfile">첨부파일</label></th>
-	                                <td>
-	                            		<c:forEach var="attList" items="${attList }">
-						            		<a href="${attList.mdfFileName }" download="${attList.filePath }">${attList.orgFileName }</a>
-					                	</c:forEach>
-	                                </td>
-	                            </tr>
-	                        </table>
-	                    </div>
-	                </div>
-	            </div>
+                    <!--첨부파일 table-->
+                    <div class="insertfile">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th><label for="upfile">첨부파일</label></th>
+                                <td>
+                            		<c:forEach var="attList" items="${attList }">
+					            		<a href="${attList.mdfFileName }" download="${attList.filePath }">${attList.orgFileName }</a>
+				                	</c:forEach>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <br>
         </div>
 
@@ -180,7 +177,7 @@
 
         <br>
         
-        <!-- 댓글 기능은 나중에 ajax 배우고 접목시킬예정! 우선은 화면구현만 해놓음 -->
+        <!-- 댓글기능 -->
         <table id="replyArea" class="table">
             <thead>
                 <tr>
@@ -211,8 +208,31 @@
 				selectCommentList();
 				
 			})
+       		
 			function addComment(){
-				document.getElementById("updateApprovalStatus").submit();
+        		// 승인, 반려 체크시 status input으로 넘기기
+        		
+        		var radio = $("input[name='appStatus']:checked").val();
+        		var form = $("form[id='updateApprovalStatus']");
+           		if(radio=="승인"){
+           			form.append($('<input/>', {type:'hidden', name:'status', value:'진행'}));
+           		}else{
+           			form.append($('<input/>', {type:'hidden', name:'status', value:'반려'}));
+           		}
+				form.submit();
+              	
+				
+				// 결재자 몇 명인지
+				var test = ${fn:length(appLine)};
+				
+				console.log(test);
+				
+				
+				
+				
+				
+				
+				// 승인이나 반려 이유 작성하는 ajax
 				if($("#content").val().trim().length != 0){
 					$.ajax({
 						url : "cinsert.ap",

@@ -102,7 +102,7 @@
 <div id="header">
 	
     <div id="header_logo">
-        <img src="resources/images/oworks_logo.png">
+    	<img src="resources/images/oworks_logo.png">
     </div>
     <ul id="header_list">
         <li class="header_btn">

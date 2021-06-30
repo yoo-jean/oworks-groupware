@@ -158,7 +158,6 @@
                 			<c:forEach var ="a" items="${list }">
                 				<c:if test="${a.status == '완료' }">
 				                    <tr>
-				                        <td><input type="checkbox"></td>
 				                        <td class = "ano">${a.appNo }</td>
 				                        <td>${a.appTitle }</td>
 				                        <td>${a.empName }</td>

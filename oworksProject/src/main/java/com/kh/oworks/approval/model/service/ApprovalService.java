@@ -49,6 +49,7 @@ public interface ApprovalService {
 	
 	//승인, 반려 버튼 클릭시 update
 	int updateApproval(ApprovalLine al);
-
+	
+	int updateApprovalStatus(Approval a);
 
 }

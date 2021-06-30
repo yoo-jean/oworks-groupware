@@ -198,8 +198,15 @@ public class ApprovalController {
 	/*승인, 반려 버튼 클릭시 update*/
 	// approvalLine에 있는 status 대기-> 진행 -> 완료 되게끔
 	@RequestMapping(value="update.ap")
-	public String updateApproval(ApprovalLine al, HttpSession session, Model model) {
+	public String updateApproval(Approval a, ApprovalLine al, HttpSession session, Model model) {
+		
 		int result = appService.updateApproval(al);
+		
+		int status = appService.updateApprovalStatus(a);
+		
+		//int lineStatus = appService.updateLineStatus(al);
+		// 결재자 몇명인지 알기 위해 필요
+		//ArrayList<ApprovalLine> appLine = appService.selectApprovalLine(ano); 
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "결재가 완료되었습니다");

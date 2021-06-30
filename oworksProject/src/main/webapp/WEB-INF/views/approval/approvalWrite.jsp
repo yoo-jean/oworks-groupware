@@ -16,7 +16,14 @@
 </head>
 
 <body>
-    
+   	<!-- alertify session -->
+	<c:if test="${ !empty alertMsg }">
+		<script>
+			alertify.alert("${alertMsg}");
+		</script>
+		<c:remove var="alertMsg" scope="session"/>
+	</c:if>
+	
     <div class="approvalouter">
       <br><br>
         
@@ -37,6 +44,21 @@
   			<!-- 기안하기 버튼 클릭시 문서양식 name값 저장되는 스크립트 -->
   			<script>
 	  			function addApprovalLine(){
+	  				
+	  				// form에 input type hidden으로 사원번호, 상태 값 넘기기
+	            	var form = $("form[name='approvalWrite']");
+	            	var i;
+       				for(i=0; i<addEmpNo.length; i++){
+       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + i + '].empNo', value:addEmpNo[i]}));
+   						
+       					if(i==0){
+       						form.append($('<input/>', {type:'hidden', name:'lineList[0].status', value:'진행'}));
+       					}else{
+       						form.append($('<input/>', {type:'hidden', name:'lineList[' + i + '].status', value:'대기'}));
+       					}
+       				}
+       				
+	  				
 	  				// 지출결의서
 	  				if(category == "품의서"){
 	  					$("#formTitle").val($("#formTitle").val()) ;
@@ -211,12 +233,6 @@
 		  	<!-- 결재선에서 확인버튼 클릭시 결재선에 결재자 뿌려지게 -->
 	        <script>
 	            function approvalLineOk(){
-	            	<!--form에 input이 추가되게 해서 값 뿌려지게-->
-	            	//console.log(addEmpNo);
-	            	var form = $("form[name='approvalWrite']");
-       				for(var i=0; i<addEmpNo.length; i++){
-       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + i + '].empNo', value:addEmpNo[i]}));
-       				}
        				
 					<!--참조-->
 	              	$("#referTable> tbody > tr:nth-child(1)> td:nth-child(2)").text(refer[0]);

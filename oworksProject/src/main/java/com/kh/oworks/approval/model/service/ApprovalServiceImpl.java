@@ -112,6 +112,12 @@ public class ApprovalServiceImpl implements ApprovalService{
 	public int updateApproval(ApprovalLine al) {
 		return appDao.updateApproval(sqlSession, al);
 	}
+	
+	// 결재 진행상태 변경
+	@Override
+	public int updateApprovalStatus(Approval a) {
+		return appDao.updateApprovalStatus(sqlSession, a);
+	}
 
 
 }

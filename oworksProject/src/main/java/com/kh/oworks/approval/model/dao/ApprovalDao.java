@@ -80,7 +80,7 @@ public class ApprovalDao {
 	
 	// 기안서 결재선
 	public int insertAddLine(SqlSessionTemplate sqlSession, ArrayList<ApprovalLine> apLineList) {
-		//System.out.println(al);
+		//System.out.println(apLineList);
 		return sqlSession.insert("approvalMapper.insertAddLine", apLineList);
 	}
 	
@@ -96,8 +96,12 @@ public class ApprovalDao {
 	
 	// 승인, 반려버튼 클릭시 update
 	public int updateApproval(SqlSessionTemplate sqlSession, ApprovalLine al) {
-		System.out.println(al);
+		//System.out.println(al);
 		return sqlSession.update("approvalMapper.updateApproval", al);
 	}
-
+	
+	// 결재 상태 변경
+	public int updateApprovalStatus(SqlSessionTemplate sqlSession, Approval a) {
+		return sqlSession.update("approvalMapper.updateApprovalStatus", a);
+	}
 }
