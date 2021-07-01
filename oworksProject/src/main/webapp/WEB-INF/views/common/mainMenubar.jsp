@@ -170,7 +170,10 @@
             	<input type="hidden" name="empNo" value="${loginEmp.empNo }">
             	<a onclick="document.getElementById('approval').submit();">결재함</a>
             </form>
-            <a href="#">임시저장함</a>
+            <form action = "saveList.ap" method = "post" id="approvalSave">
+            	<input type="hidden" name="empNo" value="${loginEmp.empNo }">
+            	<a onclick="document.getElementById('approvalSave').submit();">임시저장함</a>
+            </form>
         </div>
         
         <button class="dropdown-btn"><i class="fas fa-users"></i> 인사관리 

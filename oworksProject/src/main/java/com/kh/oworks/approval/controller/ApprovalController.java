@@ -5,8 +5,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,7 @@ import com.kh.oworks.approval.model.vo.Approval;
 import com.kh.oworks.approval.model.vo.ApprovalComment;
 import com.kh.oworks.approval.model.vo.ApprovalLine;
 import com.kh.oworks.approval.model.vo.FilePath;
+import com.kh.oworks.board.model.vo.Notice;
 import com.kh.oworks.common.model.vo.PageInfo;
 import com.kh.oworks.common.template.Pagination;
 import com.kh.oworks.employee.model.vo.Employee;
@@ -35,23 +39,26 @@ public class ApprovalController {
 	private ApprovalService appService;
 	
 	/*전자결제 메인 조회*/
-	
 	@RequestMapping("list.ap")
 	public String selectApprovalList(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Approval a, ApprovalLine al, HttpSession session, Model model) {
 		
 		int listCount = appService.selectListCount(a);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 15);
 		
+		//대기문서
+		ArrayList<Approval> waitList = appService.selectWaitList(pi, a);
+		
+		//진행문서
 		ArrayList<Approval> list = appService.selectList(pi, a);
 		
-		//System.out.println(list);
+		//완료문서
+		ArrayList<Approval> finishList = appService.selectFinishList(pi, a);
 		
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
 		
 		return "approval/approvalMain";
 	}
-	
 	
 	
 	/*전자결재 상세보기*/
@@ -111,25 +118,6 @@ public class ApprovalController {
 	@RequestMapping("insert.ap")
 	public String insertApproval(HttpServletRequest request, Approval a, ApprovalLine al, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
 		
-		//ArrayList<ApprovalLine> llist = new ArrayList<ApprovalLine>();
-		//ArrayList lineList = new ArrayList();
-		//lineList.add(a.getLineList());
-		//System.out.println(lineList);
-		
-		// System.out.println(Line);
-		
-		// 결재선 이것저것
-		// List<ApprovalLine> list = new ArrayList<ApprovalLine>();
-		// Map<String, Object> map = new HashMap<String, Object>();
-		//map.put("list", list);
-		/*
-		HashMap Line = new HashMap();
-		Line.put("empNo", list);
-		Line.put("apporder", 0);
-		Line.put("refer", "결재");
-		Line.put("appstatus", "대기");
-		*/
-		
 		ArrayList<ApprovalLine> apLineList = al.getLineList();
 		//System.out.println(apLineList);
 		
@@ -149,6 +137,9 @@ public class ApprovalController {
 		int result2= appService.insertFilePath(fp);
 		// 결재선
 		int apLineResult = appService.insertAddLine(apLineList);
+		// 참조
+		//int referLine = appService.insertReferLine(apLineList);
+		
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "기안등록이 완료되었습니다");
@@ -158,32 +149,6 @@ public class ApprovalController {
 			return "common/errorPage";
 		}
 	}
-	
-
-	
-	/*전달받은 첨부파일 수정명 작업해서 서버에 업로드 시킨 후 해당 수정된 파일명을 반환하는 메소드*/
-	public String saveFile(HttpSession session, MultipartFile upfile) {
-		
-		String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
-		
-		String originName = upfile.getOriginalFilename();
-		
-		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-		int ranNum =(int)(Math.random()*900000+10000);
-		String ext = originName.substring(originName.lastIndexOf("."));
-		
-		String changeName = currentTime + ranNum + ext;
-		
-		try {
-			upfile.transferTo(new File(savePath + changeName));
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-		}
-		
-		return changeName;
-	}
-	
-
 	
 	/*결재선 부서원 조회*/
 	@ResponseBody
@@ -217,5 +182,115 @@ public class ApprovalController {
 		}
 	}
 	
-
+	/*임시저장*/
+	@RequestMapping("save.ap")
+	public String saveApproval(HttpServletRequest request, Approval a, ApprovalLine al, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
+		
+		ArrayList<ApprovalLine> apLineList = al.getLineList();
+		//System.out.println(apLineList);
+		
+		// 첨부파일
+		if(!upfile.getOriginalFilename().equals("")) { // 첨부파일이 존재하는 경우
+			
+			String changeName = saveFile(session, upfile);
+			
+			fp.setOrgFileName(upfile.getOriginalFilename());
+			fp.setMdfFileName("resources/uploadFiles/" + changeName);
+			fp.setFilePath("resources/uploadFiles/");
+		}
+		
+		// 기안서
+		int result = appService.insertApprovalSave(a);
+		// 첨부파일
+		int result2= appService.insertFilePath(fp);
+		// 결재선
+		int apLineResult = appService.insertAddLineSave(apLineList);
+		// 참조
+		//int referLine = appService.insertReferLine(apLineList);
+		
+		
+		if(result>0) {
+			session.setAttribute("alertMsg", "기안등록이 완료되었습니다");
+			return "redirect:list.ap";
+		}else {
+			model.addAttribute("errorMsg", "기안등록실패");
+			return "common/errorPage";
+		}
+	}
+	
+	/*임시저장 페이지로 이동*/
+	@RequestMapping("saveList.ap")
+	public String selectSaveList(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Approval a, ApprovalLine al, HttpSession session, Model model) {
+		
+		int listCount = appService.selectSaveListCount(a);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 15);
+		
+		ArrayList<Approval> saveList = appService.selectSaveList(pi, a);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("saveList", saveList);
+		
+		return "approval/approvalSave";
+	}
+	
+	
+	// 임시저장 검색하기
+	
+	@RequestMapping("search.ap")
+	public String searchApproval(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+		
+		String condition = request.getParameter("condition");
+		String keyword = request.getParameter("keyword");
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		
+		// 검색 조건에 만족하는 게시글 총 개수
+		int searchCount = appService.selectSearchListCount(map);
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
+		PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 10);
+		ArrayList<Approval> saveList = appService.selectSearchList(map, pi);
+		
+		request.setAttribute("pi", pi);
+		request.setAttribute("saveList", saveList);
+		request.setAttribute("condition", condition);
+		request.setAttribute("keyword", keyword);
+		
+		return "approval/approvalSave";
+		
+		
+	}
+	
+	/*전달받은 첨부파일 수정명 작업해서 서버에 업로드 시킨 후 해당 수정된 파일명을 반환하는 메소드*/
+	public String saveFile(HttpSession session, MultipartFile upfile) {
+		
+		String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
+		
+		String originName = upfile.getOriginalFilename();
+		
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		int ranNum =(int)(Math.random()*900000+10000);
+		String ext = originName.substring(originName.lastIndexOf("."));
+		
+		String changeName = currentTime + ranNum + ext;
+		
+		try {
+			upfile.transferTo(new File(savePath + changeName));
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		return changeName;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

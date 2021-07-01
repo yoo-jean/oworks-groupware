@@ -1,6 +1,7 @@
 package com.kh.oworks.approval.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.oworks.approval.model.vo.Approval;
 import com.kh.oworks.approval.model.vo.ApprovalComment;
@@ -16,8 +17,15 @@ public interface ApprovalService {
 	//전자결재 리스트 조회 (페이징 처리)
 	int selectListCount(Approval a);
 	
+	//전자결재 메인 대기리스트 조회
+	ArrayList<Approval> selectWaitList(PageInfo pi, Approval a);
+	
+	//전자결재 메인 진행리스트 조회 
 	ArrayList<Approval> selectList(PageInfo pi, Approval a);
 	//ArrayList<Approval> selectList();
+	
+	//전자결재 메인 완료리스트 조회
+	ArrayList<Approval> selectFinishList(PageInfo pi, Approval a);
 	
 	//전자결재 상세보기
 	int increaseCount(String appNo);
@@ -41,8 +49,21 @@ public interface ApprovalService {
 	//기안서 결재선
 	int insertAddLine(ArrayList<ApprovalLine> apLineList);
 	
-	// 기안서 임시저장
-	int saveApproval(Approval a);
+	//기안서 임시저장
+	int insertApprovalSave(Approval a);
+	
+	//기안서 결재선 임시저장
+	int insertAddLineSave(ArrayList<ApprovalLine> apLineList);
+	
+	//임시저장 리스트 조회 (페이징 처리)
+	int selectSaveListCount(Approval a);
+	
+	//임시저장 페이지로 이동
+	ArrayList<Approval> selectSaveList(PageInfo pi, Approval a);
+	
+	//임시저장 검색
+	int selectSearchListCount(HashMap<String, String> map);
+	ArrayList<Approval> selectSearchList(HashMap<String, String> map, PageInfo pi);
 	
 	//결재선 내 부서원 조회
 	ArrayList<Employee> selectDepartmentList();
@@ -51,5 +72,6 @@ public interface ApprovalService {
 	int updateApproval(ApprovalLine al);
 	
 	int updateApprovalStatus(Approval a);
-
+	
+	
 }

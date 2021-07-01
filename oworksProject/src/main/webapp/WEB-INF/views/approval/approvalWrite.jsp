@@ -36,21 +36,29 @@
 	        <div class="left_area">
       		    <button type="submit" class="btn btn-dark btn-sm" onclick="addApprovalLine();">기안</button>
 	            <a type="button" class="btn btn-dark btn-sm" href="" data-toggle="modal" data-target="#myModal">결재선</a>
-	            <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#comment">의견</button>
-	            <a type="button" class="btn btn-dark btn-sm" href="save.ap">임시저장</a>
+	            <button type="submit" class="btn btn-dark btn-sm" onclick="approvalSave();">임시저장</button>
 	            <button type="button" class="btn btn-dark btn-sm">인쇄</button>
 	        </div>
+  			
   			
   			<!-- 기안하기 버튼 클릭시 문서양식 name값 저장되는 스크립트 -->
   			<script>
 	  			function addApprovalLine(){
 	  				
-	  				// form에 input type hidden으로 사원번호, 상태 값 넘기기
+	  				//form에 input type hidden으로 사원번호, 상태, 결재||참조 값 넘기기
 	            	var form = $("form[name='approvalWrite']");
 	            	var i;
        				for(i=0; i<addEmpNo.length; i++){
+       					//사원번호
        					form.append($('<input/>', {type:'hidden', name: 'lineList[' + i + '].empNo', value:addEmpNo[i]}));
-   						
+       					
+       					//걀재 || 참조 상태
+       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + i + '].refer', value:'결재'}));
+       					
+       					//$("#referTable> tbody > tr:nth-child(1)> td:nth-child(2)").text(refer[0]);
+       					
+       					
+       					//상태
        					if(i==0){
        						form.append($('<input/>', {type:'hidden', name:'lineList[0].status', value:'진행'}));
        					}else{
@@ -58,8 +66,10 @@
        					}
        				}
        				
-	  				
-	  				// 지출결의서
+       				//저장여부
+	  				form.append($('<input/>', {type:'hidden', name: 'appStorage', value:'N'}));
+       				
+	  				//지출결의서
 	  				if(category == "품의서"){
 	  					$("#formTitle").val($("#formTitle").val()) ;
 		  				$("#formTitle").val($("#formTitle").val());
@@ -72,7 +82,48 @@
 	  				}
 	  				
 	  			}
+	  			
+	  			
+	  			<!-- 임시저장하는 스크립트 -->
+	  			function approvalSave(){
+	  			//form에 input type hidden으로 사원번호, 상태, 결재||참조 값 넘기기
+	            	var form = $("form[name='approvalWrite']");
+	            	var i;
+       				for(i=0; i<addEmpNo.length; i++){
+       					//사원번호
+       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + i + '].empNo', value:addEmpNo[i]}));
+       					
+       					//걀재 || 참조 상태
+       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + i + '].refer', value:'결재'}));
+       					
+       					//$("#referTable> tbody > tr:nth-child(1)> td:nth-child(2)").text(refer[0]);
+       					
+       					
+       					//상태
+       					if(i==0){
+       						form.append($('<input/>', {type:'hidden', name:'lineList[0].status', value:'진행'}));
+       					}else{
+       						form.append($('<input/>', {type:'hidden', name:'lineList[' + i + '].status', value:'대기'}));
+       					}
+       				}
+       				
+       				//저장여부
+       				form.append($('<input/>', {type:'hidden', name: 'appStorage', value:'Y'}));
+       				
+	  				// 지출결의서
+	  				if(category == "품의서"){
+	  					$("#formTitle").val($("#formTitle").val()) ;
+		  				$("#formTitle").val($("#formTitle").val());
+	  				}else if(category == "지출결의서"){
+		  				$("#formTitle").val($("#accountTitle").val()) ;
+		  				$("#formContent").val($("#accountContent").val());
+	  				}else{
+		  				$("#formTitle").val($("#certiTitle").val()) ;
+		  				$("#formContent").val($("#certiContent").val());
+	  				}
+	  			}
   			</script>
+  			
   			
   			
           	<!-- 결재선 버튼 클릭 시 나오는 모달 -->
@@ -112,7 +163,7 @@
 		                  	<!-- Modal footer -->
 		                  	<div class="modal-footer" style="margin: auto;">
 		                    	<button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
-		                    	<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+		                    	<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick = "test();">취소</button>
 		                  	</div>
                 		</div>
               		</div>
@@ -120,7 +171,7 @@
           	</div>
 		</div>
        	<br><br>
-          
+        
       	<!--기안 설정-->
       	<div class="container">
         	<div class="approvalsetting">

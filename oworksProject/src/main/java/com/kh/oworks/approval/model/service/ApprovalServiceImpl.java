@@ -1,6 +1,7 @@
 package com.kh.oworks.approval.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,13 +33,27 @@ public class ApprovalServiceImpl implements ApprovalService{
 		//System.out.println(a);
 		return appDao.selectListCount(sqlSession, a);
 	}
-
+	
+	// 전자결재 메인 대기
+	@Override
+	public ArrayList<Approval> selectWaitList(PageInfo pi, Approval a) {
+		//System.out.println(a);
+		return appDao.selectList(sqlSession, pi, a);
+	}
+	
+	// 전자결재 메인 진행
 	@Override
 	public ArrayList<Approval> selectList(PageInfo pi, Approval a) {
 		//System.out.println(a);
 		return appDao.selectList(sqlSession, pi, a);
 	}	
 		
+	// 전자결재 메인 완료
+	@Override
+	public ArrayList<Approval> selectFinishList(PageInfo pi, Approval a) {
+		//System.out.println(a);
+		return appDao.selectFinishList(sqlSession, pi, a);
+	}
 	
 	// 전자결제 상세보기
 	@Override
@@ -95,11 +110,48 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.insertAddLine(sqlSession, apLineList);
 	}
 	
+	
+	
 	// 기안서 임시저장
 	@Override
-	public int saveApproval(Approval a) {
-		return appDao.insertApproval(sqlSession, a);
+	public int insertApprovalSave(Approval a) {
+		return appDao.insertApprovalSave(sqlSession, a);
 	}
+	
+	// 임시저장 count
+	@Override
+	public int selectSaveListCount(Approval a) {
+		return appDao.selectSaveListCount(sqlSession, a);
+	}
+	
+	// 임시저장 페이지로 이동
+	@Override
+	public ArrayList<Approval> selectSaveList(PageInfo pi, Approval a) {
+		return appDao.selectSaveList(sqlSession, pi, a);
+	}
+	
+	// 임시저장 검색
+	
+	@Override
+	public int selectSearchListCount(HashMap<String, String> map) {
+		return appDao.selectSearchListCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Approval> selectSearchList(HashMap<String, String> map, PageInfo pi) {
+		return appDao.selectSearchList(sqlSession, map, pi);
+	}
+	
+	
+	
+	
+	
+	// 기안서 결재선 임시저장
+	@Override
+	public int insertAddLineSave(ArrayList<ApprovalLine> apLineList) {
+		return appDao.insertAddLineSave(sqlSession, apLineList);
+	}
+	
 	
 	// 결재선 부서원 조회
 	@Override
@@ -118,6 +170,9 @@ public class ApprovalServiceImpl implements ApprovalService{
 	public int updateApprovalStatus(Approval a) {
 		return appDao.updateApprovalStatus(sqlSession, a);
 	}
+
+
+
 
 
 }
