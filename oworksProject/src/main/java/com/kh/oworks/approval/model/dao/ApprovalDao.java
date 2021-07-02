@@ -19,39 +19,41 @@ import com.sun.xml.internal.ws.api.message.Attachment;
 public class ApprovalDao {
 
 	// 전자결제 메인 조회
-	public int selectListCount(SqlSessionTemplate sqlSession, Approval a){
-		//System.out.println(a);
-		return sqlSession.selectOne("approvalMapper.selectListCount");
+	public int selectListCount(SqlSessionTemplate sqlSession, ApprovalLine al){
+		//System.out.println(al);
+		return sqlSession.selectOne("approvalMapper.selectListCount", al);
 	}
 	
+	
 	// 전자결재 메인 대기문서 조회
-	public ArrayList<Approval> selecWaitList(SqlSessionTemplate sqlSession, PageInfo pi, Approval a){
+	public ArrayList<ApprovalLine> selectWaitList(SqlSessionTemplate sqlSession, PageInfo pi, ApprovalLine al){
 		
-		//System.out.println(a);
+		//System.out.println(al);
 		
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("approvalMapper.selectWaitList", a, rowBounds);
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectWaitList", al, rowBounds);
 	}
 	
 	// 전자결재 메인 진행문서 조회
-	public ArrayList<Approval> selectList(SqlSessionTemplate sqlSession, PageInfo pi, Approval a){
+	public ArrayList<ApprovalLine> selectList(SqlSessionTemplate sqlSession, PageInfo pi, ApprovalLine al){
 		
 		//System.out.println(a);
+		System.out.println(al.getStatus());
 		
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("approvalMapper.selectList", a, rowBounds);
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectList", al, rowBounds);
 	}
 	
 	// 전자결재 메인 완료문서 조회
-	public ArrayList<Approval> selectFinishList(SqlSessionTemplate sqlSession, PageInfo pi, Approval a){
+	public ArrayList<ApprovalLine> selectFinishList(SqlSessionTemplate sqlSession, PageInfo pi, ApprovalLine al){
 		
 		//System.out.println(a);
 		
@@ -60,7 +62,7 @@ public class ApprovalDao {
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("approvalMapper.selectFinishList", a, rowBounds);
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectFinishList", al, rowBounds);
 	}
 	
 	// 전자결재 상세보기
@@ -170,4 +172,14 @@ public class ApprovalDao {
 	public int updateApprovalStatus(SqlSessionTemplate sqlSession, Approval a) {
 		return sqlSession.update("approvalMapper.updateApprovalStatus", a);
 	}
+	
+	
+	// test
+	public int selectProgressListCount(SqlSessionTemplate sqlSession, ApprovalLine al){
+		//System.out.println(al);
+		return sqlSession.selectOne("approvalMapper.selectProgressListCount");
+	}
+	
+	
+	
 }

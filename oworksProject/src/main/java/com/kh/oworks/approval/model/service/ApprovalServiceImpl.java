@@ -2,8 +2,6 @@ package com.kh.oworks.approval.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,30 +27,30 @@ public class ApprovalServiceImpl implements ApprovalService{
 	
 	// 전자결제 메인 조회
 	@Override
-	public int selectListCount(Approval a) {
+	public int selectListCount(ApprovalLine al) {
 		//System.out.println(a);
-		return appDao.selectListCount(sqlSession, a);
+		return appDao.selectListCount(sqlSession, al);
 	}
 	
 	// 전자결재 메인 대기
 	@Override
-	public ArrayList<Approval> selectWaitList(PageInfo pi, Approval a) {
+	public ArrayList<ApprovalLine> selectWaitList(PageInfo pi, ApprovalLine al) {
 		//System.out.println(a);
-		return appDao.selectList(sqlSession, pi, a);
+		return appDao.selectWaitList(sqlSession, pi, al);
 	}
 	
 	// 전자결재 메인 진행
 	@Override
-	public ArrayList<Approval> selectList(PageInfo pi, Approval a) {
+	public ArrayList<ApprovalLine> selectList(PageInfo pi, ApprovalLine al) {
 		//System.out.println(a);
-		return appDao.selectList(sqlSession, pi, a);
+		return appDao.selectList(sqlSession, pi, al);
 	}	
 		
 	// 전자결재 메인 완료
 	@Override
-	public ArrayList<Approval> selectFinishList(PageInfo pi, Approval a) {
+	public ArrayList<ApprovalLine> selectFinishList(PageInfo pi, ApprovalLine al) {
 		//System.out.println(a);
-		return appDao.selectFinishList(sqlSession, pi, a);
+		return appDao.selectFinishList(sqlSession, pi, al);
 	}
 	
 	// 전자결제 상세보기
@@ -143,9 +141,6 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 	
 	
-	
-	
-	
 	// 기안서 결재선 임시저장
 	@Override
 	public int insertAddLineSave(ArrayList<ApprovalLine> apLineList) {
@@ -170,9 +165,6 @@ public class ApprovalServiceImpl implements ApprovalService{
 	public int updateApprovalStatus(Approval a) {
 		return appDao.updateApprovalStatus(sqlSession, a);
 	}
-
-
-
-
-
+	
+	
 }

@@ -24,6 +24,10 @@ public class ApprovalLine {
 	private String appDate;		// 결재일
 	private String status; 		// 결재상태 대기|진행|반려|완료
 	
+	private String appTitle;
+	private String writeDate;
+	private String empName;
+	
 	private ArrayList<ApprovalLine> lineList;
 	
 	private int approvalEmpNo;

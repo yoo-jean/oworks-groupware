@@ -42,20 +42,26 @@ public class ApprovalController {
 	@RequestMapping("list.ap")
 	public String selectApprovalList(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Approval a, ApprovalLine al, HttpSession session, Model model) {
 		
-		int listCount = appService.selectListCount(a);
+		int listCount = appService.selectListCount(al);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 15);
+		System.out.println(pi);
 		
 		//대기문서
-		ArrayList<Approval> waitList = appService.selectWaitList(pi, a);
+		ArrayList<ApprovalLine> waitList = appService.selectWaitList(pi, al);
+		//System.out.println(waitList);
 		
 		//진행문서
-		ArrayList<Approval> list = appService.selectList(pi, a);
+		ArrayList<ApprovalLine> list = appService.selectList(pi, al);
+		//System.out.println(list);
 		
 		//완료문서
-		ArrayList<Approval> finishList = appService.selectFinishList(pi, a);
+		ArrayList<ApprovalLine> finishList = appService.selectFinishList(pi, al);
+		//System.out.println(finishList);
 		
 		model.addAttribute("pi", pi);
+		model.addAttribute("waitList", waitList);
 		model.addAttribute("list", list);
+		model.addAttribute("finishList", finishList);
 		
 		return "approval/approvalMain";
 	}
@@ -286,11 +292,58 @@ public class ApprovalController {
 	}
 	
 	
+	/*대기페이지로 이동*/
+	@RequestMapping("wait.ap")
+	public String waitApproval(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Approval a, ApprovalLine al, HttpSession session, Model model) {
+		
+		int listCount = appService.selectListCount(al);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		//대기문서
+		ArrayList<ApprovalLine> waitList = appService.selectWaitList(pi, al);
+		//System.out.println(waitList);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("waitList", waitList);
+		
+		return "approval/approvalWait";
+	}
 	
+	/*진행페이지로 이동*/
+	@RequestMapping(value="progress.ap")
+	public String selectList(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Approval a, ApprovalLine al, HttpSession session, Model model) {	
+		
+		int listCount = appService.selectListCount(al);
+		System.out.println(listCount);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		System.out.println(pi);
+		//진행문서
+		ArrayList<ApprovalLine> list = appService.selectList(pi, al);
+		//System.out.println(list);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		
+		return "approval/approvalProgress";
+		
+	}
 	
-	
-	
-	
+	/*완료페이지로 이동*/
+	@RequestMapping("complete.ap")
+	public String selectFinishList(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Approval a, ApprovalLine al, HttpSession session, Model model) {
+		
+		int listCount = appService.selectListCount(al);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		//완료문서
+		ArrayList<ApprovalLine> finishList = appService.selectFinishList(pi, al);
+		//System.out.println(finishList);
+		model.addAttribute("pi", pi);
+		model.addAttribute("finishList", finishList);
+		
+		return "approval/approvalComplete";
+	}
 	
 	
 }

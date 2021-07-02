@@ -165,10 +165,39 @@
         </button>
         <div class="dropdown-container">
             <a href="enrollForm.ap">기안하기</a>
-            <form action = "list.ap" method = "post" id="approval">
-            	<input type="hidden" name="empNo" value="${loginEmp.empNo }">
-            	<a onclick="document.getElementById('approval').submit();">결재함</a>
-            </form>
+            <button class="dropdown-btn" type="submit">결재함
+            	<i class="fa fa-angle-down"></i>
+            </button>
+            <div class="dropdown-container">
+            	<form action = "list.ap" method = "post" id="approval">
+            		<input type="hidden" name="empNo" value="${loginEmp.empNo }">
+            		<input type="hidden" name="empName" value="${loginEmp.empName }">
+            		 	<a onclick="document.getElementById('approval').submit();" class="dropdown-btn">전체</a>
+            	</form>
+            	
+            	<form action = "wait.ap" method = "post" id="approvalWait">
+            		<input type="hidden" name="empNo" value="${loginEmp.empNo }">
+            		<input type="hidden" name="empName" value="${loginEmp.empName }">
+            		<input type="hidden" name="status" value = "대기">
+            			<a onclick="document.getElementById('approvalWait').submit();" class="dropdown-btn">대기</a>
+            	</form>
+            	
+            	<form action="progress.ap" method ="post" id="approvalProgress">
+            		<input type="hidden" name="empNo" value="${loginEmp.empNo }">
+            		<input type="hidden" name="empName" value="${loginEmp.empName }">
+            		<input type="hidden" name="status" value = "진행">
+	            	<a onclick="document.getElementById('approvalProgress').submit();" class="dropdown-btn">진행</a>
+            	</form>
+ 				
+ 				<form action="complete.ap" method ="post" id="approvalComplete">
+            		<input type="hidden" name="empNo" value="${loginEmp.empNo }">
+            		<input type="hidden" name="empName" value="${loginEmp.empName }">
+            		<input type="hidden" name="status" value = "완료">
+	            	<a onclick="document.getElementById('approvalComplete').submit();" class="dropdown-btn">완료</a>
+            	</form>
+            	         	
+            </div>
+            
             <form action = "saveList.ap" method = "post" id="approvalSave">
             	<input type="hidden" name="empNo" value="${loginEmp.empNo }">
             	<a onclick="document.getElementById('approvalSave').submit();">임시저장함</a>

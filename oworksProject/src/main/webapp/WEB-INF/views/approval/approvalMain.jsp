@@ -65,27 +65,21 @@
                 </thead>
                 <tbody>
                 	<c:choose>
-                		<c:when test = "${fn:length(list) eq 0}">
-                			<c:forEach var = "a" items="${list }">
-                			<c:if test = "${a.statue != '대기' }">
+                		<c:when test = "${fn:length(waitList) eq 0}">
         			    	<tr>
                         		<td colspan = "7" align="center"> 결재할 문서가 없습니다.</td>
                     		</tr>
-                    		</c:if>
-                    		</c:forEach>
                 		</c:when>
                 		
                 		<c:otherwise>
-                			<c:forEach var ="a" items="${list }">
-                				<c:if test="${a.status == '대기' }">
-				                    <tr>
-				                        <td class = "ano">${a.appNo }</td>
-				                        <td>${a.appTitle }</td>
-				                        <td>${a.empName }</td>
-				                        <td>${a.writeDate }</td>
-				                        <td>${a.status}</td>
-				                    </tr>
-				                </c:if>
+                			<c:forEach var ="a" items="${waitList }">
+			                    <tr>
+			                        <td class = "ano">${a.appNo }</td>
+			                        <td>${a.appTitle }</td>
+			                        <td>${a.empName }</td>
+			                        <td>${a.writeDate }</td>
+			                        <td>${a.status}</td>
+			                    </tr>
                     		</c:forEach>
                 		</c:otherwise>
                 	</c:choose>
@@ -116,15 +110,13 @@
                 		
                 		<c:otherwise>
                 			<c:forEach var ="a" items="${list }">
-                				<c:if test="${a.status == '진행' }">
-				                    <tr>
-				                        <td class = "ano">${a.appNo }</td>
-				                        <td>${a.appTitle }</td>
-				                        <td>${a.empName }</td>
-				                        <td>${a.appDate }</td>
-				                        <td>${a.status}</td>
-				                    </tr>
-				                </c:if>
+			                    <tr>
+			                        <td class = "ano">${a.appNo }</td>
+			                        <td>${a.appTitle }</td>
+			                        <td>${a.empName }</td>
+			                        <td>${a.appDate }</td>
+			                        <td>${a.status}</td>
+			                    </tr>
                     		</c:forEach>
                 		</c:otherwise>
                 	</c:choose>
@@ -148,23 +140,21 @@
                 </thead>
                 <tbody>
                 	<c:choose>
-                		<c:when test = "${fn:length(list) eq 0}">
+                		<c:when test = "${fn:length(finishList) eq 0}">
         			    	<tr>
                         		<td colspan = "6" align="center"> 결재할 문서가 없습니다.</td>
                     		</tr>
                 		</c:when>
                 		
                 		<c:otherwise>
-                			<c:forEach var ="a" items="${list }">
-                				<c:if test="${a.status == '완료' }">
-				                    <tr>
-				                        <td class = "ano">${a.appNo }</td>
-				                        <td>${a.appTitle }</td>
-				                        <td>${a.empName }</td>
-				                        <td>${a.appDate }</td>
-				                        <td>${a.status}</td>
-				                    </tr>
-				                </c:if>
+                			<c:forEach var ="a" items="${finishList }">
+			                    <tr>
+			                        <td class = "ano">${a.appNo }</td>
+			                        <td>${a.appTitle }</td>
+			                        <td>${a.empName }</td>
+			                        <td>${a.appDate }</td>
+			                        <td>${a.status}</td>
+			                    </tr>
                     		</c:forEach>
                 		</c:otherwise>
                 	</c:choose>

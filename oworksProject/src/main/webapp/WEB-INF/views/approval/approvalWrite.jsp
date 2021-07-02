@@ -30,7 +30,6 @@
       <div class = approvalInner>
       	
         <form id = "approvalWrite" name = "approvalWrite" method = "post" action="insert.ap" enctype="multipart/form-data">
-	        <input type="hidden" name="formNo" value="1">
 	        <input type="hidden" name="empNo" value="${loginEmp.empNo }">
 			
 	        <div class="left_area">
@@ -69,16 +68,22 @@
        				//저장여부
 	  				form.append($('<input/>', {type:'hidden', name: 'appStorage', value:'N'}));
        				
-	  				//지출결의서
+       				
+	  				//문서양식
 	  				if(category == "품의서"){
 	  					$("#formTitle").val($("#formTitle").val()) ;
 		  				$("#formTitle").val($("#formTitle").val());
+		  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:1}));
 	  				}else if(category == "지출결의서"){
 		  				$("#formTitle").val($("#accountTitle").val()) ;
 		  				$("#formContent").val($("#accountContent").val());
-	  				}else{
+		  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:2}));
+	  				}else if(category == "증명서"){
 		  				$("#formTitle").val($("#certiTitle").val()) ;
 		  				$("#formContent").val($("#certiContent").val());
+		  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:3}));
+	  				}else{
+	  					form.append($('<input/>', {type:'hidden', name: 'formNo', value:0}));
 	  				}
 	  				
 	  			}
@@ -110,7 +115,7 @@
        				//저장여부
        				form.append($('<input/>', {type:'hidden', name: 'appStorage', value:'Y'}));
        				
-	  				// 지출결의서
+	  				// 문서양식
 	  				if(category == "품의서"){
 	  					$("#formTitle").val($("#formTitle").val()) ;
 		  				$("#formTitle").val($("#formTitle").val());

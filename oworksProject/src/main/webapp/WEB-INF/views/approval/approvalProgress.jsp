@@ -55,7 +55,6 @@
 				<!-- 검색영역 -->
                 <form id="searchForm" action="search.ap" align="center">
                 	<input type="hidden" name="currentPage" value="1">
-                	<input type="hidden" name="empNo" value="${loginEmp.empNo }">
 		                <div align="right" class="select">
 		                    <select name="condition" class="custom-select mb-3">
 		                        <option value="title">제목</option>
@@ -97,21 +96,21 @@
                     </thead>
                     <tbody>
                     	<c:choose>
-                    		<c:when test = "${fn:length(saveList) eq 0 }" >
+                    		<c:when test = "${fn:length(list) eq 0 }" >
                     			<tr>
-                    				<td colspan = "7" align="center"> 임시저장 문서가 없습니다.</td>
+                    				<td colspan = "7" align="center"> 진행중인 문서가 없습니다.</td>
                     			</tr>
                     		</c:when>
                     		
                     		<c:otherwise>
-                    			<c:forEach var ="a" items="${saveList }">
+                    			<c:forEach var ="a" items="${list }">
 			                        <tr>
 			                            <td><input type="checkbox"></td>
 			                            <td class = "ano">${a.appNo }</td>
 			                            <td>${a.appTitle }</td>
 			                            <td>${a.empName }</td>
 			                            <td>${a.writeDate }</td>
-			                            <td>임시저장</td>
+			                            <td>진행</td>
 			                        </tr>
 		                        </c:forEach>
                         	</c:otherwise>
@@ -139,12 +138,12 @@
 	                    		<li class="page-item disabled"><a class="page-link" href="#"><</a></li>
 	                    	</c:when>
 	                    	<c:otherwise>
-	                    		<li class="page-item"><a class="page-link" href="saveList.ap?currentPage=${pi.currentPage-1 }&empNo=${loginEmp.empNo}"><</a></li>
+	                    		<li class="page-item"><a class="page-link" href="progress.ap?currentPage=${pi.currentPage-1 }&empNo=${loginEmp.empNo}&empName=${loginEmp.empName}&status=진행"><</a></li>
 	                    	</c:otherwise>
 	                    </c:choose>
 	                    
 	                    <c:forEach var = "p" begin = "${pi.startPage }" end = "${pi.endPage }">
-	                    	<li class="page-item"><a class="page-link" href="saveList.ap?currentPage=${p }&empNo=${loginEmp.empNo}">${p }</a></li>
+	                    	<li class="page-item"><a class="page-link" href="progress.ap?currentPage=${p }&empNo=${loginEmp.empNo}&empName=${loginEmp.empName}&status=진행">${p }</a></li>
 	                    </c:forEach>
 	                    
 	                    <c:choose>
@@ -152,7 +151,7 @@
 	                    		<li class="page-item"><a class="page-link" href="#">></a></li>
 	                    	</c:when>
 	                    	<c:otherwise>
-	                    		<li class="page-item"><a class="page-link" href="saveList.ap?currentPage=${pi.currentPage+1 }&empNo=${loginEmp.empNo}">></a></li>
+	                    		<li class="page-item"><a class="page-link" href="progress.ap?currentPage=${pi.currentPage+1 }&empNo=${loginEmp.empNo}&empName=${loginEmp.empName}&status=진행">></a></li>
 	                    	</c:otherwise>
 	                    </c:choose>
 	                </ul>

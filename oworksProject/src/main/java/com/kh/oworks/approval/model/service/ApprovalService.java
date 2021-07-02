@@ -15,17 +15,18 @@ public interface ApprovalService {
 	
 	
 	//전자결재 리스트 조회 (페이징 처리)
-	int selectListCount(Approval a);
+	int selectListCount(ApprovalLine al);
 	
 	//전자결재 메인 대기리스트 조회
-	ArrayList<Approval> selectWaitList(PageInfo pi, Approval a);
+	ArrayList<ApprovalLine> selectWaitList(PageInfo pi, ApprovalLine al);
 	
 	//전자결재 메인 진행리스트 조회 
-	ArrayList<Approval> selectList(PageInfo pi, Approval a);
+	ArrayList<ApprovalLine> selectList(PageInfo pi, ApprovalLine al);
+	
 	//ArrayList<Approval> selectList();
 	
 	//전자결재 메인 완료리스트 조회
-	ArrayList<Approval> selectFinishList(PageInfo pi, Approval a);
+	ArrayList<ApprovalLine> selectFinishList(PageInfo pi, ApprovalLine al);
 	
 	//전자결재 상세보기
 	int increaseCount(String appNo);
@@ -74,4 +75,6 @@ public interface ApprovalService {
 	int updateApprovalStatus(Approval a);
 	
 	
+	// test
+	//int selectProgressListCount(ApprovalLine al);
 }
