@@ -31,7 +31,6 @@
 <style>
     /* 세부 페이지마다 공통적으로 유지할 style */
     div {
-        outline: 1px solid violet;
         box-sizing: border-box;
     }
     .wrap {
