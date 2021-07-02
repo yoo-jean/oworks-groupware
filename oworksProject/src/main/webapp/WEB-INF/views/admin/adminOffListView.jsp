@@ -102,87 +102,27 @@
                 <table class="off_list">
                     <tr>
                         <th>번호</th>
+                        <th>사번</th>
                         <th>소속</th>
                         <th>직위</th>
                         <th>사원명</th>
-                        <th>지각</th>
-                        <th>조퇴</th>
-                        <th>결근</th>
-                        <th>발생휴가</th>
-                        <th>사용휴가</th>
-                        <th>잔여휴가</th>
-                        <th>누적<br>근무시간(연)</th>
-                        <th>일 평균<br>근무시간</th>
+                        <th>발생연차</th>
+                        <th>사용연차</th>
+                        <th>잔여연차</th>
+                        <th>입사일</th>
+                        <th>근무연수</th>
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td>개발1팀</td>
+                        <td>123456</td>
+                        <td>개발부</td>
                         <td>과장</td>
                         <td>오상식</td>
-                        <td>0</td>
+                        <td>19</td>
                         <td>1</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>225시간</td>
-                        <td>9시간</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>개발1팀</td>
-                        <td>과장</td>
-                        <td>오상식</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>225시간</td>
-                        <td>9시간</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>개발1팀</td>
-                        <td>과장</td>
-                        <td>오상식</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>225시간</td>
-                        <td>9시간</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>개발1팀</td>
-                        <td>과장</td>
-                        <td>오상식</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>225시간</td>
-                        <td>9시간</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>개발1팀</td>
-                        <td>과장</td>
-                        <td>오상식</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>225시간</td>
-                        <td>9시간</td>
+                        <td>18</td>
+                        <td>2008-05-10</td>
+                        <td>13년</td>
                     </tr>
                 </table>
                 

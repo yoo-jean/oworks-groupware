@@ -79,6 +79,10 @@
     td {
         height: 35px;
     }
+    #pagingArea{
+    	width:fit-content;
+    	margin:auto;
+    }
 </style>
 </head>
 <body>
@@ -129,64 +133,51 @@
                         <th>근무시간</th>
                         <th>연장근무시간</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>2021-06-21(월)</td>
-                        <td>개발부</td>
-                        <td>1000244</td>
-                        <td>오상식</td>
-                        <td>8:55</td>
-                        <td>19:00</td>
-                        <td>9시간 5분</td>
-                        <td>1시간</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>2021-06-21(월)</td>
-                        <td>개발부</td>
-                        <td>1000244</td>
-                        <td>김땡땡</td>
-                        <td>8:55</td>
-                        <td>19:00</td>
-                        <td>9시간 5분</td>
-                        <td>1시간</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>2021-06-21(월)</td>
-                        <td>개발부</td>
-                        <td>1000244</td>
-                        <td>장그래</td>
-                        <td>8:55</td>
-                        <td>19:00</td>
-                        <td>9시간 5분</td>
-                        <td>1시간</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>2021-06-21(월)</td>
-                        <td>개발부</td>
-                        <td>1000244</td>
-                        <td>한석율</td>
-                        <td>8:55</td>
-                        <td>19:00</td>
-                        <td>9시간 5분</td>
-                        <td>1시간</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>2021-06-21(월)</td>
-                        <td>개발부</td>
-                        <td>1000244</td>
-                        <td>빈센조</td>
-                        <td>8:55</td>
-                        <td>19:00</td>
-                        <td>9시간 5분</td>
-                        <td>1시간</td>
-                    </tr>
+                    <c:forEach var="a" items="${ list }" varStatus="num">
+	                    <tr>
+	                        <td>${ num.count }</td>
+	                        <td>${ workDate }</td>
+	                        <td>${ deptName }</td>
+	                        <td>${ empNo }</td>
+	                        <td>${ empName }</td>
+	                        <td>${ startTime }</td>
+	                        <td>${ endTime }</td>
+	                        <td>${ workTime }</td>
+	                        <td>${ afterTime }</td>
+	                    </tr>
+	                </c:forEach>
+                    
                 </table>
-
-                <!--Paging바 들어갈 자리-->
+				
+				<br>
+				
+                <div id="pagingArea">
+                	<ul class="pagination">
+                		
+                		<c:choose>
+                			<c:when test="${ pi.currentPage eq 1}">
+	                			<li class="page-item disabled"><a class="page-link" href="#">&lt;</a></li>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<li class="page-item"><a class="page-link" href="adDailyList.at?currentPage=${ pi.currentPage-1 }">&lt;</a></li>
+                			</c:otherwise>
+                		</c:choose>
+                		                		
+                		<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                			<li class="page-item"><a class="page-link" href="adDailyList.at?currentPage=${ p }">${ p }</a></li>
+                		</c:forEach>
+                		
+                		<c:choose>
+                			<c:when test="${ pi.currentPage eq pi.maxPage}">
+	                			<li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
+	                		</c:when>
+	                		<c:otherwise>
+		                		<li class="page-item"><a class="page-link" href="adDailyList.at?currentPage=${ pi.currentPage+1 }">&gt;</a></li>
+	                		</c:otherwise>
+                		</c:choose>
+                		
+                	</ul>
+                </div>
 
             </div>
 
