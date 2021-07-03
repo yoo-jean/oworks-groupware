@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dataBoardMapper">
+
+	<resultMap id="dataBoardResultSet" type="DataBoard">
+		<id column="DB_NO" property="boardNo" />
+		<result column="DB_TITLE" property="boardTitle" />
+		<result column="DB_CONTENT" property="boardContent" />
+		<result column="DB_WRITER" property="boardWriter" />
+		<result column="EMP_NAME" property="writerName" />
+		<result column="COUNT" property="count" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="STATUS" property="status" />
+		<result column="ORIGIN_NAME" property="originName" />
+		<result column="CHANGE_NAME" property="changeName" />
+	</resultMap>
+
+	<!-- 자료실 게시글 총 갯수 조회 -->
+	<select id="selectListCount" resultType="_int">
+		select 
+			   count(*)
+		  from data_board
+		 where status = 'Y'
+	</select>
+	
+	<select id="selectDataBoardList" resultMap="dataBoardResultSet">
+		select
+			    db_no
+			  , db_title
+			  , b.emp_name
+			  , count
+			  , to_char(create_date, 'YYYY-MM-DD') create_date
+		   from data_board a
+           join employee b
+             on a.db_writer = b.emp_no
+		  where a.status = 'Y'
+		  order
+		     by create_date desc
+	</select>
+	
+	<select id="insertDataBoard" parameterType="DataBoard">
+		insert
+		  into data_board
+		  (
+		     DB_NO
+		   , DB_WRITER
+		   , DB_TITLE
+		   , DB_CONTENT
+		   , ORIGIN_NAME
+		   , CHANGE_NAME
+		  )
+		  values
+		  (
+		     seq_dbno.nextval
+		   , #{boardWriter}
+		   , #{boardTitle}
+		   , #{boardContent}
+		   , #{originName}
+		   , #{changeName}
+		  )
+		  
+	</select>
+
+</mapper>

@@ -34,7 +34,7 @@
         <table align="center" style="border:1px solid rgb(227, 227, 227);" class="table">
             <tr>
                 <th width="13%">제목</th>
-                <td height="30px" colspan="5"><input type="text" class="form-control" name="title" value="${}" placeholder="제목을 입력하세요." required></td>
+                <td height="30px" colspan="5"><input type="text" class="form-control" name="title" value="" placeholder="제목을 입력하세요." required></td>
             </tr>
             <tr>
                 <th>첨부파일</th>
@@ -43,7 +43,7 @@
             <tr>
                 <th>내용</th>
                 <td colspan="5" >
-                    <textarea name="noticeContent" id="content" rows="15" name="content" class="form-control" style="resize:none;" required>${}</textarea>
+                    <textarea name="noticeContent" id="content" rows="15" name="content" class="form-control" style="resize:none;" required></textarea>
                 </td>
             </tr>
         </table>

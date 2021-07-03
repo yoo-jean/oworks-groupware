@@ -275,12 +275,12 @@
                         
                         <!-- Modal body -->
                         <div class="modal-body">
-                          저장명  &nbsp; &nbsp; &nbsp;<input type="text" name="name" value="${}" placeholder="김예시" maxlength="6"><br><br>
-                          이메일  &nbsp; &nbsp; &nbsp;<input type="email" name="email" value="${}" placeholder="123@a.com" maxlength="33"><br><br>
-                          휴대전화 &nbsp; <input type="text" name="phone" value="${}" placeholder="010-1111-2222" maxlength="13"><br><br>
-                          회사소속 &nbsp; <input type="text" name="company" value="${}" placeholder="오스워크" maxlength="16"><br><br>
-                          부서  &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" name="dept" value="${}" placeholder="개발팀" maxlength="16"><br><br>
-                          직급  &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" name="job" value="${}" placeholder="대리" maxlength="16"><br><br>
+                          저장명  &nbsp; &nbsp; &nbsp;<input type="text" name="name" value="${1}" placeholder="김예시" maxlength="6"><br><br>
+                          이메일  &nbsp; &nbsp; &nbsp;<input type="email" name="email" value="${1}" placeholder="123@a.com" maxlength="33"><br><br>
+                          휴대전화 &nbsp; <input type="text" name="phone" value="${1}" placeholder="010-1111-2222" maxlength="13"><br><br>
+                          회사소속 &nbsp; <input type="text" name="company" value="${1}" placeholder="오스워크" maxlength="16"><br><br>
+                          부서  &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" name="dept" value="${1}" placeholder="개발팀" maxlength="16"><br><br>
+                          직급  &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" name="job" value="${1}" placeholder="대리" maxlength="16"><br><br>
 
                         </div>
                         

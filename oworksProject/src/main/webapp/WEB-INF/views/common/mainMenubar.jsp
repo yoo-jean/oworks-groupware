@@ -228,7 +228,7 @@
         <div class="dropdown-container">
             <a href="list.no">공지사항</a>
             <a href="list.fb">자유게시판</a>
-           	<a href="수정예정">자료실</a>
+           	<a href="list.db">자료실</a>
         </div>
         
         <button class="dropdown-btn"><i class="fas fa-cog"></i> 관리자 
