@@ -35,7 +35,7 @@
              on a.db_writer = b.emp_no
 		  where a.status = 'Y'
 		  order
-		     by create_date desc
+		     by db_no desc
 	</select>
 	
 	<select id="insertDataBoard" parameterType="DataBoard">

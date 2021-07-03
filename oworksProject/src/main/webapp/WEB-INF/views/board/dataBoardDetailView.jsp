@@ -34,28 +34,28 @@
         <table align="center" style="border:1px solid rgb(227, 227, 227);" class="table">
             <tr>
                 <th width="10%">제목</th>
-                <td height="30px" colspan="5">제목입니다</td>
+                <td height="30px" colspan="5">${ b.boardTitle }</td>
             </tr>
             <tr>
                 <th width="10%">작성자</th>
-                <td width="25%">김가나</td>
+                <td width="25%">${ b.boardWriter }</td>
 
-                <th width="10%">날짜</th>
-                <td height="30px" width="24%">2021-06-06</td>
+                <th width="10%">작성일</th>
+                <td height="30px" width="24%">${ b.createDate }</td>
 
 
                 <th width="10%">조회수</th>
-                <td width="15%">323</td>
+                <td width="15%">${ b.count }</td>
             </tr>
             <tr>
                 <th>내용</th>
                 <td colspan="5" >
-                    <p>안녕하세요 자료실 상세 보기입니다</p>
+                    <p>${ b.boardContent }</p>
                 </td>
             </tr>
             <tr>
                 <th height="40px">첨부파일</th>
-                <td colspan="5">첨부파일</td>
+                <td colspan="5">${ b.originName } </td>
             </tr>
         </table>
 

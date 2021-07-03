@@ -83,6 +83,8 @@
         <br><br>
 	
 		<form id="enrollForm" method="post" action="insert.db" enctype="multipart/form-data">
+	        <input type="hidden" name="boardWriter" value="10004">
+	        
 	        <table align="center" style="border:1px solid rgb(227, 227, 227);" class="table">
 	            <tr>
 	                <th width="13%">제목</th>

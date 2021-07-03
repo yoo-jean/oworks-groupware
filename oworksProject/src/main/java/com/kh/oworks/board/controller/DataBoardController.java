@@ -70,7 +70,7 @@ public class DataBoardController {
 		// 성공 페이지
 		if(result > 0) {
 			session.setAttribute("alertMsg", "성공적으로 게시글 작성되었습니다");
-			return "redirect:list.bo";
+			return "redirect:list.db";
 			
 		}else {			// 실패 페이지
 			model.addAttribute("errorMsg", "게시글 작성 실패!");
