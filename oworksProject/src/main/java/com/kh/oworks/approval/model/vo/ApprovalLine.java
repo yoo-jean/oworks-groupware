@@ -27,6 +27,7 @@ public class ApprovalLine {
 	private String appTitle;
 	private String writeDate;
 	private String empName;
+	private String appContent;
 	
 	private ArrayList<ApprovalLine> lineList;
 	

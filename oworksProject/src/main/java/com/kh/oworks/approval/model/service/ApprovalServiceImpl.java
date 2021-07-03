@@ -76,6 +76,25 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.selectAttachment(sqlSession, appNo);
 	}
 	
+	// 기안서 수정하기
+	@Override
+	public int updateSaveApproval(Approval a) {
+		return appDao.updateSaveApproval(sqlSession, a);
+	}
+	
+	// 기안서 수정하기 결재선
+	@Override
+	public int updateAddLine(ArrayList<ApprovalLine> apLineList) {
+		return appDao.updateAddLine(sqlSession, apLineList);
+	}
+
+	
+	
+	
+	
+	
+	
+	
 
 	
 	// 기안서에 달린 코멘트 리스트 조회
@@ -129,7 +148,6 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 	
 	// 임시저장 검색
-	
 	@Override
 	public int selectSearchListCount(HashMap<String, String> map) {
 		return appDao.selectSearchListCount(sqlSession, map);
@@ -140,6 +158,11 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.selectSearchList(sqlSession, map, pi);
 	}
 	
+	// 기안서 첨부파일 임시저장
+	@Override
+	public int insertFilePathSave(FilePath fp) {
+		return appDao.insertFilePathSave(sqlSession, fp);
+	}
 	
 	// 기안서 결재선 임시저장
 	@Override
@@ -165,6 +188,25 @@ public class ApprovalServiceImpl implements ApprovalService{
 	public int updateApprovalStatus(Approval a) {
 		return appDao.updateApprovalStatus(sqlSession, a);
 	}
+	
+	
+	
+	// 결재상태에 따른 키워드 검색
+	@Override
+	public int selectSearchCount(HashMap<String, String> map) {
+		return appDao.selectSearchCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<ApprovalLine> selectSearchListState(HashMap<String, String> map, PageInfo pi) {
+		return appDao.selectSearchListState(sqlSession, map, pi);
+	}
+
+
+
+	
+	
+
 	
 	
 }

@@ -85,6 +85,28 @@ public class ApprovalDao {
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectAttachment", appNo);
 	}
 	
+	
+	// 기안서 수정하기
+	public int updateSaveApproval(SqlSessionTemplate sqlSession, Approval a) {
+		System.out.println(a);
+		return sqlSession.update("approvalMapper.updateSaveApproval", a);
+	}
+	
+	// 기안서 수정하기 결재선
+	
+	public int updateAddLine(SqlSessionTemplate sqlSession, ArrayList<ApprovalLine> apLineList) {
+		//System.out.println(apLineList);
+		return sqlSession.update("approvalMapper.updateAddLine", apLineList);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// 기안서에 달린 코멘트 리스트 조회
 	public ArrayList<ApprovalComment> selectCommentList(SqlSessionTemplate sqlSession, String appNo){
 		//System.out.println(appNo);
@@ -98,6 +120,7 @@ public class ApprovalDao {
 	
 	// 기안작성하기
 	public int insertApproval(SqlSessionTemplate sqlSession, Approval a) {
+		System.out.println(a);
 		return sqlSession.insert("approvalMapper.insertApproval", a);
 	}
 	
@@ -116,6 +139,12 @@ public class ApprovalDao {
 	public int insertApprovalSave(SqlSessionTemplate sqlSession, Approval a) {
 		return sqlSession.insert("approvalMapper.insertApprovalSave", a);
 	} 
+	
+	// 기안서 첨부파일 임시저장
+	public int insertFilePathSave(SqlSessionTemplate sqlSession, FilePath fp) {
+		return sqlSession.insert("approvalMapper.insertFilePathSave", fp);
+	} 
+	
 	
 	// 기안서 결재선 임시저장
 	public int insertAddLineSave(SqlSessionTemplate sqlSession, ArrayList<ApprovalLine> apLineList) {
@@ -174,12 +203,19 @@ public class ApprovalDao {
 	}
 	
 	
-	// test
-	public int selectProgressListCount(SqlSessionTemplate sqlSession, ApprovalLine al){
-		//System.out.println(al);
-		return sqlSession.selectOne("approvalMapper.selectProgressListCount");
+	//결재상태에 따른 키워드 검색
+	public int selectSearchCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("approvalMapper.selectSearchCount", map);
 	}
-	
+
+	public ArrayList<ApprovalLine> selectSearchListState(SqlSessionTemplate sqlSession, HashMap<String, String> map, PageInfo pi) {
+		//System.out.println(map);
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectSearchListState", map, rowBounds);
+	}
 	
 	
 }

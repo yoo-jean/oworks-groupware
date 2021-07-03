@@ -34,6 +34,19 @@ public interface ApprovalService {
 	ArrayList<ApprovalLine> selectApprovalLine(String appNo);
 	ArrayList<Attachment> selectAttachment(String appNo);
 	
+	//기안서 수정하기
+	int updateSaveApproval(Approval a);
+	
+	//기안서 수정하기 결재선
+	int updateAddLine(ArrayList<ApprovalLine> apLineList);
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//해당 기안서에 달린 의견리스트 조회
 	ArrayList<ApprovalComment> selectCommentList(String appNo);
@@ -52,6 +65,9 @@ public interface ApprovalService {
 	
 	//기안서 임시저장
 	int insertApprovalSave(Approval a);
+	
+	//기안서 첨부파일 임시저장
+	int insertFilePathSave(FilePath fp);
 	
 	//기안서 결재선 임시저장
 	int insertAddLineSave(ArrayList<ApprovalLine> apLineList);
@@ -72,9 +88,13 @@ public interface ApprovalService {
 	//승인, 반려 버튼 클릭시 update
 	int updateApproval(ApprovalLine al);
 	
+	//결재테이블에서 상태 변경 승인 || 완료 (마지막결재자 찾아서 변경)
 	int updateApprovalStatus(Approval a);
 	
 	
-	// test
-	//int selectProgressListCount(ApprovalLine al);
+	//결재상태에 따른 키워드 검색
+	int selectSearchCount(HashMap<String, String> map);
+	ArrayList<ApprovalLine> selectSearchListState(HashMap<String, String> map, PageInfo pi);
+	
+	
 }

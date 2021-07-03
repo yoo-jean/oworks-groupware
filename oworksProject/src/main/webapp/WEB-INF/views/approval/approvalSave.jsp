@@ -119,12 +119,12 @@
                     </tbody>
                 </table>
 				
-	            <!-- 상세보기 페이지로 넘기기 -->
+	            <!-- 수정하기 페이지로 넘기기 -->
             
 				<script>
 					$(function(){
 						$("#saveApprovalTable tbody tr").click(function(){
-							location.href="detail.ap?ano="+$(this).children(".ano").text();
+							location.href="updateForm.ap?ano="+$(this).children(".ano").text();
 						})
 					})
 				

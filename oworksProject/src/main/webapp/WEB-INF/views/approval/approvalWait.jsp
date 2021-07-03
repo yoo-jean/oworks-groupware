@@ -53,8 +53,11 @@
                 <button class="btn btn-secondary" id="deletebtn">삭제</button>
 				
 				<!-- 검색영역 -->
-                <form id="searchForm" action="search.ap" align="center">
+                <form id="searchForm" action="waitSearch.ap" align="center">
                 	<input type="hidden" name="currentPage" value="1">
+                	<input type="hidden" name="empNo" value = "${loginEmp.empNo }">
+                	<input type="hidden" name="empName" value = "${loginEmp.empName }">
+                	<input type="hidden" name="status" value = "대기">
 		                <div align="right" class="select">
 		                    <select name="condition" class="custom-select mb-3">
 		                        <option value="title">제목</option>
@@ -77,9 +80,6 @@
              	</script>
              </c:if>
             
-            
-            
-            
             <br>
 
             <div class="approvalall">
@@ -98,12 +98,12 @@
                     	<c:choose>
                     		<c:when test = "${fn:length(waitList) eq 0 }" >
                     			<tr>
-                    				<td colspan = "7" align="center"> 대기 문서가 없습니다.</td>
+                    				<td colspan = "7" align="center"> 진행중인 문서가 없습니다.</td>
                     			</tr>
                     		</c:when>
                     		
                     		<c:otherwise>
-                    			<c:forEach var ="a" items="${waitList}">
+                    			<c:forEach var ="a" items="${waitList }">
 			                        <tr>
 			                            <td><input type="checkbox"></td>
 			                            <td class = "ano">${a.appNo }</td>

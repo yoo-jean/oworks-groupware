@@ -16,6 +16,9 @@
 </head>
 
 <body>
+
+	
+	
    	<!-- alertify session -->
 	<c:if test="${ !empty alertMsg }">
 		<script>
@@ -25,8 +28,9 @@
 	</c:if>
 	
     <div class="approvalouter">
+	<jsp:include page="../common/mainHeader.jsp"/>
       <br><br>
-        
+      
       <div class = approvalInner>
       	
         <form id = "approvalWrite" name = "approvalWrite" method = "post" action="insert.ap" enctype="multipart/form-data">
@@ -115,16 +119,21 @@
        				//저장여부
        				form.append($('<input/>', {type:'hidden', name: 'appStorage', value:'Y'}));
        				
-	  				// 문서양식
+       			//문서양식
 	  				if(category == "품의서"){
 	  					$("#formTitle").val($("#formTitle").val()) ;
 		  				$("#formTitle").val($("#formTitle").val());
+		  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:1}));
 	  				}else if(category == "지출결의서"){
 		  				$("#formTitle").val($("#accountTitle").val()) ;
 		  				$("#formContent").val($("#accountContent").val());
-	  				}else{
+		  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:2}));
+	  				}else if(category == "증명서"){
 		  				$("#formTitle").val($("#certiTitle").val()) ;
 		  				$("#formContent").val($("#certiContent").val());
+		  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:3}));
+	  				}else{
+	  					form.append($('<input/>', {type:'hidden', name: 'formNo', value:0}));
 	  				}
 	  			}
   			</script>

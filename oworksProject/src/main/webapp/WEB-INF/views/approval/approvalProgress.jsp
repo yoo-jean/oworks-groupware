@@ -53,8 +53,11 @@
                 <button class="btn btn-secondary" id="deletebtn">삭제</button>
 				
 				<!-- 검색영역 -->
-                <form id="searchForm" action="search.ap" align="center">
+                <form id="searchForm" action="approvalSearch.ap" align="center">
                 	<input type="hidden" name="currentPage" value="1">
+                	<input type="hidden" name="empNo" value = "${loginEmp.empNo }">
+                	<input type="hidden" name="empName" value = "${loginEmp.empName }">
+                	<input type="hidden" name="status" value = "진행">
 		                <div align="right" class="select">
 		                    <select name="condition" class="custom-select mb-3">
 		                        <option value="title">제목</option>

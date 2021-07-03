@@ -91,6 +91,49 @@ public class ApprovalController {
 		}
 	}
 	
+	/*전자결재 수정하기 페이지 이동(임시저장페이지에서)*/
+	@RequestMapping("updateForm.ap")
+	public String updateForm(String ano, Model model) {
+		Approval a = appService.selectApproval(ano);
+		model.addAttribute("a", a);
+		//model.addAttribute("a", appService.selectApproval(ano));
+		return "approval/approvalUpdate";
+	}
+	
+	/*전자결재 수정하기(임시저장페이지에서)*/
+	@RequestMapping("updateSave.ap")
+	public String updateSaveApproval(HttpServletRequest request, Approval a, ApprovalLine al, FilePath fp, MultipartFile reupfile, HttpSession session, Model model) {
+		
+		ArrayList<ApprovalLine> apLineList = al.getLineList();
+		//System.out.println(apLineList);
+		
+		//첨부파일
+		if(!reupfile.getOriginalFilename().equals("")) { // 첨부파일이 존재하는 경우
+			
+			String changeName = saveFile(session, reupfile);
+			
+			fp.setOrgFileName(reupfile.getOriginalFilename());
+			fp.setMdfFileName("resources/uploadFiles/" + changeName);
+			fp.setFilePath("resources/uploadFiles/");
+		}
+		
+		// 기안서
+		int result = appService.updateSaveApproval(a);
+
+		// 결재선
+		int apLineResult = appService.insertAddLine(apLineList);
+		
+		
+		if(result>0) {
+			session.setAttribute("alertMsg", "기안이 성공적으로 완료되었습니다");
+			return "redirect:detail.ap?ano=" + a.getAppNo();
+		}else {
+			model.addAttribute("errorMsg", "기안작성에 실패했습니다. 다시 시도해주세요");
+			return "common/errorPage";
+		}
+	}
+	
+	
 	/*기안서에 달린 코멘트 리스트 조회*/
 	@ResponseBody
 	@RequestMapping(value="clist.ap", produces="application/json; charset=utf-8")
@@ -188,7 +231,7 @@ public class ApprovalController {
 		}
 	}
 	
-	/*임시저장*/
+	/*임시저장
 	@RequestMapping("save.ap")
 	public String saveApproval(HttpServletRequest request, Approval a, ApprovalLine al, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
 		
@@ -206,11 +249,11 @@ public class ApprovalController {
 		}
 		
 		// 기안서
-		int result = appService.insertApprovalSave(a);
+		int result = appService.insertApproval(a);
 		// 첨부파일
 		int result2= appService.insertFilePath(fp);
 		// 결재선
-		int apLineResult = appService.insertAddLineSave(apLineList);
+		int apLineResult = appService.insertAddLine(apLineList);
 		// 참조
 		//int referLine = appService.insertReferLine(apLineList);
 		
@@ -223,6 +266,8 @@ public class ApprovalController {
 			return "common/errorPage";
 		}
 	}
+	*/
+	
 	
 	/*임시저장 페이지로 이동*/
 	@RequestMapping("saveList.ap")
@@ -241,28 +286,34 @@ public class ApprovalController {
 	
 	
 	// 임시저장 검색하기
-	
 	@RequestMapping("search.ap")
-	public String searchApproval(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+	public String searchApproval(HttpServletRequest request, HttpServletResponse response, Approval a)throws ServletException, IOException{
 		
 		String condition = request.getParameter("condition");
 		String keyword = request.getParameter("keyword");
+		String empNo = request.getParameter("empNo");
+		
+		//int empNo = a.getEmpNo();
 		
 		HashMap<String, String> map = new HashMap<>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
+		map.put("empNo", empNo);
 		
 		// 검색 조건에 만족하는 게시글 총 개수
 		int searchCount = appService.selectSearchListCount(map);
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
-		PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 10);
+		PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 5, 10);
 		ArrayList<Approval> saveList = appService.selectSearchList(map, pi);
+		//System.out.println(saveList);
+		
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("saveList", saveList);
 		request.setAttribute("condition", condition);
 		request.setAttribute("keyword", keyword);
+		request.setAttribute("empNo", empNo);
 		
 		return "approval/approvalSave";
 		
@@ -301,7 +352,7 @@ public class ApprovalController {
 		
 		//대기문서
 		ArrayList<ApprovalLine> waitList = appService.selectWaitList(pi, al);
-		//System.out.println(waitList);
+		System.out.println(waitList);
 		
 		model.addAttribute("pi", pi);
 		model.addAttribute("waitList", waitList);
@@ -343,6 +394,111 @@ public class ApprovalController {
 		model.addAttribute("finishList", finishList);
 		
 		return "approval/approvalComplete";
+	}
+	
+	/*[대기]결재문서 상태에 따른 검색*/
+	@RequestMapping("waitSearch.ap")
+	public String searchApprovalWait(HttpServletRequest request, HttpServletResponse response, ApprovalLine al)throws ServletException, IOException{
+		String condition = request.getParameter("condition");
+		String keyword = request.getParameter("keyword");
+		String empName = request.getParameter("empName");
+		String status = request.getParameter("status");
+		String empNo = request.getParameter("empNo");
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("empName", empName);
+		map.put("status", status);
+		map.put("empNo", empNo);
+		
+		
+		int searchCount = appService.selectSearchCount(map);
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
+		PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 10);
+		ArrayList<ApprovalLine> waitList = appService.selectSearchListState(map, pi);
+		
+		request.setAttribute("pi", pi);
+		request.setAttribute("waitList", waitList);
+		request.setAttribute("condition", condition);
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("empName", empName);
+		request.setAttribute("status", status);
+		
+		// return 조건문 못주나?
+		//return "approval/approvalWait";
+		return "approval/approvalWait";
+	}
+	
+	/*[진행]결재문서 상태에 따른 검색*/
+	@RequestMapping("approvalSearch.ap")
+	public String searchApprovalState(HttpServletRequest request, HttpServletResponse response, ApprovalLine al)throws ServletException, IOException{
+		String condition = request.getParameter("condition");
+		String keyword = request.getParameter("keyword");
+		String empName = request.getParameter("empName");
+		String status = request.getParameter("status");
+		String empNo = request.getParameter("empNo");
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("empName", empName);
+		map.put("status", status);
+		map.put("empNo", empNo);
+		
+		
+		int searchCount = appService.selectSearchCount(map);
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
+		PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 10);
+		ArrayList<ApprovalLine> list = appService.selectSearchListState(map, pi);
+		
+		request.setAttribute("pi", pi);
+		request.setAttribute("list", list);
+		request.setAttribute("condition", condition);
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("empName", empName);
+		request.setAttribute("status", status);
+		
+		// return 조건문 못주나?
+		return "approval/approvalProgress";
+	}
+	
+	
+	/*[완료]결재문서 상태에 따른 검색*/
+	@RequestMapping("completeSearch.ap")
+	public String searchApprovalComplete(HttpServletRequest request, HttpServletResponse response, ApprovalLine al)throws ServletException, IOException{
+		String condition = request.getParameter("condition");
+		String keyword = request.getParameter("keyword");
+		String empName = request.getParameter("empName");
+		String status = request.getParameter("status");
+		String empNo = request.getParameter("empNo");
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("empName", empName);
+		map.put("status", status);
+		map.put("empNo", empNo);
+		
+		
+		int searchCount = appService.selectSearchCount(map);
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
+		PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 10);
+		ArrayList<ApprovalLine> finishList = appService.selectSearchListState(map, pi);
+		
+		request.setAttribute("pi", pi);
+		request.setAttribute("finishList", finishList);
+		request.setAttribute("condition", condition);
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("empName", empName);
+		request.setAttribute("status", status);
+		
+		// return 조건문 못주나?
+		return "approval/approvalComplete";
+		
 	}
 	
 	
