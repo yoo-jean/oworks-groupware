@@ -12,9 +12,13 @@
 <!-- css -->
 <link rel="stylesheet" type="text/css" href="resources/css/board/noticeDetailView.css">
 
+<!-- 링크API -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 </head>
 <body>
-	 <!-- 이쪽에 메뉴바 포함 할꺼임 -->
+	<!-- 이쪽에 메뉴바 포함 할꺼임 -->
+	<jsp:include page="../common/mainHeader.jsp"/>
 
     <br><br><br>
     <div class="Article">
@@ -84,23 +88,132 @@
                             </div>
                         </div>
                     </div>
-
+					
+					
                     <div class="replyBox">
+						<!-- 게시글 좋아요 버튼 -->
                         <div class="box_left">
                             <div class="like_article">
-                                <img src="${pageContext.servletContext.contextPath }/resources/images/board/emptyHeart.png" style="width: 20px;">
-                                <em>좋아요</em>
-                                <em>0</em>
+                            	<c:choose>
+	                            	<c:when test = "${empty loginEmp }">
+	                                	<img id = "heart" onclick = "alert('로그인 후 이용가능한 서비스 입니다')" src="${pageContext.servletContext.contextPath }/resources/images/board/emptyHeart.png" style="width: 20px;">
+	                                </c:when>
+	                                <c:when test = "${count == 0}">
+	                                	<img id = "heart" onclick = "likeBoard();" src="${pageContext.servletContext.contextPath }/resources/images/board/emptyHeart.png" style="width: 20px;">
+	                                </c:when>
+	                                <c:otherwise>
+	                                	<img id = "heart" onclick = "likeDelete();" src="${pageContext.servletContext.contextPath }/resources/images/board/fullHeart.png" style="width: 20px;">
+	                                </c:otherwise>
+                                </c:choose>
+                                
+                                <span>좋아요</span> <em id="rcount">0</em>
                             </div>
                         </div>
-
+						
+						<!-- 게시글 공유 버튼 -->
                         <div class="box_right">
                             <div class="social_article">
-                                <img src="${pageContext.servletContext.contextPath }/resources/images/board/common.png" style="width: 20px;">
-                                <em>공유</em>
+                                <a id="kakao-link-btn" href="javascript:sendLink()"><img src="${pageContext.servletContext.contextPath }/resources/images/board/common.png" style="width: 20px;"></a>
+                                <span>공유</span>
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- 좋아요 버튼 사용하는 script -->
+                    <script>
+                    function likeBoard(){
+                    	$.ajax({
+                    		url : "likeInsert.no",
+                    		type : "post",
+                    		data : {
+                    			noticeNo : ${n.noticeNo},
+                    			empNo : ${loginEmp.empNo}
+                    		},
+                    		success : function(status){
+                    			if(status == "success"){ // 좋아요 성공
+                    				$("#heart").attr("src", '${pageContext.servletContext.contextPath }/resources/images/board/fullHeart.png');
+                    				$("#heart").attr("onclick", "likeDelete();");
+                    			}
+                    		}, error:function(){
+                    			console.log("좋아요 기능 통신 실패!");
+                    		}
+                    	})
+                    }
+                    
+                    function likeDelete(){
+                    	$.ajax({
+                    		url : "likeDelete.no",
+                    		type : "post",
+                    		data : {
+                    			noticeNo : ${n.noticeNo},
+                    			empNo : ${loginEmp.empNo}
+                    		},
+                    		success : function(status){ // 좋아요 취소
+                    			$("#heart").attr("src", '${pageContext.servletContext.contextPath }/resources/images/board/emptyHeart.png');
+                    			$("#heart").attr("onclick", "likeBoard();")
+                    		}, error : function(){
+                    			console.log("좋아요 취소 통신 실패!");
+                    		}
+                    	})
+                    }
+                    
+                    $(document).ready(function(){
+                    	$.ajax({
+                    		url : "allLike.no",
+                    		type : "post",
+                    		data : {
+                    			noticeNo : ${n.noticeNo},
+                    		},
+                    		success : function(list){
+                    			$("#rcount").text(list.length);
+                    		}, error:function(){
+                    			console.log("좋아요 기능 통신 실패!");
+                    		}
+                    	})
+                    })
+                    </script>
+                    
+                    <!-- 카카오 링크 API -->
+                    <script type='text/javascript'>
+					//<![CDATA[
+					//  사용할 앱의 JavaScript 키를 설정해 주세요.
+						Kakao.init('b3f42236a7cb5c476eb8c97d6f2625a7');
+				    // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+					    Kakao.Link.createDefaultButton({
+	  			        container: '#kakao-link-btn',
+						objectType: 'feed',
+						content: {
+					        title: '${n.noticeTitle}',
+					        imageUrl:'${pageContext.servletContext.contextPath }/resources/images/common/logo.png',
+					        link: {
+					          mobileWebUrl: window.location.href,
+					          webUrl: window.location.href
+					        }
+					    },
+					    buttons: [
+					      {
+					        title: '웹으로 보기',
+					        link: {
+					        webUrl: window.location.href
+					        }
+					      }
+					    ]
+						});
+					//]]>
+					</script>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                 </div>
 
             </div>

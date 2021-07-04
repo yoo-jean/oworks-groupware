@@ -3,7 +3,7 @@
 <mapper namespace = "noticeMapper">
 
 	<resultMap id="noticeResultset" type="Notice">
-		<result column = "notice_no" property = "noticeNo"/>
+		<id column = "notice_no" property = "noticeNo"/>
 		<result column = "emp_no" property = "empNo"/>
 		<result column = "emp_name" property = "empName"/>
 		<result column = "notice_title" property = "noticeTitle"/>
@@ -12,6 +12,12 @@
 		<result column = "modify_date" property = "modifyDate"/>
 		<result column = "notice_count" property = "noticeCount"/>
 		<result column = "notice_status" property = "noticeStatus"/>
+	</resultMap>
+	
+	
+	<resultMap id="likeResultSet" type="Like">
+		<id column = "notice_no" property = "noticeNo"/>
+		<result column = "emp_no" property = "empNo"/>
 	</resultMap>
 	
 	<!-- 게시글 리스트 조회 -->
@@ -32,6 +38,7 @@
 			 , modify_date
 			 , notice_count
 			 , notice_status
+			 , emp_no
 		  from notice
 		  join employee using(emp_no)
 		 where notice_status = 'Y' 
@@ -143,4 +150,47 @@
 			   by enroll_date desc 
 	</select>
 	
+	<!-- 좋아요 카운트 -->
+	<select id="likeCount" resultType = "_int">
+		select
+			   count(*) count
+		  from tlike
+		 where notice_no = #{noticeNo}
+		   and emp_no = #{empNo}
+	
+	</select>
+	
+	<!-- 게시글 좋아요 -->
+	<insert id="insertLike">
+		insert
+		  into tlike
+		  (
+		  	notice_no
+		  , emp_no
+		  )
+		  values
+		  (
+		  	#{noticeNo}
+		  , #{empNo}
+		  )
+	</insert>
+	
+	<!-- 게시글 좋아요 취소 -->
+	<delete id="deleteLike">
+		delete
+		  from tlike
+		 where notice_no = #{noticeNo}
+		   and emp_no = #{empNo}
+	</delete>
+	
+	
+	<!-- 좋아요 전체 카운트 -->
+	<select id="allLike" resultType = "_int">
+		select 
+			   notice_no
+			 , emp_no
+		  from
+		       tlike
+		 where notice_no = #{noticeNo}
+	</select>
 </mapper>

@@ -20,6 +20,7 @@
 		<typeAlias type="com.kh.oworks.board.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.kh.oworks.approval.model.vo.ApprovalComment" alias="ApprovalComment"/>
 		<typeAlias type="com.kh.oworks.approval.model.vo.ApprovalLine" alias="ApprovalLine"/>
+		<typeAlias type="com.kh.oworks.board.model.vo.Like" alias="Like"/>
 	</typeAliases>
 	
 	<mappers>

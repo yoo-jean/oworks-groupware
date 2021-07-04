@@ -17,7 +17,7 @@
 </head>
 <body marginwidth="0" marginheight="0">
 	<!-- 이쪽에 메뉴바 포함 할꺼임 -->
-
+	<jsp:include page="../common/mainHeader.jsp"/>
      <div class="content">
          <br><br>
          <div class="article-board" style="padding:5% 10%;">
@@ -29,22 +29,19 @@
              <table id="boardList" align="center">
                 <colgroup>
                     <col style="width: 50px;">
-                    <col style="width: 88px;">
-                    <col>
-                    <col style="width: 118px;">
+                    <col style=" ">
                     <col style="width: 80px;">
-                    <col style="width: 68px;">
-                    <col style="width: 68px;">
+                    <col style="width: 80px;">
+                    <col style="width: 100px;">
                 </colgroup>
 
                  <thead>
                    <tr class="normalTableTitle">
                      <th scope="col"></th>
-                     <th scope="col" ></th>
                      <th scope="col">
                          <span class="article_title">제목</span>
                      </th>
-                     <th scope="col" class="th_name">작성자</th>
+                     <th scope="col" class="" align="center">작성자</th>
                      <th scope="col">조회수</th>
                      <th scope="col">작성일</th>
                    </tr>
@@ -53,12 +50,7 @@
                  	<c:forEach var="n" items="${list }">
 	                     <tr class="body_notice">
                              <td class="nno">${n.noticeNo }</td>
-	                         <td colspan = "2" id="td_article">
-                                <div class="board-tag">
-                                    <strong class="board-tag-txt">
-                                        <span class="inner">필독</span>
-                                    </strong>
-                                </div> 
+	                         <td  id="td_article">
                                 <div class="board-list"> 
                                     <div class="inner_list">
                                         <span class="list-i-new">
@@ -137,7 +129,7 @@
              <c:if test="${!empty condition }">
              	<script>
              		$(function(){
-             			$(".search-area option[value=#(condition)]").attr("selected", true);
+             			$(".search-area option[value=${condition}]").attr("selected", true);
              		})
              	</script>
              </c:if>

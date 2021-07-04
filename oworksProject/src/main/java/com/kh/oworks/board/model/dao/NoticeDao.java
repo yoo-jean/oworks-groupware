@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.oworks.board.model.vo.Like;
 import com.kh.oworks.board.model.vo.Notice;
 import com.kh.oworks.common.model.vo.PageInfo;
 
@@ -65,5 +66,26 @@ public class NoticeDao {
         RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
         
         return (ArrayList)sqlSession.selectList("noticeMapper.selectSearchList", map, rowBounds);
+	}
+	
+	// 게시글 좋아요 count
+	public int likeCount(SqlSessionTemplate sqlSession, Like li) {
+		//System.out.println(li);
+		return sqlSession.selectOne("noticeMapper.likeCount", li);
+	}
+	
+	// 게시글 좋아요
+	public int insertLike(SqlSessionTemplate sqlSession, Like l) {
+		return sqlSession.insert("noticeMapper.insertLike", l);
+	}
+	
+	// 게시글 좋아요 취소
+	public int deleteLike(SqlSessionTemplate sqlSession, Like l) {
+		return sqlSession.delete("noticeMapper.deleteLike", l);
+	}
+	
+	// 게시글 전체 좋아요 count
+	public ArrayList<Like> allLike(SqlSessionTemplate sqlSession, int noticeNo) {
+		return (ArrayList)sqlSession.selectList("noticeMapper.allLike", noticeNo);
 	}
 }

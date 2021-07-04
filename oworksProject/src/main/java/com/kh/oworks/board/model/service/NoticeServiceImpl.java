@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.oworks.board.model.dao.NoticeDao;
+import com.kh.oworks.board.model.vo.Like;
 import com.kh.oworks.board.model.vo.Notice;
 import com.kh.oworks.common.model.vo.PageInfo;
 
@@ -72,6 +73,32 @@ public class NoticeServiceImpl implements NoticeService {
 	public ArrayList<Notice> selectSearchList(HashMap<String, String> map, PageInfo pi) {
 		return nDao.selectSearchList(sqlSession, map, pi);
 	}
+	
+	// 게시글 좋아요 count
+	@Override
+	public int likeCount(Like li) {
+		return nDao.likeCount(sqlSession, li);
+	}
+	
+	// 게시글 좋아요
+	@Override
+	public int insertLike(Like l) {
+		return nDao.insertLike(sqlSession, l);
+	}
+	
+	// 게시글 좋아요 취소
+	@Override
+	public int deleteLike(Like l) {
+		return nDao.deleteLike(sqlSession, l);
+	}
+	
+	// 게시글 전체 좋아요 count
+	@Override
+	public ArrayList<Like> allLike(int noticeNo) {
+		return nDao.allLike(sqlSession, noticeNo);
+	}
+
+
 	
 	
 }

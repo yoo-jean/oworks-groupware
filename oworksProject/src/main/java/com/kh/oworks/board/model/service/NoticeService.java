@@ -3,6 +3,7 @@ package com.kh.oworks.board.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.oworks.board.model.vo.Like;
 import com.kh.oworks.board.model.vo.Notice;
 import com.kh.oworks.common.model.vo.PageInfo;
 
@@ -27,4 +28,16 @@ public interface NoticeService {
 	// 게시판 검색 리스트 조회
 	int selectSearchListCount(HashMap<String, String> map);
 	ArrayList<Notice> selectSearchList(HashMap<String, String> map, PageInfo pi);
+	
+	// 게시글 좋아요 count
+	int likeCount(Like li);
+	
+	// 게시글 좋아요
+	int insertLike(Like l);
+	
+	// 게시글 좋아요 취소
+	int deleteLike(Like l);
+	
+	// 전체 좋아요 개수
+	ArrayList<Like> allLike(int noiceNo);
 }

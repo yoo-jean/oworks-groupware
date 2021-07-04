@@ -17,15 +17,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.oworks.approval.model.service.ApprovalService;
-import com.kh.oworks.approval.model.vo.FilePath;
+import com.kh.oworks.approval.model.vo.ApprovalComment;
 import com.kh.oworks.board.model.service.NoticeService;
+import com.kh.oworks.board.model.vo.Like;
 import com.kh.oworks.board.model.vo.Notice;
 import com.kh.oworks.common.model.vo.PageInfo;
 import com.kh.oworks.common.template.Pagination;
+import com.kh.oworks.employee.model.vo.Employee;
 
 @Controller
 public class NoticeController {
@@ -43,7 +47,7 @@ public class NoticeController {
 		// 게시글 총 개수
 		int listCount = nService.selectListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-		
+		//System.out.println(pi);
 		ArrayList<Notice> list = nService.selectList(pi);
 		
 		mv.addObject("pi", pi).addObject("list", list).setViewName("board/noticeListView");
@@ -55,15 +59,27 @@ public class NoticeController {
 	
 	// 게시글 상세보기
 	@RequestMapping("detail.no")
-	public String selectNotice(int nno, HttpSession session, Model model) {
+	public String selectNotice(int nno, Like l, HttpServletRequest request, HttpSession session, Model model) {
 		
 		int result = nService.increaseCount(nno);
 		
-		//System.out.println(result);
+		int empNo = ((Employee)request.getSession().getAttribute("loginEmp")).getEmpNo();
+		int noticeNo = Integer.parseInt(request.getParameter("nno"));
+		
+		Like li = new Like();
+		li.setEmpNo(empNo);
+		li.setNoticeNo(nno);
+		
+		int count = nService.likeCount(li);
+		//System.out.println(count);
+		//int allcount = nService.allLike(noticeNo);
 		
 		if(result>0) {
 			Notice n = nService.selectNotice(nno);
 			model.addAttribute("n", n);
+			model.addAttribute("li", li);
+			model.addAttribute("count", count);
+			//model.addAttribute("allcount", allcount);
 			return "board/noticeDetailView";
 			
 		}else {
@@ -159,6 +175,7 @@ public class NoticeController {
 		request.setAttribute("condition", condition);
 		request.setAttribute("keyword", keyword);
 		
+		
 		return "board/noticeListView";
 		
 		
@@ -185,5 +202,43 @@ public class NoticeController {
 		}
 		
 		return changeName;
+	}
+	
+	
+	// 게시판 좋아요
+	@ResponseBody
+	@RequestMapping("likeInsert.no")
+	public String insertLike(Like l, HttpSession session, Model model) {
+		int result = nService.insertLike(l);
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
+	
+	// 게시판 좋아요 취소
+	@ResponseBody
+	@RequestMapping("likeDelete.no")
+	public String deleteLike(Like l, HttpSession session, Model model) {
+		int result = nService.deleteLike(l);
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
+	
+	// 게시판 전체 좋아요
+	@ResponseBody
+	@RequestMapping(value="allLike.no", produces="application/json; charset=utf-8")
+	public String allLike(int noticeNo, HttpSession session, Model model) {
+		
+		ArrayList<Like> list = nService.allLike(noticeNo);
+		//System.out.println(ano);
+		return new Gson().toJson(list);
+		
 	}
 }
