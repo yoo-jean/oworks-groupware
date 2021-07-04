@@ -41,8 +41,6 @@
 <body>
     
     <!-- 이쪽에 메뉴바 포함 할꺼임 -->
-
-
     <div class="content">
         <br><br>
         <div class="innerOuter">

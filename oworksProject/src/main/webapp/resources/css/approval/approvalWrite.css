@@ -1,6 +1,9 @@
 @charset "UTF-8";
 
 	/*전체 틀 css*/
+    .approvalouter{
+      border: 1px solid red;
+    }
     .approvalouter table{margin: auto;}
     /*.approvalouter h2{font-size: 20px; font-weight: 700;}*/
     
@@ -18,14 +21,13 @@
     /*테이블 css*/
     /*.approvalouter table{width: 80%;}*/
 
-    
+    /*
     .left_area{
       position: absolute;
       display: inline-block;
-      padding-left: 17%;
-
+      padding-left: -17%;
     }
-    
+    */
 
     /*테이블 css*/
     

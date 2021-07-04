@@ -217,20 +217,9 @@
  		     			})
  		     		})
  		     		</script>
-                    
-                    
                 </div>
-                
             </div>
-
         </div>
-
     </div>
-
-
-    <script
-      src="https://kit.fontawesome.com/6478f529f2.js"
-      crossorigin="anonymous"
-    ></script>
 </body>
 </html>

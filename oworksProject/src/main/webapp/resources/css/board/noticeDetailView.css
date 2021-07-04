@@ -112,3 +112,13 @@
         display: inline-block;
         vertical-align: top;
     }
+
+
+
+
+    /*본문 콘텐츠*/
+    .article_wrap{
+        position: absolute;
+        left: 1000px;
+    
+    }

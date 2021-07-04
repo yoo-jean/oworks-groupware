@@ -15,17 +15,17 @@
 
 <style>
     /*전체 틀 css*/
-    .container{
-        border: 1px solid lightgray;
+    .containerApproval{
+		width: 1000px;
     }
 
     /*table*/
     .table{text-align: center;}
-    .container table>tbody>tr:hover{cursor: pointer;}
+    .containerApproval table>tbody>tr:hover{cursor: pointer;}
 
     /*글씨 크기 및 굵기 css*/
     .approvalMain h2{font-size: 30px; font-weight: 700;}
-    .container h2{
+    .containerApproval h2{
         font-size: 20px;
         font-weight: 700;
     }
@@ -35,148 +35,153 @@
         position: relative;
         top : -4px;
         width: 40px;
-
     }
     
-    .main{
-        position: relative;
-        left: 250px;
-        }
+    .mainApproval{
+        position: absolute;
+    }
+
 
 </style>
 </head>
 <body>
-    <br><br>
-    <div class="approvalMain">
-        <h2 class="main"><img src="${pageContext.servletContext.contextPath }/resources/images/approval/home.png" id="homeIcon">전자결재 홈</h2><br><br>
-        <div class="container">
-        
-            <br>
-            <h2>결재대기문서</h2><br>
-            <table class="table table-hover" id="approvalDocList">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>문서번호</th>
-                        <th>제목</th>
-                        <th>기안자</th>
-                        <th>기안일</th>
-                        <th>상태</th>
-                    </tr>
-                </thead>
-                <tbody>
-                	<c:choose>
-                		<c:when test = "${fn:length(waitList) eq 0}">
-        			    	<tr>
-                        		<td colspan = "7" align="center"> 결재할 문서가 없습니다.</td>
-                    		</tr>
-                		</c:when>
-                		
-                		<c:otherwise>
-                			<c:forEach var ="a" items="${waitList }">
-			                    <tr>
-			                        <td class = "ano">${a.appNo }</td>
-			                        <td>${a.appTitle }</td>
-			                        <td>${a.empName }</td>
-			                        <td>${a.writeDate }</td>
-			                        <td>${a.status}</td>
-			                    </tr>
-                    		</c:forEach>
-                		</c:otherwise>
-                	</c:choose>
-                	
-                	
-                </tbody>
-
-            </table>
-            
-            <h2>기안진행문서</h2> <br>
-            <table class="table table-hover" id="approvalDocList">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>문서번호</th>
-                        <th>제목</th>
-                        <th>기안자</th>
-                        <th>기안일</th>
-                        <th>상태</th>
-                    </tr>
-                </thead>
-                <tbody>
-                	<c:choose>
-                		<c:when test = "${fn:length(list) eq 0}">
-        			    	<tr>
-                        		<td colspan = "6" align="center"> 결재할 문서가 없습니다.</td>
-                    		</tr>
-                		</c:when>
-                		
-                		<c:otherwise>
-                			<c:forEach var ="a" items="${list }">
-			                    <tr>
-			                        <td class = "ano">${a.appNo }</td>
-			                        <td>${a.appTitle }</td>
-			                        <td>${a.empName }</td>
-			                        <td>${a.appDate }</td>
-			                        <td>${a.status}</td>
-			                    </tr>
-                    		</c:forEach>
-                		</c:otherwise>
-                	</c:choose>
-                	
-                	
-                </tbody>
-            </table>
-            
-            
-            
-            <h2>완료 문서</h2> <br>
-            <table class="table table-hover" id="approvalDocList">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>문서번호</th>
-                        <th>제목</th>
-                        <th>기안자</th>
-                        <th>기안일</th>
-                        <th>상태</th>
-                    </tr>
-                </thead>
-                <tbody>
-                	<c:choose>
-                		<c:when test = "${fn:length(finishList) eq 0}">
-        			    	<tr>
-                        		<td colspan = "6" align="center"> 결재할 문서가 없습니다.</td>
-                    		</tr>
-                		</c:when>
-                		
-                		<c:otherwise>
-                			<c:forEach var ="a" items="${finishList }">
-			                    <tr>
-			                        <td class = "ano">${a.appNo }</td>
-			                        <td>${a.appTitle }</td>
-			                        <td>${a.empName }</td>
-			                        <td>${a.appDate }</td>
-			                        <td>${a.status}</td>
-			                    </tr>
-                    		</c:forEach>
-                		</c:otherwise>
-                	</c:choose>
-                	
-                	
-                </tbody>
-            </table>
-            
-
-            
-            <!-- 상세보기 페이지로 넘기기 -->
-            
-			<script>
-				$(function(){
-					$("#approvalDocList tbody tr").click(function(){
-						location.href="detail.ap?ano="+$(this).children(".ano").text();
-					})
-				})
+	<jsp:include page="../common/mainHeader.jsp"/>
+	
+	<div id="content">	
+		<jsp:include page="../common/mainMenubar.jsp"/>
+			<br><br>
 			
-			</script>
-
-        </div>
+		    <div class="approvalMain" style="position: absolute; left: 400px; top: 100px;">
+		    	
+		        <div class="containerApproval">
+		        
+		            <br>
+		            <h2>결재대기문서</h2><br>
+		            <table class="table table-hover" id="approvalDocList">
+		                <thead class="thead-dark">
+		                    <tr>
+		                        <th>문서번호</th>
+		                        <th>제목</th>
+		                        <th>기안자</th>
+		                        <th>기안일</th>
+		                        <th>상태</th>
+		                    </tr>
+		                </thead>
+		                <tbody>
+		                	<c:choose>
+		                		<c:when test = "${fn:length(waitList) eq 0}">
+		        			    	<tr>
+		                        		<td colspan = "7" align="center"> 결재할 문서가 없습니다.</td>
+		                    		</tr>
+		                		</c:when>
+		                		
+		                		<c:otherwise>
+		                			<c:forEach var ="a" items="${waitList }">
+					                    <tr>
+					                        <td class = "ano">${a.appNo }</td>
+					                        <td>${a.appTitle }</td>
+					                        <td>${a.empName }</td>
+					                        <td>${a.writeDate }</td>
+					                        <td>${a.status}</td>
+					                    </tr>
+		                    		</c:forEach>
+		                		</c:otherwise>
+		                	</c:choose>
+		                	
+		                	
+		                </tbody>
+		
+		            </table>
+		            
+		            <h2>기안진행문서</h2> <br>
+		            <table class="table table-hover" id="approvalDocList">
+		                <thead class="thead-dark">
+		                    <tr>
+		                        <th>문서번호</th>
+		                        <th>제목</th>
+		                        <th>기안자</th>
+		                        <th>기안일</th>
+		                        <th>상태</th>
+		                    </tr>
+		                </thead>
+		                <tbody>
+		                	<c:choose>
+		                		<c:when test = "${fn:length(list) eq 0}">
+		        			    	<tr>
+		                        		<td colspan = "6" align="center"> 결재할 문서가 없습니다.</td>
+		                    		</tr>
+		                		</c:when>
+		                		
+		                		<c:otherwise>
+		                			<c:forEach var ="a" items="${list }">
+					                    <tr>
+					                        <td class = "ano">${a.appNo }</td>
+					                        <td>${a.appTitle }</td>
+					                        <td>${a.empName }</td>
+					                        <td>${a.appDate }</td>
+					                        <td>${a.status}</td>
+					                    </tr>
+		                    		</c:forEach>
+		                		</c:otherwise>
+		                	</c:choose>
+		                	
+		                	
+		                </tbody>
+		            </table>
+		            
+		            
+		            
+		            <h2>완료 문서</h2> <br>
+		            <table class="table table-hover" id="approvalDocList">
+		                <thead class="thead-dark">
+		                    <tr>
+		                        <th>문서번호</th>
+		                        <th>제목</th>
+		                        <th>기안자</th>
+		                        <th>기안일</th>
+		                        <th>상태</th>
+		                    </tr>
+		                </thead>
+		                <tbody>
+		                	<c:choose>
+		                		<c:when test = "${fn:length(finishList) eq 0}">
+		        			    	<tr>
+		                        		<td colspan = "6" align="center"> 결재할 문서가 없습니다.</td>
+		                    		</tr>
+		                		</c:when>
+		                		
+		                		<c:otherwise>
+		                			<c:forEach var ="a" items="${finishList }">
+					                    <tr>
+					                        <td class = "ano">${a.appNo }</td>
+					                        <td>${a.appTitle }</td>
+					                        <td>${a.empName }</td>
+					                        <td>${a.appDate }</td>
+					                        <td>${a.status}</td>
+					                    </tr>
+		                    		</c:forEach>
+		                		</c:otherwise>
+		                	</c:choose>
+		                	
+		                	
+		                </tbody>
+		            </table>
+		            
+		
+		            
+		            <!-- 상세보기 페이지로 넘기기 -->
+		            
+					<script>
+						$(function(){
+							$("#approvalDocList tbody tr").click(function(){
+								location.href="detail.ap?ano="+$(this).children(".ano").text();
+							})
+						})
+					
+					</script>
+		
+		        </div>
+		    </div>
     </div>
 </body>
 </html>

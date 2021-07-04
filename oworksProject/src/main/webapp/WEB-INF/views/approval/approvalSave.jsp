@@ -45,7 +45,9 @@
 </style>
 </head>
 <body>
-    <div class="approvalouter">
+	<jsp:include page="../common/mainHeader.jsp"/>
+    <jsp:include page="../common/mainMenubar.jsp"/>
+    <div class="approvalouter" style="position: absolute; left: 400px; top: 50px; width: 1000px;">
         <br>
         <div class="approvalinner">
 

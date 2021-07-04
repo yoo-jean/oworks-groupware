@@ -16,8 +16,6 @@
 </head>
 
 <body>
-
-	
 	
    	<!-- alertify session -->
 	<c:if test="${ !empty alertMsg }">
@@ -27,16 +25,20 @@
 		<c:remove var="alertMsg" scope="session"/>
 	</c:if>
 	
-    <div class="approvalouter">
+	<!--헤더바-->
 	<jsp:include page="../common/mainHeader.jsp"/>
-      <br><br>
+    
+	<!--좌측메뉴바-->
+    <jsp:include page="../common/mainMenubar.jsp"/> 
+    
+    <div class="approvalouter" style="position: absolute; left: 400px; top: 100px; width: 1000px;">
       
-      <div class = approvalInner>
+      <div class = approvalInner >
       	
         <form id = "approvalWrite" name = "approvalWrite" method = "post" action="insert.ap" enctype="multipart/form-data">
 	        <input type="hidden" name="empNo" value="${loginEmp.empNo }">
 			
-	        <div class="left_area">
+	        <div class="left_area" style="padding:0">
       		    <button type="submit" class="btn btn-dark btn-sm" onclick="addApprovalLine();">기안</button>
 	            <a type="button" class="btn btn-dark btn-sm" href="" data-toggle="modal" data-target="#myModal">결재선</a>
 	            <button type="submit" class="btn btn-dark btn-sm" onclick="approvalSave();">임시저장</button>
@@ -476,6 +478,7 @@
               </script>
 		</form>
       </div>
+	  <br><br><br>
     </div>
 </body>
 </html>
