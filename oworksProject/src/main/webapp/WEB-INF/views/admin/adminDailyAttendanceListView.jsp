@@ -133,17 +133,20 @@
                         <th>근무시간</th>
                         <th>연장근무시간</th>
                     </tr>
-                    <c:forEach var="a" items="${ list }" varStatus="num">
+             
+                    <% int i = 0; %>
+                    <c:forEach var="a" items="${ list }"  varStatus="status">
+                    <c:set var="sq" value="${status.index + 1 + (pi.currentPage-1) * 10}"/>
 	                    <tr>
-	                        <td>${ num.count }</td>
-	                        <td>${ workDate }</td>
-	                        <td>${ deptName }</td>
-	                        <td>${ empNo }</td>
-	                        <td>${ empName }</td>
-	                        <td>${ startTime }</td>
-	                        <td>${ endTime }</td>
-	                        <td>${ workTime }</td>
-	                        <td>${ afterTime }</td>
+	                        <td><c:out value="${sq}"/></td>
+	                        <td>${ a.workDate }</td>
+	                        <td>${ a.deptName }</td>
+	                        <td>${ a.empNo }</td>
+	                        <td>${ a.empName }</td>
+	                        <td>${ a.startTime }</td>
+	                        <td>${ a.endTime }</td>
+	                        <td>${ a.workTime }</td>
+	                        <td>${ a.afterTime }</td>
 	                    </tr>
 	                </c:forEach>
                     

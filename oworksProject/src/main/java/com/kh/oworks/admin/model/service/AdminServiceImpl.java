@@ -27,6 +27,11 @@ public class AdminServiceImpl implements AdminService {
 	public ArrayList<Admin> selectList(PageInfo pi) {
 		return aDao.selectList(sqlSession, pi);
 	}
+	
+	@Override
+	public ArrayList<Admin> selectOffCate() {
+		return aDao.selectOffCate(sqlSession);
+	}
 
 	@Override
 	public int insertOffCate(Admin a) {

@@ -67,6 +67,10 @@
     td {
         height: 35px;
     }
+       #pagingArea{
+    	width:fit-content;
+    	margin:auto;
+    }
 </style>
 </head>
 <body>
@@ -118,9 +122,8 @@
                         <th>소속</th>
                         <th>직위</th>
                         <th>사원명</th>
-                        <th>지각</th>
-                        <th>조퇴</th>
-                        <th>결근</th>
+                        <th>출결상태</th>
+                        <th>횟수</th>
                         <th>발생휴가</th>
                         <th>사용휴가</th>
                         <th>잔여휴가</th>
@@ -132,75 +135,46 @@
                         <td>개발1팀</td>
                         <td>과장</td>
                         <td>오상식</td>
-                        <td>0</td>
+                        <td>정출</td>
                         <td>1</td>
-                        <td>0</td>
                         <td>19</td>
                         <td>0</td>
                         <td>19</td>
                         <td>225시간</td>
                         <td>9시간</td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>개발1팀</td>
-                        <td>과장</td>
-                        <td>오상식</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>225시간</td>
-                        <td>9시간</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>개발1팀</td>
-                        <td>과장</td>
-                        <td>오상식</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>225시간</td>
-                        <td>9시간</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>개발1팀</td>
-                        <td>과장</td>
-                        <td>오상식</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>225시간</td>
-                        <td>9시간</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>개발1팀</td>
-                        <td>과장</td>
-                        <td>오상식</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>225시간</td>
-                        <td>9시간</td>
-                    </tr>
+
                 </table>
                 
-
-                <!--Paging바 들어갈 자리-->
+				<br>
+				
+                <div id="pagingArea">
+                	<ul class="pagination">
+                		
+                		<c:choose>
+                			<c:when test="${ pi.currentPage eq 1}">
+	                			<li class="page-item disabled"><a class="page-link" href="#">&lt;</a></li>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<li class="page-item"><a class="page-link" href="adDailyList.at?currentPage=${ pi.currentPage-1 }">&lt;</a></li>
+                			</c:otherwise>
+                		</c:choose>
+                		                		
+                		<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                			<li class="page-item"><a class="page-link" href="adDailyList.at?currentPage=${ p }">${ p }</a></li>
+                		</c:forEach>
+                		
+                		<c:choose>
+                			<c:when test="${ pi.currentPage eq pi.maxPage}">
+	                			<li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
+	                		</c:when>
+	                		<c:otherwise>
+		                		<li class="page-item"><a class="page-link" href="adDailyList.at?currentPage=${ pi.currentPage+1 }">&gt;</a></li>
+	                		</c:otherwise>
+                		</c:choose>
+                		
+                	</ul>
+                </div>
 
             </div>
 

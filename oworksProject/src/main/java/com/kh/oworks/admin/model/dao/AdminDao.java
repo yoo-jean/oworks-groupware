@@ -26,5 +26,11 @@ public class AdminDao {
 		return (ArrayList)sqlSession.selectList("adminMapper.selectList", null, rowBounds);
 		
 	}
+	
+	public ArrayList<Admin> selectOffCate(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.selectOffCate", null);
+		
+	}
 
 }

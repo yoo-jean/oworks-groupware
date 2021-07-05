@@ -95,36 +95,13 @@
                             <th>휴가분류</th>
                             <th>휴가일수</th>
                         </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>병가</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>경조사</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>출산</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>예비군</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>생리</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>연차</td>
-                            <td>1</td>
-                        </tr>
+                        <c:forEach var="a" items="${ offCate }">
+	                        <tr>
+	                            <td>${ a.offCateNo }</td>
+	                            <td>${ a.offCateName }</td>
+	                            <td>${ a.offCateDay }</td>
+	                        </tr>
+                        </c:forEach>
                     </table>
                     <div class="offCate_enroll">
                         <div class="offCate_enroll_btn">

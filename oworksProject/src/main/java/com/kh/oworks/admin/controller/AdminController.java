@@ -41,7 +41,22 @@ public class AdminController {
 		return mv;
 	}
 	
-	//관리자 근무관리_휴가
+	//관리자 근무관리_휴가현황
+	
+	/*@RequestMapping("adList.off")
+	public ModelAndView adminOffList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, ModelAndView mv) {
+		
+		int listCount = aService.selectListCount();
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		
+		ArrayList<Admin> offList = aService.selectOffList(pi);
+		
+		mv.addObject("pi", pi)
+		  .addObject("offList", offList)
+		  .setViewName("admin/adminOffListView");
+		
+		return mv;
+	}*/
 	@RequestMapping("adList.off")
 	public String adminOffList() {
 		return "admin/adminOffListView";
@@ -49,8 +64,12 @@ public class AdminController {
 	
 	//관리자 근무관리_휴가_휴가분류관리
 	@RequestMapping("adCate.off")
-	public String adminOffCate() {
-		return "admin/adminOffCate";
+	public ModelAndView adminOffCate(ModelAndView mv) {
+		ArrayList<Admin> offCate = aService.selectOffCate();
+		
+		mv.addObject("offCate", offCate)
+		  .setViewName("admin/adminOffCate");
+		return mv;
 	}
 	
 	//관리자 부서관리

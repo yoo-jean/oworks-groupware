@@ -23,5 +23,15 @@ public class Admin {
 	private String workTime;
 	private String afterTime;
 	private String workStatus;
+	
+	// 관리자 휴가분류
+	private int offCateNo;
+	private String offCateName;
+	private int offCateDay;
+	
+	// 관리자 근태통계
+	private String offGiven;
+	private String offUsed;
+	private String offAvailable;
 
 }
