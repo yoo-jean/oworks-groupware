@@ -105,7 +105,7 @@
     </div>
     <ul id="header_list">
         <li class="header_btn">
-            <a class="header_link" href="#">
+            <a class="header_link" href="list.ch">
                 <i class="far fa-comment-dots fa-2x"></i>
                 <span class="header_notification">2</span>
 

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,7 +10,6 @@
         <title>사내 채팅</title>
     
         <!-- css & 폰트 -->
-        <link rel="stylesheet" href="chatListView.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap" rel="stylesheet">
@@ -26,7 +25,159 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
+    	
+    	<style>
+    	div a button{box-sizing: border-box;}
+
+		.wrap{
+		    height:700px;
+		    width:1000px;
+		    margin: auto;
+		    margin-top: 50px;
+		    border:1px solid rgb(218, 218, 218);
+		    padding: 10px;
+		    font-family: 'Noto Sans KR', sans-serif;
+		}
+		
+		.wrap>div{width: 100%; }
+		
+		.leftBox{width:30%; height:680px; float:left;}
+		.rightBox{width:68%; height:680px;float: right; }
+		
+		
+		.leftBox>div{width:100%;float:left;}
+		.leftBox_1{height:8%; }
+		.leftBox_2{height:6%; }
+		.leftBox_3{height:86%;}
+		
+		.rightBox>div{width:100%; float:left;}
+		.rightBox_1{height:10%;}
+		.rightBox_2{height:70%;}
+		.rightBox_3{height:15%;}
+		
+		
+		.leftBox_1>button{
+		    width:100%; 
+		    height:95%; 
+		    line-height: 2.5;
+		    font-size: 16px;
+		    font-weight: bold;
+		
+		}
+		
+		.leftBox_2>div, a{
+		    float:left; 
+		    margin-right: 2px; 
+		    margin-top: 6px;
+		}
+		
+		.leftBox_3>.chatList{width:100%; float:left;}
+		.leftBox_3>.chatList>div, a{float:left;}
+		.chatList{
+		    text-align: center; 
+		    line-height: 3.5; 
+		    padding-top: 5px;
+		    padding-bottom: 5px;
+		    margin:0px; 
+		    border-bottom: 1px solid rgb(218, 219, 219);
+		}
+		.chatList:hover{
+		    background-color: rgb(233, 238, 240);
+		    cursor: pointer;
+		}
+		.chatList_1{
+		    height:50px; 
+		    width:8%;
+		    border-radius: 200px;
+		}
+		.chatList_2{ 
+		    height:50px;
+		    width: 66%;
+		    text-align: left;
+		    margin-left: 10px;
+		    font-weight: 500;
+		}
+		.chatList_count>span{
+		    font-size: 12px;
+		    padding:6px;
+		    border-radius: 300px;
+		    color:white;
+		    background-color: rgb(251, 25, 25);
+		}
+		.chatList_3>button{
+		    font-size: 12px;
+		    text-align: center;
+		    line-height: 5;
+		    height:50px;
+		    width:10%;
+		    font-weight: bolder;
+		    background-color: transparent !important;
+		    background-image: none !important;
+		    border-color: transparent;
+		    border: none;
+		    color: #FFFFFF;
+		    
+		}
+		.chatList_3>button:hover{
+		    cursor: pointer;
+		    text-decoration: line-through;
+		    color:tomato;
+		    font-weight: bolder;
+		}
+		
+		.rightBox_1{
+		    text-align: center;
+		    line-height: 3.5;
+		    font-size: 18px;
+		    font-weight: bolder;
+		}
+		
+		
+		.messageBoxL .message_bubble{
+		    background-color: rgb(236, 234, 234);
+		    padding:10px;
+		    line-height: 3.6;
+		    border-radius: 12px;
+		    margin-right: 5px;
+		    margin-left:5px;
+		    font-size: 16px;
+		}
+		
+		.messageBoxR .message_bubble{
+		    background-color: rgb(20, 125, 246);
+		    color: white;
+		    padding:10px;
+		    line-height: 3.6;
+		    border-radius: 12px;
+		    margin-right: 5px;
+		    margin-left:5px;
+		    font-size: 16px;
+		}
+		
+		.rightBox_2{margin-top: 20px;;}
+		.rightBox_3{width:100%;}
+		.typing{width:80%; height:100%; float:left;}
+		.typing>textarea{
+		    width:99%; 
+		    height:100%; 
+		    text-align: left;
+		    resize: none;
+		}
+		.typingB{width:20%; height:100%; float:right;}
+		.typingB>button{
+		    width:100%;
+		    height:100%;
+		}
+		
+		.modal{font-family: 'Noto Sans KR', sans-serif;}
+		.table th{background-color:rgb(3, 119, 251);
+		color:rgb(255, 255, 255);}
+		
+		#pagingArea{
+		    margin: auto;
+		    width:fit-content;
+		}
+    	</style>
     </head>
 <body>
     <!-- 헤더바 -->
@@ -45,38 +196,28 @@
                     <div><input type="text" class="form-control form-control-sm" placeholder="채팅방 제목을 입력하세요" style="width: 245px;"  name="keyword" value=""></div>
                     <a class="btn btn-outline-primary btn-sm" href="">검색</a>
                 </div>
-                <div class="leftBox_3" >
-                    <div class="chatList"> <!-- 클릭 이벤트 걸기 -->
-                        <div class="chatList_1">
-                            <img src="../../../resources/images/chat/profile.png" alt="">
-                        </div>
-                        <div class="chatList_2">매일 야식 먹고 싶은 사람들</div>
-                        <div class="chatList_count"><span>3</span></div>
-                        <div class="chatList_3">
-                            <button type="button" data-toggle="modal" data-target="#myModal">❌</button>
-                        </div>
-                    </div>
-                    <div class="chatList"> <!-- 클릭 이벤트 걸기 -->
-                        <div class="chatList_1">
-                            <img src="../../../resources/images/chat/profile.png" alt="">
-                        </div>
-                        <div class="chatList_2">매일 야식 먹고 싶은 사람들</div>
-                        <div class="chatList_count"><span>3</span></div>
-                        <div class="chatList_3">
-                            <button type="button" data-toggle="modal" data-target="#myModal">❌</button>
-                        </div>
-                    </div>
-                    <div class="chatList"> <!-- 클릭 이벤트 걸기 -->
-                        <div class="chatList_1">
-                            <img src="../../../resources/images/chat/profile.png" alt="">
-                        </div>
-                        <div class="chatList_2">매일 야식 먹고 싶은 사람들</div>
-                        <div class="chatList_count"><span>3</span></div>
-                        <div class="chatList_3">
-                            <button type="button" data-toggle="modal" data-target="#myModal">❌</button>
-                        </div>
-                    </div>
-                </div>
+                
+	                <div style="overflow:scroll; width:100%; height:85%;"> 
+	                
+	                <div class="leftBox_3" >
+					
+	                <c:forEach var="c" items="${ list }" >
+		                    <div class="chatList"> <!-- 클릭 이벤트 걸기 -->
+		                        <div class="chatList_1">
+		                            <img src="../../../resources/images/chat/profile.png" alt="">
+		                        </div>
+		                        <div class="chatList_2">${ c.chatName }</div>
+		                        <div class="chatList_count"><span>3</span></div>
+		                        <div class="chatList_3">
+		                            <button type="button" data-toggle="modal" data-target="#myModal">❌</button>
+		                        </div>
+		                    </div>
+	                </c:forEach>
+	                
+		            </div>
+		            
+					</div>
+                
             </div>
 
 

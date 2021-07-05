@@ -2,6 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="chatMapper">
 
+	<resultMap id="chatResultSet" type="Chat">
+		<id column="CHAT_NO" property="chatNo" />
+		<result column="CHAT_NAME" property="chatName" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="DELETE_DATE" property="deleteDate" />
+		<result column="STATUS" property="status" />
+	</resultMap>
+	
+	
+	
+	<select id="selectChatList" resultMap="chatResultSet">
+		select
+			    chat_name
+		   from chat
+		  where status = 'Y'
+		  order
+		     by CREATE_DATE desc
+	</select>
+
 
 
 </mapper>

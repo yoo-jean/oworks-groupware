@@ -235,7 +235,7 @@
                     <form action="insert.ai" method="post">
 	                    <!-- Modal body -->
 	                    <div class="modal-body">
-	                        	<label>추가할 사원 번호 : </label>
+	                        	<label style="color:black; font-weight:bold">추가할 사원 번호</label>
 	                        	<input type="text" class="form-control" name="submitEmpNo"  placeholder="ex)10001" maxlength="5"><br>
 	                        	<label>* 없는 사번 입력 시 추가되지 않습니다</label><br>
 	                        	<label>* 사원 번호를 입력하시면 사원 정보가 자동으로 등록됩니다</label>
