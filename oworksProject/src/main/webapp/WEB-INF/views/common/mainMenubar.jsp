@@ -231,29 +231,30 @@
            	<a href="list.db">자료실</a>
         </div>
         
-        <button class="dropdown-btn"><i class="fas fa-cog"></i> 관리자 
-            <i class="fa fa-angle-down"></i>
-        </button>
-        <div class="dropdown-container">
-            <a href="#">사원관리</a>
-            <a href="list.dept">부서/직급관리</a>
-            <button class="dropdown-btn">근무관리
-                <i class="fa fa-angle-down"></i>
-            </button>
-            <div class="dropdown-container">
-            <a href="adList.at">근태</a>
-            <a href="adList.off">휴가</a>
-            </div>
-            <button href="#" class="dropdown-btn">결재관리
-                <i class="fa fa-angle-down"></i>
-            </button>
-            <div class="dropdown-container">
-            <a href="#">전체문서목록</a>
-            <a href="#">삭제문서목록</a>
-            <a href="#">양식함 관리</a>
-            </div>
-        </div>
-        
+        <c:if test = "${loginEmp.jobCode == 'J1' || loginEmp.jobCode == 'J2'}">
+	        <button class="dropdown-btn"><i class="fas fa-cog"></i> 관리자 
+	            <i class="fa fa-angle-down"></i>
+	        </button>
+	        <div class="dropdown-container">
+	            <a href="#">사원관리</a>
+	            <a href="list.dept">부서/직급관리</a>
+	            <button class="dropdown-btn">근무관리
+	                <i class="fa fa-angle-down"></i>
+	            </button>
+	            <div class="dropdown-container">
+		            <a href="adList.at">근태</a>
+		            <a href="adList.off">휴가</a>
+	            </div>
+	            <button href="#" class="dropdown-btn">결재관리
+	                <i class="fa fa-angle-down"></i>
+	            </button>
+	            <div class="dropdown-container">
+		            <a href="allList.ap">전체문서목록</a>
+		            <a href="#">삭제문서목록</a>
+		            <a href="#">양식함 관리</a>
+	            </div>
+	        </div>
+        </c:if>
     </div>
         
         
