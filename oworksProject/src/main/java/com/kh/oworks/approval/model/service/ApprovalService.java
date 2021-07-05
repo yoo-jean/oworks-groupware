@@ -41,13 +41,6 @@ public interface ApprovalService {
 	int updateAddLine(ArrayList<ApprovalLine> apLineList);
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	//해당 기안서에 달린 의견리스트 조회
 	ArrayList<ApprovalComment> selectCommentList(String appNo);
 	
@@ -91,10 +84,16 @@ public interface ApprovalService {
 	//결재테이블에서 상태 변경 승인 || 완료 (마지막결재자 찾아서 변경)
 	int updateApprovalStatus(Approval a);
 	
+	//결재선 테이블에서 상태변경 진행 -> 완료
+	int updateApprovalLineStatus(ApprovalLine al);
 	
 	//결재상태에 따른 키워드 검색
 	int selectSearchCount(HashMap<String, String> map);
 	ArrayList<ApprovalLine> selectSearchListState(HashMap<String, String> map, PageInfo pi);
 	
+	//기안서 회수하기
+	int collectApproval(String appNo);
 	
+	//기안서 회수하기 결재선
+	int changeStatus(String appNo);
 }

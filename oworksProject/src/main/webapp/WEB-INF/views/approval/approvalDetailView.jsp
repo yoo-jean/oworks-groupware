@@ -13,12 +13,35 @@
 <!-- css -->
 <link rel="stylesheet" type="text/css" href="resources/css/approval/approvalDetailView.css">
 
-<title>기안하기 페이지</title>
+<title>기안서 상세보기</title>
 </head>
 <body>
-    <div class="approvalouter">
 
-      <br><br>
+
+	<!--헤더바-->
+	<jsp:include page="../common/mainHeader.jsp"/>
+    
+	<!--좌측메뉴바-->
+    <jsp:include page="../common/mainMenubar.jsp"/> 
+    
+    <div class="approvalouter" style="position: absolute; left: 400px; top: 100px; width: 1000px;">
+		
+		<!-- 기안취소하기 버튼 -->
+		<c:if test="${loginEmp.empNo == a.empNo }">
+			<div class="left_area" style="padding:0">
+				<form action = "collectApproval.ap"  id = "collectApproval" method = "post" enctype="multipart/form-data">
+					<input type="hidden" name = "ano" value = "${a.appNo }">
+					<input type="hidden" name ="filePath" value = "${a.mdfFileName }">
+					
+			      		<button type="submit" onClick="alert('기안문서를 취소하시겠습니까? 문서는 삭제처리되며 복구되지 않습니다!')" class="btn btn-dark btn-sm" onclick="addApprovalLine();">기안취소</button>
+			        	<button type="button" class="btn btn-dark btn-sm">인쇄</button>
+				</form>
+		    </div>
+	    </c:if>
+	    
+	    
+	    
+     	<br>
         <div class="container">
             <div class="approvalsetting">
                 <table class="table table-bordered">
@@ -52,7 +75,7 @@
 	                <tr>
                 		<c:forEach var="appLine" items="${appLine }">
 							<c:if test="${appLine.status ne '대기' }">
-			                    <td style="font-weight: bold; color: rgb(42, 128, 185);">승인</td>
+			                    <td style="font-weight: bold; color: rgb(42, 128, 185);" id="submitArea">승인</td>
 		                    </c:if>
 			            </c:forEach>
 		                    
@@ -77,7 +100,7 @@
                    	<input type="hidden" name="appNo" value=${a.appNo }>
                    	<input type="hidden" name="empNo" value=${loginEmp.empNo }>
                    	 
-                	<div class="container" style="border: none;">
+                	<div class="containerApproval" style="border: none;">
                     	
 	                    <!-- The Modal -->
 	                    <div class="modal fade" id="myModal">
@@ -88,9 +111,9 @@
 		                          	<div class="modal-body" align="center">
 		                            	<div class="yesorno">
 		                                	<br>
-		                                    	<input type="radio" name="appStatus" value="승인" id="ok"><label for="ok">&nbsp;승인</label>
+		                                    	<input type="radio" name="appStatus" value="승인" id="ok" onclick="approvalSubmit(1);"><label for="ok">&nbsp;승인</label>
 		                                    	&nbsp;&nbsp;
-		                                    	<input type="radio" name="appStatus" value="반려" id="no"><label for="no">&nbsp;반려</label>
+		                                    	<input type="radio" name="appStatus" value="반려" id="no" onclick="approvalSubmit(2);"><label for="no">&nbsp;반려</label>
 		                                
 		                            	</div>
 		                            	<br>
@@ -114,18 +137,6 @@
                 	</div>
  		        </form>
             </div>
-			
-			<!-- 마지막 결재자 TEST -->
-			<script>
-			function test(){
-				console.log('되나?');
-				var test = ${fn:length(appLine)};
-				
-				console.log(test);
-			}
-			</script>
-			
-			
 			
             <!--참조-->
             <div class="reference">
@@ -183,7 +194,6 @@
                 <tr>
                     <td colspan="3">의견 (<span id="rcount">0</span>) </td> 
                 </tr>
-			
             </thead>
             
             <tbody>
@@ -227,11 +237,6 @@
 				
 				console.log(test);
 				
-				
-				
-				
-				
-				
 				// 승인이나 반려 이유 작성하는 ajax
 				if($("#content").val().trim().length != 0){
 					$.ajax({
@@ -262,7 +267,7 @@
 						data : {
 							appComment:$("#reply").val(),
 							appNo:'${a.appNo}',
-							empNo:${a.empNo}
+							empNo:${loginEmp.empNo}
 						},
 						success:function(status){
 							if(status == "success"){

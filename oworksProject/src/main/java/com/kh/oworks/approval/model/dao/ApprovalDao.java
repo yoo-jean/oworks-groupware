@@ -202,6 +202,14 @@ public class ApprovalDao {
 		return sqlSession.update("approvalMapper.updateApprovalStatus", a);
 	}
 	
+	// 결재선 상태 변경
+	public int updateApprovalLineStatus(SqlSessionTemplate sqlSession, ApprovalLine al) {
+		return sqlSession.update("approvalMapper.updateApprovalLineStatus", al);
+	}
+			
+	
+	
+	
 	
 	//결재상태에 따른 키워드 검색
 	public int selectSearchCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
@@ -217,5 +225,13 @@ public class ApprovalDao {
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectSearchListState", map, rowBounds);
 	}
 	
+	// 기안서 회수하기
+	public int collectApproval(SqlSessionTemplate sqlSession, String appNo) {
+		return sqlSession.update("approvalMapper.collectApproval", appNo);
+	}
 	
+	// 기안서 회수하기 결재선
+	public int changeStatus(SqlSessionTemplate sqlSession, String appNo) {
+		return sqlSession.update("approvalMapper.changeStatus", appNo);
+	}
 }

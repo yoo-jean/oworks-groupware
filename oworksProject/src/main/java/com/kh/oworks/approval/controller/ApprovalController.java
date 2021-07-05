@@ -26,7 +26,6 @@ import com.kh.oworks.approval.model.vo.Approval;
 import com.kh.oworks.approval.model.vo.ApprovalComment;
 import com.kh.oworks.approval.model.vo.ApprovalLine;
 import com.kh.oworks.approval.model.vo.FilePath;
-import com.kh.oworks.board.model.vo.Notice;
 import com.kh.oworks.common.model.vo.PageInfo;
 import com.kh.oworks.common.template.Pagination;
 import com.kh.oworks.employee.model.vo.Employee;
@@ -121,7 +120,7 @@ public class ApprovalController {
 		int result = appService.updateSaveApproval(a);
 
 		// 결재선
-		int apLineResult = appService.insertAddLine(apLineList);
+		int apLineResult = appService.updateAddLine(apLineList);
 		
 		
 		if(result>0) {
@@ -165,7 +164,7 @@ public class ApprovalController {
 	
 	/*기안서 작성하기*/
 	@RequestMapping("insert.ap")
-	public String insertApproval(HttpServletRequest request, Approval a, ApprovalLine al, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
+	public String insertApproval(@RequestParam("empNo")int empNo, HttpServletRequest request, Approval a, ApprovalLine al, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
 		
 		ArrayList<ApprovalLine> apLineList = al.getLineList();
 		//System.out.println(apLineList);
@@ -217,6 +216,8 @@ public class ApprovalController {
 		int result = appService.updateApproval(al);
 		
 		int status = appService.updateApprovalStatus(a);
+		
+		int lineStatus = appService.updateApprovalLineStatus(al);
 		
 		//int lineStatus = appService.updateLineStatus(al);
 		// 결재자 몇명인지 알기 위해 필요
@@ -501,5 +502,30 @@ public class ApprovalController {
 		
 	}
 	
+	/* 전자결재 회수하기*/
+	@RequestMapping("collectApproval.ap")
+	public String collectApproval(String ano, String filePath, HttpSession session, Model model) {
+		
+		// 결재테이블에서 회수로 바꾸기
+		int result = appService.collectApproval(ano);
+		
+		// 결재선 테이블에서 회수로 바꾸기
+		int status = appService.changeStatus(ano);
+		
+		if(result>0) {
+			//첨부파일 있었을 경우
+			if(!filePath.equals("")) {
+				new File(session.getServletContext().getRealPath(filePath)).delete();
+			}
+			
+			session.setAttribute("alertMsg", "성공적으로 기안취소가 완료되었습니다");
+			return "redirect:list.ap";
+		
+		}else {
+			model.addAttribute("erroeMsg", "기안취소를 실패하였습니다. 다시 시도해주세요");
+			return "common/errorPage";
+		}
+		
+	}
 	
 }

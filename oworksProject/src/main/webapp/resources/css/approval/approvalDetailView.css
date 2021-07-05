@@ -37,6 +37,6 @@
   #rcount{color: rgb(42, 128, 185); font-weight: 700;}
 
   /*모달 css*/
-  .modal-content{width: 350px;}
-  .modal-content textarea{width: 250px; height: 150px;}
+  .modal-content{width: 350px; height : 500px;}
+  .modal-content textarea{width: 250px; height: 350px;}
   .modalfooter2{margin: auto;}

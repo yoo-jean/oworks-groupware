@@ -95,7 +95,7 @@
                             <th width="220px">제목</th>
                             <th width="90px">기안자</th>
                             <th width="200px">기안일</th>
-                            <th width="80px">상태</th>                            
+                            <th width="80px">상태</th>
                         </tr>
                     </thead>
                     <tbody>

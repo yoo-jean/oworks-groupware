@@ -80,9 +80,6 @@
              	</script>
              </c:if>
             
-            
-            
-            
             <br>
 
             <div class="approvalall">

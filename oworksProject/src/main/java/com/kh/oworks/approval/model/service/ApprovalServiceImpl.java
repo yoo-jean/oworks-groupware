@@ -189,7 +189,11 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.updateApprovalStatus(sqlSession, a);
 	}
 	
-	
+	// 결재선 진행상태 변경
+	@Override
+	public int updateApprovalLineStatus(ApprovalLine al) {
+		return appDao.updateApprovalLineStatus(sqlSession, al);
+	}
 	
 	// 결재상태에 따른 키워드 검색
 	@Override
@@ -201,6 +205,20 @@ public class ApprovalServiceImpl implements ApprovalService{
 	public ArrayList<ApprovalLine> selectSearchListState(HashMap<String, String> map, PageInfo pi) {
 		return appDao.selectSearchListState(sqlSession, map, pi);
 	}
+	
+	// 기안서 회수하기
+	@Override
+	public int collectApproval(String appNo) {
+		return appDao.collectApproval(sqlSession, appNo);
+	}
+	
+	// 기안서 회수하기 결재선
+	@Override
+	public int changeStatus(String appNo) {
+		return appDao.changeStatus(sqlSession, appNo);
+	}
+
+
 
 
 

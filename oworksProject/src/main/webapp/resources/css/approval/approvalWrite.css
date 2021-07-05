@@ -1,9 +1,10 @@
 @charset "UTF-8";
 
-	/*전체 틀 css*/
+	/*전체 틀 css
     .approvalouter{
       border: 1px solid red;
     }
+    */
     .approvalouter table{margin: auto;}
     /*.approvalouter h2{font-size: 20px; font-weight: 700;}*/
     
