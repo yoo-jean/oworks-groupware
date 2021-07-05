@@ -60,12 +60,10 @@
 	    text-align: center;
 	    line-height: 1;
 	}
-	.table td>a{
-	    color: rgb(37, 37, 37);
-	}
-	.table td>a:hover{
+	.dbtitle:hover{
 	    text-decoration: none;
-	    color:rgb(90, 144, 211);
+	    color:rgb(0, 113, 251);
+        cursor: pointer;
 	}
 	
 	#pagingArea{
@@ -142,27 +140,38 @@
 	        <thead class="thead">
 	            <tr>
 	                <th width="15%">글 번호</th>
-	                <th width="40%">제목</th>
-	                <th width="18%">작성자</th>
-	                <th width="15%">등록일</th>
+	                <th width="42%">제목</th>
+	                <th width="17%">작성자</th>
+	                <th width="10%">등록일</th>
+                    <th width="7%">첨부파일</th>
 	                <th width="12%">조회수</th>
 	            </tr>
 	        </thead>
 	        
 	        <tbody class="tbody">
 			<c:forEach var="b" items="${ list }" >
-            <tr>
-                <td>${ b.boardNo }</td>
-                <td>
-                    <a href="">${ b.boardTitle }</a>
-                </td>
-                <td>${ b.writerName }</td>
-                <td>${ b.createDate }</td>
-                <td>${ b.count }</td>
-            </tr>
+	            <tr>
+	                <td class="dbno">${ b.boardNo }</td>
+	                <td class="dbtitle">${ b.boardTitle }</td>
+	                <td>${ b.writerName }</td>
+	                <td>${ b.createDate }</td>
+	                <td>
+	                    <c:if test="${ !empty b.originName }">
+	                       	 💾                    
+	                    </c:if>
+	                </td>
+	                <td>${ b.count }</td>
+	            </tr>
             </c:forEach>
 	        </tbody>
         </table>
+        <script>
+        	$(function(){
+        		$(".dbtitle").click(function(){
+        			location.href="detail.db?dbno=" + $(this).siblings(".dbno").text();
+        		})
+        	})
+        </script>
 
 
         <!-- 버튼(로그인한 회원) -->

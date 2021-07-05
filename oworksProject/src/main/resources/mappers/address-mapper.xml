@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="addressMapper">
+
+	<resultMap id="addressResultSet" type="Address">
+		<result column = "emp_no" property = "empNo" />
+		<result column = "favemp_no" property = "favEmpNo" />
+		<result column = "emp_name" property = "empName" />
+		<result column = "email" property = "email" />
+		<result column = "emp_phone" property = "empPhone" />
+		<result column = "phone" property = "phone" />
+		<result column = "dept_code" property = "dept" />
+		<result column = "job_code" property = "job" />
+	</resultMap>
+	
+	
+	<select id = "selectListCount" resultType = "_int">
+		select
+			   count(*)
+		  from address_in
+	</select>
+	
+	<select id="selectAddressList" resultMap="addressResultSet">
+		select
+			    favemp_no
+			  , b.emp_name
+			  , b.email
+			  , b.emp_phone
+			  , b.phone
+			  , b.dept_code
+			  , b.job_code
+		   from address_in a
+           join employee b
+             on a.favemp_no = b.emp_no
+		  where b.emp_status = 'Y'
+		  order
+		     by favemp_no asc
+	</select>
+	
+	<insert id="insertAddress" parameterType="_int">
+		insert
+		  into address_in
+		  (
+		     emp_no
+		     , favemp_no
+		  )
+		  values
+		  (
+		  	 10002
+		     , #{submitEmpNo}
+		  )
+		  
+	</insert>
+	
+	<delete id="deleteAddress" parameterType="_int">
+		delete from address_in 
+		where favemp_no = #{empNo}
+	</delete>
+</mapper>

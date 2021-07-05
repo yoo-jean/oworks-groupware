@@ -10,9 +10,9 @@
 		<result column="EMP_NAME" property="writerName" />
 		<result column="COUNT" property="count" />
 		<result column="CREATE_DATE" property="createDate" />
-		<result column="STATUS" property="status" />
 		<result column="ORIGIN_NAME" property="originName" />
 		<result column="CHANGE_NAME" property="changeName" />
+		<result column="STATUS" property="status" />
 	</resultMap>
 
 	<!-- 자료실 게시글 총 갯수 조회 -->
@@ -23,13 +23,15 @@
 		 where status = 'Y'
 	</select>
 	
+	<!-- 자료실 게시글 리스트 전체 조회 -->
 	<select id="selectDataBoardList" resultMap="dataBoardResultSet">
 		select
 			    db_no
 			  , db_title
 			  , b.emp_name
-			  , count
 			  , to_char(create_date, 'YYYY-MM-DD') create_date
+			  , origin_name
+			  , count
 		   from data_board a
            join employee b
              on a.db_writer = b.emp_no
@@ -38,7 +40,8 @@
 		     by db_no desc
 	</select>
 	
-	<select id="insertDataBoard" parameterType="DataBoard">
+	<!-- 자료실 게시글 작성 -->
+	<insert id="insertDataBoard" parameterType="DataBoard">
 		insert
 		  into data_board
 		  (
@@ -59,6 +62,55 @@
 		   , #{changeName}
 		  )
 		  
+	</insert>
+
+	
+	<!-- 자료실 게시글 조회수 업데이트 -->
+	<update id="increaseCount" parameterType="_int">
+		update
+			   data_board
+		   set count = count + 1
+		 where db_no = #{boardNo}
+		   and status = 'Y'
+	</update>
+	
+	<!-- 자료실 게시글 상세 조회 -->
+	<select id="selectDataBoard" resultMap="dataBoardResultSet">
+		select
+			    DB_NO
+			  , DB_TITLE
+			  , b.emp_name
+			  , to_char(CREATE_DATE, 'YYYY-MM-DD') create_date
+			  , COUNT
+			  , DB_CONTENT
+			  , ORIGIN_NAME
+			  , CHANGE_NAME
+		 from data_board a
+		 join employee b
+		   on a.db_writer = b.emp_no
+	 	where db_no = #{boardNo}
 	</select>
+	
+	<!-- 게시글 삭제 -->
+	<update id="deleteDataBoard" parameterType="_int">
+		update
+			   data_board
+		   set status = 'N'
+		 where db_no = #{boardNo}
+	</update>
+	
+	<!-- 게시글 업데이트 -->
+	<update id="updateDataBoard" parameterType="DataBoard">
+		update
+			   data_board
+		   set DB_TITLE = #{boardTitle}
+		     , DB_CONTENT = #{boardContent}
+			 , ORIGIN_NAME = #{originName}
+			 , CHANGE_NAME = #{changeName}
+		 where db_no = #{boardNo}
+	</update>
+	
+	
+	
 
 </mapper>

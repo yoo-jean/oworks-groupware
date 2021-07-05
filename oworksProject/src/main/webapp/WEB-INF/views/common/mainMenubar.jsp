@@ -218,7 +218,7 @@
             <i class="fa fa-angle-down"></i>
         </button>
         <div class="dropdown-container">
-            <a href="#">사내 주소록</a>
+            <a href="list.ai">사내 주소록</a>
             <a href="#">외부 주소록</a>
         </div>
         

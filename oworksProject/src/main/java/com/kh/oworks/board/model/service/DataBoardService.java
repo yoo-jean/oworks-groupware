@@ -3,6 +3,7 @@ package com.kh.oworks.board.model.service;
 import java.util.ArrayList;
 
 import com.kh.oworks.board.model.vo.DataBoard;
+import com.kh.oworks.board.model.vo.DataFile;
 import com.kh.oworks.common.model.vo.PageInfo;
 
 public interface DataBoardService {
@@ -23,5 +24,6 @@ public interface DataBoardService {
 	
 	// 자료실 삭제
 	int deleteDataBoard(int boardNo);
+	
 
 }

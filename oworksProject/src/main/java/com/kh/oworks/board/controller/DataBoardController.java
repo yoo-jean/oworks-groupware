@@ -13,10 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.oworks.board.model.service.DataBoardService;
 import com.kh.oworks.board.model.vo.DataBoard;
+import com.kh.oworks.board.model.vo.DataFile;
+import com.kh.oworks.board.model.vo.Like;
 import com.kh.oworks.common.model.vo.PageInfo;
 import com.kh.oworks.common.template.Pagination;
 
@@ -63,12 +66,13 @@ public class DataBoardController {
 			
 			db.setOriginName(upfile.getOriginalFilename());
 			db.setChangeName("resources/uploadFiles/" + changeName);
+			
 		}
-		
 		int result = dService.insertDataBoard(db);
 		
 		// 성공 페이지
 		if(result > 0) {
+			
 			session.setAttribute("alertMsg", "성공적으로 게시글 작성되었습니다");
 			return "redirect:list.db";
 			
@@ -78,7 +82,92 @@ public class DataBoardController {
 		}
 		
 		
+		
 	}
+	
+	
+	@RequestMapping("detail.db")
+	public String selectDataBoard(int dbno, Model model) {
+		int result = dService.increaseCount(dbno);	// 조회수 증가 (update문 int)
+		
+		if(result > 0) {
+			DataBoard db = dService.selectDataBoard(dbno);
+			
+			model.addAttribute("b", db);
+			return "board/dataBoardDetailView";
+			
+		}else {
+			model.addAttribute("errorMsg", "게시글 상세 조회 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	
+	@RequestMapping("delete.db")
+	public String deleteDataBoard(int dbno, String filePath, HttpSession session, Model model) {
+		 
+		int result = dService.deleteDataBoard(dbno);
+		
+		if(result > 0) {
+			
+			if(!filePath.equals("")) {
+				new File(session.getServletContext().getRealPath(filePath)).delete();
+			}
+			session.setAttribute("alertMsg", "성공적으로 삭제되었습니다!");
+			return "redirect:list.db";
+			
+		}else {
+			
+			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	
+	@RequestMapping("updateForm.db")
+	public String updateForm(int dbno, Model model) {
+		
+		//DataBoard db = dService.selectDataBoard(boardNo);
+		//model.addAttribute("db", db);
+		model.addAttribute("b", dService.selectDataBoard(dbno));
+		return "board/dataBoardUpdateForm";
+	}
+	
+	
+	@RequestMapping("update.db")
+	public String updateDataBoard(DataBoard b, MultipartFile reupfile, HttpSession session, Model model) {
+		
+		if(!reupfile.getOriginalFilename().equals("")) {	// 새로 넘어온 첨부파일이 있음
+			
+			if(b.getOriginName() != null) {
+				new File(session.getServletContext().getRealPath(b.getChangeName())).delete();
+			}
+			
+			String changeName = saveFile(session, reupfile);
+			b.setOriginName(reupfile.getOriginalFilename());
+			b.setChangeName("resources/uploadFiles/" + changeName);
+		}
+		
+		int result = dService.updateDataBoard(b);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "게시글이 성공적으로 수정되었습니다");
+			return "redirect:detail.db?dbno=" + b.getBoardNo();
+		}else {
+			model.addAttribute("errorMsg", "게시글 수정 실패");
+			return "common/errorPage";
+		}
+	} 
+	
+	
+	
+	// 파일 인서트
+	@RequestMapping("insertFile.db")
+	
+	
+	
+	
+	
 	
 	
 	
@@ -106,6 +195,7 @@ public class DataBoardController {
 		return changeName;
 		
 	}
+	
 	
 	
 	
