@@ -28,7 +28,7 @@
 	
 	<style>
 	.main{
-    width:800px;
+    width:1000px;
     margin: auto;
     margin-top: 50px;
     font-size:14px;
@@ -43,7 +43,7 @@
 	    font-weight: bold;
 	}
 	.searchForm{
-	    width:41%;
+	    width:32%;
 	    float:right;
 	    margin-top: 0px;
 	    margin-bottom: 20px;
@@ -119,13 +119,13 @@
 
         <table frame="hsides" rules="rows" class="table">
             <tr>
-                <th width="11%">사원번호</th>
-                <th width="10%">사원명</th>
-                <th width="20%">이메일</th>
-                <th width="10%">사내전화</th>
-                <th width="17%">휴대전화</th>
-                <th width="12%">부서</th>
-                <th width="12%">직급</th>
+                <th width="13%">사원번호</th>
+                <th width="11%">사원명</th>
+                <th width="22%">이메일</th>
+                <th width="8%">사내전화</th>
+                <th width="18%">휴대전화</th>
+                <th width="10%">부서</th>
+                <th width="10%">직급</th>
                 <th width="8%"></th>
             </tr>
             <tr>
@@ -156,13 +156,13 @@
     
         <table frame="hsides" rules="rows" class="table">
             <tr>
-                <th width="11%">사원번호</th>
-                <th width="10%">사원명</th>
-                <th width="20%">이메일</th>
-                <th width="10%">사내전화</th>
-                <th width="17%">휴대전화</th>
-                <th width="12%">부서</th>
-                <th width="12%">직급</th>
+                <th width="13%">사원번호</th>
+                <th width="11%">사원명</th>
+                <th width="22%">이메일</th>
+                <th width="8%">사내전화</th>
+                <th width="18%">휴대전화</th>
+                <th width="10%">부서</th>
+                <th width="10%">직급</th>
                 <th width="8%"></th>
             </tr>
 			

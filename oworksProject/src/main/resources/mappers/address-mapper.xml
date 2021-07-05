@@ -9,8 +9,8 @@
 		<result column = "email" property = "email" />
 		<result column = "emp_phone" property = "empPhone" />
 		<result column = "phone" property = "phone" />
-		<result column = "dept_code" property = "dept" />
-		<result column = "job_code" property = "job" />
+		<result column = "dept_name" property = "dept" />
+		<result column = "job_name" property = "job" />
 	</resultMap>
 	
 	
@@ -27,11 +27,15 @@
 			  , b.email
 			  , b.emp_phone
 			  , b.phone
-			  , b.dept_code
-			  , b.job_code
+			  , c.dept_name
+			  , d.job_name
 		   from address_in a
-           join employee b
+          inner join employee b
              on a.favemp_no = b.emp_no
+          inner join department c
+             on b.dept_code = c.dept_code
+          inner join job d
+             on b.job_code = d.job_code
 		  where b.emp_status = 'Y'
 		  order
 		     by favemp_no asc

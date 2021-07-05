@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="addressOutMapper">
+
+	<resultMap id="addressOutResultSet" type="AddressOut">
+		<id column = "ADDOUT_NO" property = "outNo" />
+		<result column = "ADDOUT_NAME" property = "outName" />
+		<result column = "EMAIL" property = "email" />
+		<result column = "PHONE" property = "phone" />
+		<result column = "COMPANY" property = "company" />
+		<result column = "DEPT" property = "dept" />
+		<result column = "JOB" property = "job" />
+		<result column = "FAV_STATUS" property = "favStatus" />
+		<result column = "STATUS" property = "status" />
+		
+		<result column = "ADDOUT_NO" property = "addOutNo" /> 
+	</resultMap>
+	
+	
+	<select id = "selectListCount" resultType = "_int">
+		select
+			   count(*)
+		  from address_out
+	</select>
+	
+		<select id="selectAddressOutList" resultMap="addressOutResultSet">
+		select
+			    ADDOUT_NO
+			  , ADDOUT_NAME
+			  , EMAIL
+			  , PHONE
+			  , COMPANY
+			  , DEPT
+			  , JOB
+			  , FAV_STATUS
+		   from address_out
+		  where STATUS = 'Y'
+		  order
+		     by ADDOUT_NO desc
+	</select>
+	
+	<!-- insert -->
+	<insert id="insertAddressOut" parameterType="AddressOut">
+		insert
+		  into address_out
+		  (
+		     ADDOUT_NO
+		   , ADDOUT_NAME
+		   , EMAIL
+		   , PHONE
+		   , COMPANY
+		   , DEPT
+		   , JOB
+		  )
+		  values
+		  (
+		     seq_aono.nextval
+		   , #{outName}
+		   , #{email}
+		   , #{phone}
+		   , #{company}
+		   , #{dept}
+		   , #{job}
+		  )
+	</insert>
+	
+	<!-- delete -->
+	<update id="deleteAddressOut" parameterType="_int">
+		update
+			   address_out
+		   set status = 'N'
+		 where addout_no = #{addOutNo}
+	</update>
+	
+	<!-- update -->
+	<update id="updateAddressOut" parameterType="AddressOut">
+		update
+			   address_out
+		   set ADDOUT_NAME = #{outName}
+		     , EMAIL = #{email}
+			 , PHONE = #{phone}
+			 , COMPANY = #{company}
+			 , DEPT = #{dept}
+			 , JOB = #{job}
+		 where addout_no = #{addOutNo}
+	</update>
+	
+	
+	
+
+</mapper>

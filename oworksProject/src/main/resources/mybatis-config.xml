@@ -22,6 +22,7 @@
 		<typeAlias type="com.kh.oworks.approval.model.vo.ApprovalLine" alias="ApprovalLine"/>
 		<typeAlias type="com.kh.oworks.board.model.vo.Like" alias="Like"/>
 		<typeAlias type="com.kh.oworks.address.model.vo.Address" alias="Address"/>
+		<typeAlias type="com.kh.oworks.address.model.vo.AddressOut" alias="AddressOut"/>
 	</typeAliases>
 	
 	<mappers>
@@ -36,6 +37,7 @@
 		<mapper resource="/mappers/schedule-mapper.xml"/>
 		<mapper resource="/mappers/notice-mapper.xml"/>
 		<mapper resource="/mappers/address-mapper.xml"/>
+		<mapper resource="/mappers/addressOut-mapper.xml"/>
 	</mappers>
 	
 </configuration>

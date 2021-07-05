@@ -219,7 +219,7 @@
         </button>
         <div class="dropdown-container">
             <a href="list.ai">사내 주소록</a>
-            <a href="#">외부 주소록</a>
+            <a href="list.ao">외부 주소록</a>
         </div>
         
         <button class="dropdown-btn"><i class="fas fa-clipboard"></i> 게시판 

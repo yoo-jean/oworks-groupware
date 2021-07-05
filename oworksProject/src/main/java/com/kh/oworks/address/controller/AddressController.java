@@ -27,7 +27,7 @@ public class AddressController {
 	
 	// 전체 조회
 	@RequestMapping("list.ai")
-	public String selectDataBoardList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, Model model) {
+	public String selectAddressList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, Model model) {
 		
 		int listCount = aService.selectListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
@@ -76,6 +76,8 @@ public class AddressController {
 
 		}
 	}
+	
+	
 	
 	
 	
