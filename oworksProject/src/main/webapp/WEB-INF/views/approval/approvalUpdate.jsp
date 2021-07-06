@@ -8,23 +8,21 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<title>기안하기 페이지</title>
+<title>임시저장 기안서 수정하기</title>
   
 <!-- css -->
 <link rel="stylesheet" type="text/css" href="resources/css/approval/approvalWrite.css">
 
+<!-- 썸머노트 -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous" defer></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" defer>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous" defer></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet" defer>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js" defer></script>
 </head>
 
 <body>
-	
-   	<!-- alertify session -->
-	<c:if test="${ !empty alertMsg }">
-		<script>
-			alertify.alert("${alertMsg}");
-		</script>
-		<c:remove var="alertMsg" scope="session"/>
-	</c:if>
-	
 	
     <!--헤더바-->
 	<jsp:include page="../common/mainHeader.jsp"/>
@@ -59,12 +57,9 @@
        				for(i=0; i<addEmpNo.length; i++){
        					//사원번호
        					form.append($('<input/>', {type:'hidden', name: 'lineList[' + i + '].empNo', value:addEmpNo[i]}));
-       					
        					//걀재 || 참조 상태
        					form.append($('<input/>', {type:'hidden', name: 'lineList[' + i + '].refer', value:'결재'}));
-       					
        					//$("#referTable> tbody > tr:nth-child(1)> td:nth-child(2)").text(refer[0]);
-       					
        					
        					//상태
        					if(i==0){
@@ -349,7 +344,7 @@
                       	</tr>
 
                       	<tr>
-                          	<td colspan="2"><textarea class="form-control" name="appContent" id="formContent" rows="10" style="resize:none;">${a.appContent }</textarea></td>
+                          	<td colspan="2"><textarea class="summernote" name="appContent" id="formContent" rows="10" style="resize:none;">${a.appContent }</textarea></td>
                       	</tr>
                   	</table>
                   	<br>
@@ -388,7 +383,7 @@
   
                         <tr>
                             <th>총괄적요</th>
-                            <td><input type="text" id="accountContent" class="form-control" value = "${a.appContent }" style="resize:none; height:100px" placeholder="총괄적요를 적어주세요">
+                            <td><input type="text" id="accountContent" class="summernote" value = "${a.appContent }" style="resize:none; height:100px" placeholder="총괄적요를 적어주세요">
                             </td>
                         </tr>
                     </table>
@@ -424,7 +419,7 @@
 
                         <tr>
                             <th>용도</th>
-                            <td><input type="text" id="certiContent" class="form-control" value="${a.appContent }" style="resize:none; height:100px" placeholder="증명서의 용도를 적어주세요">
+                            <td><input type="text" id="certiContent" class="summernote" value="${a.appContent }" style="resize:none; height:100px" placeholder="증명서의 용도를 적어주세요">
                             </td>
                         </tr>
                     </table>
@@ -482,6 +477,37 @@
                   	})
                 })
               </script>
+              
+              <!-- 썸머노트 script -->
+				<script>
+				$(document).ready(function(){
+			          $('.summernote').summernote({
+			                width:900,						// 에디터 너비
+			                height: 500,                 	// 에디터 높이
+			                minHeight: 500,             		// 최소 높이
+			                maxHeight: 500,             		// 최대 높이
+			                focus: false,               		// 에디터 로딩후 포커스를 맞출지 여부
+			                lang: "ko-KR",					// 한글 설정
+			                placeholder: '내용을 입력해주세요',	// placeholder 설정
+			                toolbar: [
+			                    ['fontname', ['fontname']],
+			                    ['fontsize', ['fontsize']],
+			                    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			                    ['color', ['forecolor','color']],
+			                    ['table', ['table']],
+			                    ['para', ['ul', 'ol', 'paragraph']],
+			                    ['height', ['height']],
+			                    ['insert',['picture','link','video']],
+			                    ['view', ['fullscreen', 'help']]
+			                ],
+			                fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+			                fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+
+			          });
+			        });
+						
+
+				</script>
 		</form>
       </div>
     </div>

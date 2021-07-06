@@ -2,6 +2,7 @@ package com.kh.oworks.approval.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -135,6 +136,12 @@ public class ApprovalDao {
 		return sqlSession.insert("approvalMapper.insertAddLine", apLineList);
 	}
 	
+	// 기안서 참조선
+	public int insertReferLine(SqlSessionTemplate sqlSession, ArrayList<ApprovalLine> apLineList) {
+		return sqlSession.insert("approvalMapper.insertReferLine", apLineList);
+	}
+	
+	
 	// 기안서 임시저장
 	public int insertApprovalSave(SqlSessionTemplate sqlSession, Approval a) {
 		return sqlSession.insert("approvalMapper.insertApprovalSave", a);
@@ -208,9 +215,6 @@ public class ApprovalDao {
 	}
 			
 	
-	
-	
-	
 	//결재상태에 따른 키워드 검색
 	public int selectSearchCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
 		return sqlSession.selectOne("approvalMapper.selectSearchCount", map);
@@ -233,5 +237,57 @@ public class ApprovalDao {
 	// 기안서 회수하기 결재선
 	public int changeStatus(SqlSessionTemplate sqlSession, String appNo) {
 		return sqlSession.update("approvalMapper.changeStatus", appNo);
+	}
+	
+	
+	// [관리자] 전자결재 전체조회
+
+	public int selectAllListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("approvalMapper.selectAllListCount");
+	}
+
+	public ArrayList<Approval> selectApprovalAllList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectApprovalAllList", null, rowBounds);
+	}
+
+	
+	// [관리자] 전자결재 키워드 검색
+	public int selectSearchAllListCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("approvalMapper.selectSearchAllListCount", map);
+	}
+	
+	public ArrayList<Approval> selectSearchAllList(SqlSessionTemplate sqlSession, HashMap<String, String> map, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectSearchAllList", map, rowBounds);
+	}
+
+	// [관리자] 전자결재 삭제
+	public int deleteApproval(SqlSessionTemplate sqlSession, String[] updateList) {
+		System.out.println(updateList);
+		return sqlSession.update("approvalMapper.deleteApproval", updateList);
+	}
+
+	// [관리자] 전자결재 삭제문서 조회
+	public int selectDeleteListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("approvalMapper.selectDeleteListCount");
+	}
+
+
+	public ArrayList<Approval> selectApprovalDeleteList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectApprovalDeleteList", null, rowBounds);
 	}
 }

@@ -2,6 +2,7 @@ package com.kh.oworks.approval.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,14 +90,6 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 
 	
-	
-	
-	
-	
-	
-	
-
-	
 	// 기안서에 달린 코멘트 리스트 조회
 	@Override
 	public ArrayList<ApprovalComment> selectCommentList(String appNo) {
@@ -127,7 +120,12 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.insertAddLine(sqlSession, apLineList);
 	}
 	
-	
+	// 기안서 참조선
+	@Override
+	public int insertReferLine(ArrayList<ApprovalLine> apLineList) {
+		return appDao.insertReferLine(sqlSession, apLineList);
+	}
+
 	
 	// 기안서 임시저장
 	@Override
@@ -217,6 +215,47 @@ public class ApprovalServiceImpl implements ApprovalService{
 	public int changeStatus(String appNo) {
 		return appDao.changeStatus(sqlSession, appNo);
 	}
+	
+	
+	// [관리자] 전자결재 전체 조회
+	@Override
+	public int selectAllListCount() {
+		return appDao.selectAllListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Approval> selectApprovalAllList(PageInfo pi) {
+		return appDao.selectApprovalAllList(sqlSession, pi);
+	}
+	
+	// [관리자] 전자결체 키워드 검색
+	@Override
+	public int selectSearchAllListCount(HashMap<String, String> map) {
+		return appDao.selectSearchAllListCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Approval> selectSearchAllList(HashMap<String, String> map, PageInfo pi) {
+		return appDao.selectSearchAllList(sqlSession, map, pi);
+	}
+	
+	// [관리자] 전자결재 삭제
+	@Override
+	public int deleteApproval(String[] updateList) {
+		return appDao.deleteApproval(sqlSession, updateList);
+	}
+	
+	//[관리자] 전자결재 삭제문서 조회
+	@Override
+	public int selectDeleteListCount() {
+		return appDao.selectDeleteListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Approval> selectApprovalDeleteList(PageInfo pi) {
+		return appDao.selectApprovalDeleteList(sqlSession, pi);
+	}
+
 
 
 

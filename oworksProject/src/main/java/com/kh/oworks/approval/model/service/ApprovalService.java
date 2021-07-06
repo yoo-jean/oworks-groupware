@@ -2,6 +2,7 @@ package com.kh.oworks.approval.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.kh.oworks.approval.model.vo.Approval;
 import com.kh.oworks.approval.model.vo.ApprovalComment;
@@ -56,6 +57,9 @@ public interface ApprovalService {
 	//기안서 결재선
 	int insertAddLine(ArrayList<ApprovalLine> apLineList);
 	
+	//기안서 참조선
+	int insertReferLine(ArrayList<ApprovalLine> apLineList);
+	
 	//기안서 임시저장
 	int insertApprovalSave(Approval a);
 	
@@ -96,4 +100,19 @@ public interface ApprovalService {
 	
 	//기안서 회수하기 결재선
 	int changeStatus(String appNo);
+	
+	//[관리자] 전체결재문서 조회
+	int selectAllListCount();
+	ArrayList<Approval> selectApprovalAllList(PageInfo pi);
+	
+	//[관리자] 전체문서 키워드 검색
+	int selectSearchAllListCount(HashMap<String, String> map);
+	ArrayList<Approval> selectSearchAllList(HashMap<String, String> map, PageInfo pi);
+	
+	//[관리자] 전자결재 삭제
+	int deleteApproval(String[] updateList);
+	
+	//[관리자] 전자결재 삭제문서 조회
+	int selectDeleteListCount();
+	ArrayList<Approval> selectApprovalDeleteList(PageInfo pi);
 }

@@ -458,11 +458,11 @@
 					
 					// 사원번호 배열에 담기
 					referNo.push(test2);
-					//console.log(referNo);
+					console.log("referNo : " +  referNo);
 					
 					for(var i=0; i<referAdd.length; i++){
 						refer = referAdd[i];
-						//console.log(refer);
+						console.log(refer);
 						//console.log(addEmpNo);
 					}
 					// refer = [referAdd[0], referAdd[1], referAdd[2], referAdd[3], referAdd[4]];

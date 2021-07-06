@@ -1,6 +1,7 @@
 package com.kh.oworks.approval.model.vo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,6 +42,7 @@ public class Approval {
 	private String status;
 	
 	private ArrayList<ApprovalLine> lineList;
+	private ArrayList<Approval>updateList;
 	
 	private int approvalEmpNo;
 }

@@ -189,7 +189,7 @@
         <br>
         
         <!-- 댓글기능 -->
-        <table id="replyArea" class="table">
+        <table id="replyArea" class="table" style="width: 1000px;">
             <thead>
                 <tr>
                     <td colspan="3">의견 (<span id="rcount">0</span>) </td> 

@@ -43,7 +43,7 @@ public class ApprovalController {
 		
 		int listCount = appService.selectListCount(al);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 15);
-		System.out.println(pi);
+		//System.out.println(pi);
 		
 		//대기문서
 		ArrayList<ApprovalLine> waitList = appService.selectWaitList(pi, al);
@@ -191,7 +191,13 @@ public class ApprovalController {
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "기안등록이 완료되었습니다");
+			//model.addAttribute("a", a)
+			//     .addAttribute("fp", fp)
+			//     .addAttribute("apLineList", apLineList);
+			model.addAttribute("empNo", empNo);
+			model.addAttribute("empName", ((Employee)session.getAttribute("loginEmp")).getEmpName());
 			return "redirect:list.ap";
+			
 		}else {
 			model.addAttribute("errorMsg", "기안등록실패");
 			return "common/errorPage";
@@ -353,7 +359,7 @@ public class ApprovalController {
 		
 		//대기문서
 		ArrayList<ApprovalLine> waitList = appService.selectWaitList(pi, al);
-		System.out.println(waitList);
+		//System.out.println(waitList);
 		
 		model.addAttribute("pi", pi);
 		model.addAttribute("waitList", waitList);
@@ -366,10 +372,10 @@ public class ApprovalController {
 	public String selectList(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Approval a, ApprovalLine al, HttpSession session, Model model) {	
 		
 		int listCount = appService.selectListCount(al);
-		System.out.println(listCount);
+		//System.out.println(listCount);
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-		System.out.println(pi);
+		//System.out.println(pi);
 		//진행문서
 		ArrayList<ApprovalLine> list = appService.selectList(pi, al);
 		//System.out.println(list);
@@ -528,4 +534,120 @@ public class ApprovalController {
 		
 	}
 	
+	
+	/*[관리자] 전체 결재문서 조회*/
+	@RequestMapping("allList.ap")
+	public String selectApprovalAllList(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Approval a, ApprovalLine al, HttpSession session, Model model) {
+		
+		int listCount = appService.selectAllListCount();
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+
+		
+		//진행문서
+		ArrayList<Approval> list = appService.selectApprovalAllList(pi);
+		//System.out.println(list);
+
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		
+		return "approval/approvalAllList";
+	}
+	
+	/*[관리자] 전체문서 키워드 검색*/
+	@RequestMapping("allListSearch.ap")
+	public String searchAllList(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+		
+		String condition = request.getParameter("condition");
+		String keyword = request.getParameter("keyword");
+		String deleteStatus = request.getParameter("deleteStatus");
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("deleteStatus", deleteStatus);
+		
+		// 검색 조건에 만족하는 게시글 총 개수
+		int searchCount = appService.selectSearchAllListCount(map);
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
+		PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 10);
+		ArrayList<Approval> list = appService.selectSearchAllList(map, pi);
+		
+		request.setAttribute("pi", pi);
+		request.setAttribute("list", list);
+		request.setAttribute("condition", condition);
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("deleteStatus", deleteStatus);
+		
+		
+		return "approval/approvalAllList";
+	}
+	
+	/*[관리자] 선택 전자결재 삭제하기*/
+	@ResponseBody
+	@RequestMapping(value="deleteApproval.ap",  produces="application/json; charset=utf-8")
+	public void deleteApproval(String[] ano, Approval a, HttpSession session, Model model, HttpServletResponse response, HttpServletRequest request)throws ServletException, IOException {
+		
+		String[] updateList = request.getParameterValues("ano");
+		int size = updateList.length;
+		
+		for(int i=0; i<size; i++) {
+	        System.out.println("appNo : "+updateList[i]);
+	    }
+
+		int result = appService.deleteApproval(updateList);
+
+		//System.out.println(updateList);
+		//String[] checkArr = request.getParameterValues("checkArr");
+		//System.out.println("ano : " + ano[0]);
+		
+	}
+	
+	/*[관리자] 전체 삭제된결재문서 조회*/
+	@RequestMapping("deleteApprovalList.ap")
+	public String deleteApprovalAllList(@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Approval a, ApprovalLine al, HttpSession session, Model model) {
+		int listCount = appService.selectDeleteListCount();
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+
+		
+		//진행문서
+		ArrayList<Approval> list = appService.selectApprovalDeleteList(pi);
+		//System.out.println(list);
+
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+
+		return "approval/approvalDeleteList";
+	}
+	
+	/*[관리자] 전자결재 삭제문서 키워드 검색*/
+	@RequestMapping("deleteListSearch.ap")
+	public String searchDeleteList(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+		
+		String condition = request.getParameter("condition");
+		String keyword = request.getParameter("keyword");
+		String deleteStatus = request.getParameter("deleteStatus");
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("deleteStatus", deleteStatus);
+		
+		// 검색 조건에 만족하는 게시글 총 개수
+		int searchCount = appService.selectSearchAllListCount(map);
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
+		PageInfo pi = Pagination.getPageInfo(searchCount, currentPage, 10, 10);
+		ArrayList<Approval> list = appService.selectSearchAllList(map, pi);
+		
+		request.setAttribute("pi", pi);
+		request.setAttribute("list", list);
+		request.setAttribute("condition", condition);
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("deleteStatus", deleteStatus);
+		
+		return "approval/approvalDeleteList";
+	}
 }
