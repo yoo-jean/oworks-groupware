@@ -42,9 +42,6 @@
                 <p>
                   <span>조직도</span>
                 </p>
-                <p>
-                  <span>즐겨찾기</span>
-                </p>
               </div>
             </div>
 
@@ -276,8 +273,6 @@
                   <td style="vertical-align: top;">
                     <h2 class="h2_dot">결재선 리스트
                       <div style="text-align:right; margin-top: -23px;">
-                        <img class="imgbtn" src="${pageContext.servletContext.contextPath }/resources/images/approval/up.png" style="width: 30px;" onclick=""></img>
-                        <img class="imgbtn" src="${pageContext.servletContext.contextPath }/resources/images/approval/down.png" style="width: 30px;" onclick=""></img>
                           <span>
                             <img src="" alt="">
                           </span>
@@ -317,9 +312,7 @@
 
                 <tr>
                   <td class="appstar">
-                    <a class="imgbtn" href="">
-                      <a class="btn btn-outline-primary btn-sm" style="font-size: 9px; font-weight: bold;" onclick="">결재선 즐겨찾기 저장</a>
-                    </a>
+
                   </td>
                 </tr>
 

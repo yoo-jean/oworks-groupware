@@ -377,14 +377,12 @@
                             <th><label for="title" >계좌정보</label></th>
                             <td>
                               <input type="text" id="accountTitle" class="form-control" value="${a.appTitle }" placeholder="계좌정보를 입력하세요">
-                              
                             </td>
                         </tr>
   
                         <tr>
                             <th>총괄적요</th>
-                            <td><input type="text" id="accountContent" class="summernote" value = "${a.appContent }" style="resize:none; height:100px" placeholder="총괄적요를 적어주세요">
-                            </td>
+                            <td colspan="2"><textarea class="summernote" id="accountContent" rows="10" style="resize:none;">${a.appContent }</textarea></td>
                         </tr>
                     </table>
                     <br>
@@ -419,8 +417,7 @@
 
                         <tr>
                             <th>용도</th>
-                            <td><input type="text" id="certiContent" class="summernote" value="${a.appContent }" style="resize:none; height:100px" placeholder="증명서의 용도를 적어주세요">
-                            </td>
+                            <td colspan="2"><textarea class="summernote" id="certiContent" rows="10" style="resize:none;">${a.appContent }</textarea></td>
                         </tr>
                     </table>
                     <br>
@@ -450,10 +447,26 @@
               <!-- 문서양식 바꾸기 -->
               <script>
                 $(document).ready(function(){
-                  	// 처음 페이지 로드시에는 숨기기
-		            $(".innerOuter").hide();
-	              	$(".innerOuter2").hide();
-	              	$(".innerOuter3").hide();
+                	// 처음 페이지 로드시에는 선택된 것만 보여주기
+                  	var year = $("#approvalYear").text();
+                  	console.log("year : " + year);
+                	if(year=='10년'){
+                  		$(".innerOuter").show();
+                  		$(".innerOuter2").hide();
+                  		$(".innerOuter3").hide();
+                	}else if(year=='5년'){
+                  		$(".innerOuter2").show();
+                  		$(".innerOuter").hide();
+                  		$(".innerOuter3").hide();
+                	}else if(year=='3년'){
+                  		$(".innerOuter3").show();
+                  		$(".innerOuter").hide();
+                  		$(".innerOuter2").hide();
+                	}else{
+                  		$(".innerOuter").hide();
+                  		$(".innerOuter2").hide();
+                  		$(".innerOuter3").hide();
+                	}
 	              
                   	$("#appType").change(function(){
                     	var result = $("#appType option:selected").val();

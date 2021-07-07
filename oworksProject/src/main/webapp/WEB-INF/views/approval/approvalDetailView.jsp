@@ -24,24 +24,39 @@
 	<!--좌측메뉴바-->
     <jsp:include page="../common/mainMenubar.jsp"/> 
     
-    <div class="approvalouter" style="position: absolute; left: 400px; top: 100px; width: 1000px;">
+    <div class="approvalouter" id = "approvalouter" style="position: absolute; left: 400px; top: 100px; width: 1000px;">
 		
 		<!-- 기안취소하기 버튼 -->
-		<c:if test="${loginEmp.empNo == a.empNo }">
-			<div class="left_area" style="padding:0">
+		<div class="left_area" style="padding:0">
+			<c:if test="${loginEmp.empNo == a.empNo }">
 				<form action = "collectApproval.ap"  id = "collectApproval" method = "post" enctype="multipart/form-data">
 					<input type="hidden" name = "ano" value = "${a.appNo }">
 					<input type="hidden" name ="filePath" value = "${a.mdfFileName }">
-					
 			      		<button type="submit" onClick="alert('기안문서를 취소하시겠습니까? 문서는 삭제처리되며 복구되지 않습니다!')" class="btn btn-dark btn-sm" onclick="addApprovalLine();">기안취소</button>
-			        	<button type="button" class="btn btn-dark btn-sm">인쇄</button>
+		    </c:if>
+						<button type="button" class="btn btn-dark btn-sm" id="print">인쇄</button>
 				</form>
-		    </div>
-	    </c:if>
+		</div>
+	    <br>
 	    
-	    
-	    
-     	<br>
+	    <!-- 프린트 자바스크립트 -->
+	    <script type="text/javascript">
+			//<![CDATA[
+			$("#print").click(function(){
+			 var initBody;
+			 window.onbeforeprint = function(){
+			  initBody = document.body.innerHTML;
+			  document.body.innerHTML =  document.getElementById('approvalouter').innerHTML;
+			 };
+			 window.onafterprint = function(){
+			  document.body.innerHTML = initBody;
+			 };
+			 window.print();
+			 return false;
+			})
+			//]]>
+		</script>
+
         <div class="container">
             <div class="approvalsetting">
                 <table class="table table-bordered">
@@ -74,13 +89,13 @@
 	                
 	                <tr>
                 		<c:forEach var="appLine" items="${appLine }">
-							<c:if test="${appLine.status ne '대기' }">
+							<c:if test="${appLine.status ne '대기'}">
 			                    <td style="font-weight: bold; color: rgb(42, 128, 185);" id="submitArea">승인</td>
 		                    </c:if>
 			            </c:forEach>
 		                    
 			            <c:forEach var ="appLine" items="${appLine}" end="${fn:length(appLine)}">
-			            	<c:if test="${appLine.status eq '대기' }">
+			            	<c:if test="${appLine.status eq '대기' && appLine.empNo == loginEmp.empNo}">
 				            	<td>
 				                	<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" style="background: rgb(42, 128, 185);">결재</button>
 				            	</td>
@@ -119,7 +134,7 @@
 		                            	<br>
 		                            	<div>
 		                                	<b>승인하시겠습니까?</b><br><br>
-		                                	<textarea placeholder="의견을 입력하세요" style="resize: none;" id="content"></textarea>
+		                                	<textarea placeholder="의견을 입력하세요" style="resize: none; width:400px; height:200px;"" id="content"></textarea>
 		                                	<br>
 		                            	</div>
 		                          	</div>
@@ -143,7 +158,7 @@
             <table class="table table-bordered">
                 <tr>
                 <th>참조</th>
-                <td align="left">경영지원실-김사장</td>
+                <td align="left">여기값을 입력해야됨</td>
                 </tr>
             </table>
             </div>
@@ -160,7 +175,7 @@
                                 <td>${a.appTitle }</td>
                             </tr>
                             <tr>
-                                <td colspan="2">${a.appContent }</td>
+                                <td colspan="2"><p>${a.appContent }</p></td>
                             </tr>
                         </table>
                         <br>
@@ -244,7 +259,7 @@
 						data : {
 							appComment:$("#content").val(),
 							appNo:'${a.appNo}',
-							empNo:${a.empNo}
+							empNo:${loginEmp.empNo}
 						},
 						success:function(status){
 							if(status == "success"){

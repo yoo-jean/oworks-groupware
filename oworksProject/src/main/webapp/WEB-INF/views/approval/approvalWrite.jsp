@@ -43,7 +43,7 @@
 			            <a type="button" class="btn btn-dark btn-sm" href="" data-toggle="modal" data-target="#myModal">결재선</a>
 			            
 			            <button type="submit" class="btn btn-dark btn-sm" onclick="approvalSave();">임시저장</button>
-			            <button type="button" class="btn btn-dark btn-sm">인쇄</button>
+			            <button type="button" class="btn btn-dark btn-sm" id = "print">인쇄</button>
 			        </div>
   			
   			
@@ -51,7 +51,17 @@
 		  			<script>
 			  			function addApprovalLine(){
 			  				
-			  				console.log(referNo);
+			  				//console.log(referNo); // 참조 사원번호 
+			  				
+			  				/*
+			  				if(addEmpNo[1] == null){ //[0]에는 무조건 로그인회원이 담기기 때문에 [1]이 비워져 있으면 페이지 이동 없게
+			  					var confirm = confirm("결재선이 비어있습니다 확인해주세요");
+			  					if(confirm){
+			  						return;
+			  					}
+			  				}
+			  				*/
+			  				
 			  				//form에 input type hidden으로 사원번호, 상태, 결재||참조 값 넘기기
 			            	var form = $("form[name='approvalWrite']");
 			            	var count = 0;
@@ -86,7 +96,7 @@
 			  				//문서양식
 			  				if(category == "품의서"){
 			  					$("#formTitle").val($("#formTitle").val()) ;
-				  				$("#formTitle").val($("#formTitle").val());
+				  				$("#formContent").val($("#formContent").val());
 				  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:1}));
 			  				}else if(category == "지출결의서"){
 				  				$("#formTitle").val($("#accountTitle").val()) ;
@@ -129,10 +139,10 @@
 		       				//저장여부
 		       				form.append($('<input/>', {type:'hidden', name: 'appStorage', value:'Y'}));
 		       				
-		       			//문서양식
+		       			//문서양식 DB에 배열로 들어가는거 방지하기 위해 첫번재 양식에만 name 값 주고 나머지는 name 값없이!!!
 			  				if(category == "품의서"){
 			  					$("#formTitle").val($("#formTitle").val()) ;
-				  				$("#formTitle").val($("#formTitle").val());
+			  					$("#formContent").val($("#formContent").val());
 				  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:1}));
 			  				}else if(category == "지출결의서"){
 				  				$("#formTitle").val($("#accountTitle").val()) ;
@@ -147,7 +157,40 @@
 			  				}
 			  			}
 		  			</script>
-  			
+  					
+  					<!-- 프린트 자바스크립트 -->
+  					<script>
+  						$("#print").click(function(){
+  							const completeParam = makeHtml();
+  							reportPrint(completeParam);
+  						})
+  						
+  						function makeHtml(){
+  							const obj = {html : ''};
+  						    let html = '<div class="approvalouter">';
+  						    html += '</div>';    
+  						    obj.html = html;
+  						    return obj;
+
+  						}
+  						
+  						function reportPrint(param){
+  						    const setting = "width=890, height=841";
+  						    const objWin = window.open('', 'print', setting);
+  						    objWin.document.open();
+  						    objWin.document.write('<html><head><title>기안서 </title>');
+  						    objWin.document.write('<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}"/resources/css/images/common/logo.png>');
+  						    objWin.document.write('</head><body>');
+  						    objWin.document.write(param.html);
+  						    objWin.document.write('</body></html>');
+  						    objWin.focus(); 
+  						    objWin.document.close();
+  						 
+  						  setTimeout(function(){objWin.print();objWin.close();}, 1000);
+
+  						}
+
+  					</script>
   			
   			
 		          	<!-- 결재선 버튼 클릭 시 나오는 모달 -->
@@ -345,7 +388,7 @@
 			                      	</tr>
 			
 			                      	<tr>
-			                          	<td colspan="2"><textarea class="summernote" name="appContent" id="formContent" rows="10" style="resize:none;"></textarea></td>
+			                      		<td colspan="2"><textarea class="summernote" name="appContent" id="formContent" rows="10" style="resize:none;"></textarea></td>
 			                      	</tr>
 			                  	</table>
 			                  	<br>
@@ -385,8 +428,7 @@
 			  
 			                        <tr>
 			                            <th>총괄적요</th>
-			                            <td><input type="text" id="accountContent" class="summernote" style="resize:none; height:100px" placeholder="총괄적요를 적어주세요">
-			                            </td>
+			                            <td colspan="2"><textarea class="summernote" id="accountContent" rows="10" style="resize:none;"></textarea></td>
 			                        </tr>
 			                    </table>
 			                    <br>
@@ -422,8 +464,7 @@
 			
 			                        <tr>
 			                            <th>용도</th>
-			                            <td><input type="text" id="certiContent" class="summernote" style="resize:none; height:100px" placeholder="증명서의 용도를 적어주세요">
-			                            </td>
+			                            <td colspan="2"><textarea class="summernote" id="certiContent" rows="10" style="resize:none;"></textarea></td>
 			                        </tr>
 			                    </table>
 			                    <br>
