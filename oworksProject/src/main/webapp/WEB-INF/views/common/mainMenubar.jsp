@@ -251,7 +251,6 @@
 	            <div class="dropdown-container">
 		            <a href="allList.ap">전체문서목록</a>
 		            <a href="deleteApprovalList.ap">삭제문서목록</a>
-		            <a href="#">양식함 관리</a>
 	            </div>
 	        </div>
         </c:if>

@@ -98,6 +98,15 @@
 </head>
 <body>
 
+	<c:if test="${ !empty alertMsg }">
+		<script>
+			 alertify.alert("${alertMsg}")
+	         .set({'${alertMsg}': true,'onok': function(){alertify.success('Ok')} });
+		</script>
+		<c:remove var="alertMsg" scope="session"/>
+	</c:if>
+
+
 <div id="header">
 	
     <div id="header_logo">
