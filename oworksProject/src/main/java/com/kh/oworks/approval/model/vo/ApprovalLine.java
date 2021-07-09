@@ -29,8 +29,9 @@ public class ApprovalLine {
 	private String empName;
 	private String appContent;
 	
+	private String jobName;
 	private ArrayList<ApprovalLine> lineList;
 	
-	private int approvalEmpNo;
+	//private int approvalEmpNo;
 	
 }

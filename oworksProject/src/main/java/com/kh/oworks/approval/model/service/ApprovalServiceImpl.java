@@ -77,6 +77,12 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.selectAttachment(sqlSession, appNo);
 	}
 	
+	// 전자결재 상세보기 참조자 조회
+	@Override
+	public ArrayList<ApprovalLine> selectApprovalLineRefer(String appNo) {
+		return appDao.selectApprovalLineRefer(sqlSession, appNo);
+	}
+
 	// 기안서 수정하기
 	@Override
 	public int updateSaveApproval(Approval a) {
@@ -189,8 +195,8 @@ public class ApprovalServiceImpl implements ApprovalService{
 	
 	// 결재선 진행상태 변경
 	@Override
-	public int updateApprovalLineStatus(ApprovalLine al) {
-		return appDao.updateApprovalLineStatus(sqlSession, al);
+	public int updateApprovalLineStatus(Approval a) {
+		return appDao.updateApprovalLineStatus(sqlSession, a);
 	}
 	
 	// 결재상태에 따른 키워드 검색
@@ -255,6 +261,7 @@ public class ApprovalServiceImpl implements ApprovalService{
 	public ArrayList<Approval> selectApprovalDeleteList(PageInfo pi) {
 		return appDao.selectApprovalDeleteList(sqlSession, pi);
 	}
+
 
 
 

@@ -83,17 +83,28 @@
 		                <tr>
 		                    <th rowspan="3" id="approval">결재</th>
 				                <c:forEach var="appLine" items="${appLine}">
-					            	<td>${appLine.jobName}</td>
+				                	<c:if test = "${appLine.refer eq '결재'}">
+					            		<td>${appLine.jobName}</td>
+					            	</c:if>
 				                </c:forEach>
 		                </tr>
 	                
 	                <tr>
+	                
+	                	<!-- 여기 어떻게 바꾸지!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
                 		<c:forEach var="appLine" items="${appLine }">
-							<c:if test="${appLine.status ne '대기'}">
-			                    <td style="font-weight: bold; color: rgb(42, 128, 185);" id="submitArea">승인</td>
-		                    </c:if>
+                			<c:choose>
+                				<c:when test = "${appLine.appStatus eq '승인' }">
+					                <td style="font-weight: bold; color: rgb(42, 128, 185);" id="submitArea">승인</td>
+                				</c:when>
+                				<c:when test = "${appLine.appStatus eq '반려' }">
+					                <td style="font-weight: bold; color: rgb(42, 128, 185);" id="submitArea">반려</td>
+                				</c:when>
+                			</c:choose>
 			            </c:forEach>
-		                    
+		                
+		                
+		                
 			            <c:forEach var ="appLine" items="${appLine}" end="${fn:length(appLine)}">
 			            	<c:if test="${appLine.status eq '대기' && appLine.empNo == loginEmp.empNo}">
 				            	<td>
@@ -105,10 +116,14 @@
 	                
 	                <tr>
 	               		<c:forEach var ="appLine" items="${appLine }">
-		                    <td>${appLine.empName}</td>
+	               			<c:if test = "${appLine.refer eq '결재'}">
+		                    	<td>${appLine.empName}</td>
+		                    </c:if>
 		               	</c:forEach>
 	                </tr>
                 </table>
+
+
 
                 <!--승인이나 반려 선택하는 모달-->
                 <form id = "updateApprovalStatus" method="post" action = "update.ap" name = "approvalStatus">
@@ -129,7 +144,6 @@
 		                                    	<input type="radio" name="appStatus" value="승인" id="ok" onclick="approvalSubmit(1);"><label for="ok">&nbsp;승인</label>
 		                                    	&nbsp;&nbsp;
 		                                    	<input type="radio" name="appStatus" value="반려" id="no" onclick="approvalSubmit(2);"><label for="no">&nbsp;반려</label>
-		                                
 		                            	</div>
 		                            	<br>
 		                            	<div>
@@ -153,15 +167,38 @@
  		        </form>
             </div>
 			
+			<!-- 반려 어떻게 하지 test 
+			<script>
+				var num = 0;
+				function approvalSubmit(num){
+					if(num == 1){
+						console.log('승인');
+						document.getElementById("submitArea").innerHTML = '승인';
+					}else{
+						console.log('반려');
+						document.getElementById("submitArea").innerHTML = '반려';
+					}
+				}
+			</script>
+			-->
+			
+			
+			
             <!--참조-->
             <div class="reference">
             <table class="table table-bordered">
                 <tr>
                 <th>참조</th>
-                <td align="left">여기값을 입력해야됨</td>
+	               		<c:forEach var ="appLine" items="${appLine }">
+	               			<c:if test = "${appLine.refer eq '참조'}">
+		                    	<td align = "left">${appLine.empName}</td>
+		                    </c:if>
+		                    
+		               	</c:forEach>
                 </tr>
             </table>
             </div>
+
 
             <!--내용영역-->
             <div class="content">
@@ -235,15 +272,22 @@
 			})
        		
 			function addComment(){
-        		// 승인, 반려 체크시 status input으로 넘기기
+        		// 승인, 반려 체크시 status input으로 넘기기 [넘기지 않아도 되는거 같은 지금 sql에서 안씀]
         		
         		var radio = $("input[name='appStatus']:checked").val();
+        		console.log(radio);
         		var form = $("form[id='updateApprovalStatus']");
+        		
+        		
            		if(radio=="승인"){
+           			document.getElementById("submitArea").innerHTML = '승인';
            			form.append($('<input/>', {type:'hidden', name:'status', value:'진행'}));
            		}else{
-           			form.append($('<input/>', {type:'hidden', name:'status', value:'반려'}));
+           			document.getElementById("submitArea").innerHTML = '반려';
+           			//form.append($('<input/>', {type:'hidden', name:'status', value:'반려'}));
            		}
+        		
+        		
 				form.submit();
               	
 				

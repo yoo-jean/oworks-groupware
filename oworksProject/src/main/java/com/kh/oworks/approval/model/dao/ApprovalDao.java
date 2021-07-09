@@ -43,7 +43,7 @@ public class ApprovalDao {
 	public ArrayList<ApprovalLine> selectList(SqlSessionTemplate sqlSession, PageInfo pi, ApprovalLine al){
 		
 		//System.out.println(a);
-		System.out.println(al.getStatus());
+		//System.out.println(al.getStatus());
 		
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
@@ -67,12 +67,12 @@ public class ApprovalDao {
 	}
 	
 	// 전자결재 상세보기
-	public int increaseCount(SqlSessionTemplate sqlSession, String appNo) {
-		return sqlSession.update("approvalMapper.increaseCount", appNo);
+	public int increaseCount(SqlSessionTemplate sqlSession, String ano) {
+		return sqlSession.update("approvalMapper.increaseCount", ano);
 	}
 	
-	public Approval selectApproval(SqlSessionTemplate sqlSession, String appNo) {
-		return sqlSession.selectOne("approvalMapper.selectApproval", appNo);
+	public Approval selectApproval(SqlSessionTemplate sqlSession, String ano) {
+		return sqlSession.selectOne("approvalMapper.selectApproval", ano);
 	}
 	
 	// 전자결재 상세보기 결재선 조회
@@ -86,10 +86,14 @@ public class ApprovalDao {
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectAttachment", appNo);
 	}
 	
+	// 전자결재 상세보기 참조자 조회
+	public ArrayList<ApprovalLine> selectApprovalLineRefer(SqlSessionTemplate sqlSession, String appNo) {
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectApprovalLineRefer", appNo);
+	}
 	
 	// 기안서 수정하기
 	public int updateSaveApproval(SqlSessionTemplate sqlSession, Approval a) {
-		System.out.println(a);
+		//System.out.println(a);
 		return sqlSession.update("approvalMapper.updateSaveApproval", a);
 	}
 	
@@ -99,14 +103,6 @@ public class ApprovalDao {
 		//System.out.println(apLineList);
 		return sqlSession.update("approvalMapper.updateAddLine", apLineList);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	// 기안서에 달린 코멘트 리스트 조회
 	public ArrayList<ApprovalComment> selectCommentList(SqlSessionTemplate sqlSession, String appNo){
@@ -210,8 +206,9 @@ public class ApprovalDao {
 	}
 	
 	// 결재선 상태 변경
-	public int updateApprovalLineStatus(SqlSessionTemplate sqlSession, ApprovalLine al) {
-		return sqlSession.update("approvalMapper.updateApprovalLineStatus", al);
+	public int updateApprovalLineStatus(SqlSessionTemplate sqlSession, Approval a) {
+		System.out.println(a);
+		return sqlSession.update("approvalMapper.updateApprovalLineStatus", a);
 	}
 			
 	
@@ -290,4 +287,7 @@ public class ApprovalDao {
 		
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectApprovalDeleteList", null, rowBounds);
 	}
+
+
+
 }

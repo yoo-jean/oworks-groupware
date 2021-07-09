@@ -34,6 +34,7 @@ public interface ApprovalService {
 	Approval selectApproval(String appNo);
 	ArrayList<ApprovalLine> selectApprovalLine(String appNo);
 	ArrayList<Attachment> selectAttachment(String appNo);
+	ArrayList<ApprovalLine> selectApprovalLineRefer(String appNo);
 	
 	//기안서 수정하기
 	int updateSaveApproval(Approval a);
@@ -89,7 +90,7 @@ public interface ApprovalService {
 	int updateApprovalStatus(Approval a);
 	
 	//결재선 테이블에서 상태변경 진행 -> 완료
-	int updateApprovalLineStatus(ApprovalLine al);
+	int updateApprovalLineStatus(Approval a);
 	
 	//결재상태에 따른 키워드 검색
 	int selectSearchCount(HashMap<String, String> map);

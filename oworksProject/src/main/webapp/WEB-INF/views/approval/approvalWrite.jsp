@@ -72,9 +72,15 @@
 		       					//걀재 || 참조 상태
 		       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + count + '].refer', value:'결재'}));
 		       					
+		       					
+		       					
+		       					
+		       					
 		       					//상태
 		       					if(i==0){
-		       						form.append($('<input/>', {type:'hidden', name:'lineList[0].status', value:'진행'}));
+		       						form.append($('<input/>', {type:'hidden', name:'lineList[0].status', value:'완료'}));
+		       						// appStatus 승인인지 반려인지! [0]번은 무조건 승인으로 들어가게 하기
+				       				form.append($('<input/>', {type:'hidden', name:'lineList[0].appStatus', value:'승인'}));
 		       					}else{
 		       						form.append($('<input/>', {type:'hidden', name:'lineList[' + count + '].status', value:'대기'}));
 		       					}
@@ -91,6 +97,9 @@
 		       				
 		       				//저장여부
 			  				form.append($('<input/>', {type:'hidden', name: 'appStorage', value:'N'}));
+		       				
+		       				
+		       				
 		       				
 		       				
 			  				//문서양식

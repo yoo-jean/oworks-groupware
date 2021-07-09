@@ -64,7 +64,6 @@
 		                        <th>제목</th>
 		                        <th>기안자</th>
 		                        <th>기안일</th>
-		                        <th>상태</th>
 		                    </tr>
 		                </thead>
 		                <tbody>
@@ -82,7 +81,6 @@
 					                        <td>${a.appTitle }</td>
 					                        <td>${a.empName }</td>
 					                        <td>${a.writeDate }</td>
-					                        <td>${a.status}</td>
 					                    </tr>
 		                    		</c:forEach>
 		                		</c:otherwise>
@@ -101,7 +99,6 @@
 		                        <th>제목</th>
 		                        <th>기안자</th>
 		                        <th>기안일</th>
-		                        <th>상태</th>
 		                    </tr>
 		                </thead>
 		                <tbody>
@@ -118,8 +115,7 @@
 					                        <td class = "ano">${a.appNo }</td>
 					                        <td>${a.appTitle }</td>
 					                        <td>${a.empName }</td>
-					                        <td>${a.appDate }</td>
-					                        <td>${a.status}</td>
+					                        <td>${a.writeDate }</td>
 					                    </tr>
 		                    		</c:forEach>
 		                		</c:otherwise>
@@ -139,7 +135,6 @@
 		                        <th>제목</th>
 		                        <th>기안자</th>
 		                        <th>기안일</th>
-		                        <th>상태</th>
 		                    </tr>
 		                </thead>
 		                <tbody>
@@ -156,8 +151,7 @@
 					                        <td class = "ano">${a.appNo }</td>
 					                        <td>${a.appTitle }</td>
 					                        <td>${a.empName }</td>
-					                        <td>${a.appDate }</td>
-					                        <td>${a.status}</td>
+					                        <td>${a.writeDate }</td>
 					                    </tr>
 		                    		</c:forEach>
 		                		</c:otherwise>

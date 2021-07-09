@@ -64,7 +64,7 @@ public class ApprovalController {
 		
 		return "approval/approvalMain";
 	}
-	
+
 	
 	/*전자결재 상세보기*/
 	@RequestMapping("detail.ap")
@@ -75,6 +75,9 @@ public class ApprovalController {
 		Approval a = appService.selectApproval(ano);
 		ArrayList<ApprovalLine> appLine = appService.selectApprovalLine(ano); 
 		ArrayList<Attachment> attList = appService.selectAttachment(ano);
+		// 참조자 보기
+		//ArrayList<ApprovalLine> appLineRefer = appService.selectApprovalLineRefer(ano);
+		//System.out.println("참조 : " + appLineRefer);
 		
 		if(!"".equals(a)) {
 			model.addAttribute("appLine", appLine);
@@ -107,20 +110,23 @@ public class ApprovalController {
 		//System.out.println(apLineList);
 		
 		//첨부파일
-		if(!reupfile.getOriginalFilename().equals("")) { // 첨부파일이 존재하는 경우
+		if(!reupfile.getOriginalFilename().equals("")) { // 새로 넘어온 첨부파일이 있을 경우
+			// 새로 넘어온 첨부파일있는데 기존의 첨부파일이 있었을 경우 => 서버에 업로드 되어있는 기존의 파일 찾아서 지울꺼임
+			if(fp.getMdfFileName() != null) {
+				new File(session.getServletContext().getRealPath(fp.getMdfFileName())).delete();
+			}
 			
+			// 그리고 새로 넘어온 첨부파일 서버에 업로드 시킴
 			String changeName = saveFile(session, reupfile);
-			
 			fp.setOrgFileName(reupfile.getOriginalFilename());
 			fp.setMdfFileName("resources/uploadFiles/" + changeName);
-			fp.setFilePath("resources/uploadFiles/");
 		}
 		
 		// 기안서
 		int result = appService.updateSaveApproval(a);
 
 		// 결재선
-		int apLineResult = appService.updateAddLine(apLineList);
+		//int apLineResult = appService.updateAddLine(apLineList);
 		
 		
 		if(result>0) {
@@ -191,9 +197,6 @@ public class ApprovalController {
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "기안등록이 완료되었습니다");
-			//model.addAttribute("a", a)
-			//     .addAttribute("fp", fp)
-			//     .addAttribute("apLineList", apLineList);
 			model.addAttribute("empNo", empNo);
 			model.addAttribute("empName", ((Employee)session.getAttribute("loginEmp")).getEmpName());
 			return "redirect:list.ap";
@@ -223,7 +226,7 @@ public class ApprovalController {
 		
 		int status = appService.updateApprovalStatus(a);
 		
-		int lineStatus = appService.updateApprovalLineStatus(al);
+		int lineStatus = appService.updateApprovalLineStatus(a);
 		
 		//int lineStatus = appService.updateLineStatus(al);
 		// 결재자 몇명인지 알기 위해 필요
@@ -525,6 +528,8 @@ public class ApprovalController {
 			}
 			
 			session.setAttribute("alertMsg", "성공적으로 기안취소가 완료되었습니다");
+			model.addAttribute("empNo", ((Employee)session.getAttribute("loginEmp")).getEmpNo());
+			model.addAttribute("empName", ((Employee)session.getAttribute("loginEmp")).getEmpName());
 			return "redirect:list.ap";
 		
 		}else {

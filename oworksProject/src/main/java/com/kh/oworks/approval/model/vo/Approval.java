@@ -40,9 +40,10 @@ public class Approval {
 	private String deptName;
 	private String jobName;
 	private String status;
+	private String refer;
 	
 	private ArrayList<ApprovalLine> lineList;
-	private ArrayList<Approval>updateList;
+	private ArrayList<Approval>updateList; // 선택삭제
 	
 	private int approvalEmpNo;
 }
