@@ -28,8 +28,10 @@
 	            <div class="ArticleTopBtns">
 	                <div class="left_area">
 	                	<!-- 본인일 경우에만 수정 삭제 가능 -->
-	                    <a onclick="postFormSubmit(1);" class="btn btn-dark btn-sm" style="color: white;">수정</a>
-	                    <a onclick="postFormSubmit(2);" class="btn btn-dark btn-sm" style="color: white;">삭제</a>
+	                	<c:if test="${loginEmp.empName == n.empName }">
+	                    	<a onclick="postFormSubmit(1);" class="btn btn-dark btn-sm" style="color: white;">수정</a>
+	                    	<a onclick="postFormSubmit(2);" class="btn btn-dark btn-sm" style="color: white;">삭제</a>
+	                    </c:if>
 	                </div>
 					
 					<form id="postForm" action = "" method="post">
@@ -59,7 +61,6 @@
 	                    <div class="noticeTitle">
 	                        <h3>${n.noticeTitle }</h3>
 	                    </div>
-	                
 	
 	                    <div class="writeInfo">
 	                        <img src="${pageContext.servletContext.contextPath }/resources/images/board/user.png" class = "thumb">
@@ -127,6 +128,7 @@
 	                    	$.ajax({
 	                    		url : "likeInsert.no",
 	                    		type : "post",
+	                    		async : false,
 	                    		data : {
 	                    			noticeNo : ${n.noticeNo},
 	                    			empNo : ${loginEmp.empNo}
@@ -146,6 +148,7 @@
 	                    	$.ajax({
 	                    		url : "likeDelete.no",
 	                    		type : "post",
+	                    		async : false,
 	                    		data : {
 	                    			noticeNo : ${n.noticeNo},
 	                    			empNo : ${loginEmp.empNo}
@@ -163,6 +166,7 @@
 	                    	$.ajax({
 	                    		url : "allLike.no",
 	                    		type : "post",
+	                    		async : false,
 	                    		data : {
 	                    			noticeNo : ${n.noticeNo},
 	                    		},
@@ -203,29 +207,11 @@
 							});
 						//]]>
 						</script>
-	                    
-	                    
-	                    
-	                    
-	                    
-	                    
-	                    
-	                    
-	                    
-	                    
-	                    
-	                    
-	                    
 	                </div>
-	
 	            </div>
 	        </div>
         </div>
     </div>
-
-    
-    <!-- 이쪽에 푸터바 포함할꺼임 -->
-    
 
 </body>
 </html>

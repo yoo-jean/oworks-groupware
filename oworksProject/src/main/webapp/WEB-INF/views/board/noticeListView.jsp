@@ -25,13 +25,14 @@
          
 	         <div class="article-board" style="position: absolute; left: 400px; top: 150px; width:850px;">
 	             
-	             <!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
-	             <br><br>
-	           	<a id="writebtn" class="btn btn-outline-primary btn-sm" style="float:right" href="enrollForm.no">글작성</a>
-	             
-	             <table id="boardList" align="center">
-	                <colgroup>
-	                    <col style="width: 50px;">
+	            <!-- 로그인후 상태일 경우만 보여지는 글쓰기 버튼-->
+	            <br><br>
+	            <c:if test="${loginEmp ne null }">
+	           		<a id="writebtn" class="btn btn-outline-primary btn-sm" style="float:right" href="enrollForm.no">글작성</a>
+	            </c:if>
+	            <table id="boardList" align="center">
+	               	<colgroup>
+	                	<col style="width: 50px;">
 	                    <col style=" ">
 	                    <col style="width: 80px;">
 	                    <col style="width: 80px;">
