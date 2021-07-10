@@ -18,37 +18,55 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDao aDao;
 	
+	// 관리자 근태통계 갯수
+	// 관리자 근태통계 조회	
+	
+	// 관리자 일일출퇴근현황 갯수
 	@Override
-	public int selectListCount() {
-		return aDao.selectListCount(sqlSession);
+	public int selectAdCount() {
+		return aDao.selectAdCount(sqlSession);
 	}
-
+	
+	// 관리자 일일출퇴근현황 조회
 	@Override
 	public ArrayList<Admin> selectList(PageInfo pi) {
 		return aDao.selectList(sqlSession, pi);
 	}
 	
+	// 관리자 휴가현황 갯수
+	@Override
+	public int selectOffCount() {
+		return aDao.selectOffCount(sqlSession);
+	}
+	
+	// 관리자 휴가현황 조회
+	@Override
+	public ArrayList<Admin> selectOffList(PageInfo pi) {
+		return aDao.selectOffList(sqlSession, pi);
+	}
+	
+	// 관리자 휴가분류 조회
 	@Override
 	public ArrayList<Admin> selectOffCate() {
 		return aDao.selectOffCate(sqlSession);
 	}
-
+	
+	// 관리자 휴가분류 작성
 	@Override
 	public int insertOffCate(Admin a) {
-		// TODO Auto-generated method stub
-		return 0;
+		return aDao.insertOffCate(sqlSession, a);
 	}
-
+	
+	// 관리자 휴가분류 수정
 	@Override
 	public int updateOffCate(Admin a) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	// 관리자 휴가분류 삭제
 	@Override
 	public int deleteOffCate(int offCateNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return aDao.deleteOffCate(sqlSession, offCateNo);
 	}
 
 }

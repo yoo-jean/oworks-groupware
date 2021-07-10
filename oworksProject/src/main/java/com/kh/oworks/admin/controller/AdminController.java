@@ -2,8 +2,11 @@ package com.kh.oworks.admin.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,17 +22,17 @@ public class AdminController {
 	@Autowired
 	private AdminService aService;
 	
-	//관리자 근무관리_근태
+	//관리자 근무관리_근태 조회
 	@RequestMapping("adList.at")
 	public String adminAttendanceList() {
 		return "admin/adminAttendanceListView";
 	}
 	
-	//관리자 근무관리_근태_일일출퇴근현황
+	//관리자 근무관리_근태_일일출퇴근현황 조회
 	@RequestMapping("adDailyList.at")
 	public ModelAndView adminDailyAttendanceList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, ModelAndView mv) {
 		
-		int listCount = aService.selectListCount();
+		int listCount = aService.selectAdCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
 		ArrayList<Admin> list = aService.selectList(pi);
@@ -41,12 +44,11 @@ public class AdminController {
 		return mv;
 	}
 	
-	//관리자 근무관리_휴가현황
-	
-	/*@RequestMapping("adList.off")
+	//관리자 근무관리_휴가현황 조회
+	@RequestMapping("adList.off")
 	public ModelAndView adminOffList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, ModelAndView mv) {
 		
-		int listCount = aService.selectListCount();
+		int listCount = aService.selectOffCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
 		ArrayList<Admin> offList = aService.selectOffList(pi);
@@ -56,13 +58,13 @@ public class AdminController {
 		  .setViewName("admin/adminOffListView");
 		
 		return mv;
-	}*/
-	@RequestMapping("adList.off")
+	}
+	/*@RequestMapping("adList.off")
 	public String adminOffList() {
 		return "admin/adminOffListView";
-	}
+	}*/
 	
-	//관리자 근무관리_휴가_휴가분류관리
+	//관리자 근무관리_휴가_휴가분류 조회
 	@RequestMapping("adCate.off")
 	public ModelAndView adminOffCate(ModelAndView mv) {
 		ArrayList<Admin> offCate = aService.selectOffCate();
@@ -70,6 +72,37 @@ public class AdminController {
 		mv.addObject("offCate", offCate)
 		  .setViewName("admin/adminOffCate");
 		return mv;
+	}
+	
+	//관리자 근무관리_휴가분류관리 insert
+	@RequestMapping("insertCate.of")
+	public String insertOffCate(Admin a, HttpSession session, Model model) {
+		
+		int result = aService.insertOffCate(a);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 추가 되었습니다.");
+			return "redirect:adCate.off";
+		}else {
+			model.addAttribute("errorMsg", "추가에 실패하였습니다.");
+			return "common/errorPage";
+		}
+	}
+	//alertify.alert('제목', '메세지내용');
+	
+	//관리자 근무관리_휴가분류관리 delete
+	@RequestMapping
+	public String deleteOffCate(int offCateNo, HttpSession session, Model model) {
+		
+		int result = aService.deleteOffCate(offCateNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 삭제하였습니다.");
+			return "redirect:adCate.off";
+		}else {
+			model.addAttribute("errorMsg", "삭제에 실패하였습니다.");
+			return "common/errorPage";
+		}
 	}
 	
 	//관리자 부서관리

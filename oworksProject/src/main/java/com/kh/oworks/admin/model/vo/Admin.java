@@ -30,8 +30,11 @@ public class Admin {
 	private int offCateDay;
 	
 	// 관리자 근태통계
+	private int offNo;
+	private String jobName;
 	private String offGiven;
 	private String offUsed;
 	private String offAvailable;
+	private Date hireDate;
 
 }

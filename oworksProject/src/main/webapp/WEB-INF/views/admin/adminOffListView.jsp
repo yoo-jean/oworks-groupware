@@ -70,6 +70,10 @@
     td {
         height: 35px;
     }
+    #pagingArea{
+    	width:fit-content;
+    	margin:auto;
+    }
 </style>
 </head>
 <body>
@@ -112,22 +116,53 @@
                         <th>입사일</th>
                         <th>근무연수</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>123456</td>
-                        <td>개발부</td>
-                        <td>과장</td>
-                        <td>오상식</td>
-                        <td>19</td>
-                        <td>1</td>
-                        <td>18</td>
-                        <td>2008-05-10</td>
-                        <td>13년</td>
-                    </tr>
+                    <% int i = 0; %>
+                    <c:forEach var="a" items="${ offList }"  varStatus="status">
+                    <c:set var="sq" value="${status.index + 1 + (pi.currentPage-1) * 10}"/>
+	                    <tr>
+	                        <td><c:out value="${sq}"/></td>
+	                        <td>${ a.empNo }</td>
+	                        <td>${ a.deptName }</td>
+	                        <td>${ a.jobName }</td>
+	                        <td>${ a.empName }</td>
+	                        <td>${ a.offGiven }</td>
+	                        <td>${ a.offUsed }</td>
+	                        <td>${ a.offAvailable }</td>
+	                        <td>${ a.hireDate }</td>
+	                        <td>근무연수</td>
+	                    </tr>
+                    </c:forEach>
                 </table>
                 
-
-                <!--Paging바 들어갈 자리-->
+                <br>
+                
+                <div id="pagingArea">
+                	<ul class="pagination">
+                		
+                		<c:choose>
+                			<c:when test="${ pi.currentPage eq 1}">
+	                			<li class="page-item disabled"><a class="page-link" href="#">&lt;</a></li>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<li class="page-item"><a class="page-link" href="adList.off?currentPage=${ pi.currentPage-1 }">&lt;</a></li>
+                			</c:otherwise>
+                		</c:choose>
+                		                		
+                		<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                			<li class="page-item"><a class="page-link" href="adList.off?currentPage=${ p }">${ p }</a></li>
+                		</c:forEach>
+                		
+                		<c:choose>
+                			<c:when test="${ pi.currentPage eq pi.maxPage}">
+	                			<li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
+	                		</c:when>
+	                		<c:otherwise>
+		                		<li class="page-item"><a class="page-link" href="adList.off?currentPage=${ pi.currentPage+1 }">&gt;</a></li>
+	                		</c:otherwise>
+                		</c:choose>
+                		
+                	</ul>
+                </div>
 
             </div>
 

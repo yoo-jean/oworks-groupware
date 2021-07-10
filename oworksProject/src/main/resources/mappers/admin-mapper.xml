@@ -15,18 +15,19 @@
 		<result column="off_cate_no" property="offCateNo"/>
 		<result column="off_cate_name" property="offCateName"/>
 		<result column="off_cate_day" property="offCateDay"/>
+		<result column="off_no" property="offNo"/>
+		<result column="job_name" property="jobName"/>
+		<result column="off_given" property="offGiven"/>
+		<result column="off_used" property="offUsed"/>
+		<result column="off_available" property="offAvailable"/>
+		<result column="hire_date" property="hireDate"/>
 	</resultMap>
 	
-	<!-- 일일출퇴근현황 게시글 갯수 -->
-	<select id="selectListCount" resultType="_int">
-		select
-		       count(*)
-		  from attendance
-	</select>
-	
-	<!-- 근태통계 / 휴가현황 게시글 갯수 -->
+	<!-- 근태통계 목록 갯수 -->
 	<select id="selectEmpCount" resultType="_int">
-		
+		select
+			   count(*)
+		  from employee
 	</select>
 	
 	<!-- 근태통계 조회 -->
@@ -41,6 +42,14 @@
 			 , off_used
 			 , off_available
 		  from
+		       attendance
+	</select>
+	
+	<!-- 일일출퇴근현황 목록 갯수 -->
+	<select id="selectAdCount" resultType="_int">
+		select
+		       count(*)
+		  from attendance
 	</select>
 	
 	<!-- 일일출퇴근현황 조회 -->
@@ -60,6 +69,31 @@
 		  join department using (dept_code)
 	</select>
 	
+	<!-- 휴가현황 목록 갯수 -->
+	<select id="selectOffCount" resultType="_int">
+		select
+			   count(*)
+		  from off
+	</select>
+	
+	<!-- 휴가현황 조회 -->
+	<select id="selectOffList" resultMap="admin">
+		select
+		       emp_no
+		     , dept_name
+		     , job_name
+		     , emp_name
+		     , off_given
+		     , sum(off_used) as off_used
+		     , off_available
+		     , hire_date
+		  from employee
+		  join department using(dept_code)
+		  join job using(job_code)
+		  join off using(emp_no)
+		 group by emp_no, dept_name, job_name, emp_name, off_given, off.off_used, off_available, hire_date
+	</select>
+	
 	<!-- 휴가분류 조회 -->
 	<select id="selectOffCate" resultMap="admin">
 		select
@@ -68,6 +102,37 @@
 			 , off_cate_day
 		  from off_cate
 	</select>
+	
+	<!-- 휴가분류 작성  -->
+	<select id="insertOffCate" resultMap="admin">
+		insert
+		  into off_cate
+		  (
+		    off_cate_no
+		  , off_cate_name
+		  , off_cate_day
+		  )
+		  values
+		  (
+		  	seq_ocno.nextval
+		  , #{offCateName}
+		  , #{offCateDay}
+		  )
+	</select>
+	
+	<!-- 휴가분류 삭제 -->
+	<select id="deleteOffCate" parameterType="_int">
+		delete
+		  from off_cate
+		 where off_cate_no = #{offCateNo}
+	</select>
+
+
+
+
+
 
 
 </mapper>
+
+

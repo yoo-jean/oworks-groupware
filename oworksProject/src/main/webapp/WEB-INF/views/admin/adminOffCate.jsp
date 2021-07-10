@@ -103,16 +103,16 @@
 	                        </tr>
                         </c:forEach>
                     </table>
-                    <div class="offCate_enroll">
+                    <form class="offCate_enroll" action="insertCate.of">
                         <div class="offCate_enroll_btn">
                             <button type="submit" class="btn btn-primary">저장</button>
                             <button type="submit" class="btn btn-outline-primary">삭제</button>
                         </div>
                         <div class="offCate_enroll_text">
-                            <span>휴가 분류</span> <input type="text" placeholder="휴가 분류명을 입력하세요"><br>
-                            <span>휴가 일수</span> <input type="text" placeholder="숫자만 입력하세요 (ex. 1)">
+                            <span>휴가 분류</span> <input type="text" id="cate" name="offCateName" placeholder="휴가 분류명을 입력하세요" required><br>
+                            <span>휴가 일수</span> <input type="text" id="day" name="offCateDay" placeholder="숫자만 입력하세요 (ex. 1)" required>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 
             </div>
@@ -120,7 +120,6 @@
         </div>
 
     </div>
-
 
     
 

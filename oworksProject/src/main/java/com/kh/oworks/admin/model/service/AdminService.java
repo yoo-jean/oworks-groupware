@@ -7,15 +7,17 @@ import com.kh.oworks.common.model.vo.PageInfo;
 
 public interface AdminService {
 	
-	// 관리자 근태통계 (페이징 처리)
-	// int selectLisCount
+	// 관리자 근태통계 조회 (페이징 처리)
+	// int selectEmpCount();
+	// ArrayList<Admin> selectAdList(PageInfo pi);
 	
 	// 관리자 일일 출퇴근 현황 조회 (페이징 처리)
-	int selectListCount();
+	int selectAdCount();
 	ArrayList<Admin> selectList(PageInfo pi);
 	
 	// 관리자 휴가현황 조회 (페이징 처리)
-	//ArrayList<Admin> selectOffList(PageInfo pi);
+	int selectOffCount();
+	ArrayList<Admin> selectOffList(PageInfo pi);
 	
 	// 관리자 휴가분류 조회
 	ArrayList<Admin> selectOffCate();
