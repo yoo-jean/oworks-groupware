@@ -29,7 +29,11 @@
 
 
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
     /* 세부 페이지마다 공통적으로 유지할 style */
+    body {
+    	font-family: 'Nanum Gothic', sans-serif;
+    }
     div {
         box-sizing: border-box;
     }

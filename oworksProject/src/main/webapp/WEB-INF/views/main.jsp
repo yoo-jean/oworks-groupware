@@ -28,6 +28,10 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+    body {
+    	font-family: 'Nanum Gothic', sans-serif;
+    }
     /*테이블 관련 스타일*/
     .main_emp, .main_menu {
         display: flex;
