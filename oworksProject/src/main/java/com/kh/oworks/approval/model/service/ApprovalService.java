@@ -39,6 +39,9 @@ public interface ApprovalService {
 	//기안서 수정하기
 	int updateSaveApproval(Approval a);
 	
+	//기안서 수정하기 첨부파일
+	int updateSaveApprovalFile(FilePath fp);
+	
 	//기안서 수정하기 결재선
 	int updateAddLine(ArrayList<ApprovalLine> apLineList);
 	

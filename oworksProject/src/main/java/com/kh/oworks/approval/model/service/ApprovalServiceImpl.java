@@ -89,6 +89,12 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.updateSaveApproval(sqlSession, a);
 	}
 	
+	//기안서 수정하기 첨부파일
+	@Override
+	public int updateSaveApprovalFile(FilePath fp) {
+		return appDao.updateSaveApprovalFile(sqlSession, fp);
+	}
+	
 	// 기안서 수정하기 결재선
 	@Override
 	public int updateAddLine(ArrayList<ApprovalLine> apLineList) {
@@ -262,15 +268,5 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.selectApprovalDeleteList(sqlSession, pi);
 	}
 
-
-
-
-
-
-
-	
-	
-
-	
 	
 }

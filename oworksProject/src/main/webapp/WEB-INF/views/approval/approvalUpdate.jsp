@@ -421,7 +421,7 @@
                         </tr>
                     </table>
                     <br>
-      
+      				
                     <!--첨부파일-->
                   	<div class="insertfile">
                    		<table class="table table-bordered">
@@ -429,12 +429,9 @@
                        			<th><label for="upfile">첨부파일</label></th>
                        			<td>
                          			<input type="file" id="upfile" name="reupfile" class="form-control-file border">
-
-                         			<c:if test="${!empty a.orgFileName }">							
-                         				현재 업로드 된 파일 : <a href="${fp.mdfFileName }" download="${a.orgFileName }">${a.orgFileName }</a>
-                         				<input type="hidden" name = "orgFileName" value = "${a.orgFileName }">
-                         				<input type="hidden" name = "mdfFileName" value = "${a.mdfFileName }">
-                         			</c:if>
+                         				현재 업로드 된 파일 : <a href="${a.mdfFileName }" download="${a.orgFileName }">${a.orgFileName }</a>
+                         				<input type="hidden" name = "fileNo" value = "${fp.fileNo }">
+                         				<input type="hidden" name = "orgFileName" value = "${fp.orgFileName }">
                        			</td>
                    			</tr>
                    		</table>

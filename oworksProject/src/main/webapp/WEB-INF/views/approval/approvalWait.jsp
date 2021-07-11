@@ -88,12 +88,10 @@
                 <table class="table table-hover" id = "saveApprovalTable">
                     <thead class="thead-dark">
                         <tr>
-                            <th width="40px"><input type="checkbox"></th>
                             <th width="150px">문서번호</th>
                             <th width="220px">제목</th>
                             <th width="90px">기안자</th>
                             <th width="200px">기안일</th>
-                            <th width="80px">상태</th>                            
                         </tr>
                     </thead>
                     <tbody>
@@ -107,12 +105,10 @@
                     		<c:otherwise>
                     			<c:forEach var ="a" items="${waitList }">
 			                        <tr>
-			                            <td><input type="checkbox"></td>
 			                            <td class = "ano">${a.appNo }</td>
 			                            <td>${a.appTitle }</td>
 			                            <td>${a.empName }</td>
 			                            <td>${a.writeDate }</td>
-			                            <td>대기</td>
 			                        </tr>
 		                        </c:forEach>
                         	</c:otherwise>

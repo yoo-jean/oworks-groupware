@@ -96,7 +96,6 @@
                             <th width="220px">제목</th>
                             <th width="90px">기안자</th>
                             <th width="200px">기안일</th>
-                            <th width="80px">상태</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -115,7 +114,6 @@
 			                            <td>${a.appTitle }</td>
 			                            <td>${a.empName }</td>
 			                            <td>${a.writeDate }</td>
-			                            <td>진행</td>
 			                        </tr>
 		                        </c:forEach>
                         	</c:otherwise>
@@ -137,8 +135,6 @@
 				
 				var checkArr = new Array();
 				function deleteApproval(){
-					
-
 					
 					var confirmVal = confirm("삭제하시겠습니까?");
 					

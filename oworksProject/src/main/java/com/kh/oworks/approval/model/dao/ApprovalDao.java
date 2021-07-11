@@ -93,12 +93,18 @@ public class ApprovalDao {
 	
 	// 기안서 수정하기
 	public int updateSaveApproval(SqlSessionTemplate sqlSession, Approval a) {
-		//System.out.println(a);
+		System.out.println(a);
 		return sqlSession.update("approvalMapper.updateSaveApproval", a);
 	}
 	
-	// 기안서 수정하기 결재선
+	// 기안서 수정하기 첨부파일
+	public int updateSaveApprovalFile(SqlSessionTemplate sqlSession, FilePath fp){
+		System.out.println(fp);
+		return sqlSession.update("approvalMapper.updateSaveApprovalFile", fp);
+	}
 	
+	
+	// 기안서 수정하기 결재선
 	public int updateAddLine(SqlSessionTemplate sqlSession, ArrayList<ApprovalLine> apLineList) {
 		//System.out.println(apLineList);
 		return sqlSession.update("approvalMapper.updateAddLine", apLineList);

@@ -39,10 +39,9 @@
 	        	<input type="hidden" name="empNo" value="${loginEmp.empNo }">
 			
 			        <div class="left_area" style="padding:0">
-		      		    <button type="submit" class="btn btn-dark btn-sm" onclick="addApprovalLine();">기안</button>
+		      		    <button type="button" class="btn btn-dark btn-sm" onclick="addApprovalLine();">기안</button>
 			            <a type="button" class="btn btn-dark btn-sm" href="" data-toggle="modal" data-target="#myModal">결재선</a>
-			            
-			            <button type="submit" class="btn btn-dark btn-sm" onclick="approvalSave();">임시저장</button>
+				        <button type="submit" class="btn btn-dark btn-sm" onclick="approvalSave();">임시저장</button>
 			            <button type="button" class="btn btn-dark btn-sm" id = "print">인쇄</button>
 			        </div>
   			
@@ -51,72 +50,62 @@
 		  			<script>
 			  			function addApprovalLine(){
 			  				
-			  				//console.log(referNo); // 참조 사원번호 
-			  				
-			  				/*
 			  				if(addEmpNo[1] == null){ //[0]에는 무조건 로그인회원이 담기기 때문에 [1]이 비워져 있으면 페이지 이동 없게
-			  					var confirm = confirm("결재선이 비어있습니다 확인해주세요");
-			  					if(confirm){
-			  						return;
-			  					}
-			  				}
-			  				*/
-			  				
-			  				//form에 input type hidden으로 사원번호, 상태, 결재||참조 값 넘기기
-			            	var form = $("form[name='approvalWrite']");
-			            	var count = 0;
-		       				for(var i=0; i<addEmpNo.length; i++){
-		       					//사원번호
-		       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + count + '].empNo', value:addEmpNo[i]}));
-		       					
-		       					//걀재 || 참조 상태
-		       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + count + '].refer', value:'결재'}));
-		       					
-		       					
-		       					
-		       					
-		       					
-		       					//상태
-		       					if(i==0){
-		       						form.append($('<input/>', {type:'hidden', name:'lineList[0].status', value:'완료'}));
-		       						// appStatus 승인인지 반려인지! [0]번은 무조건 승인으로 들어가게 하기
-				       				form.append($('<input/>', {type:'hidden', name:'lineList[0].appStatus', value:'승인'}));
-		       					}else{
-		       						form.append($('<input/>', {type:'hidden', name:'lineList[' + count + '].status', value:'대기'}));
-		       					}
-		       					count++;
-		       				}
-		       				
-		       				// 참조
-		       				for(var i=0; i<referNo.length; i++){
-		       					//사원번호
-		       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + count + '].empNo', value:referNo[i]}));
-		       					//걀재 || 참조 상태
-		       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + count + '].refer', value:'참조'}));
-		       				}
-		       				
-		       				//저장여부
-			  				form.append($('<input/>', {type:'hidden', name: 'appStorage', value:'N'}));
-		       				
-		       				
-		       				
-		       				
-		       				
-			  				//문서양식
-			  				if(category == "품의서"){
-			  					$("#formTitle").val($("#formTitle").val()) ;
-				  				$("#formContent").val($("#formContent").val());
-				  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:1}));
-			  				}else if(category == "지출결의서"){
-				  				$("#formTitle").val($("#accountTitle").val()) ;
-				  				$("#formContent").val($("#accountContent").val());
-				  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:2}));
-			  				}else if(category == "증명서"){
-				  				$("#formTitle").val($("#certiTitle").val()) ;
-				  				$("#formContent").val($("#certiContent").val());
-				  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:3}));
+		  						//window.confirm("결재선이 비어있습니다 확인해주세요");
+			  					var test = alert("결재선이 비어있습니다 확인해주세요");
+			  					
 			  				}else{
-			  					form.append($('<input/>', {type:'hidden', name: 'formNo', value:0}));
+			  				//form에 input type hidden으로 사원번호, 상태, 결재||참조 값 넘기기
+				            	var form = $("form[name='approvalWrite']");
+				            	var count = 0;
+			       				for(var i=0; i<addEmpNo.length; i++){
+			       					//사원번호
+			       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + count + '].empNo', value:addEmpNo[i]}));
+			       					
+			       					//걀재 || 참조 상태
+			       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + count + '].refer', value:'결재'}));
+			       					
+			       					//상태
+			       					if(i==0){
+			       						form.append($('<input/>', {type:'hidden', name:'lineList[0].status', value:'완료'}));
+			       						// appStatus 승인인지 반려인지! [0]번은 무조건 승인으로 들어가게 하기
+					       				form.append($('<input/>', {type:'hidden', name:'lineList[0].appStatus', value:'승인'}));
+			       					}else{
+			       						form.append($('<input/>', {type:'hidden', name:'lineList[' + count + '].status', value:'대기'}));
+			       					}
+			       					count++;
+			       				}
+			       				
+			       				// 참조
+			       				for(var i=0; i<referNo.length; i++){
+			       					//사원번호
+			       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + count + '].empNo', value:referNo[i]}));
+			       					//걀재 || 참조 상태
+			       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + count + '].refer', value:'참조'}));
+			       				}
+			       				
+			       				//저장여부
+				  				form.append($('<input/>', {type:'hidden', name: 'appStorage', value:'N'}));
+			       				
+			       				
+				  				//문서양식
+				  				if(category == "품의서"){
+				  					$("#formTitle").val($("#formTitle").val()) ;
+					  				$("#formContent").val($("#formContent").val());
+					  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:1}));
+				  				}else if(category == "지출결의서"){
+					  				$("#formTitle").val($("#accountTitle").val()) ;
+					  				$("#formContent").val($("#accountContent").val());
+					  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:2}));
+				  				}else if(category == "증명서"){
+					  				$("#formTitle").val($("#certiTitle").val()) ;
+					  				$("#formContent").val($("#certiContent").val());
+					  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:3}));
+				  				}else{
+				  					form.append($('<input/>', {type:'hidden', name: 'formNo', value:0}));
+				  				}
+				  				
+				  				document.getElementById("approvalWrite").submit();
 			  				}
 			  				
 			  			}

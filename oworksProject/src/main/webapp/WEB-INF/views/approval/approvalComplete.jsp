@@ -52,8 +52,8 @@
         <div class="approvalinner">
 
             <div class="searchfield">
-                <button class="btn btn-secondary" id="deletebtn">삭제</button>
-				
+	            <button type = "submit" class="btn btn-secondary" id="deletebtn" onclick="deleteApproval();">삭제</button>
+
 				<!-- 검색영역 -->
                 <form id="searchForm" action="completeSearch.ap" align="center">
                 	<input type="hidden" name="currentPage" value="1">
@@ -91,12 +91,10 @@
                 <table class="table table-hover" id = "saveApprovalTable">
                     <thead class="thead-dark">
                         <tr>
-                            <th width="40px"><input type="checkbox"></th>
                             <th width="150px">문서번호</th>
                             <th width="220px">제목</th>
                             <th width="90px">기안자</th>
                             <th width="200px">기안일</th>
-                            <th width="80px">상태</th>                            
                         </tr>
                     </thead>
                     <tbody>
@@ -110,12 +108,10 @@
                     		<c:otherwise>
                     			<c:forEach var ="a" items="${finishList }">
 			                        <tr>
-			                            <td><input type="checkbox"></td>
 			                            <td class = "ano">${a.appNo }</td>
 			                            <td>${a.appTitle }</td>
 			                            <td>${a.empName }</td>
 			                            <td>${a.writeDate }</td>
-			                            <td>대기</td>
 			                        </tr>
 		                        </c:forEach>
                         	</c:otherwise>
@@ -123,12 +119,12 @@
                     </tbody>
                 </table>
 				
+				
 	            <!-- 상세보기 페이지로 넘기기 -->
-            
 				<script>
 					$(function(){
-						$("#saveApprovalTable tbody tr").click(function(){
-							location.href="detail.ap?ano="+$(this).children(".ano").text();
+						$("#saveApprovalTable tbody td").click(function(){
+							location.href="detail.ap?ano="+$("#tableAppNo").children(".ano").text();
 						})
 					})
 				

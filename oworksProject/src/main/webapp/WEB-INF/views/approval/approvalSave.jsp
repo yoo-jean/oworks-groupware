@@ -52,7 +52,9 @@
         <div class="approvalinner">
 
             <div class="searchfield">
-                <button class="btn btn-secondary" id="deletebtn">삭제</button>
+                <form name = "approvalAllList">
+	               	<button type = "submit" class="btn btn-secondary" id="deletebtn" onclick="deleteApproval();">삭제</button>
+            	</form>
 				
 				<!-- 검색영역 -->
                 <form id="searchForm" action="search.ap" align="center">
@@ -86,7 +88,7 @@
                 <table class="table table-hover" id = "saveApprovalTable">
                     <thead class="thead-dark">
                         <tr>
-                            <th width="40px"><input type="checkbox"></th>
+                            <th width="40px"><input type="checkbox" id = "allCheck" name="ano"></th>
                             <th width="150px">문서번호</th>
                             <th width="220px">제목</th>
                             <th width="90px">기안자</th>
@@ -104,8 +106,8 @@
                     		
                     		<c:otherwise>
                     			<c:forEach var ="a" items="${saveList }">
-			                        <tr>
-			                            <td><input type="checkbox"></td>
+			                        <tr id="tableAppNo">
+			                            <th><input type="checkbox" name = "ano" id="checkAppNo" value = "${a.appNo }"></th>
 			                            <td class = "ano">${a.appNo }</td>
 			                            <td>${a.appTitle }</td>
 			                            <td>${a.empName }</td>
@@ -118,15 +120,56 @@
                     </tbody>
                 </table>
 				
+				
+				<!-- 체크박스 선택 후 삭제 -->
+				<script>
+				$(function(){
+					$("#allCheck").on("click", function(){
+						if($("#allCheck").prop("checked")){
+							$("input[type=checkbox]").prop("checked", true);
+						}else{
+							$("input[type=checkbox]").prop("checked", false);
+						}
+					});
+				});
+				
+				var checkArr = new Array();
+				function deleteApproval(){
+					
+					var confirmVal = confirm("삭제하시겠습니까?");
+					
+					if(confirmVal){
+						
+						$("input[name='ano']:checked").each(function(){
+							checkArr.push($(this).val());
+						});
+						
+						
+						$.ajax({
+							url : "deleteApproval.ap",
+							type : "post",
+							async: false,
+							traditional : true,
+							data:{ano:checkArr},
+							success : function(){
+								location.href ="saveList.ap";
+							}
+						});
+					};
+					
+				};
+					
+				</script>
+				
 	            <!-- 수정하기 페이지로 넘기기 -->
-            
 				<script>
 					$(function(){
-						$("#saveApprovalTable tbody tr").click(function(){
-							location.href="updateForm.ap?ano="+$(this).children(".ano").text();
+						$("#saveApprovalTable tbody td").click(function(){
+							location.href="updateForm.ap?ano="+$("#tableAppNo").children(".ano").text();
+							//location.href="updateForm.ap?ano="+$("#saveApprovalTable tbody tr").children(".ano").text();
+							//location.href="updateForm.ap?ano="+$(".apno").text();
 						})
 					})
-				
 				</script>
 				
 				

@@ -43,16 +43,16 @@
 	    <script type="text/javascript">
 			//<![CDATA[
 			$("#print").click(function(){
-			 var initBody;
+			 	var initBody;
 			 window.onbeforeprint = function(){
-			  initBody = document.body.innerHTML;
-			  document.body.innerHTML =  document.getElementById('approvalouter').innerHTML;
+				 initBody = document.body.innerHTML;
+			     document.body.innerHTML =  document.getElementById('approvalouter').innerHTML;
 			 };
-			 window.onafterprint = function(){
-			  document.body.innerHTML = initBody;
+			 	window.onafterprint = function(){
+			    document.body.innerHTML = initBody;
 			 };
-			 window.print();
-			 return false;
+			 	window.print();
+			 	return false;
 			})
 			//]]>
 		</script>
@@ -90,8 +90,6 @@
 		                </tr>
 	                
 	                <tr>
-	                
-	                	<!-- 여기 어떻게 바꾸지!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
                 		<c:forEach var="appLine" items="${appLine }">
                 			<c:choose>
                 				<c:when test = "${appLine.appStatus eq '승인' }">
@@ -102,8 +100,6 @@
                 				</c:when>
                 			</c:choose>
 			            </c:forEach>
-		                
-		                
 		                
 			            <c:forEach var ="appLine" items="${appLine}" end="${fn:length(appLine)}">
 			            	<c:if test="${appLine.status eq '대기' && appLine.empNo == loginEmp.empNo}">
@@ -167,34 +163,18 @@
  		        </form>
             </div>
 			
-			<!-- 반려 어떻게 하지 test 
-			<script>
-				var num = 0;
-				function approvalSubmit(num){
-					if(num == 1){
-						console.log('승인');
-						document.getElementById("submitArea").innerHTML = '승인';
-					}else{
-						console.log('반려');
-						document.getElementById("submitArea").innerHTML = '반려';
-					}
-				}
-			</script>
-			-->
-			
-			
 			
             <!--참조-->
             <div class="reference">
             <table class="table table-bordered">
                 <tr>
                 <th>참조</th>
-	               		<c:forEach var ="appLine" items="${appLine }">
-	               			<c:if test = "${appLine.refer eq '참조'}">
-		                    	<td align = "left">${appLine.empName}</td>
-		                    </c:if>
-		                    
-		               	</c:forEach>
+               		<c:forEach var ="appLine" items="${appLine }">
+               			<c:if test = "${appLine.refer eq '참조'}">
+	                    	<td align = "left">${appLine.empName}</td>
+	                    </c:if>
+	                    
+	               	</c:forEach>
                 </tr>
             </table>
             </div>
