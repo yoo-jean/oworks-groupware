@@ -152,9 +152,9 @@ public class NoticeController {
 	
 	
 	// 게시글 검색하기
-	
 	@RequestMapping("search.no")
-	public String searchNotice(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+	public String searchNotice(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException, IOException{
 		
 		String condition = request.getParameter("condition");
 		String keyword = request.getParameter("keyword");
@@ -177,8 +177,6 @@ public class NoticeController {
 		
 		
 		return "board/noticeListView";
-		
-		
 	}
 	
 	
