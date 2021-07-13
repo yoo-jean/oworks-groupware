@@ -119,7 +119,6 @@
                 </table>
 				
 	            <!-- 상세보기 페이지로 넘기기 -->
-            
 				<script>
 					$(function(){
 						$("#saveApprovalTable tbody tr").click(function(){
@@ -127,7 +126,6 @@
 						})
 					})
 				</script>
-				
 				
                 <!--페이징바-->
                 <div id="pagingArea">

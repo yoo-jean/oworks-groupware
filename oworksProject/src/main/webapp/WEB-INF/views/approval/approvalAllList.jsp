@@ -47,6 +47,7 @@
 <body>
 	<jsp:include page="../common/mainHeader.jsp"/>
     <jsp:include page="../common/mainMenubar.jsp"/>
+    
     <div class="approvalouter" style="position: absolute; left: 400px; top: 50px; width: 1000px;">
         <div class="approvalinner">
 
@@ -88,7 +89,7 @@
             <br>
 
             <div class="approvalall">
-                <table class="table table-hover" id = "saveApprovalTable">
+                <table class="table table-hover" id = "allListApprovalTable">
                     <thead class="thead-dark">
                         <tr>
                             <th width="40px"><input type="checkbox" id = "allCheck" name="ano"></th>
@@ -135,16 +136,11 @@
 				
 				var checkArr = new Array();
 				function deleteApproval(){
-					
 					var confirmVal = confirm("삭제하시겠습니까?");
-					
 					if(confirmVal){
-						
 						$("input[name='ano']:checked").each(function(){
 							checkArr.push($(this).val());
 						});
-						
-						
 						$.ajax({
 							url : "deleteApproval.ap",
 							type : "post",
@@ -156,19 +152,19 @@
 							}
 						});
 					};
-					
 				};
-					
 				</script>
-				
-				
-				
 				
 	            <!-- 상세보기 페이지로 넘기기 -->
 				<script>
+					// 이벤트 버블링 방지
+					$("#allListApprovalTable tbody th").click(function(){
+						event.stopPropagation();
+					})
+					
 					$(function(){
-						$("#saveApprovalTable tbody td").click(function(){
-							location.href="detail.ap?ano="+$("#tableAppNo").children(".ano").text();
+						$("#allListApprovalTable tbody tr").click(function(){
+							location.href="detail.ap?ano="+$(this).children(".ano").text();
 						})
 					})
 				

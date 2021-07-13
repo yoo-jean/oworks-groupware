@@ -103,15 +103,21 @@ public class ApprovalController {
 	
 	/*전자결재 수정하기(임시저장페이지에서)*/
 	@RequestMapping("updateSave.ap")
-	public String updateSaveApproval(HttpServletRequest request, Approval a, ApprovalLine al, FilePath fp, MultipartFile reupfile, HttpSession session, Model model) {
+	public String updateSaveApproval(HttpServletRequest request, String appNo, Approval a, ApprovalLine al, FilePath fp, MultipartFile reupfile, HttpSession session, Model model) {
+		
+		
+		System.out.println("담기나 : " + al);
 		
 		ArrayList<ApprovalLine> apLineList = al.getLineList();
 		
-		FilePath file = null;
+		request.getAttribute(appNo);
+		
+		System.out.println("apLineList : " + apLineList);
+		//FilePath file = null;
 		
 		//System.out.println(fp);
 		//System.out.println("re : " + reupfile);
-		//첨부파일
+		/*첨부파일
 		if(!reupfile.getOriginalFilename().equals("")) { // 새로 넘어온 첨부파일이 있을 경우
 			// 새로 넘어온 첨부파일있는데 기존의 첨부파일이 있었을 경우 => 서버에 업로드 되어있는 기존의 파일 찾아서 지울꺼임
 			if(fp.getMdfFileName() != null) {
@@ -123,16 +129,22 @@ public class ApprovalController {
 			fp.setOrgFileName(reupfile.getOriginalFilename());
 			fp.setMdfFileName("resources/uploadFiles/" + changeName);
 		}
+		*/
 		
 		// 기안서
 		int result = appService.updateSaveApproval(a);
 		
-		// 첨부파일
+		/* 첨부파일
 		int result2 = appService.updateSaveApprovalFile(fp);
-
-		// 결재선
-		//int apLineResult = appService.updateAddLine(apLineList);
+		*/
 		
+		// 현재 db에 저장된 결재선 삭제하기
+		int apLineDelete = appService.deleteAppLine(appNo);
+		
+		// 결재선
+		int apLineResult = appService.updateAppLine(apLineList);
+		System.out.println("수정하기 페이진데? : " + apLineResult);
+		System.out.println("수정하기 페이진데? ; " + appNo);
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "기안이 성공적으로 완료되었습니다");
@@ -175,7 +187,8 @@ public class ApprovalController {
 	
 	/*기안서 작성하기*/
 	@RequestMapping("insert.ap")
-	public String insertApproval(@RequestParam("empNo")int empNo, HttpServletRequest request, Approval a, ApprovalLine al, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
+	public String insertApproval(@RequestParam("empNo")int empNo, HttpServletRequest request, Approval a, 
+		   ApprovalLine al, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
 		
 		ArrayList<ApprovalLine> apLineList = al.getLineList();
 		//System.out.println(apLineList);
@@ -196,9 +209,6 @@ public class ApprovalController {
 		int result2= appService.insertFilePath(fp);
 		// 결재선
 		int apLineResult = appService.insertAddLine(apLineList);
-		// 참조
-		//int referLine = appService.insertReferLine(apLineList);
-		
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "기안등록이 완료되었습니다");
@@ -297,7 +307,6 @@ public class ApprovalController {
 		model.addAttribute("saveList", saveList);
 		
 		model.addAttribute("empNo", ((Employee)session.getAttribute("loginEmp")).getEmpNo());
-		model.addAttribute("empName", ((Employee)session.getAttribute("loginEmp")).getEmpName());
 		
 		return "approval/approvalSave";
 	}
@@ -609,8 +618,6 @@ public class ApprovalController {
 	        System.out.println("appNo : "+updateList[i]);
 	    }
 		int result = appService.deleteApproval(updateList);
-		
-		
 	}
 	
 	/*[관리자] 전체 삭제된결재문서 조회*/
@@ -658,5 +665,19 @@ public class ApprovalController {
 		request.setAttribute("deleteStatus", deleteStatus);
 		
 		return "approval/approvalDeleteList";
+	}
+	
+	/*[관리자] 선택 전자결재 복구하기*/
+	@ResponseBody
+	@RequestMapping(value="restore.ap",  produces="application/json; charset=utf-8")
+	public void restoreApproval(String[] ano, Approval a, HttpSession session, Model model, HttpServletResponse response, HttpServletRequest request)throws ServletException, IOException {
+		
+		String[] updateList = request.getParameterValues("ano");
+		int size = updateList.length;
+		System.out.println(size);
+		for(int i=0; i<size; i++) {
+	        System.out.println("appNo : "+updateList[i]);
+	    }
+		int result = appService.restoreApproval(updateList);
 	}
 }

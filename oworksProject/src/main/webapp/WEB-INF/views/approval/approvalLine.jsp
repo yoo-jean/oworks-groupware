@@ -100,7 +100,6 @@
           </td>
 		  
 	      <!-- 부서사원들 ajax 조회 -->
-	      <!-- Employee로 불러와야 될 것 같음 e에 담긴 변수 없어서 현재 실행안됨 -->
 	      <script>
             function selectDepartmentList(){
               $.ajax({
@@ -109,7 +108,6 @@
                 async : false, 
                 success: function(list){
 		        var value =  [];
-                  //console.log(list);
                   $.each(list, function(i, obj){
                     if(obj.deptName == '개발부'){
                       
@@ -304,7 +302,6 @@
                             </tr>
                           </tbody>
                         </table>
-                       
                       </div>
                     </div>
                   </td>
@@ -350,7 +347,6 @@
             	var dept = ""
             	var job = ""
             	var num = 1;
-            	//var empInfo = "";
             	$(document).on("click", "#lvuserlist tbody tr", function(){
             	
             		empInfo = $(this).text();
@@ -367,17 +363,21 @@
 
     			
      	   		var tdArr = new Array(['${loginEmp.empName}', '${loginEmp.jobName}', '${loginEmp.deptName}', '${loginEmp.empNo}', '결재', '대기']);
-		   		var c = new Array();
+		   		var lineInfo = new Array();
 		   		var addEmpNo = new Array([${loginEmp.empNo}]);
-		   		var test = new Array();
-		   		//var apname = "";
-           		function approvalLine(){
-					//num++;
+		   		var addEmpName = new Array(['${loginEmp.empName}']);
+		   		var addJob = new Array(['${loginEmp.jobName}']);
+		   		var lineNo = new Array();	// 사원번호 담기
+		   		var lineName = new Array(); // 사원이름 담기
+		   		var lineJob = new Array();  // 직급이름 담기
+		   		//var apname = "";			
+           		
+		   		<!--결재선에 넣기 -->
+		   		function approvalLine(){
                 	var objRow;
                 	objRow = document.all("lvaprlineBody").insertRow();
 
                 	objRow.innerHTML = ++num;
-                	//console.log(num);
                 
 	                var objCell_name = objRow.insertCell();                
 					objCell_name.innerHTML = name;
@@ -395,35 +395,42 @@
 					objCell_status.innerHTML = '대기';   
 					
 					var empInfo = [name, job, dept, empNo, '결재', '대기'];
-					//console.log(empInfo);
 					
 					var i = 0;
 					for(var i=0; i<empInfo.length; i++){
-						test = parseInt(empInfo[3]);
-						//console.log(empInfo[i]);
-						//console.log(addEmpNo);
+						lineNo = parseInt(empInfo[3]);
+						lineName = empInfo[0];
+						lineJob = empInfo[1];
 					}
 					
 					// 부서원 정보 배열에 담기
 					tdArr.push(empInfo);
-					//console.log("tdArr : " + tdArr);
-					
 					// 사원번호 배열에 담기
-					addEmpNo.push(test);
-					//console.log(addEmpNo);
+					addEmpNo.push(lineNo);
+					// 사원이름 담기
+					addEmpName.push(lineName);
+					// 직급이름 담기
+					addJob.push(lineJob);
 					
-					c = [tdArr[0], tdArr[1], tdArr[2], tdArr[3], tdArr[4]];
-				
+					/* 선택된 결재자수 만큼만 배열에 담기
+					for(var i=0; i<tdArr.length; i++){
+						lineInfo = tdArr[i];
+						console.log("test : " + lineInfo);
+					}
+					*/
+					
           		}
          		
-           		<!-- 참조선에 넣기 -->
            		var referInfo = new Array();
            		var referAdd = new Array();
-           		var referNo = new Array();
+           		var referNo =[];					// 참조하는 사원번호 배열로 담기
+           		var referName = new Array();		// 참조하는 사원이름 배열로 담기
            		var refer = new Array();
-           		var test2 = new Array();
+           		var lineReferNo = new Array();		// 참조하는 사원번호
+           		var lineReferName = new Array();	// 참조하는 사원이름
+           		
+           		<!-- 참조선에 넣기 -->
            		function referLine(){
-           			//console.log('되나?');
                 	var objRow;
                 	objRow = document.all("referBody").insertRow();
 
@@ -436,35 +443,29 @@
 	                objCell_dept.innerHTML = dept;
 					
 					var referInfo = [name, job, dept, empNo];
-					//console.log(empInfo);
 					
 					var i = 0;
 					for(var i=0; i<empInfo.length; i++){
-						test2 = parseInt(referInfo[3]);
-						//console.log(empInfo[i]);
-						//console.log(addEmpNo);
+						lineReferNo = parseInt(referInfo[3]);
+						lineReferName = referInfo[0];
 					}
+					
 					
 					// 부서원 정보 배열에 담기
 					referAdd.push(referInfo);
-					//console.log(tdArr);
-					
 					// 사원번호 배열에 담기
-					referNo.push(test2);
-					console.log("referNo : " +  referNo);
+					referNo.push(lineReferNo);
+					// 사원이름 배열에 담기
+					referName.push(lineReferName);
 					
+					/*
 					for(var i=0; i<referAdd.length; i++){
 						refer = referAdd[i];
-						console.log(refer);
-						//console.log(addEmpNo);
+						console.log("refertest : " + refer);
 					}
-					// refer = [referAdd[0], referAdd[1], referAdd[2], referAdd[3], referAdd[4]];
+					*/
            		}
-           		
-           		
-           		
         	</script>
-
       </table>
     </div>
   </div> 

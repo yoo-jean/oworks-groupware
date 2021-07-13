@@ -47,6 +47,7 @@
 <body>
 	<jsp:include page="../common/mainHeader.jsp"/>
     <jsp:include page="../common/mainMenubar.jsp"/>
+    
     <div class="approvalouter" style="position: absolute; left: 400px; top: 50px; width: 1000px;">
         <br>
         <div class="approvalinner">
@@ -161,18 +162,20 @@
 					
 				</script>
 				
-	            <!-- 수정하기 페이지로 넘기기 -->
+				<!-- 상세보기 페이지로 넘기기 -->
 				<script>
+					// 이벤트 버블링 방지
+					$("#saveApprovalTable tbody th").click(function(){
+						event.stopPropagation();
+					})
+					
 					$(function(){
-						$("#saveApprovalTable tbody td").click(function(){
-							location.href="updateForm.ap?ano="+$("#tableAppNo").children(".ano").text();
-							//location.href="updateForm.ap?ano="+$("#saveApprovalTable tbody tr").children(".ano").text();
-							//location.href="updateForm.ap?ano="+$(".apno").text();
+						$("#saveApprovalTable tbody tr").click(function(){
+							location.href="updateForm.ap?ano="+$(this).children(".ano").text();
 						})
 					})
 				</script>
-				
-				
+								
                 <!--페이징바-->
                 <div id="pagingArea">
 	                <ul class="pagination">

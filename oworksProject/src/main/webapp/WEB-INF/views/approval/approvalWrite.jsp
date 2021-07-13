@@ -37,7 +37,6 @@
       	<div class = approvalInner >
         	<form id = "approvalWrite" name = "approvalWrite" method = "post" action="insert.ap" enctype="multipart/form-data">
 	        	<input type="hidden" name="empNo" value="${loginEmp.empNo }">
-			
 			        <div class="left_area" style="padding:0">
 		      		    <button type="button" class="btn btn-dark btn-sm" onclick="addApprovalLine();">기안</button>
 			            <a type="button" class="btn btn-dark btn-sm" href="" data-toggle="modal" data-target="#myModal">결재선</a>
@@ -46,47 +45,40 @@
 			        </div>
   			
   			
-		  			<!-- 기안하기 버튼 클릭시 문서양식 name값 저장되는 스크립트 -->
+		  			<!-- 기안하기 버튼 클릭시 form에 input type hidden으로 넘기기 -->
 		  			<script>
 			  			function addApprovalLine(){
-			  				
 			  				if(addEmpNo[1] == null){ //[0]에는 무조건 로그인회원이 담기기 때문에 [1]이 비워져 있으면 페이지 이동 없게
-		  						//window.confirm("결재선이 비어있습니다 확인해주세요");
 			  					var test = alert("결재선이 비어있습니다 확인해주세요");
-			  					
 			  				}else{
-			  				//form에 input type hidden으로 사원번호, 상태, 결재||참조 값 넘기기
 				            	var form = $("form[name='approvalWrite']");
 				            	var count = 0;
 			       				for(var i=0; i<addEmpNo.length; i++){
 			       					//사원번호
 			       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + count + '].empNo', value:addEmpNo[i]}));
-			       					
-			       					//걀재 || 참조 상태
+			       					//결재 || 참조 상태
 			       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + count + '].refer', value:'결재'}));
-			       					
 			       					//상태
 			       					if(i==0){
 			       						form.append($('<input/>', {type:'hidden', name:'lineList[0].status', value:'완료'}));
-			       						// appStatus 승인인지 반려인지! [0]번은 무조건 승인으로 들어가게 하기
+			       						// appStatus [0]번은 승인으로 들어가게 하기
 					       				form.append($('<input/>', {type:'hidden', name:'lineList[0].appStatus', value:'승인'}));
 			       					}else{
 			       						form.append($('<input/>', {type:'hidden', name:'lineList[' + count + '].status', value:'대기'}));
 			       					}
 			       					count++;
 			       				}
-			       				
 			       				// 참조
 			       				for(var i=0; i<referNo.length; i++){
 			       					//사원번호
 			       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + count + '].empNo', value:referNo[i]}));
-			       					//걀재 || 참조 상태
+			       					//결재 || 참조 상태
 			       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + count + '].refer', value:'참조'}));
+			       					count++;
 			       				}
 			       				
 			       				//저장여부
 				  				form.append($('<input/>', {type:'hidden', name: 'appStorage', value:'N'}));
-			       				
 			       				
 				  				//문서양식
 				  				if(category == "품의서"){
@@ -111,16 +103,16 @@
 			  			}
 			  			
 			  			
-			  			<!-- 임시저장하는 스크립트 -->
+			  			<!-- 임시저장하는 스크립트 
 			  			function approvalSave(){
-			  			//form에 input type hidden으로 사원번호, 상태, 결재||참조 값 넘기기
+			  				//form에 input type hidden으로 사원번호, 상태, 결재||참조 값 넘기기
 			            	var form = $("form[name='approvalWrite']");
 			            	var i;
 		       				for(i=0; i<addEmpNo.length; i++){
 		       					//사원번호
 		       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + i + '].empNo', value:addEmpNo[i]}));
 		       					
-		       					//걀재 || 참조 상태
+		       					//결재 || 참조 상태
 		       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + i + '].refer', value:'결재'}));
 		       					
 		       					//$("#referTable> tbody > tr:nth-child(1)> td:nth-child(2)").text(refer[0]);
@@ -137,7 +129,7 @@
 		       				//저장여부
 		       				form.append($('<input/>', {type:'hidden', name: 'appStorage', value:'Y'}));
 		       				
-		       			//문서양식 DB에 배열로 들어가는거 방지하기 위해 첫번재 양식에만 name 값 주고 나머지는 name 값없이!!!
+		       				//문서양식 DB에 배열로 들어가는거 방지하기 위해 첫번재 양식에만 name 값 주고 나머지는 name 값없이!!!
 			  				if(category == "품의서"){
 			  					$("#formTitle").val($("#formTitle").val()) ;
 			  					$("#formContent").val($("#formContent").val());
@@ -154,6 +146,7 @@
 			  					form.append($('<input/>', {type:'hidden', name: 'formNo', value:0}));
 			  				}
 			  			}
+			  			-->
 		  			</script>
   					
   					<!-- 프린트 자바스크립트 -->
@@ -267,6 +260,7 @@
 			            
 			            
 			   			<!-- select문 선택 -->
+			   			
 			   			<!-- 보존연한이랑 등급 바꾸는 스크립트 -->
 			   			<script>
 			   				var category = "";
@@ -345,29 +339,41 @@
 				          </table>
 				        </div>
 			    		
-					  	<!-- 결재선에서 확인버튼 클릭시 결재선에 결재자 뿌려지게 -->
+					  	<!-- 결재선에서 확인버튼 클릭시 결재선에 결재자 및 참조자 확인 -->
 				        <script>
 				            function approvalLineOk(){
 			       				
 								<!--참조-->
-				              	$("#referTable> tbody > tr:nth-child(1)> td:nth-child(2)").text(refer[0]);
-				              	//console.log(list);
+				              	$("#referTable> tbody > tr:nth-child(1)> td:nth-child(2)").text(referName);
 				              	
 				              	<!--결재선-->
-				              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(2)").text(c[0].slice(1,2));
-				              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(1)").text(c[0].slice(0,1));
+				              	var tr = $("#realApprlvalLine tbody tr"); 
 				              	
-				              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(3)").text(c[1].slice(1,2));
-				              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(2)").text(c[1].slice(0,1));
+				              	var test = tdArr.length;
+				              	console.log(test);
+				              	
+				              	var j = 0;
+				              	j++;
+				              	
+				              	/* i값을 어떻게 앞에 숫자랑 더해야되는지 생각해보기!
+				              	for(var i=0; i<tdArr.length; i++){
+					              	$('#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(3' + i + ')').text(tdArr[i].slice(1,2));
+					              	$('#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(2' + i + ')').text(tdArr[i].slice(0,1));
+				              	}
+				              	*/
+				              	
+				              	
+				              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(3)").text(tdArr[1].slice(1,2));
+				              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(2)").text(tdArr[1].slice(0,1));
 				              
-				             	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(4)").text(c[2].slice(1,2));
-				              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(3)").text(c[2].slice(0,1));
+				             	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(4)").text(tdArr[2].slice(1,2));
+				              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(3)").text(tdArr[2].slice(0,1));
 				              	
-				              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(5)").text(c[3].slice(1,2));
-				              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(4)").text(c[3].slice(0,1))
+				              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(5)").text(tdArr[3].slice(1,2));
+				              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(4)").text(tdArr[3].slice(0,1))
 				              	
-				              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(6)").text(c[4].slice(1,2));
-				              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(5)").text(c[4].slice(0,1));
+				              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(6)").text(tdArr[4].slice(1,2));
+				              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(5)").text(tdArr[4].slice(0,1));
 				              	
 				            };
 				        </script>

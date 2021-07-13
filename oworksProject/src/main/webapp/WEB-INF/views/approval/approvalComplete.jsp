@@ -82,13 +82,10 @@
              	</script>
              </c:if>
             
-            
-            
-            
             <br>
 
             <div class="approvalall">
-                <table class="table table-hover" id = "saveApprovalTable">
+                <table class="table table-hover" id = "completeApprovalTable">
                     <thead class="thead-dark">
                         <tr>
                             <th width="150px">문서번호</th>
@@ -119,17 +116,14 @@
                     </tbody>
                 </table>
 				
-				
-	            <!-- 상세보기 페이지로 넘기기 -->
+				<!-- 상세보기 페이지로 넘기기 -->
 				<script>
 					$(function(){
-						$("#saveApprovalTable tbody td").click(function(){
-							location.href="detail.ap?ano="+$("#tableAppNo").children(".ano").text();
+						$("#completeApprovalTable tbody tr").click(function(){
+							location.href="detail.ap?ano="+$(this).children(".ano").text();
 						})
 					})
-				
 				</script>
-				
 				
                 <!--페이징바-->
                 <div id="pagingArea">

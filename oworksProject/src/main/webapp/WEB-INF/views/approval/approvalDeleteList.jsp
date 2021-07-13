@@ -51,6 +51,9 @@
         <div class="approvalinner">
 
             <div class="searchfield">
+            	<form name = "approvalAllList">
+	               	<button type = "submit" class="btn btn-secondary" id="deletebtn" onclick="deleteApproval();">복구</button>
+            	</form>
 				
 				<!-- 검색영역 -->
                 <form id="searchForm" action="deleteListSearch.ap" align="center">
@@ -83,10 +86,10 @@
             <br>
 
             <div class="approvalall">
-                <table class="table table-hover" id = "saveApprovalTable">
+                <table class="table table-hover" id = "deleteApprovalTable">
                     <thead class="thead-dark">
                         <tr>
-                            <th width="40px"><input type="checkbox" ></th>
+                            <th width="40px"><input type="checkbox" id="allCheck" name="ano"></th>
                             <th width="150px">문서번호</th>
                             <th width="220px">제목</th>
                             <th width="90px">기안자</th>
@@ -105,7 +108,7 @@
                     		<c:otherwise>
                     			<c:forEach var ="a" items="${list }">
 			                        <tr id="tableAppNo">
-			                            <th><input type="checkbox" id="checkAppNo"></th>
+			                            <th><input type="checkbox" id="checkAppNo" name = "ano" id="checkAppNo" value = "${a.appNo }"></th>
 			                            <td class = "ano">${a.appNo }</td>
 			                            <td>${a.appTitle }</td>
 			                            <td>${a.empName }</td>
@@ -118,12 +121,48 @@
                     </tbody>
                 </table>
 				
-								
-	            <!-- 상세보기 페이지로 넘기기 -->
+				<!-- 체크박스 선택 후 복구 -->
 				<script>
+				$(function(){
+					$("#allCheck").on("click", function(){
+						if($("#allCheck").prop("checked")){
+							$("input[type=checkbox]").prop("checked", true);
+						}else{
+							$("input[type=checkbox]").prop("checked", false);
+						}
+					});
+				});
+				
+				var checkArr = new Array();
+				function deleteApproval(){
+					var confirmVal = confirm("복구하시겠습니까?");
+					if(confirmVal){
+						$("input[name='ano']:checked").each(function(){
+							checkArr.push($(this).val());
+						});
+						$.ajax({
+							url : "restore.ap",
+							type : "post",
+							async: false,
+							traditional : true,
+							data:{ano:checkArr},
+							success : function(){
+								location.href ="deleteApprovalList.ap";
+							}
+						});
+					};
+				};
+				</script>
+								
+	             <!-- 상세보기 페이지로 넘기기 -->
+				<script>
+					// 이벤트 버블링 방지
+					$("#deleteApprovalTable tbody th").click(function(){
+						event.stopPropagation();
+					})
 					$(function(){
-						$("#saveApprovalTable tbody td").click(function(){
-							location.href="detail.ap?ano="+$("#tableAppNo").children(".ano").text();
+						$("#deleteApprovalTable tbody tr").click(function(){
+							location.href="detail.ap?ano="+$(this).children(".ano").text();
 						})
 					})
 				
@@ -156,14 +195,9 @@
 	                    </c:choose>
 	                </ul>
              	</div>
-             	
              	<br clear="both"><br>
-             	
             </div>
         </div>
     </div>
-    
-    
-    
 </body>
 </html>
