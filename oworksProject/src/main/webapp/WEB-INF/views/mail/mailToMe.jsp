@@ -16,7 +16,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="css/hover-min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -170,7 +169,7 @@
         color: #2574DB;
     }
     .fileList{
-        width: 592px; 
+        width: 652px; 
         margin: -9px 0 0 -14px;
         padding: 3px 0 0 75px;
         background: #f1f1f1; 
@@ -196,17 +195,14 @@
 </head>
 
 <body>
-    <!-- 상단바 -->
-<%--     <jsp:include page="" /> --%>
-    <!-- 사이드바 -->
-<%--     <jsp:include page="" /> --%>
-
+	<jsp:include page="../common/mainHeader.jsp"/>
+    <jsp:include page="../common/mainMenubar.jsp"/>
     <!-- 메인 -->
-    <div class="mailWrap">
+    <div class="mailWrap" style="position: absolute; left: 215px; top: 80px; width: 1100px;">
         <div id="mailContent">
 
             <!-- 메일 리스트 -->
-            <div id="content1">
+            <div id="content1" >
                 <div id="content1_1">
                     <div class="formTitle" id="mailTitle">
                         <span style="font-size: 20px; font-weight: bold;"> 내게 쓴 메일함 &nbsp;• </span> &nbsp; <span style="font-size: 17px;">&nbsp; <b>2</b> /30 </span>
@@ -220,7 +216,7 @@
                         </div>
                     </div>
                     <div id="mailList" > 
-                        <table id="mailListTable" class="mailTable" border="1" style="width: 394px; height: 575px;" frame=void >
+                        <table id="mailListTable" class="mailTable" border="1" style="width: 434px; height: 575px;" frame=void >
                             <tr>
                                 <td align="center" style="width:30px; border-right: hidden;">
                                     <input type="checkbox" class="mail__checkbox">
