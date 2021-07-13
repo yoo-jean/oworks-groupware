@@ -26,5 +26,5 @@ public interface MailService {
 	int updateReadTime(String mailNo);
 	
 	
-
+	
 }

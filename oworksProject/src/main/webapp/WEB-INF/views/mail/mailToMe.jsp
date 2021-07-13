@@ -60,8 +60,8 @@
 
     .viewSendEmp>div{height: 100%; float: left;}
     .viewSendEmp1{width: 12%; font-weight: bold; }
-    .viewSendEmp2{width: 65%;}
-    .viewSendEmp3{width: 23%;}
+    .viewSendEmp2{width: 67%;}
+    .viewSendEmp3{width: 21%;}
 
     #viewContent>div{width: 100%; float: left;}
     .viewFile{height: 7%;  border-bottom: 1px solid #e8e8e8;}
@@ -171,7 +171,7 @@
     .fileList{
         width: 652px; 
         margin: -9px 0 0 -14px;
-        padding: 3px 0 0 75px;
+        padding: 3px 0 0 85px;
         background: #f1f1f1; 
     }
     .getFile{
