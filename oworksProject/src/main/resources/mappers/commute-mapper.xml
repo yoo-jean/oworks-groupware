@@ -2,6 +2,83 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="commuteMapper">
 
+	<resultMap id="commute" type="commute">
+		<id column="emp_no" property="empNo"/>
+		<result column="work_date" property="workDate"/>
+		<result column="start_time" property="startTime"/>
+		<result column="end_time" property="endTime"/>
+		<result column="after_time" property="afterTime"/>
+		<result column="work_time" property="workTime"/>
+		<result column="work_status" property="workStatus"/>
+		<result column="off_cate_no" property="offCateNo"/>
+		<result column="off_cate_name" property="offCateName"/>
+		<result column="off_cate_day" property="offCateDay"/>
+		<result column="off_given" property="offGiven"/>
+		<result column="off_used" property="offUsed"/>
+		<result column="off_available" property="offAvailable"/>
+		<result column="off_start" property="offStart"/>
+		<result column="off_end" property="offEnd"/>
+		<result column="off_purpose" property="offPurpose"/>
+	</resultMap>
+	
+	<!-- 사용자 휴가관리 조회 -->
+	<select id="selectOffList" resultMap="commute">
+		select
+			   off_given
+			 , off_used
+			 , off_available
+			 , off_cate_name
+			 , off_start
+			 , off_end
+			 , off_cate_day
+			 , off_purpose
+		  from off
+		  join employee using(emp_no)
+		  join off_cate using(off_cate_no)
+		 where emp_no = #{empNo}
+	</select>
+	
+	<!-- 사용자 근무현황 조회 -->
+	<select id="selectAdList" resultMap="commute">
+		select
+			   workDate
+			 , startTime
+			 , endTime
+			 , afterTime
+			 , workTime
+		  from attendance
+		 where emp_no = #{empNo}
+	</select>
+
+	<!-- 메인화면 출근시간 기록 -->
+	<insert id="empIn" parameterType="_int">
+		insert
+		  into attendance
+		     (
+		       emp_no
+		     , work_date
+		     , start_time
+		     )
+		values
+		     (
+		       #{empNo}
+		     , sysdate
+		     , sysdate
+		     )
+	</insert>
+	
+	<!-- 메인화면 출근시간 조회 -->
+	<select id="selectEmpIn" resultMap="commute">
+		select to_char(start_time, 'hh24":"mi":"ss')
+		  from attendance
+		 where emp_no = #{empNo}
+		   and to_char(work_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')
+	</select>
+	
+	<!-- 메인화면 퇴근시간 기록 -->
+	<!-- 메인화면 퇴근시간 조회 -->
+	
+	
 
 
 </mapper>
