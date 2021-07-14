@@ -133,7 +133,6 @@
                         <th>근무시간</th>
                         <th>연장근무시간</th>
                     </tr>
-             
                     <% int i = 0; %>
                     <c:forEach var="a" items="${ list }"  varStatus="status">
                     <c:set var="sq" value="${status.index + 1 + (pi.currentPage-1) * 10}"/>

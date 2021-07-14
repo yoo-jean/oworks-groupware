@@ -130,20 +130,23 @@
                         <th>누적<br>근무시간(연)</th>
                         <th>일 평균<br>근무시간</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>개발1팀</td>
-                        <td>과장</td>
-                        <td>오상식</td>
-                        <td>정출</td>
-                        <td>1</td>
-                        <td>19</td>
-                        <td>0</td>
-                        <td>19</td>
-                        <td>225시간</td>
-                        <td>9시간</td>
-                    </tr>
-
+                    <% int i = 0; %>
+                    <c:forEach var="a" items="${ list }"  varStatus="status">
+                    <c:set var="sq" value="${status.index + 1 + (pi.currentPage-1) * 10}"/>
+	                    <tr>
+	                        <td><c:out value="${sq}"/></td>
+	                        <td>${ a.deptName }</td>
+	                        <td>${ a.jobName }</td>
+	                        <td>${ a.empName }</td>
+	                        <td>${ a.workStatus }</td>
+	                        <td>횟수</td>
+	                        <td>${ a.offGiven }</td>
+	                        <td>${ a.offUsed }</td>
+	                        <td>${ a.offAvailable }</td>
+	                        <td>누적근무시간</td>
+	                        <td>일평균근무시간</td>
+	                    </tr>
+					</c:forEach>
                 </table>
                 
 				<br>
@@ -156,12 +159,12 @@
 	                			<li class="page-item disabled"><a class="page-link" href="#">&lt;</a></li>
 	                		</c:when>
 	                		<c:otherwise>
-	                			<li class="page-item"><a class="page-link" href="adDailyList.at?currentPage=${ pi.currentPage-1 }">&lt;</a></li>
+	                			<li class="page-item"><a class="page-link" href="adList.at?currentPage=${ pi.currentPage-1 }">&lt;</a></li>
                 			</c:otherwise>
                 		</c:choose>
                 		                		
                 		<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                			<li class="page-item"><a class="page-link" href="adDailyList.at?currentPage=${ p }">${ p }</a></li>
+                			<li class="page-item"><a class="page-link" href="adList.at?currentPage=${ p }">${ p }</a></li>
                 		</c:forEach>
                 		
                 		<c:choose>
@@ -169,7 +172,7 @@
 	                			<li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
 	                		</c:when>
 	                		<c:otherwise>
-		                		<li class="page-item"><a class="page-link" href="adDailyList.at?currentPage=${ pi.currentPage+1 }">&gt;</a></li>
+		                		<li class="page-item"><a class="page-link" href="adList.at?currentPage=${ pi.currentPage+1 }">&gt;</a></li>
 	                		</c:otherwise>
                 		</c:choose>
                 		

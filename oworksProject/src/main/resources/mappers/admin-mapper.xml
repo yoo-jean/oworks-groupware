@@ -31,18 +31,20 @@
 	</select>
 	
 	<!-- 근태통계 조회 -->
-	<select id="selectAdAttendance" resultMap="admin">
+	<select id="selectAdList" resultMap="admin">
 		select
-			   dept_name
-			 , job_name
-			 , emp_name
-			 , work_status
-			 , work_stauts
-			 , off_given
-			 , off_used
-			 , off_available
-		  from
-		       attendance
+		       dept_name
+		     , job_name
+		     , emp_name
+		     , work_status
+		     , off_given
+		     , off_used
+		     , off_available
+		  from employee
+		  join department using(dept_code)
+		  join job using(job_code)
+		  join attendance using(emp_no)
+		  join off using(emp_no)
 	</select>
 	
 	<!-- 일일출퇴근현황 목록 갯수 -->

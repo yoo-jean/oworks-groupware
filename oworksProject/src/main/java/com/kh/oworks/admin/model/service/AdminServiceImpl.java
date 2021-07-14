@@ -19,7 +19,15 @@ public class AdminServiceImpl implements AdminService {
 	private AdminDao aDao;
 	
 	// 관리자 근태통계 갯수
+	@Override
+	public int selectEmpCount() {
+		return aDao.selectEmpCount(sqlSession);
+	}
 	// 관리자 근태통계 조회	
+	@Override
+	public ArrayList<Admin> selectAdList(PageInfo pi) {
+		return aDao.selectAdList(sqlSession, pi);
+	}
 	
 	// 관리자 일일출퇴근현황 갯수
 	@Override

@@ -13,7 +13,22 @@ import com.kh.oworks.common.model.vo.PageInfo;
 public class AdminDao {
 	
 	// 근태통계 목록 갯수
+	public int selectEmpCount(SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectOne("adminMapper.selectEmpCount");
+		
+	}
 	// 근태통계 조회
+	public ArrayList<Admin> selectAdList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.selectAdList", null, rowBounds);
+		
+	}
 	
 	// 일일출퇴근현황 목록 갯수
 	public int selectAdCount(SqlSessionTemplate sqlSession) {

@@ -24,8 +24,19 @@ public class AdminController {
 	
 	//관리자 근무관리_근태 조회
 	@RequestMapping("adList.at")
-	public String adminAttendanceList() {
-		return "admin/adminAttendanceListView";
+	public ModelAndView adminAttendanceList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, ModelAndView mv) {
+		
+		int listCount = aService.selectEmpCount();
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		
+		ArrayList<Admin> atList = aService.selectAdList(pi);
+		
+		mv.addObject("pi", pi)
+		  .addObject("list", atList)
+		  .setViewName("admin/adminAttendanceListView");
+		
+		return mv;
+		
 	}
 	
 	//관리자 근무관리_근태_일일출퇴근현황 조회
