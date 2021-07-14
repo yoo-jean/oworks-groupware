@@ -90,6 +90,13 @@
         font-size: 15px;
         color: #636363;
     }
+    ::selection {
+    	background: orange;
+    	color: white;
+    }
+    .MARQUEE {
+    	color: white;
+    }
 </style>
 </head>
 <body>
@@ -113,26 +120,31 @@
                         <table class="inout_list">
                             <tr height="70px" style="background-color: #7ebef14b;">
                                 <td rowspan="2" width="250px"  style="border-bottom: 1px solid #ddd;">사진</td>
-                                <td style="font-weight: bold; font-size: 18px;">오상식 과장</td>
+                                <td style="font-weight: bold; font-size: 18px;">${ loginEmp.empName }</td>
                             </tr>
                             <tr height="65px" style="background-color: #7ebef14b;">
-                                <td style="font-size:15px; font-weight: bold; color: #4E95D1;">개발부</td>
+                                <td style="font-size:15px; font-weight: bold; color: #4E95D1;">${ loginEmp.jobName }</td>
                             </tr>
                             <tr height="70px" style="background-color: rgba(241, 241, 241, 0.432);">
-                                <td colspan="2" style="font-size: 25px; font-weight: bold; color: #636363;">
-                                    08:19:55
+                                <td colspan="2" style="font-size: 25px; font-weight: bold; color: #636363;" id="dpTime">
+                                	00:00:00
                                 </td>
                             </tr>
                             <tr style="background-color: rgba(241, 241, 241, 0.432);">
-                                <td><button type="submit" class="btn btn-primary">출근</button></td>
+                                <td>
+		                           	<form action="empIn">
+                                		<input type="hidden" name="empNo" value="${ loginEmp.empNo }">
+                                		<button type="submit" class="btn btn-primary">출근</button>
+	                              	</form>
+                                </td>
                                 <td><button type="submit" class="btn btn-outline-primary">퇴근</button></td>
                             </tr>
                             <tr style="background-color: rgba(241, 241, 241, 0.432);">
                                 <td style="font-size: 18px; font-weight: bold; color: #6d6d6d;">
-                                    <i class="far fa-clock"></i> 08:19:55
+                                    <i class="far fa-clock"></i> ${ startTime.startTime }
                                 </td>
                                 <td style="font-size: 18px; font-weight: bold; color: #6d6d6d;">
-                                    <i class="far fa-clock"></i> 00:00:00
+									<i class="far fa-clock"></i> ${ endTime }
                                 </td>
                             </tr>
                         </table>
@@ -221,6 +233,29 @@
  		     			})
  		     		})
  		     		</script>
+ 		     		
+ 		     		<script type="text/javascript">
+	 		     		setInterval("dpTime()",1000);
+	 		     		function dpTime(){ 
+	 		     			var now = new Date(); 
+	 		     			hours = now.getHours(); 
+	 		     			minutes = now.getMinutes(); 
+	 		     			seconds = now.getSeconds(); 
+	 		     			if (hours > 12){ 
+	 		     				hours -= 12;
+	 		     				ampm = "오후 ";
+	 		     			}else{ 
+	 		     				ampm = "오전 "; 
+	 		     			} if (hours < 10){ 
+	 		     				hours = "0" + hours; 
+	 		     			} if (minutes < 10){ 
+	 		     				minutes = "0" + minutes; 
+	 		     			} if (seconds < 10){ 
+	 		     				seconds = "0" + seconds; 
+	 		     			} 
+	 		     			document.getElementById("dpTime").innerHTML = ampm + hours + ":" + minutes + ":" + seconds; }
+	 		     	</script>
+
                 </div>
             </div>
         </div>
