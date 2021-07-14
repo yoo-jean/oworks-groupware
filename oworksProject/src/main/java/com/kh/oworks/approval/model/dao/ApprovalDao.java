@@ -29,8 +29,6 @@ public class ApprovalDao {
 	// 전자결재 메인 대기문서 조회
 	public ArrayList<ApprovalLine> selectWaitList(SqlSessionTemplate sqlSession, PageInfo pi, ApprovalLine al){
 		
-		//System.out.println(al);
-		
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 		
@@ -42,9 +40,6 @@ public class ApprovalDao {
 	// 전자결재 메인 진행문서 조회
 	public ArrayList<ApprovalLine> selectList(SqlSessionTemplate sqlSession, PageInfo pi, ApprovalLine al){
 		
-		//System.out.println(a);
-		//System.out.println(al.getStatus());
-		
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 		
@@ -55,8 +50,6 @@ public class ApprovalDao {
 	
 	// 전자결재 메인 완료문서 조회
 	public ArrayList<ApprovalLine> selectFinishList(SqlSessionTemplate sqlSession, PageInfo pi, ApprovalLine al){
-		
-		//System.out.println(a);
 		
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
@@ -97,16 +90,24 @@ public class ApprovalDao {
 		return sqlSession.update("approvalMapper.updateSaveApproval", a);
 	}
 	
+	// 기안서 수정하기 첨부파일
+	public int updateSaveApprovalFile(SqlSessionTemplate sqlSession, FilePath fp){
+		//System.out.println(fp);
+		return sqlSession.update("approvalMapper.updateSaveApprovalFile", fp);
+	}
+	// 기안서 수정하기 결재선(삭제)
+	public int deleteAppLine(SqlSessionTemplate sqlSession, String appNo) {
+		return sqlSession.update("approvalMapper.deleteAppLine", appNo);
+		
+	}
 	// 기안서 수정하기 결재선
-	
-	public int updateAddLine(SqlSessionTemplate sqlSession, ArrayList<ApprovalLine> apLineList) {
+	public int updateAppLine(SqlSessionTemplate sqlSession, ArrayList<ApprovalLine> apLineList) {
 		//System.out.println(apLineList);
-		return sqlSession.update("approvalMapper.updateAddLine", apLineList);
+		return sqlSession.update("approvalMapper.updateAppLine", apLineList);
 	}
 	
 	// 기안서에 달린 코멘트 리스트 조회
 	public ArrayList<ApprovalComment> selectCommentList(SqlSessionTemplate sqlSession, String appNo){
-		//System.out.println(appNo);
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectCommentList", appNo);
 	}
 	
@@ -117,7 +118,6 @@ public class ApprovalDao {
 	
 	// 기안작성하기
 	public int insertApproval(SqlSessionTemplate sqlSession, Approval a) {
-		System.out.println(a);
 		return sqlSession.insert("approvalMapper.insertApproval", a);
 	}
 	
@@ -128,15 +128,15 @@ public class ApprovalDao {
 	
 	// 기안서 결재선
 	public int insertAddLine(SqlSessionTemplate sqlSession, ArrayList<ApprovalLine> apLineList) {
-		//System.out.println(apLineList);
+		System.out.println(apLineList);
 		return sqlSession.insert("approvalMapper.insertAddLine", apLineList);
 	}
 	
-	// 기안서 참조선
+	/* 기안서 참조선
 	public int insertReferLine(SqlSessionTemplate sqlSession, ArrayList<ApprovalLine> apLineList) {
 		return sqlSession.insert("approvalMapper.insertReferLine", apLineList);
 	}
-	
+	*/
 	
 	// 기안서 임시저장
 	public int insertApprovalSave(SqlSessionTemplate sqlSession, Approval a) {
@@ -269,7 +269,7 @@ public class ApprovalDao {
 
 	// [관리자] 전자결재 삭제
 	public int deleteApproval(SqlSessionTemplate sqlSession, String[] updateList) {
-		System.out.println(updateList);
+		//System.out.println(updateList);
 		return sqlSession.update("approvalMapper.deleteApproval", updateList);
 	}
 
@@ -286,6 +286,12 @@ public class ApprovalDao {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectApprovalDeleteList", null, rowBounds);
+	}
+
+	// [관리자] 전자결재 복구
+	public int restoreApproval(SqlSessionTemplate sqlSession, String[] updateList) {
+		System.out.println("update : " + updateList);
+		return sqlSession.update("approvalMapper.restoreApproval", updateList);
 	}
 
 

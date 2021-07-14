@@ -119,11 +119,13 @@
                         <span><i class="far fa-address-card"></i> 나의 근무 현황</span>
                         <table class="inout_list">
                             <tr height="70px" style="background-color: #7ebef14b;">
-                                <td rowspan="2" width="250px"  style="border-bottom: 1px solid #ddd;">사진</td>
-                                <td style="font-weight: bold; font-size: 18px;">${ loginEmp.empName }</td>
+                                <td rowspan="2" width="250px"  style="border-bottom: 1px solid #ddd;">
+                                	<img src="${pageContext.servletContext.contextPath }/resources/images/증명사진.jpg" style="width:">
+                                </td>
+                                <td style="font-weight: bold; font-size: 18px;">${loginEmp.empName }</td>
                             </tr>
                             <tr height="65px" style="background-color: #7ebef14b;">
-                                <td style="font-size:15px; font-weight: bold; color: #4E95D1;">${ loginEmp.jobName }</td>
+                                <td style="font-size:15px; font-weight: bold; color: #4E95D1;">${loginEmp.deptName }</td>
                             </tr>
                             <tr height="70px" style="background-color: rgba(241, 241, 241, 0.432);">
                                 <td colspan="2" style="font-size: 25px; font-weight: bold; color: #636363;" id="dpTime">

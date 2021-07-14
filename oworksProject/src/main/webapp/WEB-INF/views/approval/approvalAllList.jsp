@@ -47,6 +47,7 @@
 <body>
 	<jsp:include page="../common/mainHeader.jsp"/>
     <jsp:include page="../common/mainMenubar.jsp"/>
+    
     <div class="approvalouter" style="position: absolute; left: 400px; top: 50px; width: 1000px;">
         <div class="approvalinner">
 
@@ -88,7 +89,7 @@
             <br>
 
             <div class="approvalall">
-                <table class="table table-hover" id = "saveApprovalTable">
+                <table class="table table-hover" id = "allListApprovalTable">
                     <thead class="thead-dark">
                         <tr>
                             <th width="40px"><input type="checkbox" id = "allCheck" name="ano"></th>
@@ -96,7 +97,6 @@
                             <th width="220px">제목</th>
                             <th width="90px">기안자</th>
                             <th width="200px">기안일</th>
-                            <th width="80px">상태</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -115,7 +115,6 @@
 			                            <td>${a.appTitle }</td>
 			                            <td>${a.empName }</td>
 			                            <td>${a.writeDate }</td>
-			                            <td>진행</td>
 			                        </tr>
 		                        </c:forEach>
                         	</c:otherwise>
@@ -137,18 +136,11 @@
 				
 				var checkArr = new Array();
 				function deleteApproval(){
-					
-
-					
 					var confirmVal = confirm("삭제하시겠습니까?");
-					
 					if(confirmVal){
-						
 						$("input[name='ano']:checked").each(function(){
 							checkArr.push($(this).val());
 						});
-						
-						
 						$.ajax({
 							url : "deleteApproval.ap",
 							type : "post",
@@ -160,19 +152,19 @@
 							}
 						});
 					};
-					
 				};
-					
 				</script>
-				
-				
-				
 				
 	            <!-- 상세보기 페이지로 넘기기 -->
 				<script>
+					// 이벤트 버블링 방지
+					$("#allListApprovalTable tbody th").click(function(){
+						event.stopPropagation();
+					})
+					
 					$(function(){
-						$("#saveApprovalTable tbody td").click(function(){
-							location.href="detail.ap?ano="+$("#tableAppNo").children(".ano").text();
+						$("#allListApprovalTable tbody tr").click(function(){
+							location.href="detail.ap?ano="+$(this).children(".ano").text();
 						})
 					})
 				

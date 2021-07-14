@@ -32,7 +32,8 @@
 				<form action = "collectApproval.ap"  id = "collectApproval" method = "post" enctype="multipart/form-data">
 					<input type="hidden" name = "ano" value = "${a.appNo }">
 					<input type="hidden" name ="filePath" value = "${a.mdfFileName }">
-			      		<button type="submit" onClick="alert('기안문서를 취소하시겠습니까? 문서는 삭제처리되며 복구되지 않습니다!')" class="btn btn-dark btn-sm" onclick="addApprovalLine();">기안취소</button>
+			      		<button type="submit" onClick="alert('기안문서를 취소하시겠습니까? 문서는 삭제처리되며 복구되지 않습니다!')" 
+			      		class="btn btn-dark btn-sm" onclick="addApprovalLine();">기안취소</button>
 		    </c:if>
 						<button type="button" class="btn btn-dark btn-sm" id="print">인쇄</button>
 				</form>
@@ -41,20 +42,18 @@
 	    
 	    <!-- 프린트 자바스크립트 -->
 	    <script type="text/javascript">
-			//<![CDATA[
 			$("#print").click(function(){
-			 var initBody;
+			 	var initBody;
 			 window.onbeforeprint = function(){
-			  initBody = document.body.innerHTML;
-			  document.body.innerHTML =  document.getElementById('approvalouter').innerHTML;
+				 initBody = document.body.innerHTML;
+			     document.body.innerHTML =  document.getElementById('approvalouter').innerHTML;
 			 };
-			 window.onafterprint = function(){
-			  document.body.innerHTML = initBody;
+			 	window.onafterprint = function(){
+			    document.body.innerHTML = initBody;
 			 };
-			 window.print();
-			 return false;
+			 	window.print();
+			 	return false;
 			})
-			//]]>
 		</script>
 
         <div class="container">
@@ -80,18 +79,15 @@
             <!--결재선-->
             <div class="approvalline">
                 <table class="table table-bordered">
-		                <tr>
-		                    <th rowspan="3" id="approval">결재</th>
-				                <c:forEach var="appLine" items="${appLine}">
-				                	<c:if test = "${appLine.refer eq '결재'}">
-					            		<td>${appLine.jobName}</td>
-					            	</c:if>
-				                </c:forEach>
-		                </tr>
-	                
 	                <tr>
-	                
-	                	<!-- 여기 어떻게 바꾸지!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+	                    <th rowspan="3" id="approval">결재</th>
+			                <c:forEach var="appLine" items="${appLine}">
+			                	<c:if test = "${appLine.refer eq '결재'}">
+				            		<td>${appLine.jobName}</td>
+				            	</c:if>
+			                </c:forEach>
+	                </tr>
+	                <tr>
                 		<c:forEach var="appLine" items="${appLine }">
                 			<c:choose>
                 				<c:when test = "${appLine.appStatus eq '승인' }">
@@ -103,12 +99,11 @@
                 			</c:choose>
 			            </c:forEach>
 		                
-		                
-		                
 			            <c:forEach var ="appLine" items="${appLine}" end="${fn:length(appLine)}">
 			            	<c:if test="${appLine.status eq '대기' && appLine.empNo == loginEmp.empNo}">
 				            	<td>
-				                	<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" style="background: rgb(42, 128, 185);">결재</button>
+				                	<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" 
+				                	data-target="#myModal" style="background: rgb(42, 128, 185);">결재</button>
 				            	</td>
 				            </c:if>
 			            </c:forEach>
@@ -156,7 +151,8 @@
 		                          	<!-- Modal footer -->
 		                          	<div class="modal-footer">
 		                            	<div class="modalfooter2">
-		                                	<button type="submit" id="approvalOk" class="btn btn-info" data-dismiss="modal" style="background: rgb(42, 128, 185);" onclick="addComment();">확인</button>
+		                                	<button type="submit" id="approvalOk" class="btn btn-info" data-dismiss="modal" 
+		                                	style="background: rgb(42, 128, 185);" onclick="addComment();">확인</button>
 		                                	<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="test();">취소</button>
 		                            	</div>    
 		                          	</div>
@@ -167,34 +163,18 @@
  		        </form>
             </div>
 			
-			<!-- 반려 어떻게 하지 test 
-			<script>
-				var num = 0;
-				function approvalSubmit(num){
-					if(num == 1){
-						console.log('승인');
-						document.getElementById("submitArea").innerHTML = '승인';
-					}else{
-						console.log('반려');
-						document.getElementById("submitArea").innerHTML = '반려';
-					}
-				}
-			</script>
-			-->
-			
-			
 			
             <!--참조-->
             <div class="reference">
             <table class="table table-bordered">
                 <tr>
                 <th>참조</th>
-	               		<c:forEach var ="appLine" items="${appLine }">
-	               			<c:if test = "${appLine.refer eq '참조'}">
-		                    	<td align = "left">${appLine.empName}</td>
-		                    </c:if>
-		                    
-		               	</c:forEach>
+               		<c:forEach var ="appLine" items="${appLine }">
+               			<c:if test = "${appLine.refer eq '참조'}">
+	                    	<td align = "left">${appLine.empName}</td>
+	                    </c:if>
+	                    
+	               	</c:forEach>
                 </tr>
             </table>
             </div>
@@ -272,30 +252,19 @@
 			})
        		
 			function addComment(){
-        		// 승인, 반려 체크시 status input으로 넘기기 [넘기지 않아도 되는거 같은 지금 sql에서 안씀]
         		
         		var radio = $("input[name='appStatus']:checked").val();
-        		console.log(radio);
         		var form = $("form[id='updateApprovalStatus']");
-        		
         		
            		if(radio=="승인"){
            			document.getElementById("submitArea").innerHTML = '승인';
            			form.append($('<input/>', {type:'hidden', name:'status', value:'진행'}));
            		}else{
            			document.getElementById("submitArea").innerHTML = '반려';
-           			//form.append($('<input/>', {type:'hidden', name:'status', value:'반려'}));
            		}
-        		
         		
 				form.submit();
               	
-				
-				// 결재자 몇 명인지
-				var test = ${fn:length(appLine)};
-				
-				console.log(test);
-				
 				// 승인이나 반려 이유 작성하는 ajax
 				if($("#content").val().trim().length != 0){
 					$.ajax({
@@ -319,6 +288,7 @@
 				}
 			}
 			
+			// 코멘트 작성
 			function addReply(){
 				if($("#reply").val().trim().length != 0){
 					$.ajax({
@@ -341,7 +311,7 @@
 					console.log("댓글 작성 해주세요!!!");
 				}
 			}
-			
+			// 코멘트 리스트 조회
 			function selectCommentList(){
 				$.ajax({
 					url:"clist.ap",

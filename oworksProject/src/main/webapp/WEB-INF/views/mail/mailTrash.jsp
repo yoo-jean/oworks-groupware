@@ -16,14 +16,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="css/hover-min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 <style>
     div{box-sizing: border-box; }
-    .mailWrap{margin: auto; width: 1000px; height:700px; margin-top: 15px;}
+    .mailWrap{margin: auto; height:700px; margin-top: 15px;}
 
     .wrap>div{width:100%;}
     #mailContent{height:100%;}
@@ -61,8 +60,8 @@
 
     .viewSendEmp>div{height: 100%; float: left;}
     .viewSendEmp1{width: 12%; font-weight: bold; }
-    .viewSendEmp2{width: 65%;}
-    .viewSendEmp3{width: 23%;}
+    .viewSendEmp2{width: 67%;}
+    .viewSendEmp3{width: 21%;}
 
     #viewContent>div{width: 100%; float: left;}
     .viewFile{height: 7%;  border-bottom: 1px solid #e8e8e8;}
@@ -173,9 +172,9 @@
         color: #2574DB;
     }
     .fileList{
-        width: 592px; 
+        width: 652px; 
         margin: -9px 0 0 -14px;
-        padding: 3px 0 0 75px;
+        padding: 3px 0 0 85px;
         background: #f1f1f1; 
     }
     .getFile{
@@ -219,13 +218,10 @@
 </head>
 
 <body>
-    <!-- 상단바 -->
-<%--     <jsp:include page="" /> --%>
-    <!-- 사이드바 -->
-<%--     <jsp:include page="" /> --%>
-
+	<jsp:include page="../common/mainHeader.jsp"/>
+    <jsp:include page="../common/mainMenubar.jsp"/>
     <!-- 메인 -->
-    <div class="mailWrap">
+    <div class="mailWrap" style="position: absolute; left: 215px; top: 80px; width: 1100px;">
         <div id="mailContent">
 
             <!-- 메일 리스트 -->
@@ -244,7 +240,7 @@
                     </div>
 
                     <div id="mailList" > 
-                        <table id="mailListTable" class="mailTable" border="1" style="width: 394px; height: 575px;" frame=void >
+                        <table id="mailListTable" class="mailTable" border="1" style="width: 434px; height: 575px;" frame=void >
                             <tr>
                                 <td align="center" style="width:30px; border-right: hidden;">
                                     <input type="checkbox" class="mail__checkbox">

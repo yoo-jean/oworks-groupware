@@ -39,8 +39,14 @@ public interface ApprovalService {
 	//기안서 수정하기
 	int updateSaveApproval(Approval a);
 	
+	//기안서 수정하기 첨부파일
+	int updateSaveApprovalFile(FilePath fp);
+	
+	//기안서 수정하기 결재선(삭제)
+	int deleteAppLine(String appNo);
+	
 	//기안서 수정하기 결재선
-	int updateAddLine(ArrayList<ApprovalLine> apLineList);
+	int updateAppLine(ArrayList<ApprovalLine> apLineList);
 	
 	
 	//해당 기안서에 달린 의견리스트 조회
@@ -58,8 +64,9 @@ public interface ApprovalService {
 	//기안서 결재선
 	int insertAddLine(ArrayList<ApprovalLine> apLineList);
 	
-	//기안서 참조선
+	/*기안서 참조선
 	int insertReferLine(ArrayList<ApprovalLine> apLineList);
+	*/
 	
 	//기안서 임시저장
 	int insertApprovalSave(Approval a);
@@ -116,4 +123,7 @@ public interface ApprovalService {
 	//[관리자] 전자결재 삭제문서 조회
 	int selectDeleteListCount();
 	ArrayList<Approval> selectApprovalDeleteList(PageInfo pi);
+	
+	//[관리자] 전자결재 삭제
+	int restoreApproval(String[] updateList);
 }

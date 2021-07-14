@@ -89,13 +89,25 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.updateSaveApproval(sqlSession, a);
 	}
 	
+	//기안서 수정하기 첨부파일
+	@Override
+	public int updateSaveApprovalFile(FilePath fp) {
+		return appDao.updateSaveApprovalFile(sqlSession, fp);
+	}
+	
+	// 기안서 수정하기 결재선(삭제)
+	@Override
+	public int deleteAppLine(String appNo) {
+		return appDao.deleteAppLine(sqlSession, appNo);
+	}
+	
 	// 기안서 수정하기 결재선
 	@Override
-	public int updateAddLine(ArrayList<ApprovalLine> apLineList) {
-		return appDao.updateAddLine(sqlSession, apLineList);
+	public int updateAppLine(ArrayList<ApprovalLine> apLineList) {
+		System.out.println("dao에서 변수 담기 : " + apLineList);
+		return appDao.updateAppLine(sqlSession, apLineList);
 	}
 
-	
 	// 기안서에 달린 코멘트 리스트 조회
 	@Override
 	public ArrayList<ApprovalComment> selectCommentList(String appNo) {
@@ -126,12 +138,12 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.insertAddLine(sqlSession, apLineList);
 	}
 	
-	// 기안서 참조선
+	/* 기안서 참조선
 	@Override
 	public int insertReferLine(ArrayList<ApprovalLine> apLineList) {
 		return appDao.insertReferLine(sqlSession, apLineList);
 	}
-
+	*/
 	
 	// 기안서 임시저장
 	@Override
@@ -251,7 +263,7 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.deleteApproval(sqlSession, updateList);
 	}
 	
-	//[관리자] 전자결재 삭제문서 조회
+	// [관리자] 전자결재 삭제문서 조회
 	@Override
 	public int selectDeleteListCount() {
 		return appDao.selectDeleteListCount(sqlSession);
@@ -262,15 +274,11 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.selectApprovalDeleteList(sqlSession, pi);
 	}
 
+	// [관리자] 전자결재 복구
+	@Override
+	public int restoreApproval(String[] updateList) {
+		return appDao.restoreApproval(sqlSession, updateList);
+	}
 
-
-
-
-
-
-	
-	
-
-	
 	
 }

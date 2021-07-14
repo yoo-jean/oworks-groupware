@@ -139,11 +139,11 @@
             <i class="fa fa-angle-down"></i>
         </button>
         <div class="dropdown-container">
-            <a href="#">메일작성</a>
-            <a href="#">받은메일함</a>
-            <a href="#">보낸메일함</a>
-            <a href="#">내게쓴메일함</a>
-            <a href="#">휴지통</a>
+            <a href="write.mail">메일작성</a>
+            <a href="receive.mail">받은메일함</a>
+            <a href="send.mail">보낸메일함</a>
+            <a href="toMe.mail">내게쓴메일함</a>
+            <a href="trash.mail">휴지통</a>
         </div>
         
         <button class="dropdown-btn"><i class="fas fa-calendar"></i> 일정 

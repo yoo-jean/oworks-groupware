@@ -39,9 +39,9 @@
 </head>
 <body>
 	
-    <!-- 이쪽에 메뉴바 포함 할꺼임 -->
 	<jsp:include page="../common/mainHeader.jsp"/>
 	<jsp:include page="../common/mainMenubar.jsp"/>
+    
     <div class="content" style="position: absolute; left: 400px; top: 150px; width:1000px;">
         <br><br>
         <div class="innerOuter">
@@ -55,7 +55,7 @@
                     </tr>
                     <tr>
                         <th><label for="writer">작성자</label></th>
-                        <td><input type="text" id="writer" class="form-control" value="10002" name="empNo" readonly></td>
+                        <td><input type="text" id="writer" class="form-control" value="${loginEmp.empName }" name="empNo" readonly></td>
                     </tr>
                     <tr>
                         <th><label for="upfile">첨부파일</label></th>
@@ -114,8 +114,6 @@
 				
 				        $('.summernote').summernote(setting);
 				        });
-						
-
 				</script>
 				
                 <div align="center">

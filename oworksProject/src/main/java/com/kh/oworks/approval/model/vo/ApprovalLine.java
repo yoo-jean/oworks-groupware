@@ -23,15 +23,11 @@ public class ApprovalLine {
 	private String appOpinion;	// 결재의견
 	private String appDate;		// 결재일
 	private String status; 		// 결재상태 대기|진행|반려|완료
-	
-	private String appTitle;
-	private String writeDate;
-	private String empName;
-	private String appContent;
-	
-	private String jobName;
-	private ArrayList<ApprovalLine> lineList;
-	
-	//private int approvalEmpNo;
+	private String appTitle;	// 전자결재 제목
+	private String writeDate;	// 전자결재 작성일
+	private String empName;		// 사원이름
+	private String appContent;	// 결재내용
+	private String jobName;		// 직급
+	private ArrayList<ApprovalLine> lineList;	// 결재선에 담을 다수의 사원
 	
 }

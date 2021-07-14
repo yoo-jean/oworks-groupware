@@ -30,6 +30,7 @@
 	            <c:if test="${loginEmp ne null }">
 	           		<a id="writebtn" class="btn btn-outline-primary btn-sm" style="float:right" href="enrollForm.no">글작성</a>
 	            </c:if>
+	            
 	            <table id="boardList" align="center">
 	               	<colgroup>
 	                	<col style="width: 50px;">
@@ -80,7 +81,6 @@
 	 		     </script>
 	 		     
 	 		     <!-- 페이징바 영역 -->
-	 		     
 	             <div id="pagingArea">
 	                <ul class="pagination">
 	                	<c:choose>
