@@ -60,12 +60,16 @@ public class ApprovalDao {
 	}
 	
 	// 전자결재 상세보기
-	public int increaseCount(SqlSessionTemplate sqlSession, String ano) {
-		return sqlSession.update("approvalMapper.increaseCount", ano);
+	public int increaseCount(SqlSessionTemplate sqlSession, String appNo) {
+		return sqlSession.update("approvalMapper.increaseCount", appNo);
 	}
 	
-	public Approval selectApproval(SqlSessionTemplate sqlSession, String ano) {
-		return sqlSession.selectOne("approvalMapper.selectApproval", ano);
+	public Approval selectApproval(SqlSessionTemplate sqlSession, String appNo) {
+		return sqlSession.selectOne("approvalMapper.selectApproval", appNo);
+	}
+	
+	public FilePath selectDetailFilePath(SqlSessionTemplate sqlSession, String appNo) {
+		return sqlSession.selectOne("approvalMapper.selectDetailFilePath", appNo);
 	}
 	
 	// 전자결재 상세보기 결재선 조회
@@ -75,8 +79,8 @@ public class ApprovalDao {
 	}
 	
 	// 전자결재 상세보기 첨부파일 조회
-	public ArrayList<Attachment> selectAttachment(SqlSessionTemplate sqlSession, String appNo){
-		return (ArrayList)sqlSession.selectList("approvalMapper.selectAttachment", appNo);
+	public ArrayList<FilePath> selectFilePath(SqlSessionTemplate sqlSession, String appNo){
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectFilePath", appNo);
 	}
 	
 	// 전자결재 상세보기 참조자 조회

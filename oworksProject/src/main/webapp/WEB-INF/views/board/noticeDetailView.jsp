@@ -43,7 +43,10 @@
 							if(num == 1){
 								$("#postForm").attr("action", "updateForm.no").submit();
 							}else{
-								$("#postForm").attr("action", "delete.no").submit();
+								var message = confirm('삭제하시겠습니까?');
+								if(message){
+									$("#postForm").attr("action", "delete.no").submit();
+								}
 							}
 						}
 					</script>				

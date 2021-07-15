@@ -48,6 +48,8 @@
             <br>
 
             <form id="updateForm" method="post" action="insert.no" enctype="">
+            	<input type="hidden" name ="empName" value="${loginEmp.empName }">
+            	<input type="hidden" name = "empNo" value="${loginEmp.empNo }">
                 <table align="center">
                     <tr>
                         <th><label for="title">제목</label></th>
@@ -55,7 +57,7 @@
                     </tr>
                     <tr>
                         <th><label for="writer">작성자</label></th>
-                        <td><input type="text" id="writer" class="form-control" value="${loginEmp.empName }" name="empNo" readonly></td>
+                        <td><input type="text" id="writer" class="form-control" value="${loginEmp.empName }" name="empName" readonly></td>
                     </tr>
                     <tr>
                         <th><label for="upfile">첨부파일</label></th>

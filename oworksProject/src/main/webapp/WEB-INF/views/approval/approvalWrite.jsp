@@ -37,6 +37,7 @@
       	<div class = approvalInner >
         	<form id = "approvalWrite" name = "approvalWrite" method = "post" action="insert.ap" enctype="multipart/form-data">
 	        	<input type="hidden" name="empNo" value="${loginEmp.empNo }">
+	        	<input type="hidden" name="appNo" value="${a.appNo}">
 			        <div class="left_area" style="padding:0">
 		      		    <button type="button" class="btn btn-dark btn-sm" onclick="addApprovalLine();">기안</button>
 			            <a type="button" class="btn btn-dark btn-sm" href="" data-toggle="modal" data-target="#myModal">결재선</a>
@@ -96,14 +97,10 @@
 				  				}else{
 				  					form.append($('<input/>', {type:'hidden', name: 'formNo', value:0}));
 				  				}
-				  				
 				  				document.getElementById("approvalWrite").submit();
 			  				}
-			  				
 			  			}
-			  			
-			  			
-			  			<!-- 임시저장하는 스크립트 
+			  			//임시저장하는 스크립트 
 			  			function approvalSave(){
 			  				//form에 input type hidden으로 사원번호, 상태, 결재||참조 값 넘기기
 			            	var form = $("form[name='approvalWrite']");
@@ -111,12 +108,8 @@
 		       				for(i=0; i<addEmpNo.length; i++){
 		       					//사원번호
 		       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + i + '].empNo', value:addEmpNo[i]}));
-		       					
 		       					//결재 || 참조 상태
 		       					form.append($('<input/>', {type:'hidden', name: 'lineList[' + i + '].refer', value:'결재'}));
-		       					
-		       					//$("#referTable> tbody > tr:nth-child(1)> td:nth-child(2)").text(refer[0]);
-		       					
 		       					
 		       					//상태
 		       					if(i==0){
@@ -133,20 +126,29 @@
 			  				if(category == "품의서"){
 			  					$("#formTitle").val($("#formTitle").val()) ;
 			  					$("#formContent").val($("#formContent").val());
+			  					$("#upfile").val($("#upfile").val());
 				  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:1}));
+				  				form.append($('<input/>', {type:'hidden', name: 'expireDate', value:'10년'}));
+				  				form.append($('<input/>', {type:'hidden', name: 'securityLevel', value:'A'}));
 			  				}else if(category == "지출결의서"){
 				  				$("#formTitle").val($("#accountTitle").val()) ;
 				  				$("#formContent").val($("#accountContent").val());
+				  				$("#upfile").val($("#accountUpfile").val());
 				  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:2}));
+				  				form.append($('<input/>', {type:'hidden', name: 'expireDate', value:'5년'}));
+				  				form.append($('<input/>', {type:'hidden', name: 'securityLevel', value:'B'}));
 			  				}else if(category == "증명서"){
 				  				$("#formTitle").val($("#certiTitle").val()) ;
 				  				$("#formContent").val($("#certiContent").val());
+				  				$("#upfile").val($("#certificateUpfile").val());
 				  				form.append($('<input/>', {type:'hidden', name: 'formNo', value:3}));
+				  				form.append($('<input/>', {type:'hidden', name: 'expireDate', value:'3년'}));
+				  				form.append($('<input/>', {type:'hidden', name: 'securityLevel', value:'C'}));
 			  				}else{
 			  					form.append($('<input/>', {type:'hidden', name: 'formNo', value:0}));
 			  				}
 			  			}
-			  			-->
+		  			</script>
 		  			</script>
   					
   					<!-- 프린트 자바스크립트 -->
@@ -162,7 +164,6 @@
   						    html += '</div>';    
   						    obj.html = html;
   						    return obj;
-
   						}
   						
   						function reportPrint(param){
@@ -283,7 +284,6 @@
 			   				})
 			   			</script>
 			
-			
 			        	<br><br>
 			    
 			        	<!--결재선-->
@@ -342,39 +342,16 @@
 					  	<!-- 결재선에서 확인버튼 클릭시 결재선에 결재자 및 참조자 확인 -->
 				        <script>
 				            function approvalLineOk(){
-			       				
 								<!--참조-->
 				              	$("#referTable> tbody > tr:nth-child(1)> td:nth-child(2)").text(referName);
 				              	
 				              	<!--결재선-->
 				              	var tr = $("#realApprlvalLine tbody tr"); 
 				              	
-				              	var test = tdArr.length;
-				              	console.log(test);
-				              	
-				              	var j = 0;
-				              	j++;
-				              	
-				              	/* i값을 어떻게 앞에 숫자랑 더해야되는지 생각해보기!
 				              	for(var i=0; i<tdArr.length; i++){
-					              	$('#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(3' + i + ')').text(tdArr[i].slice(1,2));
-					              	$('#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(2' + i + ')').text(tdArr[i].slice(0,1));
+					              	$('#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(' + (i+2) + ')').text(tdArr[i].slice(1,2));
+					              	$('#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(' + (i+1) + ')').text(tdArr[i].slice(0,1));
 				              	}
-				              	*/
-				              	
-				              	
-				              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(3)").text(tdArr[1].slice(1,2));
-				              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(2)").text(tdArr[1].slice(0,1));
-				              
-				             	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(4)").text(tdArr[2].slice(1,2));
-				              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(3)").text(tdArr[2].slice(0,1));
-				              	
-				              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(5)").text(tdArr[3].slice(1,2));
-				              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(4)").text(tdArr[3].slice(0,1))
-				              	
-				              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(6)").text(tdArr[4].slice(1,2));
-				              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(5)").text(tdArr[4].slice(0,1));
-				              	
 				            };
 				        </script>
 					
@@ -383,7 +360,7 @@
 			       		<!-- 품의서 일때 -->
 			            <div class="content">
 			              	<br>
-			              	<div class="innerOuter">
+			              	<div class="approvalOuter">
 			                  	<br>
 			                  	<table class="table table-bordered">
 			                      	<tr>
@@ -397,30 +374,10 @@
 			                  	</table>
 			                  	<br>
 			    
-			                  	<!--첨부파일-->
-			                  	<div class="insertfile">
-			                   		<table class="table table-bordered">
-			                     		<tr>
-			                       			<th><label for="upfile">첨부파일</label></th>
-			                       			<td>
-			                         			<input type="file" id="upfile" name="upfile" class="form-control-file border">
-			                       			</td>
-			                   			</tr>
-			                   		</table>
-			                      
-			                     	<br>
-			                      
-			                      	<script>
-			                       		$(".custom-file-input").on("change", function() {
-			                          		var fileName = $(this).val().split("\\").pop();
-			                          		$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-			                        	});
-			                        </script>
-			                  	</div>
 			                </div>
 			                
 			                <!-- 지출 -->
-			                <div class="innerOuter2">
+			                <div class="expenseOuter">
 			                    <br>
 			                    <table class="table table-bordered">
 			                        <tr>
@@ -436,29 +393,11 @@
 			                        </tr>
 			                    </table>
 			                    <br>
-			                    <!--첨부파일-->
-			                    <div class="insertfile">
-			                        <table class="table table-bordered">
-			                          	<tr>
-			                            	<th><label for="upfile">첨부파일</label></th>
-			                            	<td>
-			                              		<input type="file" id="upfile" name="upfile" class="form-control-file border">
-			                            	</td>
-			                        	</tr>
-			                        </table>
-			                		<br>
-			                
-			                        <script>
-			                          	$(".custom-file-input").on("change", function() {
-			                            	var fileName = $(this).val().split("\\").pop();
-			                            	$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-			                         	 });
-			                         </script>
-			                    </div>
+
 			                </div>
 			                
 			                <!-- 증명서 -->
-			                <div class="innerOuter3">
+			                <div class="certificateOuter">
 			                    <br>
 			                    <table class="table table-bordered">
 			                        <tr>
@@ -473,55 +412,48 @@
 			                    </table>
 			                    <br>
 			      
-			                    <!--첨부파일-->
-			                    <div class="insertfile">
-			                        <table class="table table-bordered">
-			                          	<tr>
-			                            	<th><label for="upfile">첨부파일</label></th>
-			                            	<td>
-			                              		<input type="file" id="upfile" name="upfile" class="form-control-file border">
-			                            	</td>
-			                        	</tr>
-			                        </table>
-			                		<br>
-			                        
-			                        <script>
-			                          	$(".custom-file-input").on("change", function() {
-			                            	var fileName = $(this).val().split("\\").pop();
-			                            	$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-			                          	});
-			                         </script>
-			                    </div>
 			                </div>
 			                
-			              </div>    
-			            
+			              </div>
+              	          <!--첨부파일-->
+		                  <div class="insertfile">
+		                  	
+		                   	<table class="table table-bordered">
+		                     	<tr>
+		                       		<th><label for="upfile">첨부파일</label></th>
+		                       		<td>
+		                         		<input type="file" id="upfile" name="upfile" class="form-control-file border">
+		                       		</td>
+		                   		</tr>
+		                   	</table>
+		                  </div>    
+			            	
 			              <!-- 문서양식 바꾸기 -->
 			              <script>
 			                $(document).ready(function(){
 			                  	// 처음 페이지 로드시에는 숨기기
-					            $(".innerOuter").hide();
-				              	$(".innerOuter2").hide();
-				              	$(".innerOuter3").hide();
+					            $(".approvalOuter").hide();
+				              	$(".expenseOuter").hide();
+				              	$(".certificateOuter").hide();
 				              
 			                  	$("#appType").change(function(){
 			                    	var result = $("#appType option:selected").val();
 			                    	if(result=='품의서'){
-			                      		$(".innerOuter").show();
-			                      		$(".innerOuter2").hide();
-			                      		$(".innerOuter3").hide();
+			                      		$(".approvalOuter").show();
+			                      		$(".expenseOuter").hide();
+			                      		$(".certificateOuter").hide();
 			                    	}else if(result == '지출결의서'){
-			                      		$(".innerOuter2").show();
-			                      		$(".innerOuter").hide();
-			                      		$(".innerOuter3").hide();
+			                      		$(".approvalOuter").hide();
+			                      		$(".expenseOuter").show();
+			                      		$(".certificateOuter").hide();
 			                    	}else if(result == '증명서'){
-			                      		$(".innerOuter3").show();
-			                      		$(".innerOuter").hide();
-			                      		$(".innerOuter2").hide();
+			                      		$(".approvalOuter").hide();
+			                      		$(".expenseOuter").hide();
+			                      		$(".certificateOuter").show();
 			                    	}else{
-			                      		$(".innerOuter").hide();
-			                      		$(".innerOuter2").hide();
-			                      		$(".innerOuter3").hide();
+			                      		$(".approvalOuter").hide();
+			                      		$(".expenseOuter").hide();
+			                      		$(".certificateOuter").hide();
 			                    	}
 			                  	})
 			                })
