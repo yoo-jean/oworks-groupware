@@ -39,5 +39,5 @@ public interface NoticeService {
 	int deleteLike(Like l);
 	
 	// 전체 좋아요 개수
-	ArrayList<Like> allLike(int noiceNo);
+	ArrayList<Like> selectLikeCount(int noiceNo);
 }

@@ -206,7 +206,8 @@ public class NoticeController {
 	// 게시판 좋아요
 	@ResponseBody
 	@RequestMapping("likeInsert.no")
-	public String insertLike(Like l, HttpSession session, Model model) {
+	public String insertLike(Like l, int noticeNo, HttpSession session, Model model) {
+		
 		int result = nService.insertLike(l);
 		if(result>0) {
 			return "success";
@@ -232,9 +233,9 @@ public class NoticeController {
 	// 게시판 전체 좋아요
 	@ResponseBody
 	@RequestMapping(value="allLike.no", produces="application/json; charset=utf-8")
-	public String allLike(int noticeNo, HttpSession session, Model model) {
+	public String selectLikeCount(int noticeNo, HttpSession session, Model model) {
 		
-		ArrayList<Like> list = nService.allLike(noticeNo);
+		ArrayList<Like> list = nService.selectLikeCount(noticeNo);
 		//System.out.println(ano);
 		return new Gson().toJson(list);
 		
