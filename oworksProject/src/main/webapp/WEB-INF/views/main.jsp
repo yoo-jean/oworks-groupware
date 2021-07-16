@@ -120,7 +120,7 @@
                         <table class="inout_list">
                             <tr height="70px" style="background-color: #7ebef14b;">
                                 <td rowspan="2" width="250px"  style="border-bottom: 1px solid #ddd;">
-                                	<img src="${pageContext.servletContext.contextPath }/resources/images/증명사진.jpg" style="width:">
+                                	<img src="${loginEmp.empImage }">
                                 </td>
                                 <td style="font-weight: bold; font-size: 18px;">${loginEmp.empName }</td>
                             </tr>
