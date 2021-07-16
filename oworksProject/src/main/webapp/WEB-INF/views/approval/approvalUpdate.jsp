@@ -36,7 +36,7 @@
       	
         <form id = "approvalWrite" name = "approvalWrite" method = "post" action="updateSave.ap" enctype="multipart/form-data">
 	        <input type="hidden" name="empNo" value="${loginEmp.empNo }">
-	        <input type="hidden" name="appNo" value="${a.appNo }">
+	        <input type="hidden" name = "appNo" value = "${a.appNo }">
 			
 	        <div class="left_area">
       		    <button type="submit" class="btn btn-dark btn-sm" onclick="addApprovalLine();">기안</button>
@@ -387,8 +387,11 @@
                        			<th><label for="upfile">첨부파일</label></th>
                        			<td>
                          			<input type="file" id="upfile" name="reupfile" class="form-control-file border">
-                         				현재 업로드 된 파일 : <a href="${a.mdfFileName }" download="${a.orgFileName }">${a.orgFileName }</a>
-                         				<input type="hidden" name = "orgFileName" value = "${fp.orgFileName }">
+                         				<c:if test="${fp ne null }">
+	                         				<input type="hidden" name = "fileNo" value = "${fp.fileNo }">
+                         					<input type="hidden" name = "orgFileName" value = "${fp.mdfFileName }">
+                         				</c:if>
+                         				현재 업로드 된 파일 : <a href="${fp.mdfFileName }" download="${fp.orgFileName }">${fp.orgFileName }</a>
                        			</td>
                    			</tr>
                    		</table>
@@ -451,6 +454,8 @@
                      		<tr>
                        			<th><label for="upfile">첨부파일</label></th>
                        			<td>
+                       				<!-- 기존의 첨부파일이 있다면 -->
+                       				
                          			<input type="file" id="upfile" name="reupfile" class="form-control-file border">
                          				현재 업로드 된 파일 : <a href="${a.mdfFileName }" download="${a.orgFileName }">${a.orgFileName }</a>
                          				<input type="hidden" name = "orgFileName" value = "${fp.orgFileName }">
@@ -468,7 +473,6 @@
                 $(document).ready(function(){
                 	// 처음 페이지 로드시에는 선택된 것만 보여주기
                   	var year = $("#approvalYear").text();
-                  	console.log("year : " + year);
                 	if(year=='10년'){
                   		$(".innerOuter").show();
                   		$(".innerOuter2").hide();

@@ -94,8 +94,8 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	// 게시글 전체 좋아요 count
 	@Override
-	public ArrayList<Like> allLike(int noticeNo) {
-		return nDao.allLike(sqlSession, noticeNo);
+	public ArrayList<Like>selectLikeCount(int noticeNo) {
+		return nDao.selectLikeCount(sqlSession, noticeNo);
 	}
 
 

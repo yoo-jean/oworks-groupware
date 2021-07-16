@@ -29,7 +29,6 @@ import com.kh.oworks.approval.model.vo.FilePath;
 import com.kh.oworks.common.model.vo.PageInfo;
 import com.kh.oworks.common.template.Pagination;
 import com.kh.oworks.employee.model.vo.Employee;
-import com.sun.xml.internal.ws.api.message.Attachment;
 
 @Controller
 public class ApprovalController {
@@ -74,7 +73,7 @@ public class ApprovalController {
 		
 		Approval a = appService.selectApproval(ano);
 		ArrayList<ApprovalLine> appLine = appService.selectApprovalLine(ano); 
-		ArrayList<Attachment> attList = appService.selectAttachment(ano);
+		ArrayList<FilePath> attList = appService.selectFilePath(ano);
 		// 참조자 보기
 		//ArrayList<ApprovalLine> appLineRefer = appService.selectApprovalLineRefer(ano);
 		//System.out.println("참조 : " + appLineRefer);
@@ -95,9 +94,16 @@ public class ApprovalController {
 	
 	/*전자결재 수정하기 페이지 이동(임시저장페이지에서)*/
 	@RequestMapping("updateForm.ap")
-	public String updateForm(String ano, Model model) {
+	public String updateForm(String ano, Model model, HttpServletRequest request) {
+		String appNo = request.getParameter("ano");
 		Approval a = appService.selectApproval(ano);
+		FilePath fp = appService.selectDetailFilePath(ano);
+		ArrayList<ApprovalLine> al = appService.selectApprovalLine(ano);
+		
 		model.addAttribute("a", a);
+		model.addAttribute("fp", fp);
+		model.addAttribute("al", al);
+		System.out.println(al);
 		return "approval/approvalUpdate";
 	}
 	
@@ -106,18 +112,11 @@ public class ApprovalController {
 	public String updateSaveApproval(HttpServletRequest request, String appNo, Approval a, ApprovalLine al, FilePath fp, MultipartFile reupfile, HttpSession session, Model model) {
 		
 		
-		System.out.println("담기나 : " + al);
-		
+		String ano = request.getParameter(appNo);
 		ArrayList<ApprovalLine> apLineList = al.getLineList();
-		
-		request.getAttribute(appNo);
-		
 		System.out.println("apLineList : " + apLineList);
-		//FilePath file = null;
 		
-		//System.out.println(fp);
-		//System.out.println("re : " + reupfile);
-		/*첨부파일
+		/*첨부파일*/
 		if(!reupfile.getOriginalFilename().equals("")) { // 새로 넘어온 첨부파일이 있을 경우
 			// 새로 넘어온 첨부파일있는데 기존의 첨부파일이 있었을 경우 => 서버에 업로드 되어있는 기존의 파일 찾아서 지울꺼임
 			if(fp.getMdfFileName() != null) {
@@ -129,22 +128,23 @@ public class ApprovalController {
 			fp.setOrgFileName(reupfile.getOriginalFilename());
 			fp.setMdfFileName("resources/uploadFiles/" + changeName);
 		}
-		*/
+		
 		
 		// 기안서
 		int result = appService.updateSaveApproval(a);
 		
-		/* 첨부파일
-		int result2 = appService.updateSaveApprovalFile(fp);
-		*/
+		// 첨부파일
+		int filePath= appService.updateSaveApprovalFile(fp);
+		
 		
 		// 현재 db에 저장된 결재선 삭제하기
 		int apLineDelete = appService.deleteAppLine(appNo);
-		
+		System.out.println(apLineDelete);
 		// 결재선
 		int apLineResult = appService.updateAppLine(apLineList);
-		System.out.println("수정하기 페이진데? : " + apLineResult);
-		System.out.println("수정하기 페이진데? ; " + appNo);
+		
+		model.addAttribute("a", a);
+		model.addAttribute("al", al);
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "기안이 성공적으로 완료되었습니다");
@@ -190,8 +190,9 @@ public class ApprovalController {
 	public String insertApproval(@RequestParam("empNo")int empNo, HttpServletRequest request, Approval a, 
 		   ApprovalLine al, FilePath fp, MultipartFile upfile, HttpSession session, Model model) {
 		
+		System.out.println("작성하기 : " + al);
 		ArrayList<ApprovalLine> apLineList = al.getLineList();
-		//System.out.println(apLineList);
+		System.out.println(apLineList);
 		
 		//첨부파일
 		if(!upfile.getOriginalFilename().equals("")) { // 첨부파일이 존재하는 경우

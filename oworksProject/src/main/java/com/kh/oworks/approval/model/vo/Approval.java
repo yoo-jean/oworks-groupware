@@ -45,5 +45,7 @@ public class Approval {
 	private ArrayList<ApprovalLine> lineList;
 	private ArrayList<Approval>updateList; // 선택삭제
 	
+	private ArrayList<Approval> appList;
+	
 	private int approvalEmpNo;
 }

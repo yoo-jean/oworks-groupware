@@ -43,7 +43,10 @@
 							if(num == 1){
 								$("#postForm").attr("action", "updateForm.no").submit();
 							}else{
-								$("#postForm").attr("action", "delete.no").submit();
+								var message = confirm('삭제하시겠습니까?');
+								if(message){
+									$("#postForm").attr("action", "delete.no").submit();
+								}
 							}
 						}
 					</script>				
@@ -109,7 +112,7 @@
 		                                </c:otherwise>
 	                                </c:choose>
 	                                
-	                                <span>좋아요</span> <em id="rcount">0</em>
+	                                <span>좋아요</span> <span id="rcount">0</span>
 	                            </div>
 	                        </div>
 							
@@ -124,11 +127,29 @@
 	                    
 	                    <!-- 좋아요 버튼 사용하는 script -->
 	                    <script>
+	                    $(function(){
+	                    	selectLikeCount();
+	                    });
+	                    
+	                    function selectLikeCount(){
+	                    	$.ajax({
+	                    		url : "allLike.no",
+	                    		type : "post",
+	                    		data : {
+	                    			noticeNo : ${n.noticeNo},
+	                    		},
+	                    		success : function(list){
+	                    			$("#rcount").html(list.length);
+	                    		}, error:function(){
+	                    			console.log("좋아요 기능 통신 실패!");
+	                    		}
+	                    	})
+	                    }
+	                    
 	                    function likeBoard(){
 	                    	$.ajax({
 	                    		url : "likeInsert.no",
 	                    		type : "post",
-	                    		async : false,
 	                    		data : {
 	                    			noticeNo : ${n.noticeNo},
 	                    			empNo : ${loginEmp.empNo}
@@ -137,6 +158,7 @@
 	                    			if(status == "success"){ // 좋아요 성공
 	                    				$("#heart").attr("src", '${pageContext.servletContext.contextPath }/resources/images/board/fullHeart.png');
 	                    				$("#heart").attr("onclick", "likeDelete();");
+	                    				selectLikeCount();
 	                    			}
 	                    		}, error:function(){
 	                    			console.log("좋아요 기능 통신 실패!");
@@ -148,7 +170,6 @@
 	                    	$.ajax({
 	                    		url : "likeDelete.no",
 	                    		type : "post",
-	                    		async : false,
 	                    		data : {
 	                    			noticeNo : ${n.noticeNo},
 	                    			empNo : ${loginEmp.empNo}
@@ -156,27 +177,12 @@
 	                    		success : function(status){ // 좋아요 취소
 	                    			$("#heart").attr("src", '${pageContext.servletContext.contextPath }/resources/images/board/emptyHeart.png');
 	                    			$("#heart").attr("onclick", "likeBoard();")
+	                    			selectLikeCount();
 	                    		}, error : function(){
 	                    			console.log("좋아요 취소 통신 실패!");
 	                    		}
 	                    	})
 	                    }
-	                    
-	                    $(document).ready(function(){
-	                    	$.ajax({
-	                    		url : "allLike.no",
-	                    		type : "post",
-	                    		async : false,
-	                    		data : {
-	                    			noticeNo : ${n.noticeNo},
-	                    		},
-	                    		success : function(list){
-	                    			$("#rcount").text(list.length);
-	                    		}, error:function(){
-	                    			console.log("좋아요 기능 통신 실패!");
-	                    		}
-	                    	})
-	                    })
 	                    </script>
 	                    
 	                    <!-- 카카오 링크 API -->

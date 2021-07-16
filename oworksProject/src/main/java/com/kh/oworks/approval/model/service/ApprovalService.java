@@ -32,9 +32,11 @@ public interface ApprovalService {
 	//전자결재 상세보기
 	int increaseCount(String appNo);
 	Approval selectApproval(String appNo);
+	FilePath selectDetailFilePath(String appNo);
 	ArrayList<ApprovalLine> selectApprovalLine(String appNo);
-	ArrayList<Attachment> selectAttachment(String appNo);
+	ArrayList<FilePath> selectFilePath(String appNo);
 	ArrayList<ApprovalLine> selectApprovalLineRefer(String appNo);
+	
 	
 	//기안서 수정하기
 	int updateSaveApproval(Approval a);

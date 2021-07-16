@@ -85,7 +85,7 @@ public class NoticeDao {
 	}
 	
 	// 게시글 전체 좋아요 count
-	public ArrayList<Like> allLike(SqlSessionTemplate sqlSession, int noticeNo) {
-		return (ArrayList)sqlSession.selectList("noticeMapper.allLike", noticeNo);
+	public ArrayList<Like> selectLikeCount(SqlSessionTemplate sqlSession, int noticeNo) {
+		return (ArrayList)sqlSession.selectList("noticeMapper.selectLikeCount", noticeNo);
 	}
 }

@@ -2,7 +2,6 @@ package com.kh.oworks.approval.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import com.kh.oworks.approval.model.vo.ApprovalLine;
 import com.kh.oworks.approval.model.vo.FilePath;
 import com.kh.oworks.common.model.vo.PageInfo;
 import com.kh.oworks.employee.model.vo.Employee;
-import com.sun.xml.internal.ws.api.message.Attachment;
 
 @Service
 public class ApprovalServiceImpl implements ApprovalService{
@@ -65,6 +63,12 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.selectApproval(sqlSession, appNo);
 	}
 	
+	// 전자결재 상세보기 첨부파일
+	@Override
+	public FilePath selectDetailFilePath(String appNo) {
+		return appDao.selectDetailFilePath(sqlSession, appNo);
+	}
+	
 	// 전자결재 상세보기 결재선 조회
 	@Override
 	public ArrayList<ApprovalLine> selectApprovalLine(String appNo) {
@@ -73,8 +77,8 @@ public class ApprovalServiceImpl implements ApprovalService{
 	
 	// 전자결재 상세보기 첨부파일 조회
 	@Override
-	public ArrayList<Attachment> selectAttachment(String appNo) {
-		return appDao.selectAttachment(sqlSession, appNo);
+	public ArrayList<FilePath> selectFilePath(String appNo) {
+		return appDao.selectFilePath(sqlSession, appNo);
 	}
 	
 	// 전자결재 상세보기 참조자 조회
@@ -280,5 +284,4 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return appDao.restoreApproval(sqlSession, updateList);
 	}
 
-	
 }
