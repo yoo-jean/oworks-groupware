@@ -21,6 +21,8 @@
 		<result column="off_used" property="offUsed"/>
 		<result column="off_available" property="offAvailable"/>
 		<result column="hire_date" property="hireDate"/>
+		<result column="work_year" property="workYear"/>
+		<result column="off_start" property="offStart"/>
 	</resultMap>
 	
 	<!-- 근태통계 목록 갯수 -->
@@ -79,7 +81,7 @@
 	</select>
 	
 	<!-- 휴가현황 조회 -->
-	<select id="selectOffList" resultMap="admin">
+	<select id="selectOffList" resultMap="admin" parameterType="String">
 		select
 		       emp_no
 		     , dept_name
@@ -89,11 +91,14 @@
 		     , sum(off_used) as off_used
 		     , off_available
 		     , hire_date
+		     , off_start
+		     , TRUNC(MONTHS_BETWEEN(SYSDATE, hire_date)/12,0) work_year
 		  from employee
 		  join department using(dept_code)
 		  join job using(job_code)
 		  join off using(emp_no)
-		 group by emp_no, dept_name, job_name, emp_name, off_given, off.off_used, off_available, hire_date
+		 	   ${ condition }
+		 group by emp_no, dept_name, job_name, emp_name, off_given, off.off_used, off_available, hire_date, off_start
 	</select>
 	
 	<!-- 휴가분류 조회 -->

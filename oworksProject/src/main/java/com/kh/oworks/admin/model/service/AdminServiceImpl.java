@@ -49,8 +49,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	// 관리자 휴가현황 조회
 	@Override
-	public ArrayList<Admin> selectOffList(PageInfo pi) {
-		return aDao.selectOffList(sqlSession, pi);
+	public ArrayList<Admin> selectOffList(PageInfo pi, String condition) {
+		//System.out.println("serviceimpl: " + condition);
+		return aDao.selectOffList(sqlSession, pi, condition);
 	}
 	
 	// 관리자 휴가분류 조회

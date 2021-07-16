@@ -17,7 +17,7 @@ public interface AdminService {
 	
 	// 관리자 휴가현황 조회 (페이징 처리)
 	int selectOffCount();
-	ArrayList<Admin> selectOffList(PageInfo pi);
+	ArrayList<Admin> selectOffList(PageInfo pi, String condition);
 	
 	// 관리자 휴가분류 조회
 	ArrayList<Admin> selectOffCate();

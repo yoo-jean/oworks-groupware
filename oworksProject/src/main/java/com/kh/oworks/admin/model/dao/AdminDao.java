@@ -57,16 +57,16 @@ public class AdminDao {
 	}
 	
 	// 휴가현황 조회
-	public ArrayList<Admin> selectOffList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Admin> selectOffList(SqlSessionTemplate sqlSession, PageInfo pi, String condition) {
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
-		
+		//System.out.println("dao: " + condition);
 		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		return (ArrayList)sqlSession.selectList("adminMapper.selectOffList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("adminMapper.selectOffList", condition, rowBounds);
 		
-	}	
+	}
 	
 	// 휴가분류 조회
 	public ArrayList<Admin> selectOffCate(SqlSessionTemplate sqlSession) {

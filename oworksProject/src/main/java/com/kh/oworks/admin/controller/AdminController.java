@@ -2,6 +2,7 @@ package com.kh.oworks.admin.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,12 +58,34 @@ public class AdminController {
 	
 	//관리자 근무관리_휴가현황 조회
 	@RequestMapping("adList.off")
-	public ModelAndView adminOffList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, ModelAndView mv) {
+	public ModelAndView adminOffList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, HttpServletRequest request, ModelAndView mv) {
 		
 		int listCount = aService.selectOffCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
-		ArrayList<Admin> offList = aService.selectOffList(pi);
+		String condition = "where 1=1 ";
+		
+		String offStart = request.getParameter("offStart");
+		String hireDate = request.getParameter("hireDate");
+		String empName = request.getParameter("empName");
+		//System.out.println("휴가일" + offStart + "입사일" + hireDate + "사원명" + empName);
+		
+		if(offStart != null && offStart.length() > 0) {
+			condition += ("and to_date(off_start, 'YY-MM-DD') = to_date('" + offStart + "', 'YY-MM-DD')");
+		}
+		if(hireDate != null && hireDate.length() > 0) {
+			if (hireDate.equals("1")); // whole
+			else if (hireDate.equals("2")) 
+				condition += ("and to_date(sysdate, 'YYYY-MM-DD') - to_date(hire_date, 'YYYY-MM-DD') < 365");
+			else
+				condition += ("and to_date(sysdate, 'YYYY-MM-DD') - to_date(hire_date, 'YYYY-MM-DD') >= 365");
+		}
+		if(empName != null && empName.length() > 0) {
+			condition += ("and emp_name = '" + empName + "'");
+		}
+		//System.out.println("whereString: " + condition);
+
+		ArrayList<Admin> offList = aService.selectOffList(pi, condition);
 		
 		mv.addObject("pi", pi)
 		  .addObject("offList", offList)

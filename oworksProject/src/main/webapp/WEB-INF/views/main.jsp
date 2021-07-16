@@ -112,154 +112,161 @@
 			<jsp:include page="common/mainMenubar.jsp"/>
 
             <!-- 우측 본문 -->
-            <div id="content_2">
-
-                <div class="main_emp">
-                    <div class="main_emp_today">
-                        <span><i class="far fa-address-card"></i> 나의 근무 현황</span>
-                        <table class="inout_list">
-                            <tr height="70px" style="background-color: #7ebef14b;">
-                                <td rowspan="2" width="250px"  style="border-bottom: 1px solid #ddd;">
-                                	<img src="${pageContext.servletContext.contextPath }/resources/images/증명사진.jpg" style="width:">
-                                </td>
-                                <td style="font-weight: bold; font-size: 18px;">${loginEmp.empName }</td>
-                            </tr>
-                            <tr height="65px" style="background-color: #7ebef14b;">
-                                <td style="font-size:15px; font-weight: bold; color: #4E95D1;">${loginEmp.deptName }</td>
-                            </tr>
-                            <tr height="70px" style="background-color: rgba(241, 241, 241, 0.432);">
-                                <td colspan="2" style="font-size: 25px; font-weight: bold; color: #636363;" id="dpTime">
-                                	00:00:00
-                                </td>
-                            </tr>
-                            <tr style="background-color: rgba(241, 241, 241, 0.432);">
-                                <td>
-		                           	<form action="empIn">
-                                		<input type="hidden" name="empNo" value="${ loginEmp.empNo }">
-                                		<button type="submit" class="btn btn-primary">출근</button>
-	                              	</form>
-                                </td>
-                                <td><button type="submit" class="btn btn-outline-primary">퇴근</button></td>
-                            </tr>
-                            <tr style="background-color: rgba(241, 241, 241, 0.432);">
-                                <td style="font-size: 18px; font-weight: bold; color: #6d6d6d;">
-                                    <i class="far fa-clock"></i> ${ startTime.startTime }
-                                </td>
-                                <td style="font-size: 18px; font-weight: bold; color: #6d6d6d;">
-									<i class="far fa-clock"></i> ${ endTime }
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="main_emp_total">
-                        <span><i class="fas fa-list"></i> 근태현황</span>
-                        <table class="attendance_list">
-                            <tr style="border-bottom: 1px solid #ddd;">
-                                <th>지각</th>
-                                <th>조기퇴근</th>
-                                <th>결근</th>
-                            </tr>
-                            <tr>
-                                <td>1회</td>
-                                <td>1회</td>
-                                <td>1회</td>
-                            </tr>
-                        </table>
-                        <br><br>
-                        <span><i class="far fa-chart-bar"></i> 근무시간</span>
-                        <table class="attendance_list">
-                            <tr style="border-bottom: 1px solid #ddd;">
-                                <th>근무일수</th>
-                                <th>총 근무시간</th>
-                                <th>평균 근무시간</th>
-                            </tr>
-                            <tr>
-                                <td>51일</td>
-                                <td>224시간</td>
-                                <td>8시간30분</td>
-                            </tr>
-                        </table>
-
-                    </div>
-                </div>
-                <div class="main_menu">
-                    <table class="mail_list">
-                        <tr>
-                            <th style="text-align: left;">&emsp;<i class="far fa-envelope"></i> 메일함</th>
-                            <th style="text-align: right;"><i class="fas fa-chevron-right"></i></th>
-                        </tr>
-                        <tr>
-                            <td>xxx대리님 자료 회신드립니다</td>
-                            <td>2021-05-19</td>
-                        </tr>
-                        <tr>
-                            <td>메일 제목입니다</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                            <td>메일 제목입니다</td>
-                            <td>2021-05-10</td>
-                        </tr>
-                        <tr>
-                            <td>메일 제목입니다</td>
-                            <td>2021-05-15</td>
-                        </tr>
-                        <tr>
-                            <td>메일 제목입니다</td>
-                            <td>2021-05-10</td>
-                        </tr>
-                    </table>
-                    <table class="notice_list">
-                    	<thead>
+            <c:if test="${ !empty loginEmp }">
+	            <div id="content_2">
+	
+	                <div class="main_emp">
+	                    <div class="main_emp_today">
+	                        <span><i class="far fa-address-card"></i> 나의 근무 현황</span>
+	                        <table class="inout_list">
+	                            <tr height="70px" style="background-color: #7ebef14b;">
+	                                <td rowspan="2" width="250px"  style="border-bottom: 1px solid #ddd;">
+	                                	<img src="${pageContext.servletContext.contextPath }/resources/images/증명사진.jpg" style="width:90px">
+	                                </td>
+	                                <td style="font-weight: bold; font-size: 18px;">${loginEmp.empName }</td>
+	                            </tr>
+	                            <tr height="65px" style="background-color: #7ebef14b;">
+	                                <td style="font-size:15px; font-weight: bold; color: #4E95D1;">${ loginEmp.deptName } &#47; ${ loginEmp.jobName }</td>
+	                            </tr>
+	                            <tr height="70px" style="background-color: rgba(241, 241, 241, 0.432);">
+	                                <td colspan="2" style="font-size: 25px; font-weight: bold; color: #636363;" id="dpTime">
+	                                	00:00:00
+	                                </td>
+	                            </tr>
+	                            <tr style="background-color: rgba(241, 241, 241, 0.432);">
+	                                <td>
+			                           	<form action="insertEmpIn">
+	                                		<input type="hidden" name="empNo" value="${ loginEmp.empNo }">
+	                                		<button type="submit" class="btn btn-primary">출근</button>
+		                              	</form>
+	                                </td>
+	                                <td>
+	                                	<form action="updateEmpOut">
+		                                	<input type="hidden" name="empNo" value="${ loginEmp.empNo }">
+		                                	<button type="submit" class="btn btn-outline-primary">퇴근</button>
+	                                	</form>
+	                                </td>
+	                            </tr>
+	                            <tr style="background-color: rgba(241, 241, 241, 0.432);">
+	                                <td style="font-size: 18px; font-weight: bold; color: #6d6d6d;">
+	                                    <i class="far fa-clock"></i> ${ c.selectStartTime }
+	                                </td>
+	                                <td style="font-size: 18px; font-weight: bold; color: #6d6d6d;">
+										<i class="far fa-clock"></i> ${ endTime }
+	                                </td>
+	                            </tr>
+	                        </table>
+	                    </div>
+	                    <div class="main_emp_total">
+	                        <span><i class="fas fa-list"></i> 근태현황</span>
+	                        <table class="attendance_list">
+	                            <tr style="border-bottom: 1px solid #ddd;">
+	                                <th>지각</th>
+	                                <th>조기퇴근</th>
+	                                <th>결근</th>
+	                            </tr>
+	                            <tr>
+	                                <td>1회</td>
+	                                <td>1회</td>
+	                                <td>1회</td>
+	                            </tr>
+	                        </table>
+	                        <br><br>
+	                        <span><i class="far fa-chart-bar"></i> 근무시간</span>
+	                        <table class="attendance_list">
+	                            <tr style="border-bottom: 1px solid #ddd;">
+	                                <th>근무일수</th>
+	                                <th>총 근무시간</th>
+	                                <th>평균 근무시간</th>
+	                            </tr>
+	                            <tr>
+	                                <td>51일</td>
+	                                <td>224시간</td>
+	                                <td>8시간30분</td>
+	                            </tr>
+	                        </table>
+	
+	                    </div>
+	                </div>
+	                <div class="main_menu">
+	                    <table class="mail_list">
 	                        <tr>
-	                            <th style="text-align: left;" colspan="2">&emsp;<i class="far fa-clipboard"></i> 공지사항</th>
+	                            <th style="text-align: left;">&emsp;<i class="far fa-envelope"></i> 메일함</th>
 	                            <th style="text-align: right;"><i class="fas fa-chevron-right"></i></th>
 	                        </tr>
-                        </thead>
-                        <tbody>
-	                       	<c:forEach var = "n" items = "${list }">
+	                        <tr>
+	                            <td>xxx대리님 자료 회신드립니다</td>
+	                            <td>2021-05-19</td>
+	                        </tr>
+	                        <tr>
+	                            <td>메일 제목입니다</td>
+	                            <td>2021-05-15</td>
+	                        </tr>
+	                        <tr>
+	                            <td>메일 제목입니다</td>
+	                            <td>2021-05-10</td>
+	                        </tr>
+	                        <tr>
+	                            <td>메일 제목입니다</td>
+	                            <td>2021-05-15</td>
+	                        </tr>
+	                        <tr>
+	                            <td>메일 제목입니다</td>
+	                            <td>2021-05-10</td>
+	                        </tr>
+	                    </table>
+	                    <table class="notice_list">
+	                    	<thead>
 		                        <tr>
-		                        	<td class="nno" style="visibility:hidden;width:15px">${n.noticeNo }</td>
-		                            <td>${n.noticeTitle }</td>
-		                            <td>${n.enrollDate }</td>
+		                            <th style="text-align: left;" colspan="2">&emsp;<i class="far fa-clipboard"></i> 공지사항</th>
+		                            <th style="text-align: right;"><i class="fas fa-chevron-right"></i></th>
 		                        </tr>
-	                        </c:forEach>
-                        </tbody>
-                    </table>
-					
-					<!-- 공지사항 상세보기 페이지로 이동 -->                    
-       		        <script>
- 		     			$(function(){
- 		     				$(".notice_list tbody tr").click(function(){
- 		     					location.href="detail.no?nno=" +$(this).children(".nno").text();
- 		     			})
- 		     		})
- 		     		</script>
- 		     		
- 		     		<script type="text/javascript">
-	 		     		setInterval("dpTime()",1000);
-	 		     		function dpTime(){ 
-	 		     			var now = new Date(); 
-	 		     			hours = now.getHours(); 
-	 		     			minutes = now.getMinutes(); 
-	 		     			seconds = now.getSeconds(); 
-	 		     			if (hours > 12){ 
-	 		     				hours -= 12;
-	 		     				ampm = "오후 ";
-	 		     			}else{ 
-	 		     				ampm = "오전 "; 
-	 		     			} if (hours < 10){ 
-	 		     				hours = "0" + hours; 
-	 		     			} if (minutes < 10){ 
-	 		     				minutes = "0" + minutes; 
-	 		     			} if (seconds < 10){ 
-	 		     				seconds = "0" + seconds; 
-	 		     			} 
-	 		     			document.getElementById("dpTime").innerHTML = ampm + hours + ":" + minutes + ":" + seconds; }
-	 		     	</script>
-
-                </div>
-            </div>
+	                        </thead>
+	                        <tbody>
+		                       	<c:forEach var = "n" items = "${list }">
+			                        <tr>
+			                        	<td class="nno" style="visibility:hidden;width:15px">${n.noticeNo }</td>
+			                            <td>${n.noticeTitle }</td>
+			                            <td>${n.enrollDate }</td>
+			                        </tr>
+		                        </c:forEach>
+	                        </tbody>
+	                    </table>
+						
+						<!-- 공지사항 상세보기 페이지로 이동 -->                    
+	       		        <script>
+	 		     			$(function(){
+	 		     				$(".notice_list tbody tr").click(function(){
+	 		     					location.href="detail.no?nno=" +$(this).children(".nno").text();
+	 		     			})
+	 		     		})
+	 		     		</script>
+	 		     		
+	 		     		<script type="text/javascript">
+		 		     		setInterval("dpTime()",1000);
+		 		     		function dpTime(){ 
+		 		     			var now = new Date(); 
+		 		     			hours = now.getHours(); 
+		 		     			minutes = now.getMinutes(); 
+		 		     			seconds = now.getSeconds(); 
+		 		     			if (hours > 12){ 
+		 		     				hours -= 12;
+		 		     				ampm = "오후 ";
+		 		     			}else{ 
+		 		     				ampm = "오전 "; 
+		 		     			} if (hours < 10){ 
+		 		     				hours = "0" + hours; 
+		 		     			} if (minutes < 10){ 
+		 		     				minutes = "0" + minutes; 
+		 		     			} if (seconds < 10){ 
+		 		     				seconds = "0" + seconds; 
+		 		     			} 
+		 		     			document.getElementById("dpTime").innerHTML = ampm + hours + ":" + minutes + ":" + seconds; }
+		 		     	</script>
+	
+	                </div>
+	            </div>
+            </c:if>
         </div>
     </div>
 </body>
