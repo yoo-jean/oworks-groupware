@@ -31,14 +31,14 @@ public class AdminServiceImpl implements AdminService {
 	
 	// 관리자 일일출퇴근현황 갯수
 	@Override
-	public int selectAdCount() {
-		return aDao.selectAdCount(sqlSession);
+	public int selectAdCount(String workDate) {
+		return aDao.selectAdCount(sqlSession, workDate);
 	}
 	
 	// 관리자 일일출퇴근현황 조회
 	@Override
-	public ArrayList<Admin> selectList(PageInfo pi) {
-		return aDao.selectList(sqlSession, pi);
+	public ArrayList<Admin> selectList(PageInfo pi, String workDate) {
+		return aDao.selectList(sqlSession, pi, workDate);
 	}
 	
 	// 관리자 휴가현황 갯수

@@ -94,12 +94,14 @@
                 <h4>휴가 현황</h4>
 
                 <div class="off_nav">
-                    <input type="date" class="off_nav_date">
-                    <input type="radio" class="off_nav_sort" checked><label for="1">전체</label>
-                    <input type="radio" class="off_nav_sort"><label for="2">입사1년미만</label>
-                    <input type="radio" class="off_nav_sort"><label for="3">입사1년이상</label>
-                    <input type="text" class="off_nav_search" name="emp_name" placeholder="사번/사원명">
-                    <button type="submit" class="btn btn-primary">검색</button>
+                	<form action="adList.off">
+	                    <input type="date" class="off_nav_date" name="offStart">
+	                    <input type="radio" class="off_nav_sort" name="hireDate" value="1" checked><label for="1">전체</label>
+	                    <input type="radio" class="off_nav_sort" name="hireDate" value="2"><label for="2">입사1년미만</label>
+	                    <input type="radio" class="off_nav_sort" name="hireDate" value="3"><label for="3">입사1년이상</label>
+	                    <input type="text" class="off_nav_search" name="empName" placeholder="사원명">
+                    	<button type="submit" class="btn btn-primary">검색</button>
+                    </form>
                     <a href="adCate.off"><button class="btn btn-outline-primary">휴가분류관리</button></a>
                 </div>
 
@@ -113,6 +115,7 @@
                         <th>발생연차</th>
                         <th>사용연차</th>
                         <th>잔여연차</th>
+                        <th>휴가일</th>
                         <th>입사일</th>
                         <th>근무연수</th>
                     </tr>
@@ -128,8 +131,9 @@
 	                        <td>${ a.offGiven }</td>
 	                        <td>${ a.offUsed }</td>
 	                        <td>${ a.offAvailable }</td>
+	                        <td>${ a.offStart }</td>
 	                        <td>${ a.hireDate }</td>
-	                        <td>근무연수</td>
+	                        <td>${ a.workYear } 년</td>
 	                    </tr>
                     </c:forEach>
                 </table>

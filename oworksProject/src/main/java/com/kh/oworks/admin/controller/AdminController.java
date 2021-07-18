@@ -1,6 +1,8 @@
 package com.kh.oworks.admin.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -42,15 +44,26 @@ public class AdminController {
 	
 	//관리자 근무관리_근태_일일출퇴근현황 조회
 	@RequestMapping("adDailyList.at")
-	public ModelAndView adminDailyAttendanceList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, ModelAndView mv) {
+	public ModelAndView adminDailyAttendanceList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, HttpServletRequest request, ModelAndView mv) {
 		
-		int listCount = aService.selectAdCount();
+		String workDate = request.getParameter("workDate");
+		
+		int listCount = aService.selectAdCount(workDate);
+		System.out.println("listCount: " + listCount);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
-		ArrayList<Admin> list = aService.selectList(pi);
+		if(workDate == null) {
+			Date time = new Date();
+			SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd");
+			workDate = format.format(time);
+		}
+		System.out.println("workDate: " + workDate);
+		
+		ArrayList<Admin> list = aService.selectList(pi, workDate);
 		
 		mv.addObject("pi", pi)
 		  .addObject("list", list)
+		  .addObject("baseDate", workDate)
 		  .setViewName("admin/adminDailyAttendanceListView");
 		
 		return mv;

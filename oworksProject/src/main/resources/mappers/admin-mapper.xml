@@ -54,10 +54,13 @@
 		select
 		       count(*)
 		  from attendance
+		  join employee using (emp_no)
+		  join department using (dept_code)
+		  where to_date(work_date, 'YY-MM-DD') = '${workDate}'
 	</select>
 	
 	<!-- 일일출퇴근현황 조회 -->
-	<select id="selectList" resultMap="admin">
+	<select id="selectList" resultMap="admin" parameterType="String">
 		select 
 		       work_date
 		     , dept_name
@@ -71,6 +74,7 @@
 		  from attendance
 		  join employee using (emp_no)
 		  join department using (dept_code)
+		  where to_date(work_date, 'YY-MM-DD') = '${workDate}'
 	</select>
 	
 	<!-- 휴가현황 목록 갯수 -->

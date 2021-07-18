@@ -84,6 +84,56 @@
     	margin:auto;
     }
 </style>
+<script>
+// $(document).ready(function() { 
+// 	var today = new Date();
+
+// 	var year = today.getFullYear();
+// 	var month = ('0' + (today.getMonth() + 1)).slice(-2);
+// 	var day = ('0' + today.getDate()).slice(-2);
+
+// 	var dateString = year + '-' + month  + '-' + day;
+// 	$('#selectedDate').html(dateString);
+	
+// });
+
+function prevDate() {
+	var baseText = $('#selectedDate').text();
+	
+	var ymd = baseText.split('-');
+	var year = ymd[0];
+	var month = ymd[1] - 1;
+	var day = ymd[2];
+	
+	var baseDate = new Date(year, month, day);
+	var prevDay = new Date(baseDate.setDate(baseDate.getDate() - 1 ));
+	
+	var prevStr = prevDay.getFullYear() + '-' + ('0' + (prevDay.getMonth() + 1)).slice(-2) + '-' + ('0' + prevDay.getDate()).slice(-2);
+	
+	$('#selectedDate').html(prevStr);
+	$('#workDate').val(prevStr);
+	$('#dailySearch').submit();
+	
+}
+
+function nextDate() {
+	var baseText = $('#selectedDate').text();
+	
+	var ymd = baseText.split('-');
+	var year = ymd[0];
+	var month = ymd[1] - 1;
+	var day = ymd[2];
+	
+	var baseDate = new Date(year, month, day);
+	var nextDay = new Date(baseDate.setDate(baseDate.getDate() + 1 ));
+	
+	var nextStr = nextDay.getFullYear() + '-' + ('0' + (nextDay.getMonth() + 1)).slice(-2) + '-' + ('0' + nextDay.getDate()).slice(-2);
+	
+	$('#selectedDate').html(nextStr);
+	$('#workDate').val(nextStr);
+	$('#dailySearch').submit();
+}
+</script>
 </head>
 <body>
 <!-- 전체 화면 -->
@@ -102,6 +152,8 @@
                 
                 <h4>일일 출퇴근 현황</h4>
                 
+                <form id="dailySearch" action="adDailyList.at" method="post">
+                <input id="workDate" type="hidden" name="workDate"/>
                 <div class="attendance_nav">
                     <select name="sort_department" id="sort_department">
                         <option value="" selected disabled hidden>부서</option>
@@ -116,9 +168,9 @@
                 </div>
                 
                 <div class="attendanceWeek">
-                    <i class="fas fa-chevron-left"></i>
-                    <div>2021년 6월 21일</div>
-                    <i class="fas fa-chevron-right"></i>
+                    <a href="javascript:prevDate()"><i class="fas fa-chevron-left"></i></a>
+                    <div id="selectedDate">${ baseDate }</div>
+                    <a href="javascript:nextDate()"><i class="fas fa-chevron-right"></i></a>
                 </div>
                 
                 <table class="attendanceList">
@@ -150,6 +202,7 @@
 	                </c:forEach>
                     
                 </table>
+                </form>
 				
 				<br>
 				
@@ -180,7 +233,9 @@
                 		
                 	</ul>
                 </div>
-
+                
+                
+                
             </div>
 
         </div>

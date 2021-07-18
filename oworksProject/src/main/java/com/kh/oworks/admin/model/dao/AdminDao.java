@@ -31,21 +31,21 @@ public class AdminDao {
 	}
 	
 	// 일일출퇴근현황 목록 갯수
-	public int selectAdCount(SqlSessionTemplate sqlSession) {
+	public int selectAdCount(SqlSessionTemplate sqlSession, String workDate) {
 		
-		return sqlSession.selectOne("adminMapper.selectAdCount");
+		return sqlSession.selectOne("adminMapper.selectAdCount", workDate);
 		
 	}
 	
 	// 일일출퇴근현황 조회
-	public ArrayList<Admin> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Admin> selectList(SqlSessionTemplate sqlSession, PageInfo pi, String workDate) {
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("adminMapper.selectList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("adminMapper.selectList", workDate, rowBounds);
 		
 	}
 	

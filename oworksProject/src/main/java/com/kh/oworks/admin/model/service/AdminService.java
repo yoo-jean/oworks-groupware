@@ -12,8 +12,8 @@ public interface AdminService {
 	ArrayList<Admin> selectAdList(PageInfo pi);
 	
 	// 관리자 일일 출퇴근 현황 조회 (페이징 처리)
-	int selectAdCount();
-	ArrayList<Admin> selectList(PageInfo pi);
+	int selectAdCount(String workDate);
+	ArrayList<Admin> selectList(PageInfo pi, String workDate);
 	
 	// 관리자 휴가현황 조회 (페이징 처리)
 	int selectOffCount();
