@@ -27,6 +27,7 @@
 	        <div class="article_wrap" style="position: absolute; left: 400px; top: 150px;">
 	            <div class="ArticleTopBtns">
 	                <div class="left_area">
+	                
 	                	<!-- 본인일 경우에만 수정 삭제 가능 -->
 	                	<c:if test="${loginEmp.empName == n.empName }">
 	                    	<a onclick="postFormSubmit(1);" class="btn btn-dark btn-sm" style="color: white;">수정</a>
@@ -66,7 +67,7 @@
 	                    </div>
 	
 	                    <div class="writeInfo">
-	                        <img src="${pageContext.servletContext.contextPath }/resources/images/board/user.png" class = "thumb">
+	                        <img src="${n.empImage }" class = "thumb" style="border-radius : 70%;">
 	                        <div class = "profile_area">
 	                            <div class = "profile_info">
 	                                <div class="nick">

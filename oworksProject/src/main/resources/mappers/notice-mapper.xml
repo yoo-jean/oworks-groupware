@@ -6,6 +6,7 @@
 		<id column = "notice_no" property = "noticeNo"/>
 		<result column = "emp_no" property = "empNo"/>
 		<result column = "emp_name" property = "empName"/>
+		<result column = "emp_image" property = "empImage"/>
 		<result column = "notice_title" property = "noticeTitle"/>
 		<result column = "notice_content" property = "noticeContent"/>
 		<result column = "enroll_date" property = "enrollDate"/>
@@ -61,6 +62,7 @@
 		select
 			   notice_no
 			 , emp_name
+			 , emp_image
 			 , notice_title
 			 , notice_content
 			 , enroll_date
@@ -185,7 +187,7 @@
 	
 	
 	<!-- 좋아요 전체 카운트 -->
-	<select id="allLike" resultType = "_int">
+	<select id="selectLikeCount" resultType = "_int">
 		select 
 			   notice_no
 			 , emp_no
