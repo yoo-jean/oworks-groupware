@@ -359,6 +359,7 @@
 						<!-- 문서양식  -->	
 			       		<!-- 품의서 일때 -->
 			            <div class="content">
+			            
 			              	<br>
 			              	<div class="approvalOuter">
 			                  	<br>

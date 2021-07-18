@@ -1,7 +1,871 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="approvalMapper">
+	
+	<resultMap id="approvalResultSet" type="Approval">
+		<id column= "appno" property="appNo"/>
+		<result column= "emp_no" property = "empNo"/>
+		<result column = "emp_name" property = "empName"/>
+		<result column= "form_no" property = "formNo"/>
+		<result column= "app_type" property = "appType"/>
+		<result column = "app_title" property = "appTitle"/>
+		<result column = "app_content" property = "appContent"/>
+		<result column = "write_date" property = "writeDate"/>
+		<result column = "app_status" property = "appStatus"/>
+		<result column = "app_storage" property = "appStorage"/>
+		<result column = "delete_status" property = "deleteStatus"/>
+		<result column = "delete_reason" property = "deleteReason"/>
+		<result column = "appdate" property = "appDate"/>
+		<result column = "org_filename" property = "orgFileName"/>
+		<result column = "mdf_filename" property = "mdfFileName"/>
+		<result column = "file_path" property = "filePath"/>
+		<result column = "form_name" property = "formName"/>
+		<result column = "expire_date" property = "expireDate"/>
+		<result column = "security_level" property = "securityLevel"/>
+		<result column = "app_count" property = "appCount"/>
+		<result column = "dept_name" property = "deptName"/>
+		<result column = "job_name" property = "jobName"/>
+		<result column = "status" property = "status"/>
+		<result column="approvalemp_no" property="approvalEmpNo"/>
+		<result column="approval_status" property="approvalStatus"/>
+		<result column="approval_order" property="approvalOrder"/>
+		<result column="refer" property="refer"/>
+	</resultMap>
+	
+	<resultMap id="approvalLineResultSet" type="ApprovalLine">
+		<id column = "appno" property = "appNo"/>
+		<result column = "emp_no" property = "empNo"/>
+		<result column = "refer" property ="refer"/>
+		<result column = "apporder" property = "appOrder"/>
+		<result column = "appstatus" property = "appStatus"/>
+		<result column = "appopinion" property = "appOpinion"/>
+		<result column = "appdate" property = "appDate"/>
+		<result column = "status" property ="status"/>
+		<result column = "app_title" property = "appTitle"/>
+		<result column = "write_date" property ="writeDate"/>
+		<result column = "emp_name" property = "empName"/>
+		<result column = "app_content" property = "appContent"/>
+		<result column = "job_name" property = "jobName"/>
+		<result column = "dept_name" property = "deptName"/>
+	</resultMap>
+	
+	
+	<resultMap id="acResultSet" type="ApprovalComment">
+		<id column = "comment_code" property = "commentCode"/>
+		<result column = "appno" property = "appNo"/>
+		<result column = "emp_Name" property = "empName"/>
+		<result column = "emp_no" property = "empNo"/>
+		<result column = "app_comment" property = "appComment"/>
+		<result column = "comment_Date" property = "commentDate"/>
+	</resultMap>
+	
+	<resultMap id="FilePathResultSet" type="FilePath">
+		<id column = "fileno" property = "fileNo"/>
+		<result column = "appno" property = "appNo"/>
+		<result column = "org_filename" property = "orgFileName"/>
+		<result column = "mdf_filename" property = "mdfFileName"/>
+		<result column = "file_path" property = "filePath"/>
+	</resultMap>
+	
+	<resultMap id="employeeResultSet" type="Employee">
+		<id column = "emp_no" property = "empNo"/>
+		<result column = "dept_code" property = "deptCode"/>
+		<result column = "dept_name" property = "deptName"/>
+		<result column = "job_code" property = "jobCode"/>
+		<result column = "job_name" property = "jobName"/>
+		<result column = "emp_name" property = "empName"/>
+		<result column = "emp_id" property = "empId"/>
+		<result column = "emp_pwd" property = "empPwd"/>
+		<result column = "birth_no" property = "birthNo"/>
+		<result column = "gender" property = "gender"/>
+		<result column = "email" property = "email"/>
+		<result column = "phone" property = "phone"/>
+		<result column = "emp_phone" property = "empPhone"/>
+		<result column = "address" property = "address"/>
+		<result column = "hire_date" property = "hireDate"/>
+		<result column = "retire_date" property = "retireDate"/>
+		<result column = "emp_status" property = "empStatus"/>
+		<result column = "emp_image" property = "empImage"/>
+		<result column = "off_given" property = "offGiven"/>
+		<result column = "off_available" property = "offAvailable"/>
+		<result column = "adminYn" property = "adminYn"/>
+		<result column = "apporder" property = "appOrder"/>
+	</resultMap>
+	
+	<!-- 전자결재 메인 홈 list조회 -->
+	<select id="selectListCount" resultType="_int">
+		select
+			   count(*)
+		  from approval_line
+		  where status = #{status}
+		    and emp_no = #{empNo}
+	</select>
+	
+	
+	<!-- 전자결제 메인 대기 리스트 조회 -->
+	<select id="selectWaitList" resultMap = "approvalLineResultSet" parameterType = "ApprovalLine">
+		select
+               a.appno
+             , a.app_title
+             , emp_name
+             , a.write_date
+             , app_status
+         	 , a.emp_no
+         	 , apporder
+         	 , status
+          from approval_tb a
+          join approval_line al on (a.appno = al.appno)
+          join employee e on (a.emp_no = e.emp_no)
+         where app_status = '진행'
+           and status = '대기'
+           and al.emp_no = #{empNo}
+         order
+           by appno desc
+	</select>
+	
+	<!-- 전자결제 메인 진행 리스트 조회 -->
+	<select id="selectList" resultMap = "approvalLineResultSet" parameterType = "ApprovalLine">
+      	select
+               a.appno
+             , a.app_title
+             , emp_name
+             , a.write_date
+             , app_status
+         	 , a.emp_no
+         	 , apporder
+         	 , status
+          from approval_tb a
+          join approval_line al on (a.appno = al.appno)
+          join employee e on (a.emp_no = e.emp_no)
+         where app_status = '진행'
+           and status = '완료'
+           and al.emp_no = #{empNo}
+         order
+           by appno desc
+	</select>
+	
+	
+	<!-- 전자결제 메인 완료 리스트 조회 -->
+	<select id="selectFinishList" resultMap = "approvalLineResultSet" parameterType = "ApprovalLine">
+      	select
+               a.appno
+             , a.app_title
+             , emp_name
+             , a.write_date
+             , app_status
+         	 , a.emp_no
+         	 , apporder
+         	 , status
+          from approval_tb a
+          join approval_line al on (a.appno = al.appno)
+          join employee e on (a.emp_no = e.emp_no)
+         where app_status = '완료'
+           and appstatus is not null
+           and al.emp_no = #{empNo}
+         order
+           by appno desc
+	</select>
+	
+	
+	<!-- 전자결재 조회수 증가 -->
+	<update id="increaseCount">
+		update
+		       approval_tb
+		   set app_count = app_count + 1
+		 where appno = #{appno}
+	</update>
+	
+	<!-- 전자결재 상세보기 -->
+    <select id="selectApproval" resultMap="approvalResultSet">
+        select 
+		       a.appno
+		     , a.emp_no "emp_no"
+		     , emp_name
+             , app_type
+		     , app_title
+		     , app_content
+		     , write_date
+		     , app_status
+		     , app_storage
+		     , delete_status
+		     , delete_reason
+             , dept_name
+             , job_name
+             , expire_date
+             , security_level
+             , org_filename
+             , mdf_filename
+		  from 
+		       approval_tb a
+		  join employee e on e.emp_no = a.emp_no
+          left join department d on d.dept_code = e.dept_code
+          left join job j on j.job_code = e.job_code
+          left join form_tb f on a.form_no = f.form_no
+          left join file_path f on a.appno = f.appno
+		 where a.appno = #{appNo}
+	</select>
+	
+	<!-- 전자결재 상세보기 결재선 조회 -->
+	<select id = "selectDetailApprovalLine" resultMap = "approvalLineResultSet">
+		select
+		       appno
+		     , al.emp_no
+		     , emp_name
+		     , job_name
+		     , dept_name
+		     , status
+		     , apporder
+		     , refer
+		     , appstatus
+		  from 
+		       approval_line al
+		  join 
+		       employee e on (e.emp_no = al.emp_no)
+		  join job j on (j.job_code = e.job_code)
+		  join department d on(d.dept_code = e.dept_code)
+		 where 
+		       appno = #{ appNo }
+		 order
+		    by apporder
+	</select>
+	
+	<!-- 전자결재 상세보기 결재선 조회 -->
+	<select id = "selectApprovalLine" resultMap = "approvalLineResultSet">
+		select
+		       appno
+		     , al.emp_no
+		     , emp_name
+		     , job_name
+		     , dept_name
+		     , status
+		     , apporder
+		     , refer
+		     , appstatus
+		  from 
+		       approval_line al
+		  join 
+		       employee e on (e.emp_no = al.emp_no)
+		  join job j on (j.job_code = e.job_code)
+		  join department d on (d.dept_code = e.dept_code)
+		 where 
+		       appno = #{ appNo }
+		 order
+		    by apporder
+	</select>
+	
+	<!-- 전자결재 상세보기 첨부파일 조회 -->
+	<select id = "selectDetailFilePath" resultMap = "FilePathResultSet">
+		select
+			   fileno
+			 , a.appno
+			 , org_filename
+			 , mdf_filename
+			 , file_path
+      	  from file_path f
+	   	  join approval_tb a on (a.appno = f.appno)
+		 where f.appno = #{appNo}
+	</select>
+	
+	<!-- 전자결재 상세보기 첨부파일 조회 -->
+	<select id = "selectFilePath" resultMap = "approvalResultSet">
+		select
+			   fileno
+			 , a.appno
+			 , org_filename
+			 , mdf_filename
+			 , file_path
+      	  from file_path f
+	   	  join approval_tb a on (a.appno = f.appno)
+		 where f.appno = #{appNo}
+	</select>
+	
+	<!-- 전자결재 상세보기 참조자 조회 -->
+	<select id = "selectApprovalLineRefer" resultMap = "approvalLineResultSet">
+		select
+		       appno
+		     , al.emp_no
+		     , emp_name
+		     , job_name
+		     , status
+		     , apporder
+		  from 
+		       approval_line al
+		  join 
+		       employee e on (e.emp_no = al.emp_no)
+		  join job j on (j.job_code = e.job_code)
+		 where 
+		       appno = #{ appNo }
+		   and refer = '참조'
+		 order
+		    by apporder
+	</select>
+	
+	<!-- 기안서 수정하기 -->
+	<update id="updateSaveApproval">
+		update
+			   approval_tb
+		   set 
+		      app_type = #{appType}
+		     , app_title = #{appTitle}
+		     , app_content = #{appContent}
+		     , write_date = SYSDATE
+		     , app_storage = 'N'
+	    where appno = #{appNo}
+	</update>
+	
+	<!-- 기안서 수정하기 첨부파일 -->
+	<update id="updateSaveApprovalFile">
+		update
+			   file_path
+		   set 
+		       org_fileName = #{orgFileName}
+		     , mdf_fileName = #{mdfFileName}
+		     , file_path = #{filePath}
+	    where appno = #{appNo}
+	</update>
+	
+	<!-- 기안서 수정하기 결재선(삭제) -->
+	<delete id="deleteAppLine">
+		delete
+		  from	approval_line
+		 where appno = #{appNo}
+	</delete>
+	
+	<!-- 기안서 수정하기 결재선 -->
+	<insert id="updateAppLine" parameterType="ApprovalLine">
+		<foreach collection="list" item="apLineList" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+		  into approval_line
+		  (
+		    appno
+		  , emp_no
+		  , apporder
+		  , refer
+		  , appdate
+		  , status
+		  , appstatus
+		  )
+		  values
+		  	(
+	        	 #{apLineList.appNo}
+	   	   	   , #{apLineList.empNo}
+	   	   	   , #{index}+1
+	   	       , #{apLineList.refer}
+	   	       , SYSDATE
+	   	       , #{apLineList.status}
+	   	       , #{apLineList.appStatus}
+       	    )
+		</foreach>
+	</insert>
+	
+	<!-- 기안서에 달린 코멘트 리스트 조회 -->
+	<select id="selectCommentList" resultMap = "acResultSet">
+		select 
+			   comment_code
+			 , appno
+			 , emp_name
+			 , app_comment
+			 , comment_date
+		  from
+		       approval_cm
+		  join employee using(emp_no)
+		 where appno = #{appNo}
+	</select>
+	
+	<!-- 기안서에 코멘트 작성하기 -->
+	<insert id="insertComment">
+		insert
+		  into approval_cm
+		  (
+		  	comment_code
+		  , appno
+		  , emp_no
+		  , app_comment
+		  , comment_date
+		  )
+		  values
+		  (
+		  	SEQ_APCOMNO.NEXTVAL
+		  , #{appNo}
+		  , #{empNo}
+		  , #{appComment}
+		  , SYSDATE
+		  )
+	</insert>
+	
+	<!-- 기안서 작성하기 -->
+	<insert id="insertApproval">
+		insert
+		  into approval_tb
+		  (
+		    appno
+		  , emp_no
+		  , form_no
+		  , app_type
+		  , app_title
+		  , app_content
+		  , write_date
+		  , app_status
+		  , app_storage
+		  , delete_status
+		  )
+		  values
+		  (
+		    'OWORK'||LPAD(SEQ_APNO.NEXTVAL, 4, '0')
+		  , #{empNo}
+		  , #{formNo}
+		  , #{appType}
+		  , #{appTitle}
+		  , #{appContent}
+		  , SYSDATE
+		  , '진행'
+		  , #{appStorage}
+		  , 'N'
+		  )
+	</insert>	
+	
+	<!-- 기안서 작성하기 첨부파일 -->
+	<insert id="insertFilePath">
+		insert
+		  into file_path
+		  (
+		  	fileno
+		  , appno
+		  , org_filename
+		  , mdf_filename
+		  , file_path
+		  )
+		  values
+		  (
+		  	SEQ_FLNO.NEXTVAL
+		  , 'OWORK'||LPAD(SEQ_APNO.CURRVAL, 4, '0')
+		  , #{orgFileName}
+		  , #{mdfFileName}
+		  , #{filePath}
+		  )
+	</insert>
+	
+	<!-- 기안서 작성하기 결재선  -->
+	<insert id="insertAddLine" parameterType="ApprovalLine">
+		<foreach collection="list" item="apLineList" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+		  into approval_line
+		  (
+		    appno
+		  , emp_no
+		  , apporder
+		  , refer
+		  , appdate
+		  , status
+		  , appstatus
+		  )
+		  values
+		  	(
+	        	'OWORK'||LPAD(SEQ_APNO.CURRVAL, 4, '0')
+	   	   	   , #{apLineList.empNo}
+	   	   	   , #{index}+1
+	   	       , #{apLineList.refer}
+	   	       , SYSDATE
+	   	       , #{apLineList.status}
+	   	       , #{apLineList.appStatus}
+	   	       
+       	    )
+		</foreach>
+	</insert>
+	
+	<!-- 결재선 내 부서원 조회 -->
+	<select id="selectDepartmentList" resultMap = "employeeResultSet">
+		select
+		       emp_no 
+	         , emp_name 
+		     , dept_name 
+	         , job_name
+	         , emp_id 
+	         , emp_pwd
+	         , birth_no
+	         , gender
+	         , email
+	         , phone
+	         , emp_phone
+	         , address
+	         , hire_date
+	         , retire_date
+	         , emp_status
+	         , emp_image
+	         , off_given
+	         , off_available
+	         , admin_yn
+		  from employee
+		  join department using(dept_code)
+		  join job using(job_code)
+	</select>
+	
+	<!-- 결재선 상태 변경 승인 || 빈려 -->
+	<update id="updateApproval" parameterType = "ApprovalLine">
+		update 
+        	   approval_line
+    	   set 
+  	   		   status = #{status}
+    	     , appstatus = #{appStatus}
+    	 where emp_no = #{empNo}
+		   and appno = #{appNo}
+	</update>
 
-
-
+	<!-- 결재테이블  상태 완료로 변경하기 -->
+	<update id = "updateApprovalStatus">
+		
+		<if test = "appStatus == '반려'">
+			update approval_tb
+	           set app_status = '완료'
+	       	 where appno = #{appNo}
+		</if>
+		<if test = "appStatus == '승인'">
+			update approval_tb
+	           set app_status = '완료'
+	         where appno = #{appNo}
+	           and #{empNo} = (select a.emp_no
+	                           from approval_line a
+	                          where a.appno = #{appNo}
+	                            and apporder = (select max(apporder)
+	                                              from approval_line b
+	                                             where b.appno = #{appNo}
+	                                             and refer = '결재')
+	                         )
+		</if>
+	</update>
+	
+	<!-- 결재선 테이블 승인이면 완료 반려면 반려 -->
+	<update id = "updateApprovalLineStatus">
+		
+		<if test = "appStatus == '반려'">
+			update
+				   approval_line
+			   set status = '완료'
+			 where appno = #{appNo}
+			   and refer = '결재'
+		</if>
+		
+		<if test = "appStatus == '승인'">
+			update
+				   approval_line
+			   set status = '완료'
+			 where appno = #{appNo}
+               and emp_no = #{empNo}
+               and refer = '결재'		   
+		</if>
+	</update>
+	
+	<!-- 결재선 테이블  상태 완료로 변경하기  반려든 승인이든 결재올린사람은 완료로 변경-
+	<update id = "updateApprovalLineStatus">
+		<if test = "appStatus == '완료'">
+		update approval_line
+           set status = '완료'
+         where appno = #{appNo}
+           and #{empNo} = (select a.emp_no
+                           from approval_line a
+                          where a.appno = #{appNo}
+                            and apporder = (select max(apporder)
+                                              from approval_line b
+                                             where b.appno = #{appNo})
+                         )
+		</if>
+	</update>
+	-->
+	
+	<!-- 기안서 작성하기 임시저장 -->
+	<insert id="insertApprovalSave">
+		insert
+		  into approval_tb
+		  (
+		    appno
+		  , emp_no
+		  , form_no
+		  , app_type
+		  , app_title
+		  , app_content
+		  , write_date
+		  , app_storage
+		  , delete_status
+		  )
+		  values
+		  (
+		    'OWORK'||LPAD(SEQ_APNO.NEXTVAL, 4, '0')
+		  , #{empNo}
+		  , #{formNo}
+		  , #{appType}
+		  , #{appTitle}
+		  , #{appContent}
+		  , SYSDATE
+		  , #{appStorage}
+		  , 'N'
+		  )
+	</insert>	
+	
+	<!-- 기안서 임시저장 첨부파일 -->
+	<insert id="insertFilePathSave">
+		insert
+		  into file_path
+		  (
+		  	fileno
+		  , appno
+		  , org_filename
+		  , mdf_filename
+		  , file_path
+		  )
+		  values
+		  (
+		  	SEQ_FLNO.NEXTVAL
+		  , 'OWORK'||LPAD(SEQ_APNO.CURRVAL, 4, '0')
+		  , #{orgFileName}
+		  , #{mdfFileName}
+		  , #{filePath}
+		  )
+	</insert>
+	
+	<!-- 기안서 작성하기 결재선 임시저장  -->
+	<insert id="insertAddLineSave" parameterType="ApprovalLine">
+		<foreach collection="list" item="apLineList" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+		  into approval_line
+		  (
+		    appno
+		  , emp_no
+		  , apporder
+		  , refer
+		  , appdate
+		  , status
+		  )
+		  values
+		  	(
+	        	'OWORK'||LPAD(SEQ_APNO.CURRVAL, 4, '0')
+	   	   	   , #{apLineList.empNo}
+	   	   	   , #{index}+1
+	   	       , #{apLineList.refer}
+	   	       , SYSDATE
+	   	       , #{apLineList.status}
+       	    )
+		</foreach>
+	</insert>
+	
+	<!-- 임시저장 리스트 count -->
+	<select id = "selectSaveListCount" resultType = "_int">
+		select
+			   count(*)
+		  from approval_tb
+		 where app_storage = 'Y'
+	</select>
+	
+	<!-- 임시저장 페이지로 이동 -->
+	<select id="selectSaveList" resultMap = "approvalResultSet" parameterType = "Approval">
+		select 
+			   a.appno
+     	     , app_title
+     	     , app_content
+     		 , emp_name
+     		 , a.emp_no
+     		 , write_date
+     		 , app_status
+    	  from approval_tb a
+  		  join employee e on a.emp_no = e.emp_no
+ 		 where app_storage = 'Y'
+ 		   and delete_status = 'N'
+ 		   and a.emp_no = #{empNo}
+ 		 order
+ 		    by a.appno desc
+	</select>
+	
+	<!-- 임시저장 검색 -->
+	<select id="selectSearchListCount" resultType = "_int" parameterType="hashmap">
+		select
+			   count(*)
+		  from approval_tb
+		  join employee using(emp_no) 	
+		 where app_storage = 'Y'
+		 <if test = "condition == 'title'">and app_title</if>
+		 <if test = "condition == 'content'">and app_content</if>
+		 <if test = "condition == 'writer'">and emp_name</if>
+		  like '%' || #{keyword} || '%' 		 
+	</select>
+	
+	<select id="selectSearchList" resultMap="approvalResultSet" parameterType="hashmap">
+		select 
+			   a.appno
+     	     , app_title
+     	     , app_content
+     		 , emp_name
+     		 , a.emp_no
+     		 , write_date
+     		 , app_status
+    	  from approval_tb a
+  		  join employee e on a.emp_no = e.emp_no
+ 		 where app_storage = 'Y'
+ 		   and a.emp_No = #{empNo}
+		<choose>
+			<when test="condition == 'title'">and app_title </when>
+			<when test="condition == 'content'">and app_content </when>
+			<otherwise>and emp_name </otherwise>
+		</choose>
+			like '%' || #{keyword} || '%'
+			order
+			   by write_date desc 
+	</select>
+	
+	<!-- 결재상태에 따른 키워드 검색 -->
+	<select id="selectSearchCount" resultType="_int" parameterType="hashmap">
+		select
+			   count(*)
+		  from approval_line al
+		  join employee e on(al.emp_no=e.emp_no)
+		  join approval_tb using(appno)	
+		 where app_storage = 'N'
+		   and status = #{status}
+           and al.emp_no = #{empNo}
+		 <if test = "condition == 'title'">and app_title</if>
+		 <if test = "condition == 'content'">and app_content</if>
+		 <if test = "condition == 'writer'">and emp_name</if>
+		  like '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="selectSearchListState" resultMap="approvalLineResultSet" parameterType="hashmap">
+		select
+               al.appno
+             , a.app_title
+             , e.emp_name
+             , a.write_date
+             , a.app_status
+         	 , al.emp_no
+         	 , emp_name
+         	 , al.apporder
+         	 , al.status status
+          from approval_line al
+          join approval_tb a on (al.appno = a.appno)
+          join employee e on (al.emp_no = e.emp_no)
+         where emp_name = #{empName}
+           and al.emp_no = #{empNo}
+           and status = #{status}
+		<choose>
+			<when test="condition == 'title'">and app_title </when>
+			<when test="condition == 'content'">and app_content </when>
+			<otherwise>and emp_name </otherwise>
+		</choose>
+			like '%' || #{keyword} || '%'
+			order
+			   by write_date desc 
+	</select>
+	
+	<!-- 기안서 회수하기 -->
+	<update id="collectApproval">
+		update
+			   approval_tb
+		   set
+		       app_status = '회수'
+		 where appno = #{appNo}
+	</update>
+	
+	<!-- 기안서 회수하기 결재선 (겹치는 sql 있으므로 나중에 수정 필요)-->
+	<update id="changeStatus">
+		update
+			   approval_line
+		   set status = '회수'
+		 where appno = #{appNo}
+	</update>
+	
+	<!-- [관리자] 전체결재문서 조회 -->
+	<select id = "selectAllListCount" resultType="_int">
+		select
+			   count(*)
+		  from approval_tb
+	</select>
+	
+	<select id = "selectApprovalAllList" resultMap = "approvalLineResultSet" parameterType = "ApprovalLine">
+		select
+               a.appno
+             , a.app_title
+             , e.emp_name
+             , a.write_date
+             , a.app_status
+         	 , a.emp_no
+          from approval_tb a
+          join employee e on (a.emp_no = e.emp_no)
+         where delete_status = 'N'
+         order
+           by appno desc
+	</select>
+		
+	<!-- [관리자] 전자결재 전체문서, 삭제문서 키워드 검색 -->
+	<select id="selectSearchAllListCount" resultType="_int" parameterType="hashmap">
+		select
+			   count(*)
+		  from approval_tb a
+		  join employee e on (a.emp_no = e.emp_no)
+		 where delete_status = #{deleteStatus}
+		 <if test = "condition == 'title'">and app_title</if>
+		 <if test = "condition == 'content'">and app_content</if>
+		 <if test = "condition == 'writer'">and emp_name</if>
+		  like '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="selectSearchAllList" resultMap="approvalLineResultSet" parameterType="hashmap">
+		select
+               a.appno
+             , a.app_title
+             , e.emp_name
+             , a.write_date
+             , a.app_status
+         	 , a.emp_no
+         	 , emp_name
+          from approval_tb a
+          join employee e on (a.emp_no = e.emp_no)
+         where delete_status = #{deleteStatus}
+		<choose>
+			<when test="condition == 'title'">and app_title </when>
+			<when test="condition == 'content'">and app_content </when>
+			<otherwise>and emp_name </otherwise>
+		</choose>
+			like '%' || #{keyword} || '%'
+			order
+			   by appno desc 
+	</select>
+	
+	<!-- [관리자] 전자결재 삭제하기 -->
+	<update id = "deleteApproval" parameterType="Approval">
+		update
+			   approval_tb
+		   set delete_status = 'Y'
+		 where appno IN
+		 <foreach collection = "array" index = "index" item="updateList" separator="," open="(" close=")">
+		 	#{updateList}
+		 </foreach>
+	</update>
+	
+	<!-- [관리자] 전체결재 삭제 문서 조회 -->
+	<select id = "selectDeleteListCount" resultType="_int">
+		select
+			   count(*)
+		  from approval_tb
+		 where delete_status = 'Y'
+	</select>
+	
+	<select id = "selectApprovalDeleteList" resultMap = "approvalLineResultSet" parameterType = "ApprovalLine">
+		select
+               a.appno
+             , a.app_title
+             , e.emp_name
+             , a.write_date
+             , a.app_status
+         	 , a.emp_no
+          from approval_tb a
+          join employee e on (a.emp_no = e.emp_no)
+         where delete_status = 'Y'
+         order
+           by appno desc
+	</select>
+	
+	<!-- [관리자] 전자결재 복구하기 -->
+	<update id = "restoreApproval" parameterType="Approval">
+		update
+			   approval_tb
+		   set delete_status = 'N'
+		 where appno IN
+		 <foreach collection = "array" index = "index" item="updateList" separator="," open="(" close=")">
+		 	#{updateList}
+		 </foreach>
+	</update>
 </mapper>

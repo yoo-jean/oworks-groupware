@@ -283,16 +283,16 @@
                         <table id="lvaprline">
                           <thead id="lvaprline_thead">
                             <tr>
-                              <th width="55px">순번</th>
-                              <th width="140px">성명</th>
-                              <th width="70px">직급</th>
-                              <th width="150px">부서</th>
-                              <th width="140px">결재유형</th>
-                              <th width="90px">결재상태</th>
+	                           <th width="55px">순번</th>
+	                           <th width="140px">성명</th>
+	                           <th width="70px">직급</th>
+	                           <th width="150px">부서</th>
+	                           <th width="140px">결재유형</th>
+	                           <th width="90px">결재상태</th>
                             </tr>
                           </thead>
                           <tbody id="lvaprlineBody">
-                            <tr>
+                          	<tr>
                               <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" name=1 id="num" value=1>1</td>
                               <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${loginEmp.empName }</td>
                               <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${loginEmp.jobName }</td>
@@ -300,6 +300,16 @@
                               <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">결재</td>
                               <td>대기</td>
                             </tr>
+                          	<c:forEach var = "al" items = "${al }">
+                            	<tr>
+		                            <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="num" >${al.appOrder }</td>
+			                        <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${al.empName }</td>
+			                        <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${al.jobName }</td>
+			                        <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${al.deptName }</td>
+			                        <td align="left" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">결재</td>
+			                        <td>대기</td>
+                            	</tr>
+	                      	</c:forEach>
                           </tbody>
                         </table>
                       </div>

@@ -281,11 +281,12 @@
               		<tbody>
 		                <tr>
 		                  <th rowspan="3">결재</th>
-		                  <td>${loginEmp.jobName }</td>
-		                  <td></td>
-		                  <td></td>
-		                  <td></td>
-		                  <td></td>
+		                  <c:forEach var = "al" items="${al }"> 
+		                  	<td>${al.jobName }</td>
+		                  </c:forEach>
+		                  	<td></td>
+		                  	<td></td>
+		                  	<td></td>
 		                </tr>
 		                <tr>
 		                  <td>
@@ -298,11 +299,9 @@
 		                  
 		                </tr>
 		                <tr id="employeeName">
-		                  <td>${loginEmp.empName }</td>
-		                  <td id="user"></td>
-		                  <td></td>
-		                  <td></td>
-		                  <td></td>
+		                  <c:forEach var = "al" items="${al }"> 
+		                  	<td>${al.empName }</td>
+		                  </c:forEach>
 		                </tr>
               		</tbody>
             	</table>
@@ -332,32 +331,10 @@
 	              	<!--결재선-->
 	              	var tr = $("#realApprlvalLine tbody tr"); 
 	              	
-	              	var test = tdArr.length;
-	              	console.log(test);
-	              	
-	              	var j = 0;
-	              	j++;
-	              	
-	              	/* i값을 어떻게 앞에 숫자랑 더해야되는지 생각해보기!
 	              	for(var i=0; i<tdArr.length; i++){
-		              	$('#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(3' + i + ')').text(tdArr[i].slice(1,2));
-		              	$('#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(2' + i + ')').text(tdArr[i].slice(0,1));
-	              	}
-	              	*/
-	              	
-	              	
-	              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(3)").text(tdArr[1].slice(1,2));
-	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(2)").text(tdArr[1].slice(0,1));
-	              
-	             	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(4)").text(tdArr[2].slice(1,2));
-	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(3)").text(tdArr[2].slice(0,1));
-	              	
-	              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(5)").text(tdArr[3].slice(1,2));
-	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(4)").text(tdArr[3].slice(0,1))
-	              	
-	              	$("#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(6)").text(tdArr[4].slice(1,2));
-	              	$("#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(5)").text(tdArr[4].slice(0,1));
-	              	
+	              	$('#realApprlvalLine> tbody > tr:nth-child(1)> td:nth-child(' + (i+2) + ')').text(tdArr[i].slice(1,2));
+	              	$('#realApprlvalLine> tbody > tr:nth-child(3)> td:nth-child(' + (i+1) + ')').text(tdArr[i].slice(0,1));
+              		}
 	            };
 	        </script>
 		

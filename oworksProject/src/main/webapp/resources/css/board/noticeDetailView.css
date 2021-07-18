@@ -44,6 +44,7 @@
         margin-right: 10px;
         width: 36px;
         height: 40px;
+        border-radius : 70%;
     }
 
     /*작성자 정보 css*/

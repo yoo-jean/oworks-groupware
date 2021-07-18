@@ -28,6 +28,7 @@ public class ApprovalLine {
 	private String empName;		// 사원이름
 	private String appContent;	// 결재내용
 	private String jobName;		// 직급
+	private String deptName;	// 부서
 	private ArrayList<ApprovalLine> lineList;	// 결재선에 담을 다수의 사원
 	
 }
