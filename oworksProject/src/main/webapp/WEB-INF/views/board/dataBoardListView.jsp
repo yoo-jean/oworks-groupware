@@ -174,14 +174,14 @@
         </script>
 
 
-        <!-- 버튼(로그인한 회원) -->
-        <!--  
-        <c:if test="${ !empty loginUser }">
-        </c:if>
-        -->
+ 
+        <c:if test="${ !empty loginEmp }">
 	        <div id="btn" align="right">
-	            <a class="btn btn-outline-primary btn-sm" href="enrollForm.db">글 작성</a>
+	        	<form action="enrollForm.db">
+		            <button type="submit" class="btn btn-outline-primary btn-sm">글 작성</button>
+	        	</form>
 	        </div>
+        </c:if>
 
 
         <!-- 페이징 -->

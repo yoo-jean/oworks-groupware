@@ -8,18 +8,119 @@
 		<result column="CREATE_DATE" property="createDate" />
 		<result column="DELETE_DATE" property="deleteDate" />
 		<result column="STATUS" property="status" />
+		
+		<result column="BUBBLE_NO" property="bubbleNo" />
+		<result column="BUBBLE_MAKER" property="bubbleMaker" />
+		<result column="BUBBLE_RECEIVE" property="bubbleReceive" />
+		<result column="REF_CNO" property="refChatNo" />
+		<result column="BUBBLE_CONTENT" property="bubbleContent" />
+		
+		<result column="CHAT_PERSON" property="chatPerson" />
+		<result column="CHAT_MAKER" property="chatMaker" />
 	</resultMap>
 	
+	<resultMap id="chatBubbleResultSet" type="ChatBubble">
+		<id column="BUBBLE_NO" property="bubbleNo" />
+		<result column="REF_CNO" property="refChatNo" />
+		<result column="BUBBLE_MAKER" property="bubbleMaker" />
+		<result column="BUBBLE_RECEIVE" property="bubbleReceive" />
+		<result column="BUBBLE_CONTENT" property="bubbleContent" />
+		<result column="CREATE_DATE" property="createTime" />
+		
+		<result column="CHAT_PERSON" property="chatPerson" />
+		<result column="CHAT_MAKER" property="chatMaker" />
+	</resultMap>
+	
+	<resultMap id="chatPersonResultSet" type="ChatPerson">
+		<id column="CHAT_NO" property="chatNo" />
+		<result column="CHAT_PERSON" property="chatPerson" />
+		<result column="CHAT_MAKER" property="chatMaker" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="DELETE_DATE" property="deleteDate" />
+	</resultMap>
+	
+	<resultMap id="chatBubbleResultSet2" type="ChatBubble">
+		<id column="BUBBLE_NO" property="bubbleNo" />
+		<result column="REF_CNO" property="refChatNo" />
+		<result column="BUBBLE_MAKER" property="bubbleMaker" />
+		<result column="BUBBLE_RECEIVE" property="bubbleReceive" />
+		<result column="BUBBLE_CONTENT" property="bubbleContent" />
+		<result column="CREATE_DATE" property="createTime" />
+		<result column="READ_STATUS" property="readStatus" />
+	</resultMap>
 	
 	
 	<select id="selectChatList" resultMap="chatResultSet">
 		select
-			    chat_name
+			    chat_no
+              , chat_name
 		   from chat
 		  where status = 'Y'
 		  order
-		     by CREATE_DATE desc
+		     by chat_no desc
 	</select>
+	
+	<select id="selectBubbleList" resultMap="chatBubbleResultSet" parameterType="_int">
+		select
+			    bubble_no
+			  , bubble_content
+			  , to_char(create_date, 'HH24:mm') create_date
+			  , bubble_maker
+			  , bubble_receive
+		   from chat_bubble
+          where ref_cno = #{chatNo}
+		  order
+		     by bubble_no asc
+	</select>
+	
+	<select id="selectPersonList" resultMap="chatPersonResultSet">
+		select
+			    CHAT_NO
+              , CHAT_PERSON
+			  , CHAT_MAKER
+              , to_char(create_date, 'YYYY-MM-DD') create_date
+              , to_char(delete_date, 'YYYY-MM-DD') delete_date
+		   from chat_person
+		  order
+		     by chat_no desc
+	</select>
+	
+	<select id="selectCBubbleList" resultMap="chatBubbleResultSet2">
+		select
+			    BUBBLE_NO
+              , REF_CNO
+			  , BUBBLE_MAKER
+              , BUBBLE_RECEIVE
+              , BUBBLE_CONTENT
+              , to_char(CREATE_DATE, 'HH24:mm') CREATE_DATE
+		   	  , READ_STATUS
+		   from chat_bubble
+		  order
+		     by BUBBLE_NO asc
+	</select>
+	
+	<insert id="insertBubble">
+		insert
+		  into chat_bubble
+		  (
+		     bubble_no
+		   , ref_cno
+		   , bubble_maker
+		   , bubble_receive
+		   , bubble_content
+		  )
+		  values
+		  (
+		     seq_cbno.nextval
+		   , 현재채팅방번호
+		   , 보내는사람사번
+		   , 받는사람사번
+		   , 대화내용
+		  )
+	</insert>
+	
+	
+	
 
 
 

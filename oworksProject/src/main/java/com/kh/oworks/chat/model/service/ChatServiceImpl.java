@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.oworks.chat.model.dao.ChatDao;
 import com.kh.oworks.chat.model.vo.Chat;
+import com.kh.oworks.chat.model.vo.ChatBubble;
+import com.kh.oworks.chat.model.vo.ChatPerson;
 
 @Service
 public class ChatServiceImpl implements ChatService{
@@ -23,16 +25,28 @@ public class ChatServiceImpl implements ChatService{
 	}
 
 	@Override
-	public int insertChat(Chat ch) {
+	public ArrayList<ChatBubble> selectBubbleList(int chatNo) {
+		return cDao.selectBubbleList(sqlSession, chatNo);
+	}
+
+	@Override
+	public int insertBubble(ChatBubble cb) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteChat(int chatNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public ArrayList<ChatPerson> selectChatPersonList() {
+		return cDao.selectChatPersonList(sqlSession);
 	}
+
+	@Override
+	public ArrayList<ChatBubble> selectChatBubbleList() {
+		return cDao.selectChatBubbleList(sqlSession);
+	}
+
+	
+
 
 
 

@@ -114,8 +114,18 @@
 <div id="header">
 	
     <div id="header_logo">
-    	<img src="resources/images/oworks_logo.png">
+    	<img src="resources/images/oworks_logo.png" onclick="go();">
     </div>
+    
+    <!-- 21.07.09 혜빈 수정 -->
+    <!-- main.jsp로 이동이 안돼서 우선 뒤로가기로 해놨습니다 
+    	 메인 jsp 제작하신 분 한번만 확인 부탁드려요~ -->
+    <script>
+    	function go(){
+    		history.back();
+    	}
+    </script>
+    
     <ul id="header_list">
         <li class="header_btn">
             <a class="header_link" href="list.ch">

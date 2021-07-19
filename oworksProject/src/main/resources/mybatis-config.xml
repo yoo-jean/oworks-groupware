@@ -12,8 +12,11 @@
 		<typeAlias type="com.kh.oworks.board.model.vo.FreeBoard" alias="FreeBoard"/>
 		<typeAlias type="com.kh.oworks.board.model.vo.Reply" alias="Reply"/>
 		<typeAlias type="com.kh.oworks.chat.model.vo.Chat" alias="Chat"/>
+		<typeAlias type="com.kh.oworks.chat.model.vo.ChatBubble" alias="ChatBubble"/>
+		<typeAlias type="com.kh.oworks.chat.model.vo.ChatPerson" alias="ChatPerson"/>
 		<typeAlias type="com.kh.oworks.commute.model.vo.Commute" alias="Commute"/>
 		<typeAlias type="com.kh.oworks.board.model.vo.DataBoard" alias="DataBoard"/>
+		<typeAlias type="com.kh.oworks.board.model.vo.DataFile" alias="DataFile"/>
 		<typeAlias type="com.kh.oworks.employee.model.vo.Employee" alias="Employee"/>
 		<typeAlias type="com.kh.oworks.mail.model.vo.Mail" alias="Mail"/>
 		<typeAlias type="com.kh.oworks.schedule.model.vo.Schedule" alias="Schedule"/>

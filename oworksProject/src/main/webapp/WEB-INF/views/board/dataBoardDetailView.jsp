@@ -136,7 +136,7 @@
 
         <div id="btn" align="center">
         
-            <c:if test="${ loginUser.userId eq b.boardWriter }">
+            <c:if test="${ loginEmp.empName eq b.writerName }">
 		        <a class="btn btn-primary btn-sm" id="update" onclick="postFormSubmit(1);">수정</a>&nbsp;
 		        <a class="btn btn-danger btn-sm" id="delete" onclick="postFormSubmit(2);">삭제</a>&nbsp;
 		        

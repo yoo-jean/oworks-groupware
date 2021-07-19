@@ -17,6 +17,7 @@ public class DataBoard {
 	private String boardContent;	// DB_CONTENT
 	private String boardWriter;		// DB_WRITER
 	private String writerName;
+	private int empNo;
 	private int count;				// COUNT
 	private String createDate;		// CREATE_DATE
 	private String originName;		// ORIGIN_NAME

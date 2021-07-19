@@ -359,7 +359,7 @@
 					            
 					            // console.log(no0);
 					            
-					            $("#addOutNo").val(no0)
+					            $("#addOutNo").val(no0);
 					            $("#outName").val(no1);    
 					            $("#email").val(no2); 
 					            $("#phone").val(no3); 

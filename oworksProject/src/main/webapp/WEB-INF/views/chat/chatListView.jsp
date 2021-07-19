@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,19 +29,22 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     	
     	<style>
+
     	div a button{box-sizing: border-box;}
 
-		.wrap{
+		.wrap1{
+            margin: auto;
+            margin-top: 50px;
 		    height:700px;
 		    width:1000px;
-		    margin: auto;
-		    margin-top: 50px;
+		    display:flex;
+		    align-items:center;
 		    border:1px solid rgb(218, 218, 218);
 		    padding: 10px;
 		    font-family: 'Noto Sans KR', sans-serif;
 		}
 		
-		.wrap>div{width: 100%; }
+		.wrap1>div{width: 100%;}
 		
 		.leftBox{width:30%; height:680px; float:left;}
 		.rightBox{width:68%; height:680px;float: right; }
@@ -131,8 +136,6 @@
 		    font-size: 18px;
 		    font-weight: bolder;
 		}
-		
-		
 		.messageBoxL .message_bubble{
 		    background-color: rgb(236, 234, 234);
 		    padding:10px;
@@ -142,7 +145,6 @@
 		    margin-left:5px;
 		    font-size: 16px;
 		}
-		
 		.messageBoxR .message_bubble{
 		    background-color: rgb(20, 125, 246);
 		    color: white;
@@ -153,13 +155,20 @@
 		    margin-left:5px;
 		    font-size: 16px;
 		}
+		.messageBoxL{
+			padding-left:10px;
+		}
+		.messageBoxR{
+			text-align:right;
+			padding-right:10px;
+		}
 		
-		.rightBox_2{margin-top: 20px;;}
+		.rightBox_2{margin-top: 20px;}
 		.rightBox_3{width:100%;}
 		.typing{width:80%; height:100%; float:left;}
-		.typing>textarea{
+		#message_content{
 		    width:99%; 
-		    height:100%; 
+		    height:100%;
 		    text-align: left;
 		    resize: none;
 		}
@@ -181,13 +190,13 @@
     </head>
 <body>
     <!-- 헤더바 -->
-    <%-- <jsp:include page=""/> --%>
+    <jsp:include page="../common/mainHeader.jsp"/>
 
     <!-- 메뉴바 -->
     <%-- <jsp:include page=""/> --%>
 
-    <div class="wrap">
-        <div class="content">
+    <div class="wrap1">
+        <div class="contents">
             <div class="leftBox">
                 <div class="leftBox_1">
                     <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal2"> 채팅방 만들기</button>
@@ -200,71 +209,174 @@
 	                <div style="overflow:scroll; width:100%; height:85%;"> 
 	                
 	                <div class="leftBox_3" >
-					
-	                <c:forEach var="c" items="${ list }" >
-		                    <div class="chatList"> <!-- 클릭 이벤트 걸기 -->
-		                        <div class="chatList_1">
-		                            <img src="../../../resources/images/chat/profile.png" alt="">
-		                        </div>
-		                        <div class="chatList_2">${ c.chatName }</div>
-		                        <div class="chatList_count"><span>3</span></div>
-		                        <div class="chatList_3">
-		                            <button type="button" data-toggle="modal" data-target="#myModal">❌</button>
-		                        </div>
-		                    </div>
-	                </c:forEach>
-	                
+			                <c:forEach var="ch" items="${ list }">
+		                <c:forEach var="cp" items="${ chatPersonList }">
+			                	<c:if test="${ loginEmp.empNo eq cp.chatPerson && cp.chatNo eq ch.chatNo}">
+					                    <div class="chatList">
+					                        <div class="chatList_1">
+					                            <span style="visibility" class="no">${ ch.chatNo }</span>
+					                        </div>
+					                        <div class="chatList_2">${ ch.chatName }</div>
+					                        <div class="chatList_count">
+					                        	<span>3</span>
+					                        </div>
+					                        <div class="chatList_3">
+					                            <button type="button" data-toggle="modal" data-target="#myModal">❌</button>
+					                        </div>
+					                    </div>
+				                 </c:if>
+				             </c:forEach>  
+		                </c:forEach>
 		            </div>
-		            
-					</div>
-                
+				</div>
             </div>
 
 
             <div class="rightBox">
 
                 <div class="rightBox_1">
-                    <p>매일 야식 먹고 싶은 사람들</p>
+                    <p id="chatRoomTitle"> OWORKS MESSAGE </p>
                     <hr>
                 </div>
-                <div class="rightBox_2">
-                    <div class="messageBoxL">
-                        <span class="message_bubble">오늘 야식 추천 좀</span>
-                        <span class="message_time">21:29</span>
-                        <span class="message_read">읽음</span>
-                    </div>
-                    <div class="messageBoxR" align="right">
-                        <span class="message_read">읽음</span>
-                        <span class="message_time">21:29</span>
-                        <span class="message_bubble">음....</span>
-                        
-                    </div>
-                    <div class="messageBoxR" align="right">
-                        <span class="message_read">읽음</span>
-                        <span class="message_time">21:29</span>
-                        <span class="message_bubble">그럼 나 대신 지코바 먹어 주라</span>
-                    </div>
-                    <div class="messageBoxL">
-                        <span class="message_bubble">지코바? 존맛이지</span>
-                        <span class="message_time">21:29</span>
-                        <span class="message_read">읽음</span>
-                    </div>
-                    <div class="messageBoxR" align="right">
-                        <span class="message_read">읽음</span>
-                        <span class="message_time">21:29</span>
-                        <span class="message_bubble">근데 뿌링클 순살도 좋음</span>
-                    </div>
-                </div>
-                <div class="rightBox_3">
-                    <div class="typing">
-                        <textarea name="message_content" id="message_content" placeholder="채팅을 입력해 보세요!"></textarea> 
-                    </div>
-                    <div class="typingB">
-                        <button type="submit" class="btn btn-outline-primary">전송하기</button>
-                    </div>
-                </div>
-
+                
+	            <div class="rightBox_2" id="rightBox_2" style="overflow:scroll; width:100%;">
+		            <c:if test="${ empty loginEmp }">
+						<script type="text/javascript">
+						  alert("로그인 후 이용해 주세요.");
+						  location.href="/oworks/";
+						</script>
+					</c:if>
+					
+					<div class="messageBoxL">
+						<span class="message_bubble">오워크스 채팅 서비스입니다 🦊 </span>
+						<span class="message_time"> 11:30am </span>
+						<span class="message_read" style="color:grey"> 읽음 </span>
+					</div>
+					<div class="messageBoxR">
+						<span class="message_read" style="color:grey"> 읽음 </span>
+						<span class="message_time"> 11:30am </span>
+						<span class="message_bubble">상대방을 초대하여 대화를 나누세요! 🐰</span>
+					</div>
+	            </div>
+					
+				<div class="rightBox_3">
+		            <div class="typing">
+		                <textarea class="form-control" name="message_content" id="message_content" placeholder="대화방을 클릭하여 대화를 시작하세요" readonly></textarea> 
+		            </div>
+		            <div class="typingB">
+		                <button type="submit" class="btn btn-outline-secondary" disabled>대화방 클릭</button>
+		            </div>
+				</div>
             </div>
+            
+			<script>
+			$(".chatList").click(function(){
+				
+				var no = $(this).find(".no").text();			// 클릭한 대화방 번호
+				//console.log(no);
+				var loginEmp = ${ loginEmp.empNo };
+				//console.log(loginEmp);							// 로그인한 사람 사번
+				var name = $(this).find(".chatList_2").text(); 	// 클릭한 대화방 이름
+				
+				$("#chatRoomTitle").text(name);
+				
+				change();
+				
+				$("#ee").val(no);
+				
+				
+				$.ajax({
+					url : "blist.ch",
+					data : {chatNo : no},
+					success : function(list){
+						console.log(list);
+						
+						var value="";
+						
+						$.each(list, function(i, obj){
+							'채팅 환영'
+							if(obj.bubbleReceive == '${loginEmp.empNo}' && obj.bubbleMaker != '${loginEmp.empNo}'){
+								value += '<div class="messageBoxL">'
+								  	  +		'<span class="message_bubble">' + obj.bubbleContent + '</span>'
+								 	  +		'<span class="message_time">' + obj.createTime + '</span>'
+								 	  +		'<span class="message_read" style="color:grey"> 읽음 </span>'
+								 	  +	'</div>'
+								 	  
+							}else if(obj.bubbleReceive == '${loginEmp.empNo}' && obj.bubbleMaker == '${loginEmp.empNo}'){
+								value += '<div class="messageBoxR">'
+									  +		'<span class="message_read" style="color:grey"> 읽음 </span>'
+									  +		'<span class="message_time">' + obj.createTime + '</span>'
+								 	  +		'<span class="message_bubble">' + obj.bubbleContent + '</span>'
+								 	  +	'</div>'
+							};
+							
+							$(".rightBox_2").html(value);
+							
+						})
+					}, error : function(){
+						console.log();
+					}
+				
+				})
+				
+			})
+				
+			function change(){
+				var a = '';
+					a += '<div class="typing">'
+				      + '<textarea class="form-control" name="message_content" id="message_content" placeholder="메시지를 입력하세요"></textarea>' 
+		              + '</div>'
+		              + '<div class="typingB">'
+		              + '<button type="submit" class="btn btn-outline-primary" id="subB">전송하기</button>'
+		              + '<input type="hidden" id="ee" value="ㅇㅇㅇ">'
+		              + '</div>'
+		              
+		        $(".rightBox_3").html(a);
+		              
+		              
+				$("#subB").click(function() {
+					
+					var no0 = $(this).next().val();
+					var no = parseInt(no0);
+					console.log(no);		// 현 채팅방 번호
+					if($("#message_content").val().trim().length != 0){
+						
+						$.ajax({
+							url : "insert.ch",
+							data : {
+								refChatNo : no,
+								bubbleMaker :
+							}
+						})
+
+					    
+					}else {
+						alertify.alert("공백 외의 메시지를 입력해 주세요");
+					}
+					
+				    
+	
+				});
+			}
+				
+				
+
+
+
+			
+			
+			
+			
+			</script>
+			
+			<script langauge="javascript">
+				var counter = 0;
+				window.setInterval("refreshDiv()", 5000);
+				function refreshDiv(){
+				counter = counter + 1;
+				}	
+			</script>
+
 
         </div>
 

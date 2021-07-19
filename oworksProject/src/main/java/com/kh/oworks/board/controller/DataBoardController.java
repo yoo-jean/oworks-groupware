@@ -56,6 +56,7 @@ public class DataBoardController {
 	
 	
 	// 자료실 글 쓴 거 작성
+	@ResponseBody
 	@RequestMapping("insert.db")
 	public String insertDataBoard(DataBoard db, MultipartFile upfile, HttpSession session, Model model) {
 		
@@ -67,8 +68,11 @@ public class DataBoardController {
 			db.setOriginName(upfile.getOriginalFilename());
 			db.setChangeName("resources/uploadFiles/" + changeName);
 			
+			
 		}
 		int result = dService.insertDataBoard(db);
+		
+		
 		
 		// 성공 페이지
 		if(result > 0) {
@@ -158,11 +162,7 @@ public class DataBoardController {
 			return "common/errorPage";
 		}
 	} 
-	
-	
-	
-	// 파일 인서트
-	@RequestMapping("insertFile.db")
+
 	
 	
 	

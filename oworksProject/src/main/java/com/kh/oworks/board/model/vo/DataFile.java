@@ -15,6 +15,7 @@ public class DataFile {
 	private int fileNo;			// DB_FNO
 	private int boardNo;		// REF_BNO
 	private String filePath;	// FILE_PATH
+	
 
 	
 
