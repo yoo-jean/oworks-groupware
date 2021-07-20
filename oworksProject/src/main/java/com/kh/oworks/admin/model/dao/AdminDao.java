@@ -19,14 +19,14 @@ public class AdminDao {
 		
 	}
 	// 근태통계 조회
-	public ArrayList<Admin> selectAdList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Admin> selectAdList(SqlSessionTemplate sqlSession, PageInfo pi, String condition) {
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("adminMapper.selectAdList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("adminMapper.selectAdList", condition, rowBounds);
 		
 	}
 	

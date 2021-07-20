@@ -38,5 +38,13 @@ public class Admin {
 	private Date hireDate;			// 입사일
 	private int workYear;			// 근무연수
 	private Date offStart;			// 휴가시작일
+	
+	// 관리자 근태현황
+	private int workStatusLate;		// 지각횟수
+	private int workStatusEarly;	// 조퇴횟수
+	private int workStatusOff;		// 결근휴가횟수
+	private int workStatusOn;		// 정출횟수
+	private String workStatusSum;	// 총근무시간
+	private String workTimeAvg;		// 평균근무시간
 
 }

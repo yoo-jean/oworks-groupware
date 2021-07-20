@@ -91,28 +91,24 @@
                 <h4>근태 통계</h4>
 
                 <div class="attendance_nav">
-                    <select name="sort_year" id="sort_year">
-                        <option value="" selected disabled hidden>연도</option>
-                        <option value="2021">2021년</option>
-                        <option value="2020">2020년</option>
-                        <option value="2019">2019년</option>
-                    </select>
-                    <select name="sort_department" id="sort_department">
-                        <option value="" selected disabled hidden>부서</option>
-                        <option value="d1">개발부</option>
-                        <option value="d2">인사부</option>
-                        <option value="d3">영업부</option>
-                        <option value="d4">기획부</option>
-                        <option value="d5">마케팅부</option>
-                    </select>
-                    <select name="sort_job" id="sort_job">
-                        <option value="" selected disabled hidden>직급</option>
-                        <option value="j2">부장</option>
-                        <option value="j3">과장</option>
-                        <option value="j4">대리</option>
-                        <option value="j5">사원</option>
-                    </select>
-                    <button type="submit" class="btn btn-primary">검색</button>
+                	<form action="adList.at">
+	                    <select name="deptCode" id="sort_department">
+	                        <option value="" selected disabled hidden>부서</option>
+	                        <option value="D1">개발부</option>
+	                        <option value="D2">인사부</option>
+	                        <option value="D3">영업부</option>
+	                        <option value="D4">기획부</option>
+	                        <option value="D5">마케팅부</option>
+	                    </select>
+	                    <select name="jobCode" id="sort_job">
+	                        <option value="" selected disabled hidden>직급</option>
+	                        <option value="J2">부장</option>
+	                        <option value="J3">과장</option>
+	                        <option value="J4">대리</option>
+	                        <option value="J5">사원</option>
+	                    </select>
+	                    <button type="submit" class="btn btn-primary">검색</button>
+                    </form>
                     <a href="adDailyList.at"><button class="btn btn-outline-primary">일일 출퇴근 현황</button></a>
                 </div>
 
@@ -122,8 +118,10 @@
                         <th>소속</th>
                         <th>직위</th>
                         <th>사원명</th>
-                        <th>출결상태</th>
-                        <th>횟수</th>
+                        <th>지각</th>
+                        <th>조퇴</th>
+                        <th>휴가</th>
+                        <th>출근</th>
                         <th>발생휴가</th>
                         <th>사용휴가</th>
                         <th>잔여휴가</th>
@@ -138,13 +136,15 @@
 	                        <td>${ a.deptName }</td>
 	                        <td>${ a.jobName }</td>
 	                        <td>${ a.empName }</td>
-	                        <td>${ a.workStatus }</td>
-	                        <td>횟수</td>
+	                        <td>${ a.workStatusLate }</td>
+	                        <td>${ a.workStatusEarly }</td>
+	                        <td>${ a.workStatusOff }</td>
+	                        <td>${ a.workStatusOn }</td>
 	                        <td>${ a.offGiven }</td>
 	                        <td>${ a.offUsed }</td>
 	                        <td>${ a.offAvailable }</td>
-	                        <td>누적근무시간</td>
-	                        <td>일평균근무시간</td>
+	                        <td>${ a.workStatusSum }</td>
+	                        <td>${ a.workTimeAvg }</td>
 	                    </tr>
 					</c:forEach>
                 </table>

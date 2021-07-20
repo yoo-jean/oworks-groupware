@@ -25,8 +25,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 	// 관리자 근태통계 조회	
 	@Override
-	public ArrayList<Admin> selectAdList(PageInfo pi) {
-		return aDao.selectAdList(sqlSession, pi);
+	public ArrayList<Admin> selectAdList(PageInfo pi, String condition) {
+		return aDao.selectAdList(sqlSession, pi, condition);
 	}
 	
 	// 관리자 일일출퇴근현황 갯수

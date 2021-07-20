@@ -23,6 +23,12 @@
 		<result column="hire_date" property="hireDate"/>
 		<result column="work_year" property="workYear"/>
 		<result column="off_start" property="offStart"/>
+		<result column="work_status_late" property="workStatusLate"/>
+		<result column="work_status_early" property="workStatusEarly"/>
+		<result column="work_status_off" property="workStatusOff"/>
+		<result column="work_status_on" property="workStatusOn"/>
+		<result column="work_status_sum" property="workStatusSum"/>
+		<result column="work_time_avg" property="workTimeAvg"/>
 	</resultMap>
 	
 	<!-- 근태통계 목록 갯수 -->
@@ -33,20 +39,28 @@
 	</select>
 	
 	<!-- 근태통계 조회 -->
-	<select id="selectAdList" resultMap="admin">
+	<select id="selectAdList" resultMap="admin" parameterType="String">
 		select
-		       dept_name
+		       emp_no
+		     , dept_name
 		     , job_name
 		     , emp_name
-		     , work_status
+		     , count(case when work_status = '지각' then 1 else null end) as work_status_late
+		     , count(case when work_status = '조퇴' then 1 else null end) as work_status_early
+		     , count(case when work_status = '휴가' then 1 else null end) as work_status_off
+		     , count(case when work_status = '정출' then 1 else null end) as work_status_on
 		     , off_given
 		     , off_used
 		     , off_available
-		  from employee
-		  join department using(dept_code)
-		  join job using(job_code)
-		  join attendance using(emp_no)
+		     , sum(work_time) as work_status_sum
+		     , trunc(avg(work_time)) as work_time_avg
+		  from attendance
+		  join employee using(emp_no)
 		  join off using(emp_no)
+		  join job using(job_code)
+		  join department using(dept_code)
+		 	   ${condition}
+		 group by emp_no, dept_name, job_name, emp_name, off_given, off_used, off_available
 	</select>
 	
 	<!-- 일일출퇴근현황 목록 갯수 -->

@@ -27,12 +27,28 @@ public class AdminController {
 	
 	//관리자 근무관리_근태 조회
 	@RequestMapping("adList.at")
-	public ModelAndView adminAttendanceList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, ModelAndView mv) {
+	public ModelAndView adminAttendanceList(@RequestParam(value="currentPage", defaultValue="1") int currentPage, HttpServletRequest request, ModelAndView mv) {
 		
 		int listCount = aService.selectEmpCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
-		ArrayList<Admin> atList = aService.selectAdList(pi);
+		// 조건
+		String condition = "where 1=1 ";
+		// dept_name = #{deptName}
+		// and job_name = #{jobName}
+		String deptCode = request.getParameter("deptCode");
+		String jobCode = request.getParameter("jobCode");
+		System.out.println("부서명" + deptCode + "직급명" + jobCode);
+		
+		if(deptCode != null && deptCode.length() > 0) {
+			condition += ("and dept_code = '" + deptCode + "'");
+		}
+		if(jobCode != null && jobCode.length() > 0) {
+			condition += ("and job_code = '" + jobCode + "'");
+		}
+		System.out.println("whereString: " + condition);
+		
+		ArrayList<Admin> atList = aService.selectAdList(pi, condition);
 		
 		mv.addObject("pi", pi)
 		  .addObject("list", atList)
