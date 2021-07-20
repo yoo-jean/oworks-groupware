@@ -16,18 +16,15 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Autowired
 	private EmployeeDao eDao;
 
+	
 	@Override
 	public Employee loginEmployee(Employee e) {
 		return eDao.loginEmployee(sqlSession, e);
-		
-	}
-
-	@Override
-	public int updateEmployee(Employee e) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 	
-
+	@Override
+	public int updateEmployee(Employee e) {
+		return 0;
+	}
 
 }

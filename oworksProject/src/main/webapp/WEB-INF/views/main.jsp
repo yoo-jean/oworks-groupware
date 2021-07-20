@@ -26,7 +26,28 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
-
+<script>
+// function startWork(empNo) {
+// 	$.ajax({
+// 		url : "insertEmpIn",
+// 		data : {
+// 			empNo: empNo
+// 		},
+// 		success:function(status){
+// 			if(status == "success"){
+// 				$("#content").val("");
+// 				selectCommentList();
+// 			}
+// 		}, error:function(){
+// 			console.log("코멘트 작성용 ajax 통신 실패!");
+// 		}
+// 	})
+// }else{
+// 	console.log("댓글 작성 해주세요!!!");
+// }
+// 	alert("출근!!!!" + empNo);
+// }
+</script>
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
     body {
@@ -112,18 +133,20 @@
 			<jsp:include page="common/mainMenubar.jsp"/>
 
             <!-- 우측 본문 -->
+            
             <c:if test="${ !empty loginEmp }">
 	            <div id="content_2">
 	
 	                <div class="main_emp">
 	                    <div class="main_emp_today">
 	                        <span><i class="far fa-address-card"></i> 나의 근무 현황</span>
+	                        <input type="hidden" name="empNo" value="${ loginEmp.empNo }">
 	                        <table class="inout_list">
 	                            <tr height="70px" style="background-color: #7ebef14b;">
 	                                <td rowspan="2" width="250px"  style="border-bottom: 1px solid #ddd;">
-	                                	<img src="${ loginEmp.empImage }">
+	                                	<!-- <img src="${ loginEmp.empImage }"> -->
 	                                </td>
-	                                <td style="font-weight: bold; font-size: 18px;">${ loginEmp.empName }</td>
+	                                <td style="font-weight: bold; font-size: 18px;">${ loginEmp.empName } &#47; ${ loginEmp.empNo }</td>
 	                            </tr>
 	                            <tr height="65px" style="background-color: #7ebef14b;">
 	                                <td style="font-size:15px; font-weight: bold; color: #4E95D1;">${ loginEmp.deptName } &#47; ${ loginEmp.jobName }</td>
@@ -148,11 +171,11 @@
 	                                </td>
 	                            </tr>
 	                            <tr style="background-color: rgba(241, 241, 241, 0.432);">
-	                                <td style="font-size: 18px; font-weight: bold; color: #6d6d6d;">
-	                                    <i class="far fa-clock"></i> ${ c.selectStartTime }
+	                                <td  style="font-size: 18px; font-weight: bold; color: #6d6d6d;">
+	                                    <i class="far fa-clock"></i> ${ empCommute.selectStartTime }
 	                                </td>
 	                                <td style="font-size: 18px; font-weight: bold; color: #6d6d6d;">
-										<i class="far fa-clock"></i> ${ endTime }
+										<i class="far fa-clock"></i> ${ empCommute.selectEndTime }
 	                                </td>
 	                            </tr>
 	                        </table>
@@ -166,9 +189,9 @@
 	                                <th>결근</th>
 	                            </tr>
 	                            <tr>
-	                                <td>1회</td>
-	                                <td>1회</td>
-	                                <td>1회</td>
+	                                <td>${ empCommute.workStatusLate } 회</td>
+	                                <td>${ empCommute.workStatusEarly } 회</td>
+	                                <td>${ empCommute.workStatusOff } 회</td>
 	                            </tr>
 	                        </table>
 	                        <br><br>
@@ -180,9 +203,9 @@
 	                                <th>평균 근무시간</th>
 	                            </tr>
 	                            <tr>
-	                                <td>51일</td>
-	                                <td>224시간</td>
-	                                <td>8시간30분</td>
+	                                <td>${ empCommute.workStatusOn } 일</td>
+	                                <td>${ empCommute.workStatusSum } 시간</td>
+	                                <td>${ empCommute.workTimeAvg } 시간</td>
 	                            </tr>
 	                        </table>
 	

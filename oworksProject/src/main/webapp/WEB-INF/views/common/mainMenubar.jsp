@@ -213,14 +213,14 @@
         </button>
         <div class="dropdown-container">
             	<a href="#">출퇴근관리</a>
-            <form action="list.off" method="post">
-            	<input type="hidden" name="empNo" value="${ loginEmp.empNo }">
+<!--             <form action="list.off" method="post"> -->
+<%--             	<input type="hidden" name="empNo" value="${ loginEmp.empNo }"> --%>
 	            <a href="list.off">휴가관리</a>
-            </form>
-            <form action="list.at" method="post">
-            	<input type="hidden" name="empNo" value="${ loginEmp.empNo }">
+<!--             </form> -->
+<!--             <form action="list.at" method="post"> -->
+<%--             	<input type="hidden" name="empNo" value="${ loginEmp.empNo }"> --%>
             	<a href="list.at">근무현황</a>
-            </form>
+<!--             </form> -->
             	<a href="#">임직원조회</a>
         </div>
         

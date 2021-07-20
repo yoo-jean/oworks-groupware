@@ -10,6 +10,7 @@
 		<result column="after_time" property="afterTime"/>
 		<result column="work_time" property="workTime"/>
 		<result column="work_status" property="workStatus"/>
+		<result column="off_no" property="offNo"/>
 		<result column="off_cate_no" property="offCateNo"/>
 		<result column="off_cate_name" property="offCateName"/>
 		<result column="off_cate_day" property="offCateDay"/>
@@ -19,10 +20,34 @@
 		<result column="off_start" property="offStart"/>
 		<result column="off_end" property="offEnd"/>
 		<result column="off_purpose" property="offPurpose"/>
+		<result column="off_approval" property="offApproval"/>
+		<result column="emp_id" property="empId"/>
+		<result column="work_status_late" property="workStatusLate"/>
+		<result column="work_status_early" property="workStatusEarly"/>
+		<result column="work_status_off" property="workStatusOff"/>
+		<result column="work_status_on" property="workStatusOn"/>
+		<result column="work_status_sum" property="workStatusSum"/>
+		<result column="work_time_avg" property="workTimeAvg"/>
+		<result column="select_start_time" property="selectStartTime"/>
+		<result column="select_end_time" property="selectEndTime"/>
 	</resultMap>
 	
+<!-- 	<resultMap id="maincommute" type="com.kh.oworks.commute.model.vo.CommuteMain"> -->
+<!-- 		<id column="emp_no" property="empNo"/> -->
+<!-- 		<result column="emp_id" property="empId"/> -->
+<!-- 		<result column="work_status_late" property="workStatusLate"/> -->
+<!-- 		<result column="work_status_early" property="workStatusEarly"/> -->
+<!-- 		<result column="work_status_off" property="workStatusOff"/> -->
+<!-- 		<result column="work_status_on" property="workStatusOn"/> -->
+<!-- 		<result column="work_status_sum" property="workStatusSum"/> -->
+<!-- 		<result column="work_time_avg" property="workTimeAvg"/> -->
+<!-- 		<result column="select_start_time" property="selectStartTime"/> -->
+<!-- 		<result column="select_end_time" property="selectEndTime"/> -->
+<!-- 	</resultMap> -->
+	
+		
 	<!-- 사용자 휴가관리 조회 -->
-	<select id="selectOffList" resultMap="commute">
+	<select id="selectOffList" parameterType="employee" resultMap="commute">
 		select
 			   off_given
 			 , off_used
@@ -38,46 +63,140 @@
 		 where emp_no = #{empNo}
 	</select>
 	
+	<!-- 사용자 휴가 신청서 작성 -->
+	<!-- 에러 to_date 부분 Cause: java.sql.SQLSyntaxErrorException: ORA-00917: missing comma -->
+	<insert id="insertOff" parameterType="commute">
+		insert
+		  into off
+		  	 (
+			   off_no
+			 , emp_no
+			 , off_cate_no
+			 , off_start
+			 , off_end
+			 , off_used
+			 , off_purpose
+			 , off_approval
+		  	 )
+		values
+		 	 (
+		 	   SEQ_OFNO.NEXTVAL
+		 	 , ${empNo}
+		 	 , ${offCateNo}
+		 	 , ${offStart}
+		 	 , ${offEnd}
+		 	 , TO_DATE(TO_CHAR('21/07/17', 'YY-MM-DD'))" - " TO_DATE(TO_CHAR('21/07/14', 'YY-MM-DD')) + 1
+		 	 , ${offPurpose}
+		 	 , '승인'
+		 	 )
+	</insert>
+	
 	<!-- 사용자 근무현황 조회 -->
 	<select id="selectAdList" resultMap="commute">
 		select
-			   workDate
+			   emp_no
+			 , workDate
 			 , startTime
 			 , endTime
 			 , afterTime
 			 , workTime
 		  from attendance
-		 where emp_no = #{empNo}
+		 	   ${ condition }
 	</select>
 
 	<!-- 메인화면 출근시간 기록 -->
-	<insert id="empIn" parameterType="_int">
-		insert
-		  into attendance
-		     (
-		       emp_no
-		     , work_date
-		     , start_time
-		     )
-		values
-		     (
-		       #{empNo}
-		     , sysdate
-		     , sysdate
-		     )
+	<insert id="insertEmpIn" parameterType="_int">
+<!-- 		<selectKey keyProperty="start_time" resultType="com.kh.oworks.commute.vo.Commute" order="AFTER"> -->
+<!-- 			select to_char(start_time, 'hh24":"mi":"ss') select_start_time -->
+<!-- 			  from attendance a, employee e -->
+<!-- 			 where  -->
+<!-- 			       a.emp_no = e.emp_no -->
+<!-- 			   and e.emp_id = #{empId} -->
+<!-- 			   and to_char(work_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD') -->
+<!-- 		</selectKey> -->
+			insert
+			  into attendance
+			     (
+			       emp_no
+			     , work_date
+			     , start_time
+			     )
+			values
+			     (
+			       #{empNo}
+			     , sysdate
+			     , sysdate
+			     )
 	</insert>
 	
-	<!-- 메인화면 출근시간 조회 -->
-	<select id="selectEmpIn" resultMap="commute">
-		select to_char(start_time, 'hh24":"mi":"ss')
-		  from attendance
-		 where emp_no = #{empNo}
+	<!-- 메인화면 출근시간 조회 => 근무현황이랑 같이 띄워지게 했음 -->
+	<!-- <select id="selectEmpIn" resultMap="commute" parameterType="string">
+		select to_char(start_time, 'hh24":"mi":"ss') select_start_time
+		  from attendance a, employee e
+		 where 
+		       a.emp_no = e.emp_no
+		   and e.emp_id = #{empId}
 		   and to_char(work_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')
-	</select>
+	</select> -->
 	
 	<!-- 메인화면 퇴근시간 기록 -->
-	<!-- 메인화면 퇴근시간 조회 -->
+	<update id="updateEmpOut" parameterType="_int">
+		update attendance
+		   set
+			   end_time = sysdate
+		where emp_no = #{empNo}
+	</update>
 	
+	<!-- 메인화면 근무현황 조회 (출퇴근시간 포함) -->
+	<select id="selectEmpCommute" parameterType="_int" resultMap="commute">
+		select 
+		       emp_no
+		     , emp_id
+		     , count(case when work_status = '지각' then 1 else null end) as work_status_late
+		     , count(case when work_status = '조퇴' then 1 else null end) as work_status_early
+		     , count(case when work_status = '휴가' then 1 else null end) as work_status_off
+		     , count(case when work_status = '정출' then 1 else null end) as work_status_on
+		     , sum(work_time) as work_status_sum
+		     , trunc(avg(work_time)) as work_time_avg
+		     , to_char(start_time, 'hh24":"mi":"ss') as select_start_time
+		     , to_char(end_time, 'hh24":"mi":"ss') as select_end_time
+		  from attendance
+		  join employee using(emp_no)
+		 where emp_no = #{cEmpNo}
+		   and to_char(work_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')
+		 group by emp_no, emp_id, start_time, end_time
+	</select>
+<!-- 		select  -->
+<!-- 		       e.emp_no -->
+<!-- 		     , e.emp_id -->
+<!-- 		     , count(case when work_status = '지각' then 1 else null end) as work_status_late -->
+<!-- 		     , count(case when work_status = '조퇴' then 1 else null end) as work_status_early -->
+<!-- 		     , count(case when work_status = '휴가' then 1 else null end) as work_status_off -->
+<!-- 		     , count(case when work_status = '정출' then 1 else null end) as work_status_on -->
+<!-- 		     , sum(work_time) as work_status_sum -->
+<!-- 		     , trunc(avg(work_time)) as work_time_avg -->
+<!-- 		     , to_char(start_time, 'hh24":"mi":"ss') as select_start_time -->
+<!-- 		     , to_char(end_time, 'hh24":"mi":"ss') as select_end_time -->
+<!-- 		  from attendance a, employee e -->
+<!-- 		 where a.emp_no = e.emp_no -->
+<!-- 		   and e.emp_no = #{empNo} -->
+<!-- 		   and to_char(work_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD') -->
+<!-- 		 group by e.emp_no, e.emp_id, start_time, end_time -->
+	<!-- 원본_메인화면 근무현황 조회 (출퇴근없는것) 		   and e.emp_id = #{empId}-->
+	<!-- <select id="selectEmpCommute" resultMap="maincommute">
+		select 
+		       emp_no
+		     , count(case when work_status = '지각' then 1 else null end) as work_status_late
+		     , count(case when work_status = '조퇴' then 1 else null end) as work_status_early
+		     , count(case when work_status = '휴가' then 1 else null end) as work_status_off
+		     , count(case when work_status = '정출' then 1 else null end) as work_status_on
+		     , sum(work_time) as work_status_sum
+		     , trunc(avg(work_time)) as work_time_avg
+		  from employee
+		  join attendance using(emp_no)
+		 where emp_no = #{empNo}
+		 group by emp_no
+	</select> -->
 	
 
 
