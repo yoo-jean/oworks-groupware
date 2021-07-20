@@ -46,6 +46,10 @@
         height: 35px;
         margin-left: 10px;
     }
+    .btn-offlist {
+    	width: 120px;
+        height: 35px;
+    }
     /*테이블 관련 스타일*/
     .offCate_list{
         text-align: center;
@@ -87,7 +91,7 @@
                 
                 <h4>휴가 분류 관리</h4>
                 <br>
-                
+
                 <div class="offCate">
                     <table class="offCate_list">
                         <tr>
@@ -109,11 +113,14 @@
                             <button type="submit" class="btn btn-outline-primary">삭제</button>
                         </div>
                         <div class="offCate_enroll_text">
+                        	<input type="hidden" id="cateNo" name="offCateNo" value="${ a.offCateNo }">
                             <span>휴가 분류</span> <input type="text" id="cate" name="offCateName" placeholder="휴가 분류명을 입력하세요" required><br>
                             <span>휴가 일수</span> <input type="text" id="day" name="offCateDay" placeholder="숫자만 입력하세요 (ex. 1)" required>
                         </div>
                     </form>
                 </div>
+                <br>
+                <a href="adList.off"><button type="submit" class="btn btn-outline-primary btn-offlist">휴가현황관리</button></a>
                 
             </div>
 
