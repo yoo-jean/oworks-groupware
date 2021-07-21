@@ -80,7 +80,7 @@
 
     /* Style the sidenav links and the dropdown button */
     .sidenav a, .dropdown-btn {
-    padding: 10px 8px 10px 16px;
+    padding: 7px 8px 7px 16px;
     text-decoration: none;
     font-size: 16px;
     font-weight: 600;
@@ -95,7 +95,7 @@
     }
     
     .dropdown-btn {
-    	margin-bottom: 10px;
+    	margin-bottom: 7px;
     }
 
     /* On mouse-over */
