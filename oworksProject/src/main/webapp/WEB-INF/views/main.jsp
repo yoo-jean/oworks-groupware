@@ -118,6 +118,10 @@
     .MARQUEE {
     	color: white;
     }
+    #profile {
+    	width: 120px;
+    	height: 150px;
+    }
 </style>
 </head>
 <body>
@@ -144,9 +148,9 @@
 	                        <table class="inout_list">
 	                            <tr height="70px" style="background-color: #7ebef14b;">
 	                                <td rowspan="2" width="250px"  style="border-bottom: 1px solid #ddd;">
-	                                	<!-- <img src="${ loginEmp.empImage }"> -->
+	                                	<img src="${ loginEmp.empImage }" id="profile">
 	                                </td>
-	                                <td style="font-weight: bold; font-size: 18px;">${ loginEmp.empName } &#47; ${ loginEmp.empNo }</td>
+	                                <td style="font-weight: bold; font-size: 18px;">${ loginEmp.empName }</td>
 	                            </tr>
 	                            <tr height="65px" style="background-color: #7ebef14b;">
 	                                <td style="font-size:15px; font-weight: bold; color: #4E95D1;">${ loginEmp.deptName } &#47; ${ loginEmp.jobName }</td>

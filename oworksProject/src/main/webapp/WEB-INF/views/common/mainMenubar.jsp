@@ -80,7 +80,7 @@
 
     /* Style the sidenav links and the dropdown button */
     .sidenav a, .dropdown-btn {
-    padding: 6px 8px 6px 16px;
+    padding: 10px 8px 10px 16px;
     text-decoration: none;
     font-size: 16px;
     font-weight: 600;
@@ -92,6 +92,10 @@
     text-align: left;
     cursor: pointer;
     outline: none;
+    }
+    
+    .dropdown-btn {
+    	margin-bottom: 10px;
     }
 
     /* On mouse-over */
@@ -219,7 +223,7 @@
 <!--             </form> -->
 <!--             <form action="list.at" method="post"> -->
 <%--             	<input type="hidden" name="empNo" value="${ loginEmp.empNo }"> --%>
-            	<a href="list.at">근무현황</a>
+            	<a href="list.at?flag=menu">근무현황</a>
 <!--             </form> -->
             	<a href="#">임직원조회</a>
         </div>
@@ -265,25 +269,26 @@
 	        </div>
         </c:if>
     </div>
-        
-        
-    <script>
-    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-    var dropdown = document.getElementsByClassName("dropdown-btn");
-    var i;
     
-    for (i = 0; i < dropdown.length; i++) {
-    dropdown[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var dropdownContent = this.nextElementSibling;
-    if (dropdownContent.style.display === "block") {
-    dropdownContent.style.display = "none";
-    } else {
-    dropdownContent.style.display = "block";
-    }
-    });
-    }
-    </script> 
+    <script>
+	    $(function(){
+	
+	        $("button").click(function(){
+	
+	            // slideDown 또는 slideUp 시킬 p 요소
+	            var $p = $(this).next(); // jQuery 방식으로 선택한 요소를 담아둘 때 변수명 앞에 $ 표시
+	
+	            if($p.css("display") == "none"){
+	                $(this).siblings("div").slideUp();
+	                $p.slideDown(); // 보여지게
+	            }else {
+	                $p.slideUp(); // 사라지게
+	            }
+	          
+	        })
+	
+	    })
+    </script>
 
 
     <script
