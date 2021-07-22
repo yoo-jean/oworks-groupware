@@ -77,64 +77,67 @@
             <div id="content_2">
                 
                 <h4>휴가 신청서</h4>
-
-                <button type="submit" class="btn btn-primary">기안</button>
+				
+				<form id="insertOff" method="post" action="insert.off">
+					<input type="hidden" name="empNo" value="${ loginEmp.empNo }">
+	                <button type="submit" class="btn btn-primary">기안</button>
+	
+	                <br><br>
+	
+	                <table class="offApproval">
+	                    <tr>
+	                        <th>신청상태</th>
+	                        <th>결      재</th>
+	                    </tr>
+	                    <tr>
+	                        <td></td>
+	                        <td></td>
+	                    </tr>
+	                </table>
+	
+	                <br>
+	
+	                <table class="offRequest" text-align="center">
+	                    <tr>
+	                        <th>소속/직위</th>
+	                        <td>${ loginEmp.deptName } &#47; ${ loginEmp.jobName }</td>
+	                    </tr>
+	                    <tr>
+	                        <th>신청자</th>
+	                        <td>${ loginEmp.empName }</td>
+	                    </tr>
+	                    <tr>
+	                        <th>신청구분</th>
+	                        <td>
+	                            <select name="offCateNo" required>
+	                                <option value="" selected disabled hidden>휴가구분</option>
+	                                <option value="1">병가</option>
+	                                <option value="2">경조사</option>
+	                                <option value="3">출산</option>
+	                                <option value="4">예비군</option>
+	                                <option value="5">보건</option>
+	                                <option value="6">연차</option>
+	                            </select>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <th>휴가 시작일</th>
+	                        <td><input name="offStart" type="date" value="offStart" required></td>
+	                    </tr>
+	                    <tr>
+	                        <th>휴가 종료일</th>
+	                        <td><input name="offEnd" type="date" value="offEnd" max="2021-12-31" required></td>
+	                    </tr>
+	                    <tr>
+	                        <th>신청 사유</th>
+	                        <td><textarea name="offPurpose" cols="80" rows="3" style="resize: none;">${ c.offPurpose }</textarea></td>
+	                    </tr>
+	                </table>
+	            </form>
 
                 <br><br>
 
-                <table class="offApproval">
-                    <tr>
-                        <th>담 당</th>
-                        <th>과 장</th>
-                    </tr>
-                    <tr>
-                        <td>신청</td>
-                        <td>결재완료</td>
-                    </tr>
-                </table>
-
-                <br>
-
-                <table class="offRequest" text-align="center">
-                    <tr>
-                        <th>소속/직위</th>
-                        <td>개발1팀 / 사원</td>
-                    </tr>
-                    <tr>
-                        <th>신청자</th>
-                        <td>장그래</td>
-                    </tr>
-                    <tr>
-                        <th>신청구분</th>
-                        <td>
-                            <select name="offCateNo">
-                                <option value="" selected disabled hidden>휴가구분</option>
-                                <option value="offCateNo1">병가</option>
-                                <option value="offCateNo2">경조사</option>
-                                <option value="offCateNo3">출산</option>
-                                <option value="offCateNo4">예비군</option>
-                                <option value="offCateNo5">보건</option>
-                                <option value="offCateNo6">연차</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>휴가 시작일</th>
-                        <td><input name="offStart" type="date" min=""></td>
-                    </tr>
-                    <tr>
-                        <th>휴가 종료일</th>
-                        <td><input name="offEnd" type="date" max="2021-12-31"></td>
-                    </tr>
-                    <tr>
-                        <th>신청 사유</th>
-                        <td><textarea name="offPurpose" id="" cols="80" rows="3" style="resize: none;"></textarea></td>
-                    </tr>
-                </table>
-
-                <br><br>
-
-                <h6>연차 현황</h6>
+                <h5>연차 현황</h5>
                 <table class="offEmployee">
                     <tr>
                         <th>발생연차</th>
@@ -143,10 +146,10 @@
                         <th>기준일</th>
                     </tr>
                     <tr>
-                        <td>20</td>
-                        <td>5</td>
-                        <td>15</td>
-                        <td>2021-06-16</td>
+						<td>20</td>
+                        <td>3</td>
+                        <td>17</td>
+                        <td>2021-07-21</td>
                     </tr>
                 </table>
               

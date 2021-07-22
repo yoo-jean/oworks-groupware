@@ -9,7 +9,7 @@ import com.kh.oworks.employee.model.vo.Employee;
 public interface CommuteService {
 	
 	// 사용자 인사관리_휴가관리
-	ArrayList<Commute> offList(Employee e);
+	ArrayList<Commute> offList(int empNo);
 	
 	// 사용자 인사관리_휴가 신청서 작성
 	int insertOff(Commute c);

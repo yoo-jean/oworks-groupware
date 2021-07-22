@@ -39,6 +39,9 @@
         font-weight: bold;
         color: #4E95D1;
     }
+    .fa-chevron-left, .fa-chevron-right {
+    	color: #4E95D1;
+    }
     /*테이블 관련 스타일*/
     .attendanceList{
         text-align: center;
@@ -61,6 +64,91 @@
         height: 35px;
     }
 </style>
+
+<script>
+<%
+	String flag = (String)request.getParameter("flag");
+	System.out.println("flag: " + flag);
+	if (flag.equals("menu")) {
+		System.out.println("menu: " + flag);
+%>
+	$(document).ready(function() {
+		var currentDay = new Date();  
+		var theYear = currentDay.getFullYear();
+		var theMonth = currentDay.getMonth();
+		var theDate  = currentDay.getDate();
+		var theDayOfWeek = currentDay.getDay();
+		 
+		var thisWeek = [];
+		 
+		for(var i=0; i<7; i++) {
+		  var resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
+		  var yyyy = resultDay.getFullYear();
+		  var mm = Number(resultDay.getMonth()) + 1;
+		  var dd = resultDay.getDate();
+		 
+		  mm = String(mm).length === 1 ? '0' + mm : mm;
+		  dd = String(dd).length === 1 ? '0' + dd : dd;
+		 
+		  thisWeek[i] = yyyy + '-' + mm + '-' + dd;
+
+		}
+		console.log(thisWeek);
+		//var dateString = year + '-' + month  + '-' + day;
+		$('#selectedDate').html(thisWeek[0] + ' ~ ' + thisWeek[6]);
+		$('#start').val(thisWeek[0]);
+		$('#end').val(thisWeek[6]);
+		$('#weeklySearch').submit();
+
+	});
+	<%} else {
+		String start = (String)request.getParameter("start");
+		String end = (String)request.getParameter("end");
+		System.out.println("start: " + start);
+		System.out.println("end: " + end);
+	%>
+		$(document).ready(function() {
+			$('#selectedDate').html("<%= start %>"+ ' ~ ' + '<%= end %>');
+			$('#start').val("<%= start %>");
+			$('#end').val('<%= end %>');
+		});
+	
+	<%}%>
+
+	function prevWeek() {
+		
+		var start = new Date($('#start').val());
+		start.setDate(start.getDate()-7);
+		var end = new Date($('#end').val());
+		end.setDate(end.getDate()-7);
+		
+		var startStr = start.getFullYear() + '-' + ('0' + (start.getMonth() + 1)).slice(-2) + '-' + ('0' + start.getDate()).slice(-2);
+		var endStr = end.getFullYear() + '-' + ('0' + (end.getMonth() + 1)).slice(-2) + '-' + ('0' + end.getDate()).slice(-2);
+		
+ 		$('#start').val(startStr);
+ 		$('#end').val(endStr);
+		$('#selectedDate').html(startStr + ' ~ ' + endStr);
+		$('#weeklySearch').submit();
+		
+	}
+	
+	function nextWeek() {
+
+		var start = new Date($('#start').val());
+		start.setDate(start.getDate()+7);
+		var end = new Date($('#end').val());
+		end.setDate(end.getDate()+7);
+		
+		var startStr = start.getFullYear() + '-' + ('0' + (start.getMonth() + 1)).slice(-2) + '-' + ('0' + start.getDate()).slice(-2);
+		var endStr = end.getFullYear() + '-' + ('0' + (end.getMonth() + 1)).slice(-2) + '-' + ('0' + end.getDate()).slice(-2);
+		
+ 		$('#start').val(startStr);
+ 		$('#end').val(endStr);
+		$('#selectedDate').html(startStr + ' ~ ' + endStr);
+		$('#weeklySearch').submit();
+		
+	}
+</script>
 </head>
 <body>
 	<!-- 전체 화면 -->
@@ -78,11 +166,15 @@
             <div id="content_2">
                 
                 <h4>주간 근태현황</h4>
-
+                
+				<form id="weeklySearch" action="list.at?flag=notMenu" method="post">
+				<input type="hidden" name="empNo" value="${ loginEmp.empNo }">
+				<input type="hidden" name="start" id="start">
+				<input type="hidden" name="end" id="end">
                 <div class="attendanceWeek">
-                    <i class="fas fa-chevron-left"></i>
-                    <div>2021/05/31 ~ 2021/06/04</div>
-                    <i class="fas fa-chevron-right"></i>
+                    <a href="javascript:prevWeek()"><i class="fas fa-chevron-left"></i></a>
+                    <div id="selectedDate">${ baseDate }</div>
+                    <a href="javascript:nextWeek()"><i class="fas fa-chevron-right"></i></a>
                 </div>
 
                 <table class="attendanceList">
@@ -94,76 +186,32 @@
                         <th>기본근무시간</th>
                         <th>연장근무시간</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>2021-05-31(월)</td>
-                        <td>08:20</td>
-                        <td>18:00</td>
-                        <td>8시간 40분</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>2021-06-01(화)</td>
-                        <td>08:20</td>
-                        <td>18:00</td>
-                        <td>8시간 40분</td>
-                        <td>0</td>
-                    </tr>                    
-                    <tr>
-                        <td>3</td>
-                        <td>2021-06-02(수)</td>
-                        <td>08:20</td>
-                        <td>18:00</td>
-                        <td>8시간 40분</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>2021-06-03(목)</td>
-                        <td>08:20</td>
-                        <td>18:00</td>
-                        <td>8시간 40분</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>2021-06-04(금)</td>
-                        <td>08:20</td>
-                        <td>18:00</td>
-                        <td>8시간 40분</td>
-                        <td>1시간</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>2021-06-05(토)</td>
-                        <td> - </td>
-                        <td> - </td>
-                        <td> - </td>
-                        <td> - </td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>2021-06-06(일)</td>
-                        <td> - </td>
-                        <td> - </td>
-                        <td> - </td>
-                        <td> - </td>
-                    </tr>
+                    <% int i = 0; %>
+                    <c:forEach var="a" items="${ adList }"  varStatus="status">
+                    <c:set var="sq" value="${status.index + 1}"/>
+	                    <tr>
+	                        <td><c:out value="${sq}"/></td>
+	                        <td>${ a.workDate }</td>
+	                        <td>${ a.startTime }</td>
+	                        <td>${ a.endTime }</td>
+	                        <td>${ a.workTime }</td>
+	                        <td>${ a.afterTime }</td>
+	                    </tr>
+                    </c:forEach>
                     <tr style="font-weight: bold;">
                         <td colspan="4">주간 총 근무시간</td>
                         <td>40시간 50분</td>
                         <td>1시간</td>
                     </tr>
                 </table>
-
+				</form>
                 <br><br>
 
                 <h4>월간 근태현황</h4>
 
                 <div class="attendanceWeek">
                     <i class="fas fa-chevron-left"></i>
-                    <div>2021/06</div>
+                    <div>2021-06</div>
                     <i class="fas fa-chevron-right"></i>
                 </div>
 
@@ -187,6 +235,8 @@
                         <td>41시간 50분</td>
                     </tr>
                 </table>
+                
+                
             </div>
 
         </div>

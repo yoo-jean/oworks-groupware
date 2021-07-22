@@ -12,8 +12,8 @@ import com.kh.oworks.employee.model.vo.Employee;
 public class CommuteDao {
 	
 	// 사용자 인사관리_휴가관리
-	public ArrayList<Commute> offList(SqlSessionTemplate sqlSession, Employee e) {
-		return (ArrayList)sqlSession.selectList("commuteMapper.selectOffList", e);
+	public ArrayList<Commute> offList(SqlSessionTemplate sqlSession, int empNo) {
+		return (ArrayList)sqlSession.selectList("commuteMapper.selectOffList", empNo);
 	}
 	
 	// 사용자 인사관리_휴가 신청서 작성
@@ -43,7 +43,7 @@ public class CommuteDao {
 	
 	// 메인 근무현황 조회
 	public Commute selectEmpCommute(SqlSessionTemplate sqlSession, int cEmpNo) {
-		System.out.println("DAO : " + cEmpNo);
+		//System.out.println("DAO : " + cEmpNo);
 		return (Commute)sqlSession.selectOne("commuteMapper.selectEmpCommute", cEmpNo);
 	}
 

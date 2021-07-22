@@ -26,35 +26,23 @@ public class CommuteController {
 	
 	//사용자 인사관리_휴가관리
 	@RequestMapping("list.off")
-	public String offList(@RequestParam("empNo")int empNo, HttpSession session, Employee e, Model model) {
-
-		ArrayList<Commute> offList = cService.offList(e);
+	public String offList(HttpSession session, Employee e, Model model) {
 		
-		model.addAttribute("empNo", empNo)
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		ArrayList<Commute> offList = cService.offList(loginEmp.getEmpNo());
+		
+		model.addAttribute("empNo", loginEmp.getEmpNo())
 			 .addAttribute("offList", offList);
 		return "commute/offListView";
 		
 	}
-	/*
-	 	@RequestMapping("list.off")
-	public ModelAndView offList(@RequestParam("empNo")int empNo, ModelAndView mv, HttpSession session, Employee e) {
-		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
-		int empNo = loginEmp.getEmpNo();
-		//System.out.println("empNo:" + empNo);
-		ArrayList<Commute> offList = cService.offList(empNo);
-		
-		mv.addObject("offList", offList)
-		  .setViewName("commute/offListView");
-		return mv;
-		
-	}*/
 	
 	// 사용자 인사관리_근무현황
 	@RequestMapping("list.at")
 	public ModelAndView adList(HttpSession session, HttpServletRequest request, ModelAndView mv) {
 		
-		//Employee loginEmp = (Employee)session.getAttribute("loginEmp");
-		int empNo = ((Employee)request.getSession().getAttribute("loginEmp")).getEmpNo();
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		int empNo = loginEmp.getEmpNo();
 		//System.out.println("empNo:" + empNo);
 		
 		String condition = "where 1=1";
@@ -62,16 +50,22 @@ public class CommuteController {
 		String start = request.getParameter("start");
 		String end = request.getParameter("end");
 		
+		if (start == null)
+			System.out.println("시작");
+			// start를 이번주 시작으로 세팅
+		if (end == null)
+			System.out.println("끝");
+			//end를 이번주 끝으로 세팅
 //		if(workDate != null) {
 //			Date time = new Date();
 //			SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
 //			workDate = format.format(time);
 //		}
 		if(start != null && end != null) {
-			condition += ("and work_date between '" + start + "' and '" + end + "'");
+			condition += (" and work_date between '" + start + "' and '" + end + "'");
 		}
 		if(empNo != 0) {
-			condition += ("and emp_no = '" + empNo + "'");
+			condition += (" and emp_no = '" + empNo + "'");
 		}
 		System.out.println("condition: " + condition);
 		
@@ -93,7 +87,8 @@ public class CommuteController {
 	//사용자 인사관리_휴가관리_신청서작성
 	@RequestMapping("insert.off")
 	public String insertOff(Commute c, HttpSession session, Model model) {
-		
+		//System.out.println("offStart" + c.getOffEnd().compareTo(c.getOffStart()));
+		c.setOffUsed(c.getOffEnd().compareTo(c.getOffStart()));
 		int result = cService.insertOff(c);
 		System.out.println(result);
 		if(result > 0) {

@@ -23,11 +23,12 @@ public class Commute {
 	private Date offStart;			// 휴가시작일
 	private Date offEnd;			// 휴가종료일
 	private String offPurpose;		// 휴가사유
+	private String offApproval;		// 승인여부
 
 	private int empNo;				// 사원번호
 	private Date workDate;			// 근무일
-	private Date startTime;			// 출근시간
-	private Date endTime;			// 퇴근시간
+	private String startTime;		// 출근시간
+	private String endTime;			// 퇴근시간
 	private String afterTime;		// 연장시간
 	private String workTime;		// 근무시간
 	private String workStatus;		// 근태 상태

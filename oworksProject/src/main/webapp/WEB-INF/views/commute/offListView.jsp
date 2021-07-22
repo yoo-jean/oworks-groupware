@@ -83,10 +83,10 @@
                         <th>잔여연차</th>
                     </tr>
                     <tr>
-                        <td>1년 2개월</td>
-                        <td>20</td>
-                        <td>5</td>
-                        <td>15</td>
+                        <td>11 년</td>
+                        <td>${ offList.get(0).offGiven }</td>
+                        <td>3</td>
+                        <td>${ offList.get(0).offAvailable }</td>
                     </tr>
                 </table>
 
@@ -98,38 +98,26 @@
                     <tr>
                         <th>번호</th>
                         <th>분류</th>
+                        <th>사용일수</th>
                         <th>휴가일</th>
-                        <th>사용휴가</th>
                         <th>사유</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>병가</td>
-                        <td>2021-02-15</td>
-                        <td>1</td>
-                        <td>감기몸살</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>경조사</td>
-                        <td>2021-04-10</td>
-                        <td>1</td>
-                        <td>지인 결혼식</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>보건휴가</td>
-                        <td>2021-05-26</td>
-                        <td>1</td>
-                        <td>보건휴가</td>
-                    </tr>
+                    <% int i = 0; %>
+                    <c:forEach var="a" items="${ offList }"  varStatus="status">
+                    <c:set var="sq" value="${status.index + 1}"/>
+	                    <tr>
+	                        <td><c:out value="${sq}"/></td>
+	                        <td>${ a.offCateName }</td>
+	                        <td>${ a.offUsed }</td>
+	                        <td>${ a.offStart }</td>
+	                        <td>${ a.offPurpose }</td>
+	                    </tr>
+					</c:forEach>
                 </table>
-                
 
             </div>
 
         </div>
-
 
     </div>
 

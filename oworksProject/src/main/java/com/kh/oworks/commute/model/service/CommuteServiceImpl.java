@@ -22,8 +22,8 @@ public class CommuteServiceImpl implements CommuteService {
 	
 	// 사용자 인사관리_휴가관리
 	@Override
-	public ArrayList<Commute> offList(Employee e) {
-		return cDao.offList(sqlSession, e);
+	public ArrayList<Commute> offList(int empNo) {
+		return cDao.offList(sqlSession, empNo);
 	}
 	
 	// 사용자 인사관리_휴가 신청서 작성
@@ -59,7 +59,7 @@ public class CommuteServiceImpl implements CommuteService {
 	// 메인 근무현황 조회
 	@Override
 	public Commute selectEmpCommute(int cEmpNo) {
-		System.out.println("서비스 : " + cEmpNo);
+		//System.out.println("서비스 : " + cEmpNo);
 		return cDao.selectEmpCommute(sqlSession, cEmpNo);
 	}
 
