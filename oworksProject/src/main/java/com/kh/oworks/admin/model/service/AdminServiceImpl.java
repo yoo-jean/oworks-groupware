@@ -68,8 +68,8 @@ public class AdminServiceImpl implements AdminService {
 	
 	// 관리자 휴가분류 수정
 	@Override
-	public int updateOffCate(Admin a) {
-		return 0;
+	public int updateOffCate(int offCateNo) {
+		return aDao.updateOffCate(sqlSession, offCateNo);
 	}
 	
 	// 관리자 휴가분류 삭제

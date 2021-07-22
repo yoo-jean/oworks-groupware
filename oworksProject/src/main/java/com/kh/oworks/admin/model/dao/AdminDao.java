@@ -14,79 +14,67 @@ public class AdminDao {
 	
 	// 근태통계 목록 갯수
 	public int selectEmpCount(SqlSessionTemplate sqlSession) {
-		
 		return sqlSession.selectOne("adminMapper.selectEmpCount");
-		
 	}
+	
 	// 근태통계 조회
 	public ArrayList<Admin> selectAdList(SqlSessionTemplate sqlSession, PageInfo pi, String condition) {
-		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		return (ArrayList)sqlSession.selectList("adminMapper.selectAdList", condition, rowBounds);
-		
 	}
 	
 	// 일일출퇴근현황 목록 갯수
 	public int selectAdCount(SqlSessionTemplate sqlSession, String workDate) {
-		
 		return sqlSession.selectOne("adminMapper.selectAdCount", workDate);
-		
 	}
 	
 	// 일일출퇴근현황 조회
 	public ArrayList<Admin> selectList(SqlSessionTemplate sqlSession, PageInfo pi, String workDate) {
-		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		return (ArrayList)sqlSession.selectList("adminMapper.selectList", workDate, rowBounds);
-		
 	}
 	
 	// 휴가현황 목록 갯수
 	public int selectOffCount(SqlSessionTemplate sqlSession) {
-		
 		return sqlSession.selectOne("adminMapper.selectOffCount");
-		
 	}
 	
 	// 휴가현황 조회
 	public ArrayList<Admin> selectOffList(SqlSessionTemplate sqlSession, PageInfo pi, String condition) {
-		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		int limit = pi.getBoardLimit();
 		//System.out.println("dao: " + condition);
 		RowBounds rowBounds = new RowBounds(offset, limit);
 
 		return (ArrayList)sqlSession.selectList("adminMapper.selectOffList", condition, rowBounds);
-		
 	}
 	
 	// 휴가분류 조회
 	public ArrayList<Admin> selectOffCate(SqlSessionTemplate sqlSession) {
-		
 		return (ArrayList)sqlSession.selectList("adminMapper.selectOffCate", null);
-		
 	}
 	
 	// 휴가분류 작성
 	public int insertOffCate(SqlSessionTemplate sqlSession, Admin a) {
-		
 		return sqlSession.insert("adminMapper.insertOffCate", a);
-		
+	}
+	
+	// 휴가분류 수정
+	public int updateOffCate(SqlSessionTemplate sqlSession, int offCateNo) {
+		return sqlSession.insert("adminMapper.updateOffCate", offCateNo);
 	}
 	
 	// 휴가분류 삭제
 	public int deleteOffCate(SqlSessionTemplate sqlSession, int offCateNo) {
-		
 		return sqlSession.delete("adminMapper.deleteOffCate", offCateNo);
-		
 	}
 
 }

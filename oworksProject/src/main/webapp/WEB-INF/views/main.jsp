@@ -222,24 +222,24 @@
 	                            <th style="text-align: right;"><i class="fas fa-chevron-right"></i></th>
 	                        </tr>
 	                        <tr>
-	                            <td>xxx대리님 자료 회신드립니다</td>
-	                            <td>2021-05-19</td>
+	                            <td>[결재] 오웍스 이용 연장</td>
+	                            <td>2021-07-21</td>
 	                        </tr>
 	                        <tr>
-	                            <td>메일 제목입니다</td>
-	                            <td>2021-05-15</td>
+	                            <td>[일정] 회의일시 변경안내</td>
+	                            <td>2021-07-20</td>
 	                        </tr>
 	                        <tr>
-	                            <td>메일 제목입니다</td>
-	                            <td>2021-05-10</td>
+	                            <td>[결재] 4분기 운영안</td>
+	                            <td>2021-06-28</td>
 	                        </tr>
 	                        <tr>
-	                            <td>메일 제목입니다</td>
-	                            <td>2021-05-15</td>
+	                            <td>[참조] K프로젝트 자료</td>
+	                            <td>2021-06-17</td>
 	                        </tr>
 	                        <tr>
-	                            <td>메일 제목입니다</td>
-	                            <td>2021-05-10</td>
+	                            <td>[참조] 직원 여름휴가 관련</td>
+	                            <td>2021-06-10</td>
 	                        </tr>
 	                    </table>
 	                    <table class="notice_list">

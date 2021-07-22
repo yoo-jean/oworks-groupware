@@ -38,7 +38,7 @@ public class AdminController {
 		// and job_name = #{jobName}
 		String deptCode = request.getParameter("deptCode");
 		String jobCode = request.getParameter("jobCode");
-		System.out.println("부서명" + deptCode + "직급명" + jobCode);
+		//System.out.println("부서명" + deptCode + "직급명" + jobCode);
 		
 		if(deptCode != null && deptCode.length() > 0) {
 			condition += ("and dept_code = '" + deptCode + "'");
@@ -46,7 +46,7 @@ public class AdminController {
 		if(jobCode != null && jobCode.length() > 0) {
 			condition += ("and job_code = '" + jobCode + "'");
 		}
-		System.out.println("whereString: " + condition);
+		//System.out.println("whereString: " + condition);
 		
 		ArrayList<Admin> atList = aService.selectAdList(pi, condition);
 		
@@ -65,7 +65,7 @@ public class AdminController {
 		String workDate = request.getParameter("workDate");
 		
 		int listCount = aService.selectAdCount(workDate);
-		System.out.println("listCount: " + listCount);
+		//System.out.println("listCount: " + listCount);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
 		if(workDate == null) {
@@ -73,7 +73,7 @@ public class AdminController {
 			SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd");
 			workDate = format.format(time);
 		}
-		System.out.println("workDate: " + workDate);
+		//System.out.println("workDate: " + workDate);
 		
 		ArrayList<Admin> list = aService.selectList(pi, workDate);
 		
@@ -122,10 +122,6 @@ public class AdminController {
 		
 		return mv;
 	}
-	/*@RequestMapping("adList.off")
-	public String adminOffList() {
-		return "admin/adminOffListView";
-	}*/
 	
 	//관리자 근무관리_휴가_휴가분류 조회
 	@RequestMapping("adCate.off")
@@ -151,10 +147,24 @@ public class AdminController {
 			return "common/errorPage";
 		}
 	}
-	//alertify.alert('제목', '메세지내용');
+	
+	//관리자 근무관리_휴가분류관리 update
+	@RequestMapping("updateCate.of")
+	public String updateOffCate(int offCateNo, HttpSession session, Model model) {
+		
+		int result = aService.updateOffCate(offCateNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 수정하였습니다.");
+			return "redirect:adCate.off";
+		}else {
+			model.addAttribute("errorMsg", "수정에 실패하였습니다.");
+			return "redirect:adCate.off";
+		}
+	}
 	
 	//관리자 근무관리_휴가분류관리 delete
-	@RequestMapping
+	@RequestMapping("deleteCate.of")
 	public String deleteOffCate(int offCateNo, HttpSession session, Model model) {
 		
 		int result = aService.deleteOffCate(offCateNo);
@@ -164,7 +174,7 @@ public class AdminController {
 			return "redirect:adCate.off";
 		}else {
 			model.addAttribute("errorMsg", "삭제에 실패하였습니다.");
-			return "common/errorPage";
+			return "redirect:adCate.off";
 		}
 	}
 	

@@ -18,8 +18,8 @@ public class Admin {
 	private String deptName;	// 부서명
 	private int empNo;			// 사원번호
 	private String empName;		// 사원명
-	private Date startTime;		// 출근시간
-	private Date endTime;		// 퇴근시간
+	private String startTime;	// 출근시간
+	private String endTime;		// 퇴근시간
 	private String workTime;	// 근무시간
 	private String afterTime;	// 연장시간
 	private String workStatus;	// 출결상태
@@ -38,6 +38,7 @@ public class Admin {
 	private Date hireDate;			// 입사일
 	private int workYear;			// 근무연수
 	private Date offStart;			// 휴가시작일
+	private String offUsedSum;		// 사용휴가합계
 	
 	// 관리자 근태현황
 	private int workStatusLate;		// 지각횟수

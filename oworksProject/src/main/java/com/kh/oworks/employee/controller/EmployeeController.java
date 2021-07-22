@@ -39,29 +39,26 @@ public class EmployeeController {
 		Employee loginEmp = eService.loginEmployee(e);
 		if (loginEmp == null)
 			loginEmp = (Employee)session.getAttribute("loginEmp");
-		System.out.println("loginEmp:"+loginEmp);
+		//System.out.println("loginEmp:"+loginEmp);
 		session.setAttribute("loginEmp", loginEmp);
-		// 위결과(empNo=10005, deptCode=D4, deptName=기획부, jobCode=J2, jobName=부장, empName=방명수, empId=emp05, empPwd=1234, birthNo=631156-1548657, gender=M, email=emp05@oworks.com, phone=010-1111-2226, empPhone=1005, address=서울시 강남구, hireDate=2010-05-04, retireDate=null, empStatus=Y, empImage=resources/images/empUser.png, offGiven=20, offAvailable=13, adminYn=N)
+		
 		// 메인화면에서 공지사항 확인
 		int listCount = nService.selectListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		ArrayList<Notice> list = nService.selectList(pi);
-		// 출근시간 조회
-		//String startTime = cService.selectEmpIn(e.getEmpId());
 		
 		// 근무현황 조회
 		int cEmpNo = loginEmp.getEmpNo();
-		System.out.println("emp컨트롤러 : " + cEmpNo);
+		//System.out.println("cEmpNo : " + cEmpNo);
 		Commute empCommute = cService.selectEmpCommute(cEmpNo);
-		System.out.println("지우가 개키우면 지우개: " + empCommute);
+		//System.out.println("empCoummute: " + empCommute);
 		// 공지사항 확인
 		mv.addObject("pi", pi)
 		  .addObject("list", list)
 		  .addObject("empCommute", empCommute)
 		  .addObject("loginEmp", loginEmp)
 		  .setViewName("main");
-		//model.addAttribute("c", c);
-		  
+		
 		return mv;
 			
 	}

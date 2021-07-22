@@ -29,6 +29,7 @@
 		<result column="work_status_on" property="workStatusOn"/>
 		<result column="work_status_sum" property="workStatusSum"/>
 		<result column="work_time_avg" property="workTimeAvg"/>
+		<result column="off_used_sum" property="offUsedSum"/>
 	</resultMap>
 	
 	<!-- 근태통계 목록 갯수 -->
@@ -80,8 +81,8 @@
 		     , dept_name
 		     , emp_no
 		     , emp_name
-		     , start_time
-		     , end_time
+		     , to_char(start_time, 'hh24":"mi":"ss') as start_time
+		     , to_char(end_time, 'hh24":"mi":"ss') as end_time
 		     , work_time
 		     , after_time
 		     , work_status
@@ -145,12 +146,20 @@
 		  )
 	</select>
 	
+	<!-- 휴가분류 수정 -->
+	<delete id="updateOffCate" parameterType="_int">
+		update off_cate
+		   set off_cate_name = #{offCateName}
+		     , off_cate_day = #{offCateDay}
+		 where off_cate_no = #{offCateNo}
+	</delete>
+	
 	<!-- 휴가분류 삭제 -->
-	<select id="deleteOffCate" parameterType="_int">
+	<delete id="deleteOffCate" parameterType="_int">
 		delete
 		  from off_cate
 		 where off_cate_no = #{offCateNo}
-	</select>
+	</delete>
 
 
 

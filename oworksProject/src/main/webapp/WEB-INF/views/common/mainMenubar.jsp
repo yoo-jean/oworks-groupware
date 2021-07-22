@@ -216,16 +216,10 @@
             <i class="fa fa-angle-down"></i>
         </button>
         <div class="dropdown-container">
-            	<a href="#">출퇴근관리</a>
-<!--             <form action="list.off" method="post"> -->
-<%--             	<input type="hidden" name="empNo" value="${ loginEmp.empNo }"> --%>
+            	<!-- <a href="#">출퇴근관리</a> -->
 	            <a href="list.off">휴가관리</a>
-<!--             </form> -->
-<!--             <form action="list.at" method="post"> -->
-<%--             	<input type="hidden" name="empNo" value="${ loginEmp.empNo }"> --%>
             	<a href="list.at?flag=menu">근무현황</a>
-<!--             </form> -->
-            	<a href="#">임직원조회</a>
+            	<!-- <a href="#">임직원조회</a> -->
         </div>
         
         <button class="dropdown-btn"><i class="fas fa-address-book"></i> 주소록 

@@ -26,6 +26,45 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
 <!-- Bootstrap theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+<script>
+<%-- <% --%>
+// 	String flag = (String)request.getParameter("flag");
+// 	System.out.println("flag: " + flag);
+// 	if(flag.equals("menu")) {
+// 		System.out.println("menu: " + flag);
+<%-- %> --%>
+
+	$(document).ready(function(){
+		$('.offCateRow').click(function() {
+			$('#cateNo').val($(this).children("td").eq(0).html());
+			$('#cate').val($(this).children("td").eq(1).html());
+			$('#day').val($(this).children("td").eq(2).html());
+		});
+		
+// 		$('.enroll').click(function() { 
+// 			var btnType = $(this).html();
+			
+// 			if (btnType == '신규') {
+// 				${'#enrollForm'}.attr("action", "insertCate.of");
+// 			} else if (btnType == '저장') {
+// 				${"#enrollForm"}.attr("action", "updateCate.of");
+// 			} else if (btnType == '삭제') {
+// 				${"#enrollForm"}.attr("action", "deleteCate.of");
+// 			}
+// 		});
+	});
+<%-- <%}%> --%>
+// if (btnType == '저장') {
+// 	if (flag == '신규')  {
+// 		${'#enrollForm'}.attr("action", "insertCate.of");
+// 	} else { 
+// 		${'#enrollForm'}.attr("action", "updateCate.of");
+// 	}
+// } else if (btnType == '삭제') {
+// 	${"#enrollForm"}.attr("action", "deleteCate.of");
+// }
+
+</script>
 <style>
     /*작성 폼 관련 스타일*/
     .offCate {
@@ -100,17 +139,18 @@
                             <th>휴가일수</th>
                         </tr>
                         <c:forEach var="a" items="${ offCate }">
-	                        <tr>
+	                        <tr class="offCateRow">
 	                            <td>${ a.offCateNo }</td>
 	                            <td>${ a.offCateName }</td>
 	                            <td>${ a.offCateDay }</td>
 	                        </tr>
                         </c:forEach>
                     </table>
-                    <form class="offCate_enroll" action="insertCate.of">
+                    <form id="enrollForm" class="offCate_enroll" action="insertCate.of">
                         <div class="offCate_enroll_btn">
-                            <button type="submit" class="btn btn-primary">저장</button>
-                            <button type="submit" class="btn btn-outline-primary">삭제</button>
+<!--                         	<button type="submit" class="btn btn-primary enroll">신규</button> -->
+                            <button type="submit" class="btn btn-primary enroll">저장</button>
+<!--                             <button type="submit" class="btn btn-outline-primary enroll">삭제</button> -->
                         </div>
                         <div class="offCate_enroll_text">
                         	<input type="hidden" id="cateNo" name="offCateNo" value="${ a.offCateNo }">

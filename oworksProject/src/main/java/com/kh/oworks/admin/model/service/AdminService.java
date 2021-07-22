@@ -26,7 +26,7 @@ public interface AdminService {
 	int insertOffCate(Admin a);
 	
 	// 관리자 휴가분류 수정
-	int updateOffCate(Admin a);
+	int updateOffCate(int offCateNo);
 	
 	// 관리자 휴가분류 삭제
 	int deleteOffCate(int offCateNo);
